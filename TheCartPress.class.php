@@ -956,7 +956,7 @@ echo '<br>RES=', count( $res ), '<br>';*/
 			}
 			require_once( TCP_DAOS_FOLDER . 'OrdersCostsMeta.class.php' );
 			OrdersCostsMeta::createTable();
-			//update_option( 'tcp_version', 118 ); //TODO
+			update_option( 'tcp_version', 118 ); //TODO
 		}
 	}
 
