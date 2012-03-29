@@ -1,0 +1,181 @@
+/* CSS Document */
+
+/* tcp-loop
+-----------------------*/
+table.tcp_products_list,
+#content table.tcp_products_list {
+    font-size: 12px;
+	font-family:Arial, Helvetica, sans-serif;
+	border-collapse: separate;
+	border-spacing: 2px 2px;
+	margin: 0 0 1em;
+	border:0;
+	padding:0;
+	width: 100%;
+}
+table.tcp_products_list tr,
+table.tcp_products_list tr td,
+table.tcp_products_list tr th,
+#content table.tcp_products_list tr,
+#content table.tcp_products_list tr td,
+#content table.tcp_products_list tr th {
+	border:0;
+	padding:0;
+	margin: 0;
+}
+
+div.tcp_order_panel {
+	text-align: right;
+    font-size: .75em;
+	margin: 0 0 .625em;
+	padding:.365em 1em;
+}
+div.tcp_order_panel input, div.tcp_order_panel select {
+    font-size: 1em;
+}
+
+table.tcp_products_list tr td,
+#content table.tcp_products_list tr td {
+	border: 1px solid #ccc;
+	padding: 8px;
+	line-height:1.625em;
+	text-decoration: none;
+	-moz-border-radius: 0px;
+	-khtml-border-radius: 0px;
+	-webkit-border-radius: 0px;
+}
+table.tcp_products_list tr td.tcp_td_empty,
+#content table.tcp_products_list tr td.tcp_td_empty {
+	border: 0px;
+	background-image:url();
+	background-color:transparent;
+}
+table.tcp_products_list tr td:hover {
+}
+table.tcp_products_list tr td.tcp_8_cols {
+	width: 12%;
+	padding: 4px;
+}
+table.tcp_products_list tr td.tcp_7_cols {
+	width: 14%;
+	padding: 4px;
+}
+table.tcp_products_list tr td.tcp_6_cols {
+	width: 16%;
+	padding: 4px;
+}
+table.tcp_products_list tr td.tcp_5_cols {
+	width: 20%;
+	padding: 4px;
+}
+table.tcp_products_list tr td.tcp_4_cols {
+	padding: 6px;
+	width: 25%;
+}
+table.tcp_products_list tr td.tcp_3_cols {
+	width: 33%;
+	}
+table.tcp_products_list tr td.tcp_2_cols {
+	width: 50%;
+	}
+
+table.tcp_products_list .entry-title {
+	font-weight: bold;
+	line-height: 1.5em;
+	padding: .375em 0 .375em;
+	font-size: 1em;
+}
+
+table.tcp_products_list .entry-post-thumbnail img,
+#content table.tcp_products_list .entry-post-thumbnail img {
+    height: auto;
+	max-width:100%;
+}
+
+.entry-price {
+	font-weight: bold;
+    line-height: 1.5em;
+	font-size:.9em;
+	opacity:0.7;
+	filter:alpha(opacity=70); /* For IE8 and earlier */
+	
+}
+.entry-price.free {
+	color:#7DB72F;
+	text-transform:uppercase;
+	
+}
+.tcp_products_list .entry-summary {
+	padding:0;
+	margin: .5em 0 0; 
+}
+
+.tcp_products_list .entry-summary p {
+    margin-bottom: 0px;
+}
+#content .tcp_products_list .hentry {
+    margin: 0 0 0;
+    padding: 0 0 0;
+}
+.entry-taxonomies  {
+	margin: .5em 0 0; 
+	font-size: .85em;
+}
+.tcp_products_list .entry-utilities a{
+	font-weight: bold;
+	font-size: .9em;
+}
+
+.entry-taxonomies span {
+	clear: left;
+	display: block;
+	line-height: 1.8em;
+}
+.tcp_products_list .entry-meta  {
+	line-height: 1.1em;
+	font-size: .85em;
+}
+.tcp_products_list .entry-meta  {
+	opacity:0.7;
+	filter:alpha(opacity=70); /* For IE8 and earlier */
+    line-height: .9em;
+}
+.entry-meta span.tcp_posted_on,
+.entry-meta span.tcp_by_author {
+	clear: right;
+	display: block;
+
+}
+.entry-meta span.tcp_posted_on {
+	margin: .375em 0 0;
+}
+.entry-meta span.tcp_by_author {
+	margin: .375em 0 .625em 1px;
+}
+
+table.tcp_products_list .hentry {
+    padding: 0 0 0 !important;
+	border: 0 !important;
+	margin:0;
+}
+
+/* End gral / default loop*/
+
+@media (max-width: 650px) {
+#content {
+}
+	
+table.tcp_products_list tr td,
+table.tcp_products_list tr td.tcp_4_cols,
+table.tcp_products_list tr td.tcp_5_cols,
+table.tcp_products_list tr td.tcp_6_cols,
+table.tcp_products_list tr td.tcp_7_cols,
+table.tcp_products_list tr td.tcp_8_cols {
+    padding: 1px !important;
+	border:0px;
+	background-image: url();
+}
+table.tcp_products_list {
+	font-size:.85em;
+}
+}

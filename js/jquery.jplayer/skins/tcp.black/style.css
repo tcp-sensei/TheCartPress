@@ -1,0 +1,176 @@
+/*
+ * Skin for jPlayer Plugin (jQuery JavaScript Library)
+ *
+ * Skin Name: TCP Black
+ *
+ * Author: TheCartPress team
+ * Skin Version: 1.0 (jPlayer 2.1.0)
+ */
+ 
+/**
+ * This file is part of TheCartPress.
+ *
+ * This progam is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This progam is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this progam.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+
+.jp-audio {
+	position: relative;
+	display: block;
+	width: 300px;
+	height: 22px;
+	background: url('tcp.black.back.png') no-repeat;
+	border: 1px solid #000;
+	border-radius: 2px 2px 2px 2px;
+}
+
+ul.jp-controls {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	padding-left: 2px;
+	margin-bottom: 0 !important;
+}
+
+ul.jp-controls li {
+	display: inline;
+	clear: both;
+}
+
+ul.jp-controls a {
+	position: absolute;
+	display: block;
+	width: 18px;
+	height: 22px;
+	text-indent: -1000px;
+	margin-left: 4px;
+}
+
+a.jp-play {
+	background: url('tcp.black.png') -19px -0px no-repeat;
+	left: 2px;
+}
+
+a.jp-play:hover {
+	background: url('tcp.black.png') no-repeat;
+}
+
+a.jp-pause {
+	background: url('tcp.black.png') -19px -23px no-repeat;
+	display: none;
+	left: 2px;
+}
+
+a.jp-pause:hover {
+	background: url('tcp.black.png') 0px -23px no-repeat;
+}
+
+a.jp-stop {
+	background: url('tcp.black.png') -19px -46px no-repeat;
+	left: 26px;
+}
+
+a.jp-stop:hover {
+	background: url('tcp.black.png') 0px -46px no-repeat;
+}
+
+a.jp-mute {
+	background: url('tcp.black.png') -19px -69px no-repeat;
+	left: 192px;
+}
+
+a.jp-mute:hover {
+	background: url('tcp.black.png') 0px -69px no-repeat;
+}
+
+a.jp-unmute {
+	background: url('tcp.black.png') -19px -92px no-repeat;
+	left: 192px;
+}
+
+a.jp-unmute:hover {
+	background: url('tcp.black.png') 0px -92px no-repeat;
+}
+
+a.jp-volume-max {
+	display: none;
+	left: -100px;
+}
+
+.jp-time-holder .jp-current-time,
+.jp-time-holder .jp-duration {
+	position: absolute;
+	top: 4px;
+	font-size: .7em;
+	color: #fff;
+}
+
+.jp-time-holder .jp-current-time {
+	left: 58px;
+}
+
+.jp-time-holder .jp-duration {
+	left: 168px;
+}
+
+.jp-progress {
+	position: absolute;
+	top: 8px;
+	left: 88px;
+	background: #788794;
+	width: 76px;
+	height: 5px;
+	cursor: pointer;
+}
+
+.jp-seek-bar {
+	background: #F2F2F2;
+	width: 0px;
+	height:100%;
+	cursor: pointer;
+}
+
+.jp-play-bar {
+	background: #788794;
+	width: 0px;
+	height: 100%;
+}
+
+/* The seeking class is added/removed inside jPlayer */
+.jp-seeking-bg {
+	background: #788794;
+}
+
+.jp-volume-bar {
+	position: absolute;
+	top: 8px;
+	left: 216px;
+	background: #F2F2F2;
+	width: 76px;
+	height: 5px;
+	cursor: pointer;
+}
+
+.jp-volume-bar-value {
+	background: #788794;
+	width: 5px;
+	height: 5px;
+}
+
+.jp-no-solution,
+.jp-toggles,
+.jp-title {
+	display: none;
+}
+

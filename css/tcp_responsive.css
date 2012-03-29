@@ -1,0 +1,4 @@
+table.tcp_products_list .entry-post-thumbnail img, #content table.tcp_products_list .entry-post-thumbnail img {
+   height: auto;
+   width: 100%;
+}
