@@ -83,7 +83,6 @@ class TCPCartTable {
 		<tbody>
 		<?php if ( $source->has_order_details() ) {
 			global $thecartpress;
-			$stock_management	= $thecartpress->get_setting('stock_management',  false );
 			$i = 0;
 			$total_tax = 0;
 			$total = 0;

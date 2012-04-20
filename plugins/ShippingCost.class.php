@@ -366,7 +366,7 @@ foreach( $zones_states as $i => $states ) {
 			end( $zones );
 			$selected_zone = key( $zones );
 		}
-		return $costs[$selected_range][$selected_zone];
+		return $costs[$selected_range][$selected_zone];//TODO to add a based cost
 	}
 
 	private function startsWith( $Haystack, $Needle ) {

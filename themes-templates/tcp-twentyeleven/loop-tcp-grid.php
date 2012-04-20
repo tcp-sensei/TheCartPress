@@ -82,8 +82,7 @@ if ( isset( $instance['title_tag'] ) && $instance['title_tag'] != '' ) {
 
 <table class="tcp_products_list">
 <tr class="tcp_first-row">
-<?php 
-while ( have_posts() ) : the_post();
+<?php while ( have_posts() ) : the_post();
 	if ( $column == 0 ) : $column = $number_of_columns ?>
 	</tr><tr>
 	<?php endif;

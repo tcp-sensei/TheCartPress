@@ -204,11 +204,12 @@ function tcp_the_price( $before = '', $after = '', $echo = true ) {
 
 /**
  * Returns the price of the given product
+ * @param $filter, true to execute filters (by default) false, it doesn't apply filters. Since 1.1.9
  * @since 1.0.9
  */
-function tcp_get_the_price( $post_id = 0 ) {
+function tcp_get_the_price( $post_id = 0, $filters = true ) {
 	$price = (float)tcp_get_the_meta( 'tcp_price', $post_id );
-	$price = (float)apply_filters( 'tcp_get_the_price', $price, $post_id );
+	if ( $filters ) $price = (float)apply_filters( 'tcp_get_the_price', $price, $post_id );
 	return $price;
 }
 
@@ -798,7 +799,6 @@ function tcp_get_the_parents( $post_id, $rel_type = 'GROUPED' ) {
 
 function tcp_get_the_thumbnail( $post_id = 0, $option_1_id = 0, $option_2_id = 0, $size = 'thumbnail' ) {
 	$image = '';
-	//TODO DEPRECATED options
 	if ( $option_2_id > 0 ) {
 		$image = get_the_post_thumbnail( $option_2_id, $size );
 		if ( strlen( $image ) == 0 ) {
@@ -858,7 +858,7 @@ function tcp_get_permalink( $post_id = 0, $option_1_id = 0, $option_2_id = 0 ) {
  * Returns the content of the given post
  * @since 1.1.8
  */
-function tcp_the_content( $post_id ) {
+function tcp_the_content( $post_id = 0 ) {
 	tcp_get_the_content( $post_id, true );
 }
 
@@ -866,7 +866,7 @@ function tcp_the_content( $post_id ) {
  * Returns the content of the given post
  * @since 1.1.8
  */
-function tcp_get_the_content( $post_id, $echo = false ) {
+function tcp_get_the_content( $post_id = 0, $echo = false ) {
 	global $thecartpress;
 	remove_filter( 'the_content', array( $thecartpress, 'the_content' ) );
 	$post = get_post( $post_id );
@@ -883,7 +883,7 @@ function tcp_get_the_content( $post_id, $echo = false ) {
  * Echoes the excerpt of the given post
  * @since 1.1.8
  */
-function tcp_the_excerpt( $post_id ) {
+function tcp_the_excerpt( $post_id = 0 ) {
 	tcp_get_the_excerpt( $post_id, true );
 }
 
@@ -891,11 +891,11 @@ function tcp_the_excerpt( $post_id ) {
  * Returns the excerpt of the given post
  * @since 1.1.8
  */
-function tcp_get_the_excerpt( $post_id, $echo = false ) {
+function tcp_get_the_excerpt( $post_id = 0, $echo = false ) {
 	global $thecartpress;
 	remove_filter( 'the_excerpt', array( $thecartpress, 'the_excerpt' ) );
 	remove_filter( 'the_content', array( $thecartpress, 'the_content' ) );
-	$post = get_post( $post_id ); echo '[ ', $post_id, ']';
+	$post = get_post( $post_id );
 	$excerpt = $post->post_excerpt; //TODO
 	//$excerpt = apply_filters( 'get_the_excerpt', $excerpt );
 	add_filter( 'the_content', array( $thecartpress, 'the_content' ) );

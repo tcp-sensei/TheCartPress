@@ -41,8 +41,8 @@ class CustomListWidget extends TCPParentWidget {
 		if ( strlen( $order_desc ) > 0 ) $loop_args['order'] = $order_desc;
 		$loop_args = apply_filters( 'tcp_sort_loop', $loop_args, $order_type, $order_desc );
 
-		if ( isset( $loop_args['post_type'] ) && tcp_is_saleable_post_type( $loop_args['post_type'] ) ) { // == TCP_PRODUCT_POST_TYPE ) {
-			$loop_args['meta_query'][] = array( // $loop_args['meta_query'] = array(
+		if ( isset( $loop_args['post_type'] ) && tcp_is_saleable_post_type( $loop_args['post_type'] ) ) {
+			$loop_args['meta_query'][] = array(
 				'key'		=> 'tcp_is_visible',
 				'value'		=> 1,
 				'compare'	=> '='

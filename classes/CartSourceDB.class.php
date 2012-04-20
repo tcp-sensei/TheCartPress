@@ -285,7 +285,11 @@ class TCP_DetailSourceDB implements TCP_IDetailSource {
 			$name = $this->detail->name;
 			if ( strlen( $this->detail->option_1_name ) > 0 ) $name .= '<br />' . $this->detail->option_1_name;
 			if ( strlen( $this->detail->option_2_name ) > 0 ) $name .= '-' . $this->detail->option_2_name;
-			return stripslashes( $name );
+			$name = stripslashes( $name );
+			$attributes = tcp_get_order_detail_meta( $this->detail->order_detail_id, 'tcp_attributes' );
+			if ( $attributes ) foreach( $attributes as $id => $value )
+				$name .= '<br/>' . $id . ' = ' . $value;
+			return $name;
 		} else {
 			return false;
 		}

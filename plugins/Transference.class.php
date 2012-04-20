@@ -113,7 +113,8 @@ class Transference extends TCP_Plugin {
 		echo $additional; ?>
 		<input type="button" value="<?php _e( 'Finish', 'tcp' ); ?>" onclick="window.location.href = '<?php echo add_query_arg( $params, get_permalink() ); ?>';"/>
 		</p><?php
-		require_once( dirname( dirname (__FILE__ ) ) . '/daos/Orders.class.php' );
+		require_once( TCP_DAOS_FOLDER . 'Orders.class.php' );
+		require_once( TCP_CHECKOUT_FOLDER . 'ActiveCheckout.class.php' );
 		Orders::editStatus( $order_id, $data['new_status'], 'no-id' );
 		ActiveCheckout::sendMails( $order_id, $additional );
 	}

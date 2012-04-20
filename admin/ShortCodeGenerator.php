@@ -37,11 +37,11 @@ function tcp_shortcode_sorting_fields( $sorting_fields ) {
 if ( isset( $_REQUEST['tcp_shortcode_save'] ) ) {
 	if ( ! isset( $_REQUEST['id'] ) || strlen( trim( $_REQUEST['id'] ) ) == 0 ) {?>
 		<div id="message" class="error"><p>
-			<?php _e( 'The field Identifier must be filled', 'tcp' );?>
+			<?php _e( 'The field Identifier must be filled', 'tcp' ); ?>
 		</p></div><?php
 	} elseif ( tcp_exists_shortcode_id( $_REQUEST['id'] ) ) {?>
 		<div id="message" class="error"><p>
-			<?php _e( 'The field Identifier is repeated', 'tcp' );?>
+			<?php _e( 'The field Identifier is repeated', 'tcp' ); ?>
 		</p></div><?php
 	} else {
 		if ( ! $shortcodes_data ) $shortcodes_data = array();
@@ -76,17 +76,17 @@ if ( isset( $_REQUEST['tcp_shortcode_save'] ) ) {
 			'see_second_custom_area'=> isset( $_REQUEST['see_second_custom_area'] ) ? $_REQUEST['see_second_custom_area'] == 'yes' : false,
 			'see_third_custom_area' => isset( $_REQUEST['see_third_custom_area'] ) ? $_REQUEST['see_third_custom_area'] == 'yes' : false,
 		);
-		update_option( 'tcp_shortcodes_data', $shortcodes_data );?>
+		update_option( 'tcp_shortcodes_data', $shortcodes_data ); ?>
 		<div id="message" class="updated"><p>
-			<?php _e( 'Shortcode saved', 'tcp' );?>
+			<?php _e( 'Shortcode saved', 'tcp' ); ?>
 		</p></div><?php
 	}
 } elseif ( isset( $_REQUEST['tcp_shortcode_delete'] ) ) {
 	unset( $shortcodes_data[$shortcode_id] );
 	update_option( 'tcp_shortcodes_data', $shortcodes_data );
-	$shortcode_id = -1;?>
+	$shortcode_id = -1; ?>
 	<div id="message" class="updated"><p>
-		<?php _e( 'Shortcode saved', 'tcp' );?>
+		<?php _e( 'Shortcode saved', 'tcp' ); ?>
 	</p></div><?php
 }
 
@@ -107,7 +107,7 @@ if ( $shortcode_id == -1 ) {
 $shortcode_href = TCP_ADMIN_PATH . 'ShortCodeGenerator.php&shortcode_id='; ?>
 
 <div class="wrap">
-	<h2><?php _e( 'ShortCode Generator', 'tcp' );?></h2>
+	<h2><?php _e( 'ShortCode Generator', 'tcp' ); ?></h2>
 	<ul class="subsubsub">
 	</ul><!-- subsubsub -->
 	<div class="clear"></div>
@@ -115,18 +115,18 @@ $shortcode_href = TCP_ADMIN_PATH . 'ShortCodeGenerator.php&shortcode_id='; ?>
 	<?php if ( is_array( $shortcodes_data ) && count( $shortcodes_data ) > 0 ) :
 		foreach( $shortcodes_data as $id => $data ) :
 			if ( $shortcode_id == $id ) : ?>
-			<span><?php echo $data['id'];?></span>&nbsp;|&nbsp;
+			<span><?php echo $data['id']; ?></span>&nbsp;|&nbsp;
 			<?php else: ?>
-			<a href="<?php echo $shortcode_href, $id;?>"><?php echo $data['id'];?></a>&nbsp;|&nbsp;
-			<?php endif;?>
-		<?php endforeach;?>
+			<a href="<?php echo $shortcode_href, $id; ?>"><?php echo $data['id']; ?></a>&nbsp;|&nbsp;
+			<?php endif; ?>
+		<?php endforeach; ?>
 		<?php if ( isset( $shortcodes_data[$shortcode_id] ) ) :
 			$keys = array_keys( $shortcodes_data );
 			$last_id = array_pop( $keys ) + 1; ?>
-		<a href="<?php echo $shortcode_href, $last_id;?>"><?php _e( 'new shortcode', 'tcp' );?></a>
-		<?php endif;?>
+		<a href="<?php echo $shortcode_href, $last_id; ?>"><?php _e( 'new shortcode', 'tcp' ); ?></a>
+		<?php endif; ?>
 	<?php else: ?>
-		<?php _e( 'No shortcodes, create one now:', 'tcp' );?>
+		<?php _e( 'No shortcodes, create one now:', 'tcp' ); ?>
 	<?php endif; 
 	$identifier				= isset( $shortcode_data['id'] ) ? $shortcode_data['id'] : '';
 	$title					= ''; //isset( $shortcode_data['title'] ) ? $shortcode_data['title'] : '';
@@ -178,38 +178,38 @@ $shortcode_href = TCP_ADMIN_PATH . 'ShortCodeGenerator.php&shortcode_id='; ?>
 		}
 	</script>
 	<form method="post">
-		<input type="hidden" name="shortcode_id" value="<?php echo $shortcode_id;?>" />
+		<input type="hidden" name="shortcode_id" value="<?php echo $shortcode_id; ?>" />
 		<table class="form-table">
 		<tbody>
 		<tr valign="top">
 			<th scope="row">
-				<label for="id"><?php _e( 'Identifier', 'tcp' );?>:</label>
-				<br/><span class="description"><?php _e( 'Don\'t use whitespace. For example use the_identifier', 'tcp' );?></span>
+				<label for="id"><?php _e( 'Identifier', 'tcp' ); ?>:</label>
+				<br/><span class="description"><?php _e( 'Don\'t use whitespace. For example use the_identifier', 'tcp' ); ?></span>
 			</th>
 			<td>
-				<input type="text" name="id" id="id" value="<?php echo $identifier;?>" size="40" maxlength="255" />
-				<br/><span><?php printf( __( 'Usage: [tcp_list id="%s"]', 'tcp' ), $identifier );?></span>
+				<input type="text" name="id" id="id" value="<?php echo $identifier; ?>" size="40" maxlength="255" />
+				<br/><span><?php printf( __( 'Usage: [tcp_list id="%s"]', 'tcp' ), $identifier ); ?></span>
 			</td>
 		</tr>
 		<tr valign="top">
 			<th scope="row">
-				<label for="desc"><?php _e( 'Description', 'tcp' );?>:</label>
+				<label for="desc"><?php _e( 'Description', 'tcp' ); ?>:</label>
 			</th>
 			<td>
-				<textarea name="desc" id="desc" cols="40" rows="6" maxlength="255" /><?php echo $desc;?></textarea>
+				<textarea name="desc" id="desc" cols="40" rows="6" maxlength="255" /><?php echo $desc; ?></textarea>
 			</td>
 		</tr>
 		<tr valign="top">
 			<th scope="row">
-				<label for="post_type"><?php _e( 'Post type', 'tcp' );?>:</label>
+				<label for="post_type"><?php _e( 'Post type', 'tcp' ); ?>:</label>
 			</th>
 			<td>
 				<select name="post_type" id="post_type">
 				<?php foreach( get_post_types( array( 'show_in_nav_menus' => true ), object ) as $post_type_item ) : ?>
-					<option value="<?php echo $post_type_item->name;?>"<?php selected( $post_type, $post_type_item->name );?>><?php echo $post_type_item->labels->name; ?></option>
+					<option value="<?php echo $post_type_item->name; ?>"<?php selected( $post_type, $post_type_item->name ); ?>><?php echo $post_type_item->labels->name; ?></option>
 				<?php endforeach; ?>
 				</select>
-				<span class="description"><?php _e( 'Save to load the list of taxonomies', 'tcp' );?></span>
+				<span class="description"><?php _e( 'Save to load the list of taxonomies', 'tcp' ); ?></span>
 			</td>
 		</tr>
 		<tr>
@@ -221,25 +221,25 @@ $shortcode_href = TCP_ADMIN_PATH . 'ShortCodeGenerator.php&shortcode_id='; ?>
 			</td>
 		</p>
 		</tr>
-		<tr valign="top" class="tcp_taxonomy_controls" style="<?php echo $use_taxonomy_style;?>">
+		<tr valign="top" class="tcp_taxonomy_controls" style="<?php echo $use_taxonomy_style; ?>">
 			<th scope="row">
-				<label for="taxonomy"><?php _e( 'Taxonomy', 'tcp' );?>:</label>
+				<label for="taxonomy"><?php _e( 'Taxonomy', 'tcp' ); ?>:</label>
 			</th>
 			<td>
 				<?php if ( strlen( $post_type ) > 0 ) : ?>
 				<select name="taxonomy" id="taxonomy">
-				<option value="" <?php selected( $taxonomy, '' );?>><?php _e( 'all', 'tcp' );?></option>
+				<option value="" <?php selected( $taxonomy, '' ); ?>><?php _e( 'all', 'tcp' ); ?></option>
 				<?php $taxonomies = get_object_taxonomies( $post_type );
-				if ( is_array( $taxonomies ) && count( $taxonomies ) > 0 ) foreach( $taxonomies as $taxonomy_item ) : $tax = get_taxonomy( $taxonomy_item );?>
-					<option value="<?php echo esc_attr( $taxonomy_item );?>"<?php selected( $taxonomy, $taxonomy_item );?>><?php echo esc_attr( $tax->labels->name );?></option>
-				<?php endforeach;?>
+				if ( is_array( $taxonomies ) && count( $taxonomies ) > 0 ) foreach( $taxonomies as $taxonomy_item ) : $tax = get_taxonomy( $taxonomy_item ); ?>
+					<option value="<?php echo esc_attr( $taxonomy_item ); ?>"<?php selected( $taxonomy, $taxonomy_item ); ?>><?php echo esc_attr( $tax->labels->name ); ?></option>
+				<?php endforeach; ?>
 				</select>
-				<span class="description"><?php _e( 'Save to load the list of terms', 'tcp' );?></span>
-				<?php endif;?>
+				<span class="description"><?php _e( 'Save to load the list of terms', 'tcp' ); ?></span>
+				<?php endif; ?>
 			</td>
 		</tr>
 
-		<tr valign="top" class="tcp_taxonomy_controls" style="<?php echo $use_taxonomy_style;?>">
+		<tr valign="top" class="tcp_taxonomy_controls" style="<?php echo $use_taxonomy_style; ?>">
 			<th scope="row">
 				<label for="term"><?php _e( 'Term', 'tcp' )?>:</label>
 			</th>
@@ -250,14 +250,14 @@ $shortcode_href = TCP_ADMIN_PATH . 'ShortCodeGenerator.php&shortcode_id='; ?>
 					if ( is_array( $terms ) && count( $terms ) )
 						foreach( $terms as $term_item ) : 
 							if ( $term_item->term_id == tcp_get_default_id( $term_item->term_id, $taxonomy ) ) :?>
-								<option value="<?php echo $term_item->slug;?>"<?php selected( $term, $term_item->slug );?>><?php echo esc_attr( $term_item->name );?></option>
+								<option value="<?php echo $term_item->slug; ?>"<?php selected( $term, $term_item->slug ); ?>><?php echo esc_attr( $term_item->name ); ?></option>
 							<?php endif;
 						endforeach;
-				endif;?>
+				endif; ?>
 				</select>
 			</td>
 		</tr>
-		<tr valign="top" class="tcp_post_included" style="<?php echo $included_style;?>">
+		<tr valign="top" class="tcp_post_included" style="<?php echo $included_style; ?>">
 			<th scope="row">
 				<label for="included"><?php _e( 'Included', 'tcp' )?>:</label>
 			</th>
@@ -277,49 +277,47 @@ $shortcode_href = TCP_ADMIN_PATH . 'ShortCodeGenerator.php&shortcode_id='; ?>
 				}
 				$ids = get_posts( $args ); ?>
 				<select name="included[]" id="included" multiple="true" size="8" style="height: auto">
-					<option value="" <?php selected( $included, '' ); ?>><?php _e( 'all', 'tcp' );?></option>
+					<option value="" <?php selected( $included, '' ); ?>><?php _e( 'all', 'tcp' ); ?></option>
 				<?php if ( is_array( $ids ) && count( $ids ) > 0 ) foreach( $ids as $post_id ) : ?>
-					<option value="<?php echo $post_id;?>"<?php tcp_selected_multiple( $included, $post_id ); ?>><?php echo get_the_title( $post_id ); ?></option>
-				<?php endforeach;?>
+					<option value="<?php echo $post_id; ?>"<?php tcp_selected_multiple( $included, $post_id ); ?>><?php echo get_the_title( $post_id ); ?></option>
+				<?php endforeach; ?>
 				</select>
 			</td>
 		</tr>
 		<tr valign="top">
 			<th scope="row">
-				<label for="id"><?php _e( 'Limit', 'tcp' );?>:</label>
+				<label for="id"><?php _e( 'Limit', 'tcp' ); ?>:</label>
 			</th>
 			<td>
-				<input type="text" name="limit" id="limit" value="<?php echo $limit;?>" size="3" maxlength="4" />
-				<br/><span class="description"><?php _e( 'Set -1 to show all possible items.', 'tcp' );?></span>
+				<input type="text" name="limit" id="limit" value="<?php echo $limit; ?>" size="3" maxlength="4" />
+				<br/><span class="description"><?php _e( 'Set -1 to show all possible items.', 'tcp' ); ?></span>
 			</td>
 		</tr>
 		<tr valign="top">
 			<th scope="row">
-				<label for="id"><?php _e( 'Pagination', 'tcp' );?>:</label>
+				<label for="id"><?php _e( 'Pagination', 'tcp' ); ?>:</label>
 			</th>
 			<td>
 				<input type="checkbox" name="see_pagination" id="see_pagination" value="yes" <?php checked( $see_pagination ); ?>/>
-				<br/><span class="description"><?php _e( 'Allows to set pagination in the shortcode.', 'tcp' );?></span>
+				<br/><span class="description"><?php _e( 'Allows to set pagination in the shortcode.', 'tcp' ); ?></span>
 			</td>
 		</tr>
 		<tr valign="top">
 			<th scope="row">
-				<label for="loop"><?php _e( 'Loop', 'tcp' );?>:</label>
-				<br/>(<?php _e( 'theme', 'tcp' );?>:&nbsp;<?php echo get_template();?>)
+				<label for="loop"><?php _e( 'Loop', 'tcp' ); ?>:</label>
+				<br/>(<?php _e( 'theme', 'tcp' ); ?>:&nbsp;<?php echo get_template(); ?>)
 			</th>
 			<td>
 				<select name="loop" id="loop">
-					<option value="" <?php selected( $loop, '' );?>"><?_e( 'default', 'tcp' );?></option>
-				<?php
-				$files = array();
+					<option value="" <?php selected( $loop, '' ); ?>"><?php _e( 'default', 'tcp' ); ?></option>
+				<?php $files = array();
 				$folder = STYLESHEETPATH;
 				if ( $handle = opendir( $folder ) ) :
 					while ( false !== ( $file = readdir( $handle ) ) ) :
 						if ( $file != '.' && $file != '..' && strpos( $file, 'loop' ) === 0 ) : ?>
-							<option value="<?php echo $folder . '/' . $file;?>" <?php selected( $loop, $folder . '/' . $file );?>"><?php echo $file; ?></option>
-						<?php 
-							$files[] = $file;
-						endif;?>
+							<option value="<?php echo $folder . '/' . $file; ?>" <?php selected( $loop, $folder . '/' . $file ); ?>><?php echo $file; ?></option>
+						<?php $files[] = $file;
+						endif; ?>
 					<?php endwhile;
 					closedir( $handle );
 				endif;			
@@ -328,11 +326,14 @@ $shortcode_href = TCP_ADMIN_PATH . 'ShortCodeGenerator.php&shortcode_id='; ?>
 					if ( $handle = opendir($folder ) ) :
 						while ( false !== ( $file = readdir( $handle ) ) ) :
 							if ( $file != '.' && $file != '..' && strpos( $file, 'loop' ) === 0 && ! in_array( $file, $files ) ) : ?>
-								<option value="<?php echo $folder . '/' . $file;?>" <?php selected( $loop, $folder . '/' . $file );?>">[<?php _e( 'parent', 'tcp' );?>] <?php echo $file; ?></option>
-							<?php endif;?>
+								<option value="<?php echo $folder . '/' . $file; ?>" <?php selected( $loop, $folder . '/' . $file ); ?>>[<?php _e( 'parent', 'tcp' ); ?>] <?php echo $file; ?></option>
+							<?php endif; ?>
 						<?php endwhile;
 					closedir( $handle );
-				endif;?>
+				endif;
+				if ( strlen( $loop ) > 0 && ! file_exists( $loop ) ) : ?>
+					<option value="<?php echo $loop; ?>" selected="true"><?php printf( __( '"%s" is missing', 'tcp' ), basename( $loop ) ); ?></option>
+				<?php endif; ?>
 				</select>
 			</td>
 		</tr>
@@ -356,27 +357,27 @@ $shortcode_href = TCP_ADMIN_PATH . 'ShortCodeGenerator.php&shortcode_id='; ?>
 				<label for="order_desc"><?php _e( 'Order desc.', 'tcp' ); ?>:</label>
 			</th>
 			<td>
-				<input type="checkbox" name="order_desc" id="order_desc" value="yes" <?php checked( $order_desc, 'desc' );?>/>
+				<input type="checkbox" name="order_desc" id="order_desc" value="yes" <?php checked( $order_desc, 'desc' ); ?>/>
 			</td>
 		</tr>
 		</tbody>
 		</table>
 		<p>
-			<input type="button" onclick="jQuery('#advanced').toggle();" value="<?php _e( 'show/hide advanced options', 'tcp' );?>" class="button-secondary" />
+			<input type="button" onclick="jQuery('#advanced').toggle();" value="<?php _e( 'show/hide advanced options', 'tcp' ); ?>" class="button-secondary" />
 		</p>
 	<div id="advanced" style="display:none;">
 		<p>
-			<label for="columns"><?php _e( 'N<sup>o</sup> columns', 'tcp' );?>:</label>
-			<input id="columns" name="columns" type="text" value="<?php echo $columns;?>" size="3" />
+			<label for="columns"><?php _e( 'N<sup>o</sup> columns', 'tcp' ); ?>:</label>
+			<input id="columns" name="columns" type="text" value="<?php echo $columns; ?>" size="3" />
 		</p>
 		<p>
-			<input type="checkbox" class="checkbox" id="see_title" name="see_title" value="yes" <?php checked( $see_title );?> />
-			<label for="see_title"><?php _e( 'Show title', 'tcp' );?></label>
+			<input type="checkbox" class="checkbox" id="see_title" name="see_title" value="yes" <?php checked( $see_title ); ?> />
+			<label for="see_title"><?php _e( 'Show title', 'tcp' ); ?></label>
 		</p>
 		<p>
 			<label for="title_tag"><?php _e( 'Title tag', 'tcp' ); ?>:</label>
 			<select id="title_tag" name="title_tag">
-				<option value="" <?php selected( $title_tag, '' ); ?>><?php _e( 'No tag', 'tcp' );?></option>
+				<option value="" <?php selected( $title_tag, '' ); ?>><?php _e( 'No tag', 'tcp' ); ?></option>
 				<option value="h2" <?php selected( $title_tag, 'h2' ); ?>>h2</option>
 				<option value="h3" <?php selected( $title_tag, 'h3' ); ?>>h3</option>
 				<option value="h4" <?php selected( $title_tag, 'h4' ); ?>>h4</option>
@@ -388,67 +389,67 @@ $shortcode_href = TCP_ADMIN_PATH . 'ShortCodeGenerator.php&shortcode_id='; ?>
 			</select>
 		</p>
 		<p>
-			<input type="checkbox" class="checkbox" id="see_image" name="see_image" value="yes" <?php checked( $see_image );?> />
-			<label for="see_image"><?php _e( 'Show image', 'tcp' );?></label>
+			<input type="checkbox" class="checkbox" id="see_image" name="see_image" value="yes" <?php checked( $see_image ); ?> />
+			<label for="see_image"><?php _e( 'Show image', 'tcp' ); ?></label>
 		</p>
 		<p>
-			<label for="image_size"><?php _e( 'Image size', 'tcp' );?>:</label>
+			<label for="image_size"><?php _e( 'Image size', 'tcp' ); ?>:</label>
 			<select id="image_size" name="image_size">
 			<?php $imageSizes = get_intermediate_image_sizes();
 			foreach($imageSizes as $imageSize) : ?>
-				<option value="<?php echo $imageSize;?>" <?php selected( $imageSize, $image_size);?>><?php echo $imageSize;?></option>
-			<?php endforeach;?>
+				<option value="<?php echo $imageSize; ?>" <?php selected( $imageSize, $image_size); ?>><?php echo $imageSize; ?></option>
+			<?php endforeach; ?>
 			?>
 			</select>
 		</p>
 		<p>
-			<input type="checkbox" class="checkbox" id="see_content" name="see_content" value="yes" <?php checked( $see_content );?> />
-			<label for="see_content"><?php _e( 'Show content', 'tcp' );?></label>
+			<input type="checkbox" class="checkbox" id="see_content" name="see_content" value="yes" <?php checked( $see_content ); ?> />
+			<label for="see_content"><?php _e( 'Show content', 'tcp' ); ?></label>
 		</p>
 		<p>
-			<input type="checkbox" class="checkbox" id="see_excerpt" name="see_excerpt" value="yes" <?php checked( $see_excerpt );?> />
-			<label for="see_excerpt"><?php _e( 'Show excerpt', 'tcp' );?></label>
+			<input type="checkbox" class="checkbox" id="see_excerpt" name="see_excerpt" value="yes" <?php checked( $see_excerpt ); ?> />
+			<label for="see_excerpt"><?php _e( 'Show excerpt', 'tcp' ); ?></label>
 		</p>
 		<p>
-			<input type="checkbox" class="checkbox" id="see_author" name="see_author" value="yes" <?php checked( $see_author );?> />
-			<label for="see_author"><?php _e( 'Show about author', 'tcp' );?></label>
+			<input type="checkbox" class="checkbox" id="see_author" name="see_author" value="yes" <?php checked( $see_author ); ?> />
+			<label for="see_author"><?php _e( 'Show about author', 'tcp' ); ?></label>
 		</p>
 		<p>
-			<input type="checkbox" class="checkbox" id="see_posted_on" name="see_posted_on" value="yes" <?php checked( $see_posted_on );?> />
-			<label for="see_posted_on"><?php _e( 'Show posted on', 'tcp' );?></label>
+			<input type="checkbox" class="checkbox" id="see_posted_on" name="see_posted_on" value="yes" <?php checked( $see_posted_on ); ?> />
+			<label for="see_posted_on"><?php _e( 'Show posted on', 'tcp' ); ?></label>
 		</p>
 		<p>
 			<input type="checkbox" class="checkbox" id="see_taxonomies" name="see_taxonomies" value="yes" <?php checked( $see_taxonomies ); ?> />
 			<label for="see_taxonomies"><?php _e( 'Show taxonomies', 'tcp' ); ?></label>
 		</p>
 		<p>
-			<input type="checkbox" class="checkbox" id="see_meta_utilities" name="see_meta_utilities" value="yes" <?php checked( $see_meta_utilities );?> />
-			<label for="see_meta_utilities"><?php _e( 'Show utilities', 'tcp' );?></label>
+			<input type="checkbox" class="checkbox" id="see_meta_utilities" name="see_meta_utilities" value="yes" <?php checked( $see_meta_utilities ); ?> />
+			<label for="see_meta_utilities"><?php _e( 'Show utilities', 'tcp' ); ?></label>
 		</p>
 		<p>
-			<input type="checkbox" class="checkbox" id="see_price" name="see_price" value="yes" <?php checked( $see_price );?> />
-			<label for="see_price"><?php _e( 'Show price', 'tcp' );?></label>
+			<input type="checkbox" class="checkbox" id="see_price" name="see_price" value="yes" <?php checked( $see_price ); ?> />
+			<label for="see_price"><?php _e( 'Show price', 'tcp' ); ?></label>
 		</p>
 		<p>
-			<input type="checkbox" class="checkbox" id="see_buy_button" name="see_buy_button" value="yes" <?php checked( $see_buy_button );?> />
-			<label for="see_buy_button"><?php _e( 'Show buy button', 'tcp' );?></label>
+			<input type="checkbox" class="checkbox" id="see_buy_button" name="see_buy_button" value="yes" <?php checked( $see_buy_button ); ?> />
+			<label for="see_buy_button"><?php _e( 'Show buy button', 'tcp' ); ?></label>
 		</p>
 		<p>
-			<input type="checkbox" class="checkbox" id="see_first_custom_area" name="see_first_custom_area" value="yes" <?php checked( $see_first_custom_area );?> />
-			<label for="see_first_custom_area"><?php _e( 'Show first custom area', 'tcp' );?></label>
+			<input type="checkbox" class="checkbox" id="see_first_custom_area" name="see_first_custom_area" value="yes" <?php checked( $see_first_custom_area ); ?> />
+			<label for="see_first_custom_area"><?php _e( 'Show first custom area', 'tcp' ); ?></label>
 		</p>
 		<p>
-			<input type="checkbox" class="checkbox" id="see_second_custom_area" name="see_first_custom_area" value="yes" <?php checked( $see_second_custom_area );?> />
-			<label for="see_second_custom_area"><?php _e( 'Show second custom area', 'tcp' );?></label>
+			<input type="checkbox" class="checkbox" id="see_second_custom_area" name="see_first_custom_area" value="yes" <?php checked( $see_second_custom_area ); ?> />
+			<label for="see_second_custom_area"><?php _e( 'Show second custom area', 'tcp' ); ?></label>
 		</p>
 		<p>
-			<input type="checkbox" class="checkbox" id="see_third_custom_area" name="see_third_custom_area" value="yes" <?php checked( $see_third_custom_area );?> />
-			<label for="see_third_custom_area"><?php _e( 'Show third custom area', 'tcp' );?></label>
+			<input type="checkbox" class="checkbox" id="see_third_custom_area" name="see_third_custom_area" value="yes" <?php checked( $see_third_custom_area ); ?> />
+			<label for="see_third_custom_area"><?php _e( 'Show third custom area', 'tcp' ); ?></label>
 		</p>
 	</div>		
 		<p>
-			<input name="tcp_shortcode_save" value="<?php _e( 'save', 'tcp' );?>" type="submit" class="button-primary" />
-			<?php if ( isset( $shortcodes_data[$shortcode_id] ) ) : ?><input name="tcp_shortcode_delete" value="<?php _e( 'delete', 'tcp' );?>" type="submit" class="button-secondary" /><?php endif;?>
+			<input name="tcp_shortcode_save" value="<?php _e( 'save', 'tcp' ); ?>" type="submit" class="button-primary" />
+			<?php if ( isset( $shortcodes_data[$shortcode_id] ) ) : ?><input name="tcp_shortcode_delete" value="<?php _e( 'delete', 'tcp' ); ?>" type="submit" class="button-secondary" /><?php endif; ?>
 		</p>
 	</form>
 </div>

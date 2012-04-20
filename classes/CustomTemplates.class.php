@@ -29,9 +29,9 @@ class TCPCustomTemplates {
 	function single_template( $single_template ) {
 		global $post;
 		$template = tcp_get_custom_template( $post->ID );
-		if ( $template ) return apply_filters( 'tcp_single_template', $template );
+		if ( $template && file_exists( $template ) ) return apply_filters( 'tcp_single_template', $template );
 		$template = tcp_get_custom_template_by_post_type( $post->post_type );
-		if ( $template ) return apply_filters( 'tcp_single_template', $template );
+		if ( $template && file_exists( $template ) ) return apply_filters( 'tcp_single_template', $template );
 		return apply_filters( 'tcp_single_template', $single_template );
 	}
 
@@ -40,12 +40,12 @@ class TCPCustomTemplates {
 			$term = get_queried_object();
 			if ( $term ) {
 				$template = tcp_get_custom_template_by_term( $term->term_id );
-				if ( $template ) return apply_filters( 'tcp_taxonomy_template', $template );
+				if ( $template && file_exists( $template ) ) return apply_filters( 'tcp_taxonomy_template', $template );
 			}
 		}
 		global $taxonomy;
 		$template = tcp_get_custom_template_by_taxonomy( $taxonomy );
-		if ( $template ) return apply_filters( 'tcp_taxonomy_template', $template );
+		if ( $template && file_exists( $template ) ) return apply_filters( 'tcp_taxonomy_template', $template );
 		return apply_filters( 'tcp_taxonomy_template', $taxonomy_template );
 	}
 
@@ -53,10 +53,9 @@ class TCPCustomTemplates {
 		//global $post_type;
 		//$template = tcp_get_custom_template_by_post_type( $post_type );
 		global $post;
+		if ( ! $post ) return;
 		$template = tcp_get_custom_template_by_post_type( $post->post_type );
-		if ( $template ) {
-			return apply_filters( 'tcp_archive_template', $template );
-		}
+		if ( $template && file_exists( $template ) ) return apply_filters( 'tcp_archive_template', $template );
 		return apply_filters( 'tcp_archive_template', $archive_template );
 	}
 

@@ -29,7 +29,7 @@ function tcp_the_add_to_cart_button( $post_id, $echo = true ) {
 	$out = ob_get_clean();
 	$out = apply_filters( 'tcp_the_add_to_cart_button', $out, $post_id );
 	if ( $echo ) echo $out;
-	else return $echo;
+	else return $out;
 }
 
 /**
@@ -44,7 +44,7 @@ function tcp_the_add_to_cart_unit_field( $post_id, $units = 1, $echo = true ) {
 	$out = ob_get_clean();
 	$out = apply_filters( 'tcp_the_add_to_cart_unit_field', $out, $post_id );
 	if ( $echo ) echo $out;
-	else return $echo;
+	else return $out;
 }
 
 /**
@@ -62,6 +62,6 @@ function tcp_the_add_to_cart_items_in_the_cart( $post_id, $echo = true ) {
 	$out = ob_get_clean();
 	$out = apply_filters( 'tcp_the_add_to_cart_items_in_the_cart', $out, $post_id );
 	if ( $echo ) echo $out;
-	else return $echo;
+	else return $out;
 }
 ?>

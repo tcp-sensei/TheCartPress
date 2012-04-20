@@ -50,7 +50,31 @@ class UIImprovements {
 	}
 
 	function wp_dashboard_setup() {
-		wp_add_dashboard_widget( 'tcp_rss_widget', __( 'TheCartPress blog', 'tcp' ), array( $this, 'theCartPressRSSDashboardWidget' ) );
+		wp_add_dashboard_widget( 'tcp_rss_widget', __( 'TheCartPress blog', 'tcp' ), array( &$this, 'theCartPressRSSDashboardWidget' ) );
+	}
+
+	function admin_head() {?>
+	<script>
+	function tcp_hide_product_fields(product_type) {
+		var speed = 'fast';
+		if ('SIMPLE' == product_type) {
+			jQuery('#tcp_price').parent().parent().fadeIn(speed);
+			jQuery('#tcp_tax_id').parent().parent().fadeIn(speed);
+			jQuery('#tcp_weight').parent().parent().fadeIn(speed);
+			jQuery('#tcp_exclude_range').parent().parent().fadeIn(speed);
+			jQuery('#tcp_is_downloadable').parent().parent().fadeIn(speed);
+		}
+		<?php do_action( 'tcp_hide_product_fields' ); ?>
+	}
+	jQuery(document).ready(function() {
+		tcp_hide_product_fields(jQuery('#tcp_type option:selected').val());
+		
+		jQuery('#tcp_type').click(function() {
+			tcp_hide_product_fields(jQuery('#tcp_type option:selected').val());
+		});
+	});
+	</script>
+	<?php
 	}
 
 	function post_class( $classes, $class = '', $post_id = 0 ) {
@@ -157,19 +181,20 @@ function admin_bar_menu() {
 	}
 
 	function __construct() {
-		add_filter( 'tcp_the_currency', array( $this, 'tcp_the_currency' ) );
+		add_filter( 'tcp_the_currency', array( &$this, 'tcp_the_currency' ) );
 		if ( is_admin() ) {
-			add_action( 'tcp_show_settings', array( $this, 'tcp_show_settings' ) );
-			add_filter( 'admin_footer_text', array( $this, 'admin_footer_text' ) );
-			add_action( 'wp_dashboard_setup', array( $this, 'wp_dashboard_setup' ) );
+			add_action( 'tcp_show_settings', array( &$this, 'tcp_show_settings' ) );
+			add_filter( 'admin_footer_text', array( &$this, 'admin_footer_text' ) );
+			add_action( 'wp_dashboard_setup', array( &$this, 'wp_dashboard_setup' ) );
+			add_action( 'admin_head', array( &$this, 'admin_head' ) );
 		} else {
-			add_action( 'twentyten_credits', array( $this, 'twentyten_credits' ) );
-			add_action( 'twentyeleven_credits', array( $this, 'twentyten_credits' ) );
-			add_action( 'wp_meta', array( $this, 'wp_meta' ) );
-			add_filter( 'post_class', array( $this, 'post_class' ), 10, 3 );
+			add_action( 'twentyten_credits', array( &$this, 'twentyten_credits' ) );
+			add_action( 'twentyeleven_credits', array( &$this, 'twentyten_credits' ) );
+			add_action( 'wp_meta', array( &$this, 'wp_meta' ) );
+			add_filter( 'post_class', array( &$this, 'post_class' ), 10, 3 );
 		}
-		add_action( 'admin_bar_menu', array( $this, 'admin_bar_menu' ), 65 );
-		add_action( 'wp_before_admin_bar_render', array( $this, 'wp_before_admin_bar_render' ) );
+		add_action( 'admin_bar_menu', array( &$this, 'admin_bar_menu' ), 65 );
+		add_action( 'wp_before_admin_bar_render', array( &$this, 'wp_before_admin_bar_render' ) );
 	}
 }
 

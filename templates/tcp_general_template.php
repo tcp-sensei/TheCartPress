@@ -68,18 +68,17 @@ function tcp_get_the_continue_url() {
 function tcp_get_taxonomy_tree( $args = false, $echo = true, $before = '', $after = '' ) {
 	do_action( 'tcp_get_taxonomy_tree' );
 	wp_parse_args( $args, array(
-			'style'			=> 'list',
-			'show_count'	=> true,
-			'hide_empty'	=> true,
-			'taxonomy'		=> 'tcp_product_category',
-			'title_li'		=> '',
-			'echo'			=> false,
+		'style'			=> 'list',
+		'show_count'	=> true,
+		'hide_empty'	=> true,
+		'taxonomy'		=> 'tcp_product_category',
+		'title_li'		=> '',
 	) );
+	ob_start();
 	if ( isset( $args['dropdown'] ) && $args['dropdown'] ) { //TODO
 		$args['show_option_none']	= sprintf ( __( 'Select %s', 'tcp' ), $args['taxonomy']);
 		$args['name']				= $args['taxonomy'];
-		$args['walker']				= new TCPWalker_CategoryDropdown();
-		ob_start(); ?>
+		$args['walker']				= new TCPWalker_CategoryDropdown(); ?>
 		<?php echo wp_dropdown_categories( apply_filters( 'tcp_widget_taxonomy_tree_dropdown_args', $args ) ); ?>
 <script type='text/javascript'>
 // <![CDATA[
@@ -91,10 +90,21 @@ function tcp_get_taxonomy_tree( $args = false, $echo = true, $before = '', $afte
 	dropdown.onchange = on_<?php echo $args['name']; ?>_change;
 // ]]>
 </script>
-		<?php $tree = ob_get_clean();
-	} else {
-		$tree = '<ul>' . wp_list_categories( apply_filters( 'tcp_widget_taxonomy_tree_args', $args ) ) . '</ul>';
-	}
+	<?php } else { ?>
+		<ul><?php echo wp_list_categories( apply_filters( 'tcp_widget_taxonomy_tree_args', $args ) ); ?></ul>
+<script>
+/*jQuery('ul.children').hide();
+<?php $term = get_queried_object();
+if ( isset( $term->term_id ) ) : ?>
+	jQuery('li.cat-item-<?php echo $term->term_id; ?> ul').show();
+	jQuery('li.cat-item-<?php echo $term->term_id; ?> ul').parents(function() {
+		jQuery(this).show();
+	});
+<?php endif; ?>*/
+</script>
+
+	<?php }
+	$tree = ob_get_clean();
 	$tree = apply_filters( 'tcp_get_taxonomy_tree', $tree );
 	if ( $echo )
 		echo $before, $tree, $after;
@@ -157,7 +167,7 @@ function tcp_get_shopping_cart_detail( $args = false, $echo = true ) {
 	<?php
 	$shoppingCart = TheCartPress::getShoppingCart();
 	foreach( $shoppingCart->getItems() as $item ) : ?>
-		<li><form method="post">
+		<li class="tcp_widget_cart_detail_item_<?php echo $item->getPostId(); ?>"><form method="post">
 			<input type="hidden" name="tcp_post_id" value="<?php echo $item->getPostId(); ?>" />
 			<input type="hidden" name="tcp_option_1_id" value="<?php echo $item->getOption1Id(); ?>" />
 			<input type="hidden" name="tcp_option_2_id" value="<?php echo $item->getOption2Id(); ?>" />
@@ -371,7 +381,7 @@ function tcp_the_sort_panel() {
 	$disabled_order_types = isset( $settings['disabled_order_types'] ) ? $settings['disabled_order_types'] : array();
 	$sorting_fields = tcp_get_sorting_fields(); ?>
 <div class="tcp_order_panel">
-	<form method="post">
+	<form action="" method="post">
 	<span class="tcp_order_type">
 	<label for="tcp_order_type">
 		<?php _e( 'Order by', 'tcp' ); ?>:&nbsp;
@@ -437,7 +447,7 @@ function tcp_attribute_list( $taxonomies = false ) {
  * 'value_username'	=> '',
  * 'value_remember'	=> false
  */
-function tcp_login_form( $args ) {
+function tcp_login_form( $args = array() ) {
 	$defaults = array(
 		'echo'				=> true,
 		'redirect'			=> site_url( $_SERVER['REQUEST_URI'] ), // Default redirect is back to the current page
@@ -459,10 +469,10 @@ function tcp_login_form( $args ) {
 	<form id="<?php echo $args['form_id']; ?>" method="post" action="<?php echo plugins_url( 'checkout/login.php' , dirname( __FILE__ ) ); ?>" name="<?php echo $args['form_id']; ?>">
 		<?php echo apply_filters( 'login_form_top', '', $args ); ?>
 		<p class="login-username">
-		<label for="<?php echo esc_attr( $args['id_username'] ); ?>"><?php echo esc_html( $args['label_username'] ); ?></label><input id="<?php echo $args['id_username']; ?>" class="input" type="text" size="20" value="" name="tcp_log" />
+		<label for="<?php echo esc_attr( $args['id_username'] ); ?>"><?php echo esc_html( $args['label_username'] ); ?></label>: <input id="<?php echo $args['id_username']; ?>" class="input" type="text" size="20" value="" name="tcp_log" />
 		</p>
 		<p class="login-password">
-		<label for="<?php echo esc_attr( $args['id_password'] ); ?>"><?php echo esc_html( $args['label_password'] ); ?></label><input id="<?php echo $args['id_password']; ?>" class="input" type="password" size="20" value="" name="tcp_pwd" />
+		<label for="<?php echo esc_attr( $args['id_password'] ); ?>"><?php echo esc_html( $args['label_password'] ); ?></label>: <input id="<?php echo $args['id_password']; ?>" class="input" type="password" size="20" value="" name="tcp_pwd" />
 		</p>
 		<?php apply_filters( 'login_form_middle', '', $args ); ?>
 		<p class="login-remember">
@@ -511,7 +521,7 @@ function tcp_get_the_pagination( $echo = true) {
 		$big = 999999999; // need an unlikely integer
 		echo paginate_links( array(
 			'base'		=> str_replace( $big, '%#%', get_pagenum_link( $big ) ),
-			'format'	=> '?paged=%#%',
+			//'format'	=> '?paged=%#%',
 			'current'	=> max( 1, get_query_var('paged') ),
 			'total'		=> $wp_query->max_num_pages
 		) );

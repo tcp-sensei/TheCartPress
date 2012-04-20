@@ -406,7 +406,6 @@ class TCPCheckoutManager {
 		}
 		$order_id = Orders::insert( $order );
 		do_action( 'tcp_checkout_create_order_insert', $order_id );
-		$no_stock_enough = false;
 		foreach( $shoppingCart->getItems() as $item ) {
 			$post = get_post( $item->getPostId() );
 			$sku = tcp_get_the_sku( $item->getPostId(), $item->getOption1Id(), $item->getOption2Id() );
@@ -439,6 +438,7 @@ class TCPCheckoutManager {
 			$ordersDetails['max_downloads']		= get_post_meta( $post->ID, 'tcp_max_downloads', true );
 			$ordersDetails['expires_at']		= $expires_at;
 			$orders_details_id = OrdersDetails::insert( $ordersDetails );
+			if ( $item->hasAttributes() ) tcp_update_order_detail_meta( $orders_details_id, 'tcp_attributes', $item->getAttributes() );
 			do_action( 'tcp_checkout_create_order_insert_detail', $order_id, $orders_details_id, $item->getPostId(), $ordersDetails ); //, $item->getOption1Id(), $item->getOption2Id() );
 		}
 		foreach( $shoppingCart->getOtherCosts() as $id => $cost ) {

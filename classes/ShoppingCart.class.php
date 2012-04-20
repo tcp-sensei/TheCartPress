@@ -32,7 +32,6 @@ class ShoppingCart {
 	private $discounts = array();
 	private $order_id = 0;
 
-	//function add( $post_id, $option_1_id = 0, $option_2_id = 0, $count = 1, $unit_price = 0, $tax = 0, $unit_weight = 0, $price_to_show = 0 ) {
 	function add( $post_id, $option_1_id = 0, $option_2_id = 0, $count = 1, $unit_price = 0, $unit_weight = 0 ) {
 		if ( ! is_numeric( $post_id ) || ! is_numeric( $option_1_id ) || ! is_numeric( $option_2_id ) ) return;
 		$shopping_cart_id = $post_id . '_' . $option_1_id . '_' . $option_2_id;
@@ -52,11 +51,10 @@ class ShoppingCart {
 		$shopping_cart_id = $post_id . '_' . $option_1_id . '_' . $option_2_id;
 		if ( isset( $this->shopping_cart_items[$shopping_cart_id] ) ) {
 			if ($count > 0) {
-				if ( ! tcp_is_downloadable( $post_id ) ) {
-					$this->shopping_cart_items[$shopping_cart_id]->setCount( $count );
-				} else {
-					$this->shopping_cart_items[$shopping_cart_id]->setCount( 1 );
-				}
+				$sci = $this->shopping_cart_items[$shopping_cart_id];
+				$sci->setUnits( $count );
+				$sci = apply_filters( 'tcp_modify_to_shopping_cart', $sci );
+				if ( $sci ) $this->shopping_cart_items[$shopping_cart_id] = $sci;
 			} else {
 				$this->delete( $post_id, $option_1_id , $option_2_id );
 			}
@@ -175,7 +173,6 @@ class ShoppingCart {
 		return $weight;
 	}
 
-
 	/**
 	 * Returns true if the cart is empty
 	 */
@@ -238,6 +235,7 @@ class ShoppingCart {
 			$this->visited_post_ids[$post_id]++;
 		else
 			$this->visited_post_ids[$post_id] = 0;
+		return $this->getVisitedPosts();
 	}
 
 	function getVisitedPosts() {
@@ -302,7 +300,6 @@ class ShoppingCart {
 		} else {
 			unset( $this->wish_list_post_ids[$post_id] );
 		}
-		
 	}
 
 	function deleteWishList() {
@@ -339,8 +336,7 @@ class ShoppingCart {
 	}
 
 	function deleteOtherCost( $id ) {
-		if ( isset( $this->other_costs[$id] ) )
-			unset( $this->other_costs[$id] );
+		if ( isset( $this->other_costs[$id] ) ) unset( $this->other_costs[$id] );
 	}
 
 	function getOtherCosts() {
@@ -359,12 +355,8 @@ class ShoppingCart {
 
 	function getTotalOtherCosts() {
 		$total = 0;
-		//$tax = tcp_get_the_shipping_tax();
-		foreach( $this->other_costs as $other_cost ) {
+		foreach( $this->other_costs as $other_cost )
 			$total += $other_cost->getCost();
-			//$total += $other_cost->getCost() * ( 1 + $tax / 100 );
-			//$total += tcp_get_the_shipping_cost_with_tax( $other_cost->getCost() );
-		}
 		return $total;
 	}
 	
@@ -457,6 +449,7 @@ class ShoppingCartItem {
 	private $discount = 0;
 	private $discount_desc = '';//not in use
 	private $free_shipping = false;
+	private $attributes = array();
 
 	function __construct( $post_id, $option_1_id = 0, $option_2_id = 0, $count = 1, $unit_price = 0, $unit_weight = 0 ) {
 	//function __construct( $post_id, $option_1_id = 0, $option_2_id = 0, $count = 1, $unit_price = 0, $tax = 0, $unit_weight = 0, $price_to_show = 0 ) {
@@ -509,8 +502,12 @@ class ShoppingCartItem {
 		return $this->getCount();
 	}
 
-	function setCount($count) {
+	function setCount( $count ) {
 		$this->count = $count;
+	}
+
+	function setUnits( $count ) {
+		$this->setCount( $count );
 	}
 
 	function getUnitPrice() {
@@ -522,13 +519,12 @@ class ShoppingCartItem {
 	}
 
 	function getTax() {
-		//return apply_filters( 'tcp_item_get_tax', $this->tax, $this->getPostId() );
 		return apply_filters( 'tcp_item_get_tax', tcp_get_the_tax( $this->getPostId() ), $this->getPostId() );
 	}
 
-	// function setTax( $tax ) {
-	// 	$this->tax = $tax;
-	// }
+	//function setTax( $tax ) {
+	//	$this->tax = $tax;
+	//}
 
 	function getUnitWeight() {
 		return apply_filters( 'tcp_item_get_unit_weight', $this->unit_weight, $this->getPostId() );
@@ -588,6 +584,39 @@ class ShoppingCartItem {
 
 	function isFreeShipping() {
 		return $this->free_shipping;
+	}
+
+	function setAttributes( $attributes ) {
+		$this->attributes = $attributes;
+	}
+
+	function getAttributes() {
+		return $this->attributes;
+	}
+
+	function hasAttributes() {
+		return count( $this->attributes ) > 0;
+	}
+
+	function removeAttributes() {
+		unset( $this->attributes );
+		$this->attributes = array();
+	}
+
+	function addAttribute( $id, $value ) {
+		$this->attributes[$id] = $value;
+	}
+
+	function getAttribute( $id ) {
+		return isset( $this->attributes[$id] ) ? $this->attributes[$id] : false;
+	}
+
+	function setAttribute( $id, $value ) {
+		$this->attributes[$id] = $value;
+	}
+
+	function removeAttribute( $id ) {
+		if ( isset( $this->attributes[$id] ) ) unset( $this->attributes[$id] );
 	}
 }
 

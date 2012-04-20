@@ -27,7 +27,7 @@ class TCPStockManagement {
 		$low_stock = array();
 		foreach( $details as $detail ) {
 			$stock = tcp_get_the_stock( $detail->post_id, $detail->option_1_id, $detail->option_2_id );
-			if ( $stock < $stock_limit ) {
+			if ( $stock > -1 && $stock < $stock_limit ) {
 				$low_stocks[] = array(
 					'post_id'		=> $detail->post_id,
 					'option_1_id'	=> $detail->option_1_id,
@@ -302,23 +302,25 @@ class TCPStockManagement {
 		if ( is_admin() ) {
 			add_action( 'admin_init', array( $this, 'admin_init' ) );
 			add_filter( 'tcp_validate_settings', array( $this, 'tcp_validate_settings' ) );
-
-			add_action( 'tcp_product_metabox_custom_fields', array( $this, 'tcp_product_metabox_custom_fields' ) );
-			add_action( 'tcp_product_metabox_save_custom_fields', array( $this, 'tcp_product_metabox_save_custom_fields' ) );
-			add_action( 'tcp_product_metabox_delete_custom_fields', array( $this, 'tcp_product_metabox_delete_custom_fields' ) );
-
-			add_action( 'tcp_options_metabox_custom_fields', array( $this, 'tcp_product_metabox_custom_fields' ) );
-			add_action( 'tcp_options_metabox_save_custom_fields', array( $this, 'tcp_product_metabox_save_custom_fields' ) );
-			add_action( 'tcp_options_metabox_delete_custom_fields', array( $this, 'tcp_product_metabox_delete_custom_fields' ) );
-
-			add_action( 'tcp_dynamic_options_metabox_custom_fields', array( $this, 'tcp_product_metabox_custom_fields' ) );
-			add_action( 'tcp_dynamic_options_metabox_save_custom_fields', array( $this, 'tcp_product_metabox_save_custom_fields' ) );
-			add_action( 'tcp_dynamic_options_metabox_delete_custom_fields', array( $this, 'tcp_product_metabox_delete_custom_fields' ) );
 		}
 		global $thecartpress;
 		if ( ! empty( $thecartpress ) ) {
-			$stock_management = $thecartpress->get_setting( 'stock_management' );
+			$stock_management = $thecartpress->get_setting( 'stock_management', false );
 			if ( $stock_management ) {
+				if ( is_admin() ) {
+					add_action( 'tcp_product_metabox_custom_fields', array( $this, 'tcp_product_metabox_custom_fields' ) );
+					add_action( 'tcp_product_metabox_save_custom_fields', array( $this, 'tcp_product_metabox_save_custom_fields' ) );
+					add_action( 'tcp_product_metabox_delete_custom_fields', array( $this, 'tcp_product_metabox_delete_custom_fields' ) );
+
+					add_action( 'tcp_options_metabox_custom_fields', array( $this, 'tcp_product_metabox_custom_fields' ) );
+					add_action( 'tcp_options_metabox_save_custom_fields', array( $this, 'tcp_product_metabox_save_custom_fields' ) );
+					add_action( 'tcp_options_metabox_delete_custom_fields', array( $this, 'tcp_product_metabox_delete_custom_fields' ) );
+
+					add_action( 'tcp_dynamic_options_metabox_custom_fields', array( $this, 'tcp_product_metabox_custom_fields' ) );
+					add_action( 'tcp_dynamic_options_metabox_save_custom_fields', array( $this, 'tcp_product_metabox_save_custom_fields' ) );
+					add_action( 'tcp_dynamic_options_metabox_delete_custom_fields', array( $this, 'tcp_product_metabox_delete_custom_fields' ) );
+				}
+
 				add_action( 'admin_menu', array( $this, 'admin_menu' ) );
 				add_action( 'admin_init', array( $this, 'add_template_class' ) );
 

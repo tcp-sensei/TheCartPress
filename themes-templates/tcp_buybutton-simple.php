@@ -25,61 +25,66 @@ $action					= $after_add_to_cart == 'ssc' ? get_permalink( tcp_get_current_id( g
 
 <?php /**** Start editing to customise your buy buttons! */ ?>
 
-<div class="tcp_buy_button_area <?php echo implode( ' ' , apply_filters( 'tcp_buy_button_get_product_classes', array(), $post_id ) ); ?>">
+<div class="tcp_buy_button_area cf <?php echo implode( ' ' , apply_filters( 'tcp_buy_button_get_product_classes', array(), $post_id ) ); ?>">
 <form method="post" id="tcp_frm_<?php echo $post_id; ?>" action="<?php echo $action; ?>">
 
-<table class="tcp_buy_button">
-<thead>
-<tr>
-	<th scope="col"><?php _e( 'Price', 'tcp' ); ?></th>
-	<th scope="col"><?php _e( 'Units', 'tcp' ); ?></th>
-</tr>
-</thead>
-<tbody>
-<tr>
+<?php do_action( 'tcp_buy_button_top', $post_id ); ?>
 
-<td class="tcp_buy_button_price">
+
+<div class="tcp_buy_button  tcp_buy_button_simple">
 
 	<?php if ( function_exists( 'tcp_the_buy_button_options' ) && tcp_has_options( $post_id ) ) : ?>  
 
-		<?php echo tcp_the_buy_button_options( $post_id ); ?>
+		<div class="tcp-buy-options">
+
+			<?php echo tcp_the_buy_button_options( $post_id ); ?>
+
+		</div>		 
 
 	<?php else : ?>
 
-		<span class="tcp_unit_price" id="tcp_unit_price_<?php echo $post_id; ?>">
+		<div class="tcp_unit_price" id="tcp_unit_price_<?php echo $post_id; ?>">
 
-		<?php echo tcp_get_the_price_label( $post_id ); ?>
+			<?php echo tcp_get_the_price_label( $post_id ); ?>
 
-		</span>
+		</div>
 
-	<?php endif; ?>
+	<?php endif; ?>	
 
 	<?php if ( function_exists( 'tcp_has_dynamic_options' ) && tcp_has_dynamic_options( $post_id ) ) : ?>
+	 
+		<div class="tcp-buy-dynamic-options">
 
-		<?php tcp_the_buy_button_dyamic_options( $post_id ); ?>
+			<?php tcp_the_buy_button_dyamic_options( $post_id ); ?>
+
+		</div>
 
 	<?php endif; ?>
-
-</td>
-
-<td class="tcp_buy_button_count">
 
 	<?php if ( ! tcp_hide_buy_button( $post_id ) && ! $disable_shopping_cart ) : ?>
 
-		<?php tcp_the_add_to_cart_unit_field( $post_id ); ?>
+		<div class="tcp-add-to-cart">
+			<?php tcp_the_add_to_cart_unit_field( $post_id ); ?>
+		   
+			<?php tcp_the_add_to_cart_button( $post_id ); ?>
 
-		<?php tcp_the_add_to_cart_button( $post_id ); ?>
+			<div class="tcp-add-to-wishlist">
+			
+				<?php tcp_the_add_wishlist_button( $post_id ) ; ?>
 
-		<?php tcp_the_add_to_cart_items_in_the_cart( $post_id ); ?>
+			</div>
 
+			<?php tcp_the_add_to_cart_items_in_the_cart( $post_id ); ?>
+
+		</div>
+		   
 	<?php endif; ?>
 
-	<?php tcp_the_add_wishlist_button( $post_id ) ; ?>
+		   
+	<?php if ( function_exists( 'tcp_the_tier_price' ) ) tcp_the_tier_price(); ?>
+		   
+</div>
+<?php do_action( 'tcp_buy_button_bottom', $post_id ); ?>
 
-</td>
-
-</tr>
-</tbody>
-</table>
 </form>
 </div>

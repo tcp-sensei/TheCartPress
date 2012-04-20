@@ -71,6 +71,16 @@ class TCPGroupedProducts {
 		<?php */endif;
 	 }
 
+	function tcp_hide_product_fields() { ?>
+		if ('GROUPED' == product_type) {
+			jQuery('#tcp_price').parent().parent().fadeOut(speed);
+			jQuery('#tcp_tax_id').parent().parent().fadeOut(speed);
+			jQuery('#tcp_weight').parent().parent().fadeOut(speed);
+			jQuery('#tcp_exclude_range').parent().parent().fadeOut(speed);
+			jQuery('#tcp_is_downloadable').parent().parent().fadeOut(speed);
+		}<?php
+	}
+
 	function tcp_get_the_price_label( $label, $post_id ) {
 		if ( tcp_get_the_product_type( $post_id ) == 'GROUPED' ) {
 			$min_max = tcp_get_min_max_price( $post_id );
@@ -96,6 +106,7 @@ class TCPGroupedProducts {
 			add_filter( 'tcp_custom_columns_definition', array( $this, 'tcp_custom_columns_definition' ) );
 			add_action( 'tcp_manage_posts_custom_column', array( $this, 'tcp_manage_posts_custom_column' ), 10, 2 );
 			add_action( 'tcp_product_metabox_toolbar', array( $this, 'tcp_product_metabox_toolbar' ) );
+			add_action( 'tcp_hide_product_fields', array( $this, 'tcp_hide_product_fields' ) );
 		} else {
 			add_filter( 'tcp_get_the_price_label', array( $this, 'tcp_get_the_price_label' ) , 10, 2 );
 		}

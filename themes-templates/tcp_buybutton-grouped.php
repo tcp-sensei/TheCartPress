@@ -42,8 +42,9 @@ remove_filter( 'tcp_the_add_to_cart_button', array( $wish_list, 'tcp_the_add_to_
 <div class="tcp_buy_button_area <?php echo implode( ' ' , apply_filters( 'tcp_buy_button_get_product_classes', array(), $post_id ) ); ?>">
 <form method="post" id="tcp_frm_<?php echo $post_id; ?>" action="<?php echo $action; ?>">
 
-<table class="tcp_buy_button">
-<tbody>
+<?php do_action( 'tcp_buy_button_top', $post_id ); ?>
+
+<div class="tcp_buy_button  tcp_buy_button_grouped">
 <?php foreach( $products as $product ) :
 	$meta_value	= unserialize( $product->meta_value );
 	$units		= isset( $meta_value['units'] ) ? (int)$meta_value['units'] : 0;
@@ -56,81 +57,118 @@ remove_filter( 'tcp_the_add_to_cart_button', array( $wish_list, 'tcp_the_add_to_
 				});
 			});
 		</script>
-		<tr>
-		<td class="tcp_buy_button_thumbnail">
+
+	<div class="tcp_buy_button_simple_item cf">
+
+			<div class="tcp_buy_button_name">
+				<?php if ( tcp_is_visible( $product_id ) ) : ?>
+					<a href="<?php echo get_permalink( $product_id ); ?>"><?php echo tcp_get_the_title( $product_id, 0, 0, true, false ); ?></a>
+				<?php else : ?>
+					<?php echo tcp_get_the_title( $product_id, 0, 0, true, false ); ?>
+				<?php endif; ?>
+			</div>
+	
+		<div class="tcp_buy_button_thumbnail">
 
 			<?php $image = tcp_get_the_thumbnail_with_permalink( $product_id, false, false ); ?>
 			<?php echo apply_filters( 'tcp_get_image_in_grouped_buy_button', $image, $product_id ); ?>
 
-		</td>
-		<td class="tcp_buy_button_name">
+		</div>
 
-		<?php if ( tcp_is_visible( $product_id ) ) : ?>
-
-			<a href="<?php echo get_permalink( $product_id ); ?>"><?php echo tcp_get_the_title( $product_id, 0, 0, true, false ); ?></a>
-
-		<?php else : ?>
-
-			<?php echo tcp_get_the_title( $product_id, 0, 0, true, false ); ?>
-
-		<?php endif; ?>
-
-		<?php //tcp_the_excerpt( $product_id ); ?>
-		<?php //tcp_the_content( $product_id ); ?>
-
-		</td>
-		<td class="tcp_buy_button_price">
+		<div class="tcp_buy_button_main cf">
 
 			<?php if ( function_exists( 'tcp_the_buy_button_options' ) ) : ?>
-			
+
 				<?php echo tcp_the_buy_button_options( $product_id, $post_id ); ?>
-				
+
 			<?php endif; ?>
 
 			<?php if ( ! ( function_exists( 'tcp_has_options' ) && tcp_has_options( $product_id ) ) ) : ?>
 
-				<span class="tcp_unit_price" id="tcp_unit_price_<?php echo $product_id; ?>">
+			<div class="tcp_unit_price" id="tcp_unit_price_<?php echo $product_id; ?>">
+
 				<?php echo tcp_get_the_price_label( $product_id ); ?>
-				</span>
-
-			<?php endif; ?>
-
-			<?php if ( function_exists( 'tcp_the_buy_button_dyamic_options' ) && tcp_has_dynamic_options( $product_id ) ) : ?>
-
-				<?php tcp_the_buy_button_dyamic_options( $product_id ); ?>
-
-			<?php endif; ?>
-
-		</td>
-		<td class="tcp_buy_button_count">
-
-			<?php if ( ! $disable_shopping_cart ) tcp_the_add_to_cart_unit_field( $product_id, $units ); ?>
-		
-			<?php if ( ! tcp_hide_buy_button( $product_id ) ) : ?>
-
-				<?php tcp_the_add_to_cart_button( $product_id ); ?>
-
+				
 				<?php tcp_the_add_to_cart_items_in_the_cart( $product_id ); ?>
 
-			<?php endif; ?></td>
+			</div>
 
-		</tr>
+			<?php endif; ?>
+	
+			<?php if ( function_exists( 'tcp_the_buy_button_dyamic_options' ) && tcp_has_dynamic_options( $product_id ) ) : ?>
+	
+				<div class="tcp-buy-dynamic-options">
+					<?php tcp_the_buy_button_dyamic_options( $product_id ); ?>
+		 		</div>
 
-	<?php endif; ?>
+			<?php endif; ?>
+
+			<div class="tcp-add-to-cart">
+			<?php if ( ! $disable_shopping_cart ) tcp_the_add_to_cart_unit_field( $product_id, $units ); ?>
+				
+				<?php if ( ! tcp_hide_buy_button( $product_id ) ) : ?>
+		
+					<?php tcp_the_add_to_cart_button( $product_id ); ?>
+		
+				<?php endif; ?> 
+			</div>
+		  
+			<?php if ( function_exists( 'tcp_the_tier_price' ) && tcp_has_tier_price( $product_id ) ) : ?>
+
+				<a href="#" class="tcp_view_tier_price" product_id="<?php echo $product_id; ?>" title="<?php _e( 'View/hide tier price', 'tcp' ); ?>"><?php _e( 'View/hide tier price', 'tcp' ); ?></a>
+				<?php tcp_the_tier_price( $product_id ); ?>
+
+			<?php endif; ?>
+
+			<div class="tcp_buy_button_excerpt">
+				<?php //tcp_the_excerpt( $product_id ); ?>
+			</div> 
+			
+			<div class="tcp_buy_button_content">
+				<?php //tcp_the_content( $product_id ); ?>
+			</div>
+	</div> <!--end tcp_buy_button_main-->		  
+		  
+<?php endif; ?>
+
+</div> <!--end tcp_buy_button_simple_item-->
 
 <?php endforeach; ?>
-</tbody>
-</table>
-<p>
-<?php tcp_the_add_wishlist_button( $post_id ) ; ?>
 
-<?php if ( ! tcp_hide_buy_button( $post_id ) ) : ?>
+</div> <!--end tcp_buy_button-->
 
-	<?php tcp_the_add_to_cart_button( $post_id ); ?>
-
-	<?php tcp_the_add_to_cart_items_in_the_cart( $post_id ); ?>
-
-<?php endif; ?>
-</p>
+	<div class="tcp-add-to-wishlist">
+		<?php tcp_the_add_wishlist_button( $post_id ) ; ?>
+	</div>
+	
+	<div>
+	  <?php if ( ! tcp_hide_buy_button( $post_id ) ) : ?>
+		  <?php tcp_the_add_to_cart_button( $post_id ); ?>
+		  <?php tcp_the_add_to_cart_items_in_the_cart( $post_id ); ?>
+	  <?php endif; ?>
+	</div>
+	
+<?php do_action( 'tcp_buy_button_bottom', $post_id ); ?>
+	
 </form>
-</div>
+</div> <!--end tcp_buy_button_area-->
+
+<?php if ( function_exists( 'tcp_the_tier_price' ) ) : ?>
+<script>
+jQuery(document).ready(function() {
+	jQuery('.tcp_tier_price').hide();
+	jQuery('.tcp_view_tier_price').click(function() {
+		var product_id = jQuery(this).attr('product_id');
+		var cl = '.tcp_tier_price_' + product_id;
+		if (jQuery(cl).is(":visible")) {
+			jQuery(cl).hide();
+		} else {
+			jQuery('.tcp_tier_price').hide();
+			jQuery(cl).show();
+		}
+		return false;
+	});
+});
+</script>
+<?php endif; ?>
+
