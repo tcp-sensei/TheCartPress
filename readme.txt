@@ -243,7 +243,7 @@ You can create your themes for TheCartPress exactly in same way you create the t
 
 = Extending TheCartPress =
 
-* Improve your store with standar WordPress plugins.
+* Improve your store with standard WordPress plugins.
 * Take a look at TheCartPress plugin repository.
 * Creating TheCartPress plugins easily.
 
