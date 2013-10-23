@@ -48,7 +48,7 @@ require_once( 'CustomTemplates.class.php' );
 
 require_once( 'Extend.class.php' );
 
-require_once( 'FeaturedVideo.class.php' );
+//require_once( 'FeaturedVideo.class.php' );
 require_once( 'FilterNavigation.class.php' );
 require_once( 'GroupedProducts.class.php' );
 require_once( 'LastLogin.class.php' );
