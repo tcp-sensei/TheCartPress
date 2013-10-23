@@ -199,6 +199,7 @@ class TheCartPress {
 		//Load TheCartPress css styles
 		wp_enqueue_style( 'tcp_default_style'	, plugins_url( 'css/tcp_default.css', __FILE__ ) );
 		wp_enqueue_style( 'tcp_front_style'		, plugins_url( 'css/tcpfront.min.prefixed.css', __FILE__ ) );
+		wp_enqueue_style( 'tcp_buttons'			, plugins_url( 'css/tcp_buttons.css', __FILE__ ) );
 
 		//TheCartPress can be used as a catalogue, disabling all ecommerces features
 		if ( ! $this->get_setting( 'disable_ecommerce', false ) ) {
