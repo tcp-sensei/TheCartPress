@@ -16,15 +16,30 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// Exit if accessed directly
+if ( !defined( 'ABSPATH' ) ) exit;
+
+if ( ! class_exists( 'TCPTemplateMetabox' ) ) {
+
 class TCPTemplateMetabox {
 
-	function register_metabox() {
-		add_meta_box( 'tcp-template-template', __( 'Notice points', 'tcp' ), array( &$this, 'showTemplateMetabox' ), TemplateCustomPostType::$TEMPLATE, 'normal', 'high' );
-		add_action( 'save_post', array( $this, 'save' ), 1, 2 );
-		add_action( 'delete_post', array( $this, 'delete' ) );
+	static function init() {
+		add_action( 'admin_init', array( __CLASS__, 'register_metabox' ) );
+		add_action( 'tcp_admin_menu', array( __CLASS__, 'tcp_admin_menu' ), 20 );
 	}
 
-	function showTemplateMetabox() {
+	static function register_metabox() {
+		add_meta_box( 'tcp-template-template', __( 'Notice points', 'tcp' ), array( __CLASS__, 'showTemplateMetabox' ), TemplateCustomPostType::$TEMPLATE, 'normal', 'high' );
+		add_action( 'save_post', array( __CLASS__, 'save' ), 1, 2 );
+		add_action( 'delete_post', array( __CLASS__, 'delete' ) );
+	}
+
+	static function tcp_admin_menu() {
+		$base = thecartpress()->get_base_appearance();
+		add_submenu_page( $base, __( 'Notices, eMails', 'tcp' ), __( 'Notices, eMails', 'tcp' ), 'tcp_edit_orders', 'edit.php?post_type=tcp_template' );
+	}
+
+	static function showTemplateMetabox() {
 		global $post;
 		if ( $post->post_type != TemplateCustomPostType::$TEMPLATE ) return;
 		if ( !current_user_can( 'edit_post', $post->ID ) ) return;
@@ -51,7 +66,7 @@ class TCPTemplateMetabox {
 		<?php do_action( 'tcp_template_metabox_custom_fields', $post_id );?>
 	<?php }
 
-	function save( $post_id, $post ) {
+	static function save( $post_id, $post ) {
 		if ( ! wp_verify_nonce( isset( $_POST['tcp_template_noncename'] ) ? $_POST['tcp_template_noncename'] : '', 'tcp_template_noncename' ) ) return array( $post_id, $post );
 		if ( $post->post_type != TemplateCustomPostType::$TEMPLATE ) return array( $post_id, $post );
 		if ( ! current_user_can( 'edit_post', $post_id ) ) return array( $post_id, $post );
@@ -69,7 +84,7 @@ class TCPTemplateMetabox {
 		do_action( 'tcp_template_metabox_save', $post );
 	}
 
-	function delete( $post_id ) {
+	static function delete( $post_id ) {
 		$post = get_post( $post_id );
 		if ( $post->post_type != TemplateCustomPostType::$TEMPLATE ) return;
 		if ( ! current_user_can( 'edit_post', $post_id ) ) return;
@@ -82,11 +97,7 @@ class TCPTemplateMetabox {
 					delete_post_meta( $translation->element_id, 'tcp_template_class' );*/
 		do_action( 'tcp_template_metabox_delete', $post );
 	}
-	
-	function __construct() {
-		add_action( 'admin_init', array( $this, 'register_metabox' ) );
-	}
 }
 
-new TCPTemplateMetabox();
-?>
+TCPTemplateMetabox::init();
+} // class_exists check

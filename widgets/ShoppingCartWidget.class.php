@@ -16,7 +16,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// Exit if accessed directly
+if ( !defined( 'ABSPATH' ) ) exit;
+
+if ( ! class_exists( 'ShoppingCartWidget' ) ) {
+
 class ShoppingCartWidget extends WP_Widget {
+
 	function ShoppingCartWidget() {
 		$widget = array(
 			'classname'		=> 'shoppingcart',
@@ -39,6 +45,7 @@ class ShoppingCartWidget extends WP_Widget {
 		$title = apply_filters( 'widget_title', $instance['title'] );
 		echo $before_widget;
 		if ( $title ) echo $before_title, $title, $after_title;
+		$instance['widget_id'] = $widget_id;
 		tcp_get_shopping_cart_detail( $instance );
 		echo $after_widget;
 	}
@@ -99,10 +106,15 @@ class ShoppingCartWidget extends WP_Widget {
 				<option value="48" <?php selected( '48', $thumbnail_size ); ?>><?php _e( '48x48', 'tcp' ); ?></option>
 				<option value="32" <?php selected( '32', $thumbnail_size ); ?>><?php _e( '32x32', 'tcp' ); ?></option>
 			</select>
-		</p><p>
+		</p>
+	<?php global $thecartpress;
+	if ( $thecartpress && $thecartpress->get_setting( 'use_weight', true ) ) : ?>
+		<p>
 			<input type="checkbox" class="checkbox" id="<?php echo $this->get_field_id( 'see_weight' ); ?>" name="<?php echo $this->get_field_name( 'see_weight' ); ?>"<?php checked( $see_weight ); ?> />
 			<label for="<?php echo $this->get_field_id( 'see_weight' ); ?>"><?php _e( 'See weigth', 'tcp' ); ?></label>
-		</p><p>
+		</p>
+	<?php endif; ?>
+		<p>
 			<input type="checkbox" class="checkbox" id="<?php echo $this->get_field_id( 'see_modify_item' ); ?>" name="<?php echo $this->get_field_name( 'see_modify_item' ); ?>"<?php checked( $see_modify_item ); ?> />
 			<label for="<?php echo $this->get_field_id( 'see_modify_item' ); ?>"><?php _e( 'See modify button', 'tcp' ); ?></label>			
 		</p><p>
@@ -121,4 +133,4 @@ class ShoppingCartWidget extends WP_Widget {
 		<?php do_action( 'tcp_shopping_cart_widget_form', $this, $instance );
 	}
 }
-?>
+} // class_exists check

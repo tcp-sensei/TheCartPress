@@ -1,9 +1,11 @@
 === TheCartPress eCommerce Shopping Cart ===
 Contributors: thecartpress
+Donate link: http://thecartpress.com/collaborate-to-grow-and-support-thecartpress/
 Tags: ecommerce, e-commerce, shopping cart, cart, store, shop, shopping, ecomerce, products, TheCartPress, CartPress
-Requires at least: 3.1
-Tested up to: 3.3
-Stable Tag: 1.1.8.1
+License: GPLv2 or later
+Requires at least: 3.3
+Tested up to: 3.6.1
+Stable Tag: 1.3.2.1
 
 Native eCommerce integration & interaction with WordPress. Flexibility & Scalability.
 Ideal for merchants, themes constructors and developers.
@@ -291,8 +293,207 @@ This plugin is released under a GPL license.
 8. Back-end: Settings
 9. Back-end: Dashboard
 
+== Upgrade Notice ==
+1. Restore Checkout Editor steps
+2. Take a look to Catalogue and product detail in your store. Those pages are now displayed using new Theme Compatibility featured.
+
 == Changelog ==
-=1.1.8.1 =
+= 1.3.3 =
+* Reports
+* Media Loader Improvement
+
+= 1.3.2.1 =
+* Issue with svn
+
+= 1.3.2 =
+* SEPA support: Single Euro Payments Area
+* Custom Login: Allows to select any page as login page
+* UI Improvements: Tabs in product fields
+* Theme Compat: 100% compatibility with all WordPress themes
+* Shortcodes, widgets and archives support multidevices
+* Colored buy button
+* More hooks
+* Load translation file: Checks the languages folder inside the TheCartPress plugin first, and then the default WordPress languages folder.
+* Checkout: New address_2 field and reordering fields in Billing Box or Shipping Box.
+
+= 1.3.1 =
+* New Translations updates German and Italian: thanks to the community
+* WishList styles
+* Address List: fix minor bug
+* Catalogue page: add it to default pages check-list
+* Custom Fields: UI improvements
+* Payment and Shipping method List: UI improvements
+* Payment and Shipping method Editor: UI improvements
+* Custom Post Type Engine: UI improvement
+* Checkout: Adding 'tcp_' prefix to steps
+* Login: Allowinf to select any page for login
+* Stock: Fix minor bug
+* Menus UI Improvement
+* First Time Setup: UI Improvement
+* Author template Improvement
+
+= 1.3.0
+* Messages for "Auto Update" for premium plugins
+* Admin top bar menu for eCommerce
+* Payment methods list: New Icons, and direct links to manage Notices
+* Checkout, Payments Box: Displays excerpt of the notices associated to each Payments
+* Wish list: improvements
+* Shipping cost UI improvements
+* Fixed minor bug in retry checkout when using a notice in tcp_checkout_ko
+
+= 1.2.9 =
+* Checkout: Shipping and Payment Methods boxes are able to be hidden if only one method is available (new setting)
+* Shipping cost minor bug fixed
+* Attribute List Widget improvements
+* Large shipping and billing fields
+* Download products: the last checkout page display links to downloads products for non registered users
+* Transference: allows two modes: two fields or four fields
+* Custom Templates issue: Templates of categories
+* Front-end support: Copy orders to shopping cart
+* Custom fields: Supports templates. Copy from themes-templates/tcp_custom_field.php to your theme, and modified it.
+* Full internationalization support
+
+= 1.2.8.1 =
+* Custom Javascript: Allows to add Javascript
+* Template for email: tcp_print_order.php & tcp_shopping_cart_email.php
+
+= 1.2.8 =
+* Author profile: widget and template function.
+* Improvements in Order management: New Order panel, notes and Emails manager.
+* Theme compatibility: Twentytwelve and Bootstrap
+* Custom Templates: Archives
+* Custom Values Widget: Powerful new widget to see custom fields, taxonomy and other data of the current Product or Post
+
+= 1.2.7.1 =
+* Premium Plugins versioning
+* Addresses: pagination, Merchant can see all addresses
+* Minor bugs from previous version (Thanks to community)
+
+= 1.2.7 =
+* Checkout, Shipping and Payment methods: Hide box if only one method is applicable
+* Checkout, Shipping and Payment methods: Display the selected method title in the box title
+* Checkout: Different URL for each step (for Adwords and Analitics), only if permalinks are active (Suggested in the community)
+* Brothers list: Multiple taxonomies, select which ones to use and the relation between them (AND or OR)
+* Brothers list: Sorting products improvements (Suggested in the community)
+* Custom fields: Improvements in the admin panel (Suggested in the community)
+* WPML support: slug (Suggested in the community)
+* BuddyPress support (Suggested in the community)
+* Login widget
+* Login, logout and registration improvements (+ TheCartPress Frontend plugin)
+* Price update: round prices
+* Stock: product out of stock if all options are out of stock
+* Custom fields: new File uploaded type
+* 100% WPML Integration: Payment and Shipping methods, Custom fields, etc.
+* New notice in Billing Box (in checkout)
+
+= 1.2.6 =
+* Translated: Product names translated in Shopping cart and checkout
+* Plugins: "If applicable, display only this method"
+* PayPal, new property: redirect automatically (Suggested in the community)
+* Stock: Hide Buy button if no stock (Suggested in the community)
+* Plugins, getNotice: plugins API update
+* TCPRemboursement, Transference update to support getNotice
+* Orders: Update to support getNotice
+* Shortcodes: tcp_navigation_tree shortcode
+* Users login/register panels
+* Theme Compatibility: Archives, Single and Taxonomy templates
+* Theme Compatibility (2): buy button position: South, North or Both.
+* FreeProducts: Payment method for free products
+* Theme Compatibility: add single and taxonomy templates
+* Order edit, Order email: Display status label
+* Authorize.net: Authorization and Capture, Authorization Only (Thanks to Douglas Bischoff)
+
+= 1.2.5.2 =
+* Stock management update
+* Address editor: bug fixed
+* "Under Construccion", "Maintance mode" mode
+* Downloadables products: bug fixed for unregisterd users
+* Product filter by type: bug fixed in back-end
+* class tcp-store in TheCartPress pages, taxonomy, archives or products pages
+
+= 1.2.5.1 =
+* File mising
+
+= 1.2.5 =
+* Low Stock email: Adding SKU
+* Checkout: Signin Box, allow to add/remove Guest or Login area
+* Styles: Some default css issues (Suggested in the community)
+* Checkout: Billing Box Ex (extended) some configuration issues (Suggested in the community)
+* Flate rate, shippig methods: Added a minimum amount (Suggested in the community)
+* Navigation Tree: Collapsable (Suggested in the community)
+* Stock: New stock management setting (thanks to the community)
+* Stock: Set stock -1 by default
+* Shortcodes: Order Panel (Suggested in the community)
+* Custom Styles: Allows to add CSS styles
+* Last Visited: Available for thecartpress no eCommerce (Suggested in the community)
+* Card off-line: Current month and year
+* CSS improvements: Less styles, better look
+* Less javascript, only when needed (Suggested in the community)
+* Thumbnails: Image for items with no thumbnail in back-end panels
+
+= 1.2.4 =
+* Use Weight: Configure all the eCommerce to use or not weight values
+* Checkout, See tax detail: Allows to display the tax detail in tax column: tax amount (Tax detail%)
+* Loop for twentyten based on themes improvements
+* Login/Profile template tag
+
+= 1.2.3 =
+* Ajax Chrome bug (thanks to the community)
+* Order eMail bug (thanks to the community)
+* Checkout setting: Send eMails to Merchant, when customers "click" in Purchase button
+
+= 1.2.2 =
+* Ajax Chrome bug (thanks to the community)
+* Merchant not administrator (thanks to the community)
+* Order email (thanks to the community)
+* Checkout Editor: Checkout Cart with more settigns
+* Support New European eCommerce law (Agoust, 2012)
+
+= 1.2.1 =
+* Shopping Cart template
+
+= 1.2.0 =
+* Ajax eCommerce
+* Drag&Drop eCommerce
+* Settings: New design, Self-commented
+* Loop Settings: Create different configuration for each Post Type
+* Theme Compatibility: New design
+* Theme Compatibility: Create different configuration for each Post Type
+* Loop Settings: Create different configuration for each Post Type
+* Cross Settings list widget
+* Initial Stock: New Product field
+* PayPal for non supported currencies. Manually conversion or using Google API (refresh every 6 hours)
+* Last login: Monitorizing last login. New template tag "tcp_the_last_login"
+* Login form: New version for tcp_login_form
+* Order email: New format
+* Initial quantity: New Product field, allows to configure the units to display next to Buy button
+* Checkout Cart box: New setting to display or not the tax column
+* Custom Field: help info
+
+= 1.1.9.2 =
+* Empty Shopping cart bug (thanks to the community)
+* Minor bugs
+
+= 1.1.9.1 =
+* Stock: not activated setting for hidden out of stock products (thanks to the community)
+* Stock: Sort products by stock, in the Back-end
+* Price: Sort products by price, in the Back-end
+* UI Improvements: Checkout editor, Countries selecion (payment and shipping methods, and settings)
+
+= 1.1.9 =
+* UI improvements: Product setup hides/displays fields depending the product type
+* Stock: fixed low stock mails issue and other minor bugs (thanks to the community)
+* Stock: setting for hidden out of stock products (thanks to the community)
+* Grouped: Image size and button to add to the cart fixed (thanks to the community)
+* Buy button: New filter to add more templates for the buy button. Useful for theme designers
+* Buy button: New Field in the Product Setup panel to set the buy button template to use
+* Buy button: New Setup panel to assign buy button template for Custom post type and product type
+* Languages: Portuguese translation (thanks to Ana)
+* Print Order template: customize your order prints and emails
+* Session: Session issue with other plugins
+* Dashboard, Sales chart: More options, Sales chart by month/day, by amount/n.orders
+
+= 1.1.8.1 =
 * minor bugs (thanks to the community)
 
 = 1.1.8 =
@@ -417,7 +618,7 @@ This plugin is released under a GPL license.
 * Settings: Position of Buy button (north, south)
 * First time setup
 * Address table: Company tax id in address table (plus custom id and company id) (Suggested in the community)
-* New loop_tcp_grid: more easyier yo use, no-dependent theme
+* New loop_tcp_grid: easyier to use, no-dependent theme
 * Credit card: store part of the credit card number (Suggested in the community)
 * New CSS styles
 
@@ -525,7 +726,3 @@ This plugin is released under a GPL license.
 = 1.0 =
 First public version.
 
-== Upgrade Notice ==
-
-= 1.0.1 =
-This version fixes, in the first version of ThecartPress E-commerce, some issues and enhances the funcionality.

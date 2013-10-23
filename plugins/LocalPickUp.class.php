@@ -16,6 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// Exit if accessed directly
+if ( !defined( 'ABSPATH' ) ) exit;
+
+if ( !class_exists( 'TCPLocalPickUp' ) ) {
+
 class TCPLocalPickUp extends TCP_Plugin {
 
 	function getTitle() {
@@ -26,10 +31,15 @@ class TCPLocalPickUp extends TCP_Plugin {
 		return 'Local pick-Up.<br>Author: <a href="http://thecartpress.com" target="_blank">TheCartPress team</a>';
 	}
 
-	function getCheckoutMethodLabel( $instance, $shippingCountry, $shoppingCart ) {
+	function getCheckoutMethodLabel( $instance, $shippingCountry = '', $shoppingCart = false ) {
 		$data = tcp_get_shipping_plugin_data( get_class( $this ), $instance );
-		$title = isset( $data['title'] ) ? $data['title'] : __( 'Local pick up', 'tcp' );
-		return $title;
+		if ( isset( $data['title'] ) ) {
+			//return tcp_string( 'TheCartPress', 'pay_TCPPayPal-title', $data['title'] );
+			return tcp_string( 'TheCartPress', apply_filters( 'tcp_plugin_data_get_option_translatable_key', 'shi_TCPLocalPickUp-title-' . $instance ), $data['title'] );
+		} else {
+			return __( 'Local pick up', 'tcp' );
+		}
+		//return tcp_string( 'TheCartPress', 'shi_TCPLocalPickUp-title', $title );
 	}
 }
-?>
+} // class_exists check

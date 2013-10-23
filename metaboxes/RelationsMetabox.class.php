@@ -20,7 +20,7 @@ require_once( TCP_DAOS_FOLDER . 'RelEntities.class.php' );
 
 class RelationsMetabox {
 	function register_metabox() {
-		$saleable_post_types = tcp_get_saleable_post_types();
+		$saleable_post_types = tcp_get_product_post_types();
 		if ( is_array( $saleable_post_types ) && count( $saleable_post_types ) )
 			foreach( $saleable_post_types as $post_type )
 				add_meta_box( 'tcp-product-assign', __( 'Related data', 'tcp' ), array( $this, 'show' ), $post_type, 'normal', 'high' );
@@ -43,7 +43,7 @@ class RelationsMetabox {
 <ul class="subsubsub">
 	<li><a href="<?php echo TCP_ADMIN_PATH;?>AssignedProductsList.php&post_id=<?php echo $post_id;?>&rel_type=GROUPED"><?php _e( 'Manage grouped products', 'tcp' );?><?php echo $count;?></a></li>
 	<li>|</li>
-	<li><a href="post-new.php?post_type=<?php echo TCP_PRODUCT_POST_TYPE;?>&tcp_product_parent_id=<?php echo $post_id;?>&rel_type=GROUPED"><?php _e( 'Create new grouped product', 'tcp' );?></a></li>
+	<li><a href="post-new.php?post_type=<?php echo get_post_type(); ?>&tcp_product_parent_id=<?php echo $post_id;?>&rel_type=GROUPED"><?php _e( 'Create new grouped product', 'tcp' );?></a></li>
 	<?php do_action( 'tcp_relations_metabox_grouped_toolbar', $post_id ); ?>
 </ul>
 <div class="form-wrap">
@@ -164,5 +164,4 @@ if ( is_array( $options ) && count( $options ) > 0 ) :
 	}
 }
 
-new RelationsMetabox();
-?>
+//new RelationsMetabox();

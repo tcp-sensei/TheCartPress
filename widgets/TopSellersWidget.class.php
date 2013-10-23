@@ -15,13 +15,18 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
+// Exit if accessed directly
+if ( !defined( 'ABSPATH' ) ) exit;
+
+if ( ! class_exists( 'TopSellersWidget' ) ) {
+
 require_once( TCP_WIDGETS_FOLDER . 'CustomListWidget.class.php' );
 
 class TopSellersWidget extends CustomListWidget {
 
 	function TopSellersWidget() {
-		parent::__construct( 'topsellers', __( 'Allow to display Top Sellers', 'tcp' ), 'TCP Top Sellers' );
+		parent::__construct( 'topsellers', __( 'Allow to display Top Sellers', 'tcp' ), 'TCP Best Sellers' );
 	}
 
 	function widget( $args, $instance ) {
@@ -29,12 +34,13 @@ class TopSellersWidget extends CustomListWidget {
 		global $wp_query;
 		$paged = isset( $wp_query->query_vars['paged'] ) ? $wp_query->query_vars['paged'] : 1;
 		$loop_args = array(
-			'post_type'			=> tcp_get_saleable_post_types(), //isset( $instance['post_type'] ) ? $instance['post_type'] : TCP_PRODUCT_POST_TYPE,
-			'posts_per_page'	=> isset( $instance['limit'] ) ? $instance['limit'] : -1,
-			'meta_key'			=> 'tcp_total_sales',
-			'orderby'			=> 'meta_value_num',
-			'order'				=> 'desc',
+			'post_type' => tcp_get_saleable_post_types(), //isset( $instance['post_type'] ) ? $instance['post_type'] : TCP_PRODUCT_POST_TYPE,
+			'posts_per_page' => isset( $instance['limit'] ) ? $instance['limit'] : -1,
+			'meta_key' => 'tcp_total_sales',
+			'orderby' => 'meta_value_num',
+			'order' => 'desc',
 		);
+		$instance['loop_args'] = $loop_args;
 		$see_pagination = isset( $instance['pagination'] ) ? $instance['pagination'] : false;
 		if ( $see_pagination ) {
 			$loop_args['paged'] = $paged;
@@ -42,12 +48,13 @@ class TopSellersWidget extends CustomListWidget {
 		$loop_args = apply_filters( 'tcp_top_sellers_widget', $loop_args, $instance );
 		$instance['order_type'] = '';
 		$instance['order_desc'] = '';
-		parent::widget( $args, $loop_args, $instance );
+		parent::widget( $args, $instance );
 	}
 
-	function form( $instance, $title = '' ) {
-		parent::form( $instance, __( 'Top Seller!s', 'tcp') );
+	function form( $instance ) {
+		if ( ! isset( $instance['title'] ) ) $instance['title'] = __( 'Top Seller!', 'tcp');
+		parent::form( $instance );
 		parent::show_post_type_form( $instance );
 	}
 }
-?>
+} // class_exists check

@@ -16,6 +16,11 @@
  * along with TheCartPress.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// Exit if accessed directly
+if ( !defined( 'ABSPATH' ) ) exit;
+
+if ( ! class_exists( 'CommentsCustomPostTypeWidget' ) ) {
+
 class CommentsCustomPostTypeWidget extends WP_Widget {
 
 	function CommentsCustomPostTypeWidget( ) {
@@ -100,3 +105,4 @@ class CommentsCustomPostTypeWidget extends WP_Widget {
 		</p><?php
 	}
 }
+} // class_exists check

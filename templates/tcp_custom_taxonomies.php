@@ -31,7 +31,7 @@ function tcp_get_custom_taxonomies( $post_type = '' ) {
 	} else {
 		$result = array();
 		foreach( $taxonomies as $id => $taxonomy ) {
-			if ( $taxonomy['post_type'] == $post_type) {
+			if ( ( is_array( $taxonomy['post_type'] ) && in_array( $post_type, $taxonomy['post_type'] ) ) || $taxonomy['post_type'] == $post_type ) {
 				$result[$id] = $taxonomy;
 			}
 		}
@@ -73,6 +73,16 @@ function tcp_update_custom_taxonomy( $taxonomy_id, $taxonomy_def ) {
 	$taxonomy_defs = tcp_get_custom_taxonomies();
 	$taxonomy_defs[$taxonomy_id] = $taxonomy_def;
 	tcp_set_custom_taxonomies( $taxonomy_defs );
+	tcp_register_string( 'TheCartPress', 'custom_tax_' . $taxonomy_def['post_type'] . '_' . $taxonomy_id . '-name', $taxonomy_def['name'] );
+	tcp_register_string( 'TheCartPress', 'custom_tax_' . $taxonomy_def['post_type'] . '_' . $taxonomy_id . '-singular_name', $taxonomy_def['singular_name'] );
+	tcp_register_string( 'TheCartPress', 'custom_tax_' . $taxonomy_def['post_type'] . '_' . $taxonomy_id . '-search_items', $taxonomy_def['search_items'] );
+	tcp_register_string( 'TheCartPress', 'custom_tax_' . $taxonomy_def['post_type'] . '_' . $taxonomy_id . '-all_items', $taxonomy_def['all_items'] );
+	tcp_register_string( 'TheCartPress', 'custom_tax_' . $taxonomy_def['post_type'] . '_' . $taxonomy_id . '-parent_item', $taxonomy_def['parent_item'] );
+	tcp_register_string( 'TheCartPress', 'custom_tax_' . $taxonomy_def['post_type'] . '_' . $taxonomy_id . '-parent_item_colon', $taxonomy_def['parent_item_colon'] );
+	tcp_register_string( 'TheCartPress', 'custom_tax_' . $taxonomy_def['post_type'] . '_' . $taxonomy_id . '-edit_item', $taxonomy_def['edit_item'] );
+	tcp_register_string( 'TheCartPress', 'custom_tax_' . $taxonomy_def['post_type'] . '_' . $taxonomy_id . '-update_item', $taxonomy_def['update_item'] );
+	tcp_register_string( 'TheCartPress', 'custom_tax_' . $taxonomy_def['post_type'] . '_' . $taxonomy_id . '-add_new_item', $taxonomy_def['add_new_item'] );
+	tcp_register_string( 'TheCartPress', 'custom_tax_' . $taxonomy_def['post_type'] . '_' . $taxonomy_id . '-new_item_name', $taxonomy_def['new_item_name'] );
 }
 
 /**
@@ -86,6 +96,16 @@ function tcp_delete_custom_taxonomy( $taxonomy_id ) {
 	foreach( $terms as $term )
 		wp_delete_term( $term, $taxonomy_id );
 	tcp_set_custom_taxonomies( $taxonomy_defs );
+	tcp_unregister_string( 'TheCartPress', 'custom_tax_' . $taxonomy_def['post_type'] . '_' . $taxonomy_id . '-name' );
+	tcp_unregister_string( 'TheCartPress', 'custom_tax_' . $taxonomy_def['post_type'] . '_' . $taxonomy_id . '-singular_name' );
+	tcp_unregister_string( 'TheCartPress', 'custom_tax_' . $taxonomy_def['post_type'] . '_' . $taxonomy_id . '-search_items' );
+	tcp_unregister_string( 'TheCartPress', 'custom_tax_' . $taxonomy_def['post_type'] . '_' . $taxonomy_id . '-all_items' );
+	tcp_unregister_string( 'TheCartPress', 'custom_tax_' . $taxonomy_def['post_type'] . '_' . $taxonomy_id . '-parent_item' );
+	tcp_unregister_string( 'TheCartPress', 'custom_tax_' . $taxonomy_def['post_type'] . '_' . $taxonomy_id . '-parent_item_colon' );
+	tcp_unregister_string( 'TheCartPress', 'custom_tax_' . $taxonomy_def['post_type'] . '_' . $taxonomy_id . '-edit_item' );
+	tcp_unregister_string( 'TheCartPress', 'custom_tax_' . $taxonomy_def['post_type'] . '_' . $taxonomy_id . '-update_item' );
+	tcp_unregister_string( 'TheCartPress', 'custom_tax_' . $taxonomy_def['post_type'] . '_' . $taxonomy_id . '-add_new_item' );
+	tcp_unregister_string( 'TheCartPress', 'custom_tax_' . $taxonomy_def['post_type'] . '_' . $taxonomy_id . '-new_item_name' );
 }
 
 /**
@@ -160,6 +180,16 @@ function tcp_update_custom_post_type( $post_type, $post_type_def ) {
 	$post_type_defs = tcp_get_custom_post_types();
 	$post_type_defs[$post_type] = $post_type_def;
 	tcp_set_custom_post_types( $post_type_defs );
+	tcp_register_string( 'TheCartPress', 'custom_post_type_' . $post_type . '_' . $post_type . '-name', $post_type_def['name'] );
+	tcp_register_string( 'TheCartPress', 'custom_post_type_' . $post_type . '_' . $post_type . '-singular_name', $post_type_def['singular_name'] );
+	tcp_register_string( 'TheCartPress', 'custom_post_type_' . $post_type . '_' . $post_type . '-add_new', $post_type_def['add_new'] );
+	tcp_register_string( 'TheCartPress', 'custom_post_type_' . $post_type . '_' . $post_type . '-add_new_item', $post_type_def['add_new_item'] );
+	tcp_register_string( 'TheCartPress', 'custom_post_type_' . $post_type . '_' . $post_type . '-edit_item', $post_type_def['edit_item'] );
+	tcp_register_string( 'TheCartPress', 'custom_post_type_' . $post_type . '_' . $post_type . '-new_item', $post_type_def['new_item'] );
+	tcp_register_string( 'TheCartPress', 'custom_post_type_' . $post_type . '_' . $post_type . '-view_item', $post_type_def['view_item'] );
+	tcp_register_string( 'TheCartPress', 'custom_post_type_' . $post_type . '_' . $post_type . '-search_items', $post_type_def['search_items'] );
+	tcp_register_string( 'TheCartPress', 'custom_post_type_' . $post_type . '_' . $post_type . '-not_found', $post_type_def['not_found'] );
+	tcp_register_string( 'TheCartPress', 'custom_post_type_' . $post_type . '_' . $post_type . '-not_found_in_trash', $post_type_def['not_found_in_trash'] );
 }
 
 /**
@@ -170,32 +200,46 @@ function tcp_delete_custom_post_type( $post_type ) {
 	$post_type_defs = tcp_get_custom_post_types();
 	unset( $post_type_defs[$post_type] );
 	tcp_set_custom_post_types( $post_type_defs );
+	tcp_unregister_string( 'TheCartPress', 'custom_post_type_' . $post_type . '_' . $post_type . '-name' );
+	tcp_unregister_string( 'TheCartPress', 'custom_post_type_' . $post_type . '_' . $post_type . '-singular_name' );
+	tcp_unregister_string( 'TheCartPress', 'custom_post_type_' . $post_type . '_' . $post_type . '-add_new' );
+	tcp_unregister_string( 'TheCartPress', 'custom_post_type_' . $post_type . '_' . $post_type . '-add_new_item' );
+	tcp_unregister_string( 'TheCartPress', 'custom_post_type_' . $post_type . '_' . $post_type . '-edit_item' );
+	tcp_unregister_string( 'TheCartPress', 'custom_post_type_' . $post_type . '_' . $post_type . '-new_item' );
+	tcp_unregister_string( 'TheCartPress', 'custom_post_type_' . $post_type . '_' . $post_type . '-view_item' );
+	tcp_unregister_string( 'TheCartPress', 'custom_post_type_' . $post_type . '_' . $post_type . '-search_items' );
+	tcp_unregister_string( 'TheCartPress', 'custom_post_type_' . $post_type . '_' . $post_type . '-not_found' );
+	tcp_unregister_string( 'TheCartPress', 'custom_post_type_' . $post_type . '_' . $post_type . '-not_found_in_trash' );
 }
 
 /**
  * Creates a custom post type definition
  * @param post_type_def is an array with the next keys:
- *		name				=> 'Post type Name'
- *		desc				=> string
- *		activate			=> true/false
- *		singular_name		=> 'Singular name'
- *		add_new				=> 'Add New'
- *		add_new_item		=> 'Add New'
- *		edit_item			=> 'Edit'
- *		new_item			=> 'Add New'
- *		view_item			=> 'View'
- *		search_items		=> 'Search'
- *		not_found			=> 'Not found'
- *		not_found_in_trash	=> 'Not found in Trash:'
- *		public				=> true/false
- *		show_ui				=> true/false
- *		show_in_menu		=> true/false
- *		can_export			=> true/false
- *		show_in_nav_menus	=> true/false
- *		supports			=> array( 'title', 'excerpt', 'editor', ... ),
- *		rewrite				=> string
- *		has_archive			=> string/false
- *		is_saleable			=> true/false
+ *		'name'				=> 'Post type Name',
+ *		'desc'				=> string,
+ *		'activate'			=> true/false,
+ *		'singular_name'		=> 'Singular name',
+ *		'add_new'			=> 'Add New',
+ *		'add_new_item'		=> 'Add New',
+ *		'edit_item'			=> 'Edit',
+ *		'new_item'			=> 'Add New',
+ *		'view_item'			=> 'View',
+ *		'search_items'		=> 'Search',
+ *		'not_found'			=> 'Not found',
+ *		'not_found_in_trash'=> 'Not found in Trash:',
+ *		'public'			=> true/false,
+ *		'show_ui'			=> true/false,
+ *		'publicly_queryable'=> true/false,
+ *		'exclude_from_search'=> true/false,
+ *		'show_in_menu'		=> true/false,
+ *		'can_export'		=> true/false,
+ *		'show_in_nav_menus'	=> true/false,
+ *		'query_var'			=> true/false,
+ *		'supports'			=> array( 'title', 'excerpt', 'editor', ... ),
+ *		'rewrite'			=> string,
+ *		'has_archive'		=> string/true/false,
+ *		'is_saleable'		=> true/false,
+ *		'menu_icon'			=> url
  * @since 1.1.7
  */
 function tcp_create_custom_post_type( $post_type, $post_type_def = array() ) {

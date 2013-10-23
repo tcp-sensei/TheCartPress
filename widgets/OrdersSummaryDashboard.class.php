@@ -20,8 +20,13 @@ require_once( TCP_DAOS_FOLDER . 'Orders.class.php' );
 
 class OrdersSummaryDashboard {
 
+	function __construct() {
+		if ( current_user_can( 'tcp_edit_orders' ) || current_user_can( 'tcp_edit_order' ) )
+			wp_add_dashboard_widget( 'tcp_orders_resume', __( 'Orders Summary', 'tcp' ), array( $this, 'show' ) );
+	}
+
 	function show() {
-		if ( current_user_can( 'manage_options' ) ) {
+		if ( current_user_can( 'tcp_edit_orders' ) ) {
 			$customer_id = -1;
 		} else {
 			global $current_user;
@@ -43,8 +48,7 @@ class OrdersSummaryDashboard {
 </div>
 <div class="table_last_orders">
 <h4><?php _e( 'Latest orders', 'tcp' ); ?></h4>
-	<?php
-	if ( current_user_can( 'tcp_edit_orders' ) ) {
+	<?php if ( current_user_can( 'tcp_edit_orders' ) ) {
 		$orders = Orders::getLastOrders( 5 );
 	} else {
 		$current_user = wp_get_current_user();
@@ -80,13 +84,10 @@ class OrdersSummaryDashboard {
 </div>
 <div class="tcp_dashboard_links">
 	<p><a class="tcp_link_to_tcp" href="http://thecartpress.com/" target="_blank" title="<?php _e( 'link to TheCartPress site', 'tcp'); ?>"><?php _e( 'Visit TheCartPress site', 'tcp'); ?></a>
-	| <a class="tcp_link_to_tcp" href="http://community.thecartpress.com/forums/" target="_blank" title="<?php _e( 'link to TheCartPress community', 'tcp'); ?>"><?php _e( 'Visit TheCartPress community', 'tcp'); ?></a></p>
+	| <a class="tcp_link_to_tcp" href="http://community.thecartpress.com/forums/" target="_blank" title="<?php _e( 'link to TheCartPress community', 'tcp'); ?>"><?php _e( 'Visit our community', 'tcp'); ?></a>
+	| <a class="tcp_link_to_tcp" href="http://extend.thecartpress.com/forums/" target="_blank" title="<?php _e( 'link to TheCartPress extend site', 'tcp'); ?>"><?php _e( 'Visit the Extend site', 'tcp'); ?></a></p>
 </div>
 	<?php }
-
-	function __construct() {
-		wp_add_dashboard_widget( 'tcp_orders_resume', __( 'Orders Summary', 'tcp' ), array( $this, 'show' ) );
-	}
 }
 
 new OrdersSummaryDashboard();

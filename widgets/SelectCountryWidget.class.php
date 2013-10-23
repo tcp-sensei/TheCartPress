@@ -30,6 +30,7 @@ class TCPSelectCountryWidget extends WP_Widget {
 	}
 
 	function widget( $args, $instance ) {
+		if ( tcp_is_the_checkout_page() ) return;
 		extract( $args );
 		$title = apply_filters( 'widget_title', isset( $instance['title'] ) ? $instance['title'] : ' ' );
 		echo $before_widget;

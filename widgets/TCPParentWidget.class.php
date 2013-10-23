@@ -16,6 +16,11 @@
  * along with TheCartPress.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// Exit if accessed directly
+if ( !defined( 'ABSPATH' ) ) exit;
+
+if ( ! class_exists( 'TCPParentWidget' ) ) {
+	
 class TCPParentWidget extends WP_Widget {
 	function TCPParentWidget( $name, $description, $title, $width = 300 ) {
 		$widget_settings = array(
@@ -45,29 +50,35 @@ class TCPParentWidget extends WP_Widget {
 				if ( ! $user_car ) return false;
 			}
 		}
+		if ( false && WP_DEBUG ) {
+			var_dump($args);
+			echo "\n\n<br><br>";
+			var_dump($instance);
+		}
 		return apply_filters( 'tcp_private_widget', true, $args, $instance );
 	}
 
 	function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
-		$instance['title']		= strip_tags( $new_instance['title'] );
-		$instance['private']	= $new_instance['private'] == 'yes';
-		if ( in_array( '', $new_instance['roles'] ) ) $instance['roles'] = array();
+		$instance['title'] = strip_tags( $new_instance['title'] );
+		$instance['private'] = isset( $new_instance['private'] ) ? $new_instance['private'] == 'yes' : false;
+		if ( ! isset( $new_instance['roles'] ) ) $instance['roles'] = array();
+		elseif ( in_array( '', $new_instance['roles'] ) ) $instance['roles'] = array();
 		else $instance['roles']	= $new_instance['roles'];
 		return apply_filters( 'tcp_parent_widget_update', $instance, $new_instance );
 	}
 
-	function form( $instance, $title = '' ) {
-		$title		= isset( $instance['title'] ) ? esc_attr( $instance['title'] ) : $title;
-		$private 	= isset( $instance['private'] ) ? $instance['private'] : false;
-		$roles		= isset( $instance['roles'] ) ? $instance['roles'] : array(); ?>
+	function form( $instance ) {
+		$title = isset( $instance['title'] ) ? esc_attr( $instance['title'] ) : $title;
+		$private = isset( $instance['private'] ) ? $instance['private'] : false;
+		$roles = isset( $instance['roles'] ) ? $instance['roles'] : array(); ?>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title', 'tcp' )?>:</label>
+			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title', 'tcp' ); ?>:</label>
 			<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo $title; ?>" />
 		</p>
 		<p>
 			<input type="checkbox" class="checkbox" id="<?php echo $this->get_field_id( 'private' ); ?>" name="<?php echo $this->get_field_name( 'private' ); ?>" value="yes" <?php checked( $private ); ?> />
-			<label for="<?php echo $this->get_field_id( 'see_title' ); ?>"><?php _e( 'Private', 'tcp' ); ?></label>
+			<label for="<?php echo $this->get_field_id( 'private' ); ?>"><?php _e( 'Private', 'tcp' ); ?></label>
 		</p>
 		<p>
 			<label for="<?php echo $this->get_field_id( 'roles' ); ?>"><?php _e( 'Roles', 'tcp' ); ?>:</label>
@@ -84,4 +95,4 @@ class TCPParentWidget extends WP_Widget {
 		<?php do_action( 'tcp_parent_widget_form', $this );
 	}
 }
-?>
+} // class_exists check

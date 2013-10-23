@@ -39,27 +39,62 @@ function tcp_do_template_excerpt( $template_class, $echo = true ) {
 
 function tcp_do_template( $template_class, $echo = true, $excerpt = false ) {
 	$args = array(
-		'post_type'			=> TemplateCustomPostType::$TEMPLATE,
-		'posts_per_page'	=> -1,
-		'suppress_filters'	=> true,
-		'meta_query'		=> array(
+		'post_type' => TemplateCustomPostType::$TEMPLATE,
+		'posts_per_page' => -1,
+		//'suppress_filters' => false,
+		'meta_query' => array(
 			array(
-				'key'			=> 'tcp_template_class',
-				'value'			=> $template_class,
-				'compare	'	=> '='
+				'key' => 'tcp_template_class',
+				'value' => $template_class,
+				'compare' => '='
 			)
-		)
+		),
+		'fields' => 'ids',
 	);
 	$posts = get_posts( $args );
 	$html = '';
 	remove_filter( 'get_the_excerpt', 'twentyeleven_custom_excerpt_more' );
-	foreach( $posts as $post ) {
-		if ( $excerpt ) $html .= apply_filters( 'the_excerpt', $post->post_excerpt ); //get_the_excerpt();
-		else $html .= apply_filters( 'the_content', $post->post_content );
+	foreach( $posts as $post_id ) {
+		$post_id = tcp_get_current_id( $post_id );
+		$post = get_post( $post_id );
+		if ( $excerpt ) {
+			//$html .= apply_filters( 'the_excerpt', tcp_get_the_excerpt( $post_id ) ); //$post->post_excerpt
+			if ( strlen( $post->post_excerpt ) > 0 ) {
+				$html .= apply_filters( 'the_excerpt', $post->post_excerpt );
+			} else {
+				$html .= apply_filters( 'the_content', $post->post_content );
+			}
+		} else {
+			//$html .= apply_filters( 'the_content', tcp_get_the_content( $post_id ) ); //$post->post_content );
+			$html .= apply_filters( 'the_content', $post->post_content );
+		}
 	}
-	if ( $echo )
-		echo $html;
-	else
-		return $html;
+	if ( $echo ) echo $html;
+	else return $html;
+}
+
+/**
+ * Returns the first post id of the associated template
+ * @since 1.3.0
+ */
+function tcp_template_get_post_id( $template_class ) {
+	$args = array(
+		'post_type' => TemplateCustomPostType::$TEMPLATE,
+		'posts_per_page' => -1,
+		//'suppress_filters' => false,
+		'meta_query' => array(
+			array(
+				'key' => 'tcp_template_class',
+				'value' => $template_class,
+				'compare' => '='
+			)
+		),
+		'fields' => 'ids',
+	);
+	$posts = get_posts( $args );
+	if ( is_array( $posts ) && count( $posts ) > 0 ) {
+		return $posts[0];
+	}
+	return false;
 }
 ?>

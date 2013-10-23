@@ -17,7 +17,9 @@
  */
 
 class TCPArchivesWidget extends WP_Widget {
-	private $post_type = 'posts';
+
+	private $post_type	= 'posts';
+	private $type		= 'monthly';
 
 	function TCPArchivesWidget() {
 		$widget = array(
@@ -37,18 +39,19 @@ class TCPArchivesWidget extends WP_Widget {
 		$post_type	= isset( $instance['post_type'] ) ? $instance['post_type'] : TCP_PRODUCT_POST_TYPE;
 		$count		= $instance['count'] ? '1' : '0';
 		$dropdown	= $instance['dropdown'] ? '1' : '0';
-		$title		= apply_filters('widget_title', empty($instance['title']) ? __('Archives') : $instance['title'], $instance, $this->id_base);
+		$title		= apply_filters( 'widget_title', empty( $instance['title'] ) ? __( 'Archives' ) : $instance['title'], $instance, $this->id_base );
 
 		echo $before_widget;
 		if ( $title ) echo $before_title . $title . $after_title;
-		add_filter( 'getarchives_join', array( $this, 'getarchives_join' ), 99, 2 );
-		add_filter( 'getarchives_where', array( $this, 'getarchives_where' ), 99, 2 );
+		add_filter( 'getarchives_join', array( &$this, 'getarchives_join' ), 99, 2 );
+		add_filter( 'getarchives_where', array( &$this, 'getarchives_where' ), 99, 2 );
 		if ( $post_type != 'post' ) {
 			$this->post_type = $post_type;
 			$this->type = $type;
-			add_filter( 'home_url', array( $this, 'home_url' ), 99, 4 );
+			add_filter( 'home_url', array( &$this, 'home_url' ), 99, 4 );
 		}
 		if ( $dropdown ) : ?>
+
 		<select name="archive-dropdown" onchange='document.location.href=this.options[this.selectedIndex].value;'>
 			<option value="">
 			<?php if ( $type == 'monthly' ) {
@@ -72,7 +75,9 @@ class TCPArchivesWidget extends WP_Widget {
 			);
 			wp_get_archives( apply_filters( 'widget_archives_dropdown_args', $args ) );?>
 		</select>
+
 		<?php else : ?>
+
 		<ul>
 		<?php
 		$args = array(
@@ -82,6 +87,7 @@ class TCPArchivesWidget extends WP_Widget {
 		);
 		wp_get_archives( apply_filters( 'widget_archives_args', $args ) );?>
 		</ul>
+
 		<?php endif;
 		echo $after_widget;
 		if ( $post_type != 'post' ) {
@@ -145,8 +151,8 @@ class TCPArchivesWidget extends WP_Widget {
 		<p>
 			<label for="<?php echo $this->get_field_id( 'post_type' ); ?>"><?php _e( 'Post type', 'tcp' )?>:</label>
 			<select name="<?php echo $this->get_field_name( 'post_type' ); ?>" id="<?php echo $this->get_field_id( 'post_type' ); ?>" class="widefat">
-			<?php foreach( get_post_types( array( 'show_in_nav_menus' => true ), object ) as $post_type ) : ?>
-				<option value="<?php echo $post_type->name;?>"<?php selected( $type, $post_type->name ); ?>><?php echo $post_type->labels->name;?></option>
+			<?php foreach( get_post_types( array( 'show_in_nav_menus' => true ), object ) as $post_type_def ) : ?>
+				<option value="<?php echo $post_type_def->name;?>" <?php selected( $post_type, $post_type_def->name ); ?>><?php echo $post_type_def->labels->name;?></option>
 			<?php endforeach;?>
 			</select>
 		</p><p>		
@@ -166,4 +172,4 @@ class TCPArchivesWidget extends WP_Widget {
 		<?php
 	}
 }
-
+?>

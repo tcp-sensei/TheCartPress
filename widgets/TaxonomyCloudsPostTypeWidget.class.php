@@ -67,7 +67,7 @@ class TaxonomyCloudsPostTypeWidget extends TCPParentWidget {
 	}
 
 	function form( $instance ) {
-		$instance = parent::form( $instance, __( 'Navigation clouds', 'tcp') );
+		parent::form( $instance, __( 'Navigation clouds', 'tcp') );
 		$defaults = array(
 			'min_size'		=> 8,
 			'max_size'		=> 22,
@@ -93,7 +93,7 @@ class TaxonomyCloudsPostTypeWidget extends TCPParentWidget {
 		</p><p>
 			<label for="<?php echo $this->get_field_id( 'taxonomy' ); ?>"><?php _e( 'Taxonomy', 'tcp' )?>:</label>
 			<select name="<?php echo $this->get_field_name( 'taxonomy' ); ?>" id="<?php echo $this->get_field_id( 'taxonomy' ); ?>" class="widefat">
-			<?php foreach(get_object_taxonomies( $instance['post_type'] ) as $taxonomy): $tax = get_taxonomy( $taxonomy ); ?>
+			<?php foreach( get_object_taxonomies( $instance['post_type'] ) as $taxonomy ) : $tax = get_taxonomy( $taxonomy ); ?>
 				<option value="<?php echo esc_attr( $taxonomy );?>"<?php selected( $instance['taxonomy'], $taxonomy ); ?>><?php echo $tax->labels->name;?></option>
 			<?php endforeach; ?>
 			</select>
