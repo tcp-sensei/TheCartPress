@@ -873,6 +873,7 @@ class TheCartPress {
 		else wp_publish_post( (int)$page_id );
 
 		ProductCustomPostType::create_default_custom_post_type_and_taxonomies();
+		$this->load_custom_post_types_and_custom_taxonomies();
 		//initial shipping and payment method
 		add_option( 'tcp_plugins_data_shi_FreeTrans', array(
 			array(
