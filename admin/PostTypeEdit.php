@@ -31,7 +31,8 @@ if ( !function_exists( 'ad_selected_multiple' ) ) {
 $post_type = isset( $_REQUEST['post_type'] ) ? $_REQUEST['post_type'] : '';
 
 if ( isset( $_REQUEST['save_post_type'] ) ) {
-	$post_type = str_replace( ' ' , '_', $post_type );
+	//$post_type = str_replace( ' ' , '_', $post_type );
+	$post_type = sanitize_key( $post_type );
 	$post_type_def = array(
 		'name'				=> isset( $_REQUEST['name'] ) ? $_REQUEST['name'] : __( 'Post type Name', 'tcp' ),
 		'desc'				=> isset( $_REQUEST['desc'] ) ? $_REQUEST['desc'] : '',
@@ -48,10 +49,14 @@ if ( isset( $_REQUEST['save_post_type'] ) ) {
 //		'parent_item_colon'	=> isset( $_REQUEST['parent_item_colon'] ) ? $_REQUEST['parent_item_colon'] : __( 'Parent Category:', 'tcp' ),
 		'public'			=> isset( $_REQUEST['public'] ),
 		'show_ui'			=> isset( $_REQUEST['show_ui'] ),
+		'publicly_queryable'=> isset( $_REQUEST['publicly_queryable'] ),
+		'exclude_from_search'=> isset( $_REQUEST['exclude_from_search'] ),
 		'show_in_menu'		=> isset( $_REQUEST['show_in_menu'] ),
+		'show_in_admin_bar'	=> isset( $_REQUEST['show_in_admin_bar'] ),
+		'menu_position'		=> isset( $_REQUEST['menu_position'] ),
 		'can_export'		=> isset( $_REQUEST['can_export'] ),
 		'show_in_nav_menus'	=> isset( $_REQUEST['show_in_nav_menus'] ),
-//		'hierarchical'		=>
+		'hierarchical'		=> isset( $_REQUEST['hierarchical'] ),
 //		'capability_type'	=> 'post',
 		'query_var'			=> isset( $_REQUEST['query_var'] ),
 		'supports'			=> isset( $_REQUEST['supports'] ) ? $_REQUEST['supports'] : array( 'title', 'excerpt', 'editor', ),
@@ -86,9 +91,14 @@ if ( isset( $_REQUEST['save_post_type'] ) ) {
 //		$parent_item_colon	= isset( $post_type_def['parent_item_colon'] ) ? $post_type_def['parent_item_colon'] : __( 'Parent Category:', 'tcp' );
 		$public				= isset( $post_type_def['public'] ) ? $post_type_def['public'] : false;
 		$show_ui			= isset( $post_type_def['show_ui'] ) ? $post_type_def['show_ui'] : false;
+		$publicly_queryable = isset( $post_type_def['publicly_queryable'] ) ? $post_type_def['publicly_queryable'] : false;
+		$exclude_from_search= isset( $post_type_def['exclude_from_search'] ) ? $post_type_def['exclude_from_search'] : false;
 		$show_in_menu		= isset( $post_type_def['show_in_menu'] ) ? $post_type_def['show_in_menu'] : false;
+		$show_in_admin_bar	= isset( $post_type_def['show_in_admin_bar'] ) ? $post_type_def['show_in_admin_bar'] : false;
+		$menu_position		= isset( $post_type_def['menu_position'] ) ? $post_type_def['menu_position'] : false;
 		$can_export			= isset( $post_type_def['can_export'] ) ? $post_type_def['can_export'] : false;
 		$show_in_nav_menus	= isset( $post_type_def['show_in_nav_menus'] ) ? $post_type_def['show_in_nav_menus'] : false;
+		$hierarchical		= isset( $post_type_def['hierarchical'] ) ? $post_type_def['hierarchical'] : false;
 //		$capability_type'	= 'post',
 		$query_var			= isset( $post_type_def['query_var'] ) ? $post_type_def['query_var'] : false;
 		$supports			= isset( $post_type_def['supports'] ) ? $post_type_def['supports'] : array( 'title', 'editor', );
@@ -115,9 +125,14 @@ if ( ! isset( $post_type_def ) ) {
 //	$parent_item_colon	= isset( $_REQUEST['parent_item_colon'] ) ? $_REQUEST['parent_item_colon'] : __( 'Parent Category:', 'tcp' );
 	$public				= isset( $_REQUEST['public'] );
 	$show_ui			= isset( $_REQUEST['show_ui'] );
+	$publicly_queryable	= isset( $_REQUEST['publicly_queryable'] );
+	$exclude_from_search = isset( $_REQUEST['exclude_from_search'] );
 	$show_in_menu		= isset( $_REQUEST['show_in_menu'] );
+	$show_in_admin_bar	= isset( $_REQUEST['show_in_admin_bar'] );
+	$menu_position		= isset( $_REQUEST['menu_position'] );
 	$can_export			= isset( $_REQUEST['can_export'] );
 	$show_in_nav_menus	= isset( $_REQUEST['show_in_nav_menus'] );
+	$hierarchical		= isset( $_REQUEST['hierarchical'] );
 //	$capability_type'	= 'post',
 	$query_var			= isset( $_REQUEST['query_var'] );
 	$supports			= isset( $_REQUEST['supports'] ) ? $_REQUEST['supports'] : array( 'title', 'excerpt', 'editor', );
@@ -128,7 +143,7 @@ if ( ! isset( $post_type_def ) ) {
 }
 ?>
 <div class="wrap">
-<h2><?php _e( 'Post type', 'tcp' );?></h2>
+<?php screen_icon( 'tcp-post-type-editor' ); ?><h2><?php _e( 'Post type', 'tcp' );?></h2>
 <ul class="subsubsub">
 	<li><a href="<?php echo TCP_ADMIN_PATH; ?>PostTypeList.php"><?php _e( 'Return to the list', 'tcp' );?></a></li>
 </ul>
@@ -138,15 +153,16 @@ if ( ! isset( $post_type_def ) ) {
 	<?php if ( strlen( $post_type ) > 0 ) : ?>
 	<input type="hidden" name="edit" value="yes" />
 	<?php endif; ?>
-
+	<div class="postbox">
 	<table class="form-table">
+	<tbody>
 	<tr valign="top">
 		<th scope="row">
 			<label for="name"><?php _e( 'Post type name', 'tcp' );?>:<span class="compulsory">(*)</span></label>
 		</th>
 		<td>
 			<input type="text" id="name" name="name" value="<?php echo $name;?>" size="20" maxlength="50" />
-			<?php //tcp_show_error_msg( $error_taxo, 'name' );?>
+			<p class="description"><?php _e( 'General name for the post type, usually plural.', 'tcp' ); ?></p>
 		</td>
 	</tr>
 	<tr valign="top">
@@ -157,7 +173,10 @@ if ( ! isset( $post_type_def ) ) {
 		<td>
 			<input type="text" id="post_type" name="post_type" value="<?php echo $post_type;?>" size="20" maxlength="50"
 			<?php if ( strlen( $post_type ) > 0 ) : ?> readonly="true" <?php endif; ?>
-			 />
+			/>
+			<?php if ( strlen( $post_type ) == 0 ) : ?>
+	 			<p class="description"><?php _e( 'While it\'s convenient to name your custom post type a simple name like "product" which is consistent with the core post types "post", "page", "revision", "attachment" and "nav_menu_item", it is better if you prefix your name with a short "namespace" that identifies your plugin, theme or website that implements the custom post type.', 'tcp' ); ?></p>
+ 			<?php endif; ?>
 		</td>
 	</tr>
 	<tr valign="top">
@@ -176,12 +195,21 @@ if ( ! isset( $post_type_def ) ) {
 			<textarea id="desc" name="desc" cols="40" rows="4"><?php echo $desc;?></textarea>
 		</td>
 	</tr>
+	</tbody>
+	</table>
+	</div><!-- .postbox -->
+
+	<h3><?php _e( 'Labels', 'tcp' ); ?></h3>
+	<div class="postbox">
+	<table class="form-table">
+	<tbody>
 	<tr valign="top">
 		<th scope="row">
 			<label for="singular_name"><?php _e( 'Singular name', 'tcp' );?>:</label>
 		</th>
 		<td>
 			<input type="text" id="singular_name" name="singular_name" value="<?php echo $singular_name;?>" size="20" maxlength="50" />
+			<span class="description"><?php _e( 'Name for one object of this post type', 'tcp' ); ?></span>
 		</td>
 	</tr>
 	<tr valign="top">
@@ -248,13 +276,25 @@ if ( ! isset( $post_type_def ) ) {
 			<input type="text" id="not_found_in_trash" name="not_found_in_trash" value="<?php echo $not_found_in_trash;?>" size="20" maxlength="50" />
 		</td>
 	</tr>
+	</tbody>
+	</table>
+	</div><!-- .postbox -->
 
+	<p class="submit">
+		<input type="submit" name="save_post_type" id="save_post_type" value="<?php _e( 'Save' , 'tcp' );?>" class="button-primary" />
+	</p>
+
+	<h3><?php _e( 'Properties', 'tcp' ); ?></h3>
+	<div class="postbox">
+	<table class="form-table">
+	<tbody>
 	<tr valign="top">
 		<th scope="row">
 			<label for="public"><?php _e( 'Public', 'tcp' );?>:</label>
 		</th>
 		<td>
 			<input type="checkbox" id="public" name="public" value="y" <?php checked( $public );?> />
+			<span class="description"><?php _e( 'Whether a post type is intended to be used publicly either via the admin interface or by front-end users.', 'tcp' ); ?></span>
 		</td>
 	</tr>
 	<tr valign="top">
@@ -263,6 +303,25 @@ if ( ! isset( $post_type_def ) ) {
 		</th>
 		<td>
 			<input type="checkbox" id="show_ui" name="show_ui" value="y" <?php checked( $show_ui );?> />
+			<span class="description"><?php _e( 'Whether to generate a default UI for managing this post type in the admin.', 'tcp' ); ?></span>
+		</td>
+	</tr>
+	<tr valign="top">
+		<th scope="row">
+			<label for="publicly_queryable"><?php _e( 'Publicly queryable', 'tcp' );?>:</label>
+		</th>
+		<td>
+			<input type="checkbox" id="publicly_queryable" name="publicly_queryable" value="y" <?php checked( $publicly_queryable );?> />
+			<span class="description"><?php _e( 'Whether queries can be performed on the front end as part of parse_request().', 'tcp' ); ?></span>
+		</td>
+	</tr>
+	<tr valign="top">
+		<th scope="row">
+			<label for="exclude_from_search"><?php _e( 'Exclude from search', 'tcp' );?>:</label>
+		</th>
+		<td>
+			<input type="checkbox" id="exclude_from_search" name="exclude_from_search" value="y" <?php checked( $exclude_from_search );?> />
+			<span class="description"><?php _e( 'Whether to exclude posts with this post type from front end search results.', 'tcp' ); ?></span>
 		</td>
 	</tr>
 	<tr valign="top">
@@ -271,6 +330,38 @@ if ( ! isset( $post_type_def ) ) {
 		</th>
 		<td>
 			<input type="checkbox" id="show_in_menu" name="show_in_menu" value="y" <?php checked( $show_in_menu );?> />
+			<span class="description"><?php _e( 'Where to show the post type in the admin menu. "Show UI" must be true.', 'tcp' ); ?></span>
+		</td>
+	</tr>
+
+	<tr valign="top">
+		<th scope="row">
+			<label for="show_in_admin_bar"><?php _e( 'Show in Admin Bar', 'tcp' );?>:</label>
+		</th>
+		<td>
+			<input type="checkbox" id="show_in_admin_bar" name="show_in_admin_bar" value="y" <?php checked( $show_in_admin_bar );?> />
+			<span class="description"><?php _e( 'Whether to make this post type available in the WordPress admin bar.', 'tcp' ); ?></span>
+		</td>
+	</tr>
+	<tr valign="top">
+		<th scope="row">
+			<label for="menu_position"><?php _e( 'Menu Position', 'tcp' );?>:</label>
+		</th>
+		<td>
+			<select id="menu_position" name="menu_position">
+				<option value="5"  <?php selected(  '5', $menu_position ); ?>><?php _e( 'Below Posts', 'tcp' ); ?></option>
+				<option value="10" <?php selected( '10', $menu_position ); ?>><?php _e( 'Below Media', 'tcp' ); ?></option>
+				<option value="15" <?php selected( '15', $menu_position ); ?>><?php _e( 'Below Links', 'tcp' ); ?></option>
+				<option value="20" <?php selected( '20', $menu_position ); ?>><?php _e( 'Below Pages', 'tcp' ); ?></option>
+				<option value="25" <?php selected( '25', $menu_position ); ?>><?php _e( 'Below Comments', 'tcp' ); ?></option>
+				<option value="60" <?php selected( '60', $menu_position ); ?>><?php _e( 'Below First Separator', 'tcp' ); ?></option>
+				<option value="65" <?php selected( '65', $menu_position ); ?>><?php _e( 'Below Plugins', 'tcp' ); ?></option>
+				<option value="70" <?php selected( '70', $menu_position ); ?>><?php _e( 'Below Users', 'tcp' ); ?></option>
+				<option value="75" <?php selected( '75', $menu_position ); ?>><?php _e( 'Below Tools', 'tcp' ); ?></option>
+				<option value="80" <?php selected( '80', $menu_position ); ?>><?php _e( 'Below Settings', 'tcp' ); ?></option>
+				<option value="100" <?php selected( '100', $menu_position ); ?>><?php _e( 'Below Second Separator', 'tcp' ); ?></option>				
+			</select>
+			<p class="description"><?php _e( 'The position in the menu order the post type should appear. "Show in menu" must be true.', 'tcp' ); ?></p>
 		</td>
 	</tr>
 	<tr valign="top">
@@ -288,8 +379,19 @@ if ( ! isset( $post_type_def ) ) {
 		</th>
 		<td>
 			<input type="checkbox" id="show_in_nav_menus" name="show_in_nav_menus" value="y" <?php checked( $show_in_nav_menus );?> />
+			<span class="description"><?php _e( 'Whether post_type is available for selection in navigation menus.', 'tcp' ); ?></span>
 		</td>
 	</tr>
+
+	<tr valign="top">
+		<th scope="row">
+			<label for="hierarchical"><?php _e( 'Hierarchical', 'tcp' );?>:</label>
+		</th>
+		<td>
+			<input type="checkbox" id="hierarchical" name="hierarchical" value="y" <?php checked( $hierarchical );?> />
+		</td>
+	</tr>
+
 	<tr valign="top">
 		<th scope="row">
 			<label for="query_var"><?php _e( 'Query var', 'tcp' );?>:</label>
@@ -298,6 +400,7 @@ if ( ! isset( $post_type_def ) ) {
 			<input type="checkbox" id="query_var" name="query_var" value="yes" <?php checked( $query_var != false );?> />
 		</td>
 	</tr>
+
 	<tr valign="top">
 		<th scope="row">
 			<label for="supports"><?php _e( 'Support', 'tcp' );?>:</label>
@@ -317,6 +420,7 @@ if ( ! isset( $post_type_def ) ) {
 			</select>
 		</td>
 	</tr>
+
 	<tr valign="top">
 		<th scope="row">
 			<label for="rewrite"><?php _e( 'Rewrite', 'tcp' );?>:</label>
@@ -325,6 +429,7 @@ if ( ! isset( $post_type_def ) ) {
 			<input type="text" id="rewrite" name="rewrite" value="<?php echo $rewrite;?>" size="20" maxlength="50" />
 		</td>
 	</tr>
+
 	<tr valign="top">
 		<th scope="row">
 			<label for="has_archive"><?php _e( 'Has archive', 'tcp' );?>:</label>
@@ -348,6 +453,7 @@ if ( ! isset( $post_type_def ) ) {
 	</tr>
 	<?php endif; ?>
 	</table>
+	</div><!-- .postbox -->
 
 	<p class="submit">
 		<input type="submit" name="save_post_type" id="save_post_type" value="<?php _e( 'Save' , 'tcp' );?>" class="button-primary" />

@@ -71,7 +71,7 @@ if ( isset( $_REQUEST['order_id'] ) ) {
 		$thecartpress_path = dirname( dirname( dirname( __FILE__ ) ) ) . '/';
 		require_once( $thecartpress_path . 'daos/Orders.class.php');
 		Orders::editStatus( $order_id, $cancelled_status );
-		header( 'Location: ' . add_query_arg( 'tcp_checkout', 'ko', tcp_get_the_checkout_url() ) );
+		header( 'Location: ' . add_query_arg( 'order_id', $order_id, tcp_get_the_checkout_ko_url() ) );
 		exit;
 	}
 }

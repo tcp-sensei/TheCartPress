@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-require_once( TCP_ADMIN_FOLDER . 'AddressesList.class.php' );
+require_once( TCP_ADMIN_FOLDER . 'AddressesListTable.class.php' );
 $addressesList = new TCPAddressesList();
 $addressesList->show();
 ?>

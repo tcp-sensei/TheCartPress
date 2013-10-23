@@ -21,24 +21,24 @@ class OrdersDetails {
 	static function createTable() {
 		global $wpdb;
 		$sql = 'CREATE TABLE IF NOT EXISTS `' . $wpdb->prefix . 'tcp_orders_details` (
-		  `order_detail_id`		bigint(20) unsigned NOT NULL auto_increment,
-		  `order_id`			bigint(20) unsigned NOT NULL,
-		  `post_id`				bigint(20) unsigned NOT NULL,
-		  `option_1_id`			bigint(20) unsigned NOT NULL,
-		  `option_2_id`			bigint(20) unsigned NOT NULL,
-		  `weight`				int(11) unsigned	NOT NULL default 0,
-		  `is_downloadable`		char(1)				NOT NULL COMMENT \'Y->yes\',
-		  `sku`					varchar(50)			NOT NULL,
-		  `name`				varchar(255)		NOT NULL,
-		  `option_1_name`		varchar(255)		NOT NULL,
-  		  `option_2_name`		varchar(255)		NOT NULL,
-		  `price`				decimal(13,2)		NOT NULL default 0,
-		  `original_price`		decimal(13,2)		NOT NULL default 0,
-		  `tax`					double				NOT NULL default 0,
-		  `qty_ordered`			int(11) unsigned	NOT NULL default 0,
-		  `max_downloads`		int(4)				NOT NULL default 10,
-		  `expires_at`			date				NOT NULL,
-		  PRIMARY KEY  (`order_detail_id`)
+			`order_detail_id`	bigint(20) unsigned NOT NULL auto_increment,
+			`order_id`			bigint(20) unsigned NOT NULL,
+			`post_id`			bigint(20) unsigned NOT NULL,
+			`option_1_id`		bigint(20) unsigned NOT NULL,
+			`option_2_id`		bigint(20) unsigned NOT NULL,
+			`weight`			double				NOT NULL default 0,
+			`is_downloadable`	char(1)				NOT NULL COMMENT \'Y->yes\',
+			`sku`				varchar(50)			NOT NULL,
+			`name`				varchar(255)		NOT NULL,
+			`option_1_name`		varchar(255)		NOT NULL,
+			`option_2_name`		varchar(255)		NOT NULL,
+			`price`				decimal(13,2)		NOT NULL default 0,
+			`original_price`	decimal(13,2)		NOT NULL default 0,
+			`tax`				double				NOT NULL default 0,
+			`qty_ordered`		int(11) unsigned	NOT NULL default 0,
+			`max_downloads`		int(4)				NOT NULL default 10,
+			`expires_at`		date				NOT NULL,
+			PRIMARY KEY  (`order_detail_id`)
 		) ENGINE=MyISAM DEFAULT CHARSET=utf8;';
 		$wpdb->query( $sql );
 	}
@@ -55,7 +55,7 @@ class OrdersDetails {
 		return $wpdb->get_results( $sql );
 	}
 
-	static function getTotal( $order_id, $total = 0) {
+	static function getTotal( $order_id, $total = 0 ) {
 		$decimals = tcp_get_decimal_currency();
 		global $wpdb;
 		$res =  $wpdb->get_results( $wpdb->prepare( 'select order_detail_id, price, tax, qty_ordered from ' . $wpdb->prefix . 'tcp_orders_details where order_id = %d', $order_id ) );
@@ -63,12 +63,48 @@ class OrdersDetails {
 			if ( $row->tax == 0 ) {
 				$total += $row->price * $row->qty_ordered;
 			} else {
-				$t = $row->price * $row->tax / 100;
-				$t = ( $row->price + round( $t, $decimals ) ) * $row->qty_ordered;
-				$total += $t;
+				//$t = $row->price * $row->tax / 100;
+				////$t = ( $row->price + round( $t, $decimals ) ) * $row->qty_ordered;
+				//$t = ( $row->price + $t ) * $row->qty_ordered;
+				//$total += $t;
+				$tax = round( $row->price * $row->tax / 100, $decimals );
+				$total += ( $row->price + $tax ) * $row->qty_ordered;
 			}
 		}
-		return $total;
+		return round( $total, $decimals );
+	}
+
+	/**
+	 * Returns the total weight of an order
+	 *
+	 * @param $order_id
+	 * @param $weight, initial weight
+	 * @since 1.3.2
+	 */
+	static function getTotalWeight( $order_id, $weight = 0 ) {
+		global $wpdb;
+		$res =  $wpdb->get_results( $wpdb->prepare( 'select weight, qty_ordered from ' . $wpdb->prefix . 'tcp_orders_details where order_id = %d', $order_id ) );
+		foreach( $res as $row ) {
+			$weight += $row->weight * $row->qty_ordered;
+		}
+		return $weight;
+	}
+
+	static function getTotalDetailed( $order_id ) {
+		$detailed = array(
+			'amount'	=> 0,
+			'tax'		=>0,
+		);
+		$decimals = tcp_get_decimal_currency();
+		global $wpdb;
+		$res =  $wpdb->get_results( $wpdb->prepare( 'select order_detail_id, price, tax, qty_ordered from ' . $wpdb->prefix . 'tcp_orders_details where order_id = %d', $order_id ) );
+		foreach( $res as $row ) {
+			$detailed['amount'] += $row->price * $row->qty_ordered;
+			if ( $row->tax > 0 ) {
+				$detailed['tax'] += $detailed['amount'] * $row->tax / 100;
+			}
+		}
+		return $detailed;
 	}
 
 	static function insert( $ordersDetails ) {
@@ -91,7 +127,7 @@ class OrdersDetails {
 				'max_downloads'		=> $ordersDetails['max_downloads'],
 				'expires_at'		=> $ordersDetails['expires_at'],
 			),
-			array( '%d', '%d', '%d', '%d', '%d', '%s', '%s', '%s', '%s', '%s', '%f', '%f', '%f', '%d', '%d', '%s' )
+			array( '%d', '%d', '%d', '%d', '%f', '%s', '%s', '%s', '%s', '%s', '%f', '%f', '%f', '%d', '%d', '%s' )
 		);
 		return $wpdb->insert_id;
 	}
@@ -112,8 +148,42 @@ class OrdersDetails {
 	static function isDownloadable( $order_id ) {
 		global $wpdb;
 		$count = $wpdb->get_var( $wpdb->prepare( 'select count(*) from ' . $wpdb->prefix . 'tcp_orders_details
-			where order_id = %d and is_downloadable != \'Y \'', $order_id ) );
+			where order_id = %d and is_downloadable = \'Y \'', $order_id ) );
 		return $count == 0;
+	}
+
+	static function getCrossSelling( $post_id ) {
+		global $wpdb;
+		$sql =  'select odd.post_id as id, sum(odd.qty_ordered) as count from (' . $wpdb->prefix . 'tcp_orders_details od';
+		$sql .= ' inner join ' . $wpdb->prefix . 'tcp_orders o';
+		$sql .= ' on od.order_id = o.order_id ) inner join ' . $wpdb->prefix . 'tcp_orders_details odd';
+		$sql .= ' on o.order_id = odd.order_id';
+		$sql .= $wpdb->prepare( ' where od.post_id = %d', $post_id );
+		$sql .= $wpdb->prepare( ' and o.status = %s', tcp_get_completed_order_status() );
+		$sql .= ' group by odd.post_id order by count';
+		return $wpdb->get_results( $sql );
+	}
+
+	static function delete_by_order_id( $order_id ) {
+		global $wpdb;
+		$sql = 'delete from ' . $wpdb->prefix . 'tcp_orders_details where ';
+		$sql .= $wpdb->prepare( 'order_id = %d', $order_id);
+		return $wpdb->query( $sql );
+	}
+
+	static function get_orders_details_ids_by_order_id( $order_id ) {
+		global $wpdb;
+		$sql = 'select order_detail_id from ' . $wpdb->prefix . 'tcp_orders_details where ';
+		$sql .= $wpdb->prepare( 'order_id = %d', $order_id);
+		return $wpdb->get_results( $sql );
+	}
+
+	static function get_product_total_sales( $post_id ) {
+		global $wpdb;
+		$sql = 'select sum( od.qty_ordered ) from ' . $wpdb->prefix . 'tcp_orders_details od left join ' . $wpdb->prefix . 'tcp_orders o on od.order_id = o.order_id';
+		$sql .= $wpdb->prepare( ' and o.status = %s', Orders::$ORDER_COMPLETED);
+		$sql .= $wpdb->prepare( ' where od.post_id = %d', $post_id);
+		return $wpdb->get_var( $sql );	
 	}
 }
 ?>

@@ -32,12 +32,13 @@ class Addresses {
 			`company`			varchar(50)		NOT NULL,
 			`tax_id_number`		varchar(30)		NOT NULL,
 			`company_id`		varchar(30)		NOT NULL,
-			`street`			varchar(100)	NOT NULL,
+			`street`			varchar(255)	NOT NULL,
+			`street_2`			varchar(255)	NOT NULL,
 			`city`				varchar(100)	NOT NULL,
 			`city_id`			char(4)			NOT NULL,
 			`region`			varchar(100)	NOT NULL,
 			`region_id`			char(2)			NOT NULL,
-			`postcode`			char(6)			NOT NULL,
+			`postcode`			char(10)		NOT NULL,
 			`country_id`		char(2)			NOT NULL,
 			`telephone_1`		varchar(50)		NOT NULL,
 			`telephone_2`		varchar(50)		NOT NULL,
@@ -48,10 +49,11 @@ class Addresses {
 		$wpdb->query( $sql );
 	}
 
-	static function getCustomerAddresses( $customer_id ) {
+	static function getCustomerAddresses( $customer_id = false ) {
 		global $wpdb;
-		return $wpdb->get_results( $wpdb->prepare( 'select * from ' . $wpdb->prefix . 'tcp_addresses
-			where customer_id = %d', $customer_id ) );
+		$sql = 'select * from ' . $wpdb->prefix . 'tcp_addresses';
+		if ( $customer_id !== false ) $sql .= $wpdb->prepare( ' where customer_id = %d', $customer_id );
+		return $wpdb->get_results( $sql );
 	}
 
 	static function isOwner( $address_id, $customer_id ) {
@@ -107,6 +109,13 @@ class Addresses {
 			where customer_id = %d and default_shipping = \'Y\'', $customer_id ) );
 	}
 
+	static function getCustomerDefaultShippingAddresses( $customer_id = false ) {
+		global $wpdb;
+		$sql = 'select * from ' . $wpdb->prefix . 'tcp_addresses where default_shipping = \'Y\'';
+		if ( $customer_id !== false ) $sql .= $wpdb->prepare( ' and customer_id = %d', $customer_id );
+		return $wpdb->get_results( $sql );
+	}
+
 	static function getCustomerDefaultBillingAddressId( $customer_id ) {
 		global $wpdb;
 		return $wpdb->get_var( $wpdb->prepare( 'select address_id from ' . $wpdb->prefix . 'tcp_addresses
@@ -117,6 +126,13 @@ class Addresses {
 		global $wpdb;
 		return $wpdb->get_row( $wpdb->prepare( 'select * from ' . $wpdb->prefix . 'tcp_addresses
 			where customer_id = %d and default_billing = \'Y\'', $customer_id ) );
+	}
+
+	static function getCustomerDefaultBillingAddresses( $customer_id = false ) {
+		global $wpdb;
+		$sql = 'select * from ' . $wpdb->prefix . 'tcp_addresses where default_billing = \'Y\'';
+		if ( $customer_id !== false ) $sql .= $wpdb->prepare( ' and customer_id = %d', $customer_id );
+		return $wpdb->get_results(  $sql );
 	}
 
 	static function save( $address ) {
@@ -137,13 +153,14 @@ class Addresses {
 				'custom_id'			=> isset( $address['custom_id'] ) ? $address['custom_id'] : 0,
 				'default_shipping'	=> $address['default_shipping'],
 				'default_billing'	=> $address['default_billing'],
-				//'name'				=> $address['address_name'],
+				'name'				=> isset( $address['address_name'] ) ? $address['address_name'] : '',
 				'firstname'			=> $address['firstname'],
 				'lastname'			=> $address['lastname'],
 				'company'			=> $address['company'],
 				'tax_id_number'		=> isset( $address['tax_id_number'] ) ? $address['tax_id_number'] : '',
 				'company_id'		=> isset( $address['company_id'] ) ? $address['company_id'] : 0,
 				'street'			=> $address['street'],
+				'street_2'			=> isset( $address['street_2'] ) ? $address['street_2'] : '',
 				'city'				=> $address['city'],
 				'city_id'			=> $address['city_id'],
 				'region'			=> $address['region'],
@@ -155,12 +172,12 @@ class Addresses {
 				'fax'				=> $address['fax'],
 				'email'				=> $address['email'],
 			),
-			array ( '%d', '%d', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s','%s', '%s',  '%s', '%s', '%s', '%s', '%s', '%s', '%s' )
+			array ( '%d', '%d', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s','%s', '%s',  '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s' )
 		);
 		return $wpdb->insert_id;
 	}
 
-	public function update( $address ) {
+	static public function update( $address ) {
 		global $wpdb;
 		$wpdb->update( $wpdb->prefix . 'tcp_addresses', array(
 				'customer_id'		=> $address['customer_id'],
@@ -174,6 +191,7 @@ class Addresses {
 				'tax_id_number'		=> $address['tax_id_number'],
 				'company_id'		=> isset( $address['company_id'] ) ? $address['company_id'] : 0,
 				'street'			=> $address['street'],
+				'street_2'			=> isset( $address['street_2'] ) ? $address['street_2'] : '',
 				'city'				=> $address['city'],
 				'city_id'			=> $address['city_id'],
 				'region'			=> $address['region'],
@@ -186,15 +204,14 @@ class Addresses {
 				'email'				=> $address['email'],
 			),
 			array( 'address_id' =>  $address['address_id']),
-			array ( '%d', '%d', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s' ),
+			array ( '%d', '%d', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s','%s', '%s', '%s', '%s', '%s' ),
 			array ( '%d' )
 		);
 		return $wpdb->insert_id;
 	}
 
-	public function delete( $address_id ) {
+	static public function delete( $address_id ) {
 		global $wpdb;
 		$wpdb->query( $wpdb->prepare( 'delete from ' . $wpdb->prefix . 'tcp_addresses where address_id = %d', $address_id ) );
 	}
 }
-?>

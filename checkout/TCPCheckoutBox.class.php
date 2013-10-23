@@ -1,20 +1,34 @@
 <?php
 /**
+ * Checkout Box
+ *
+ * The Parent of all checkout Boxes, also called "Steps"
+ *
+ * @package TheCartPress
+ * @subpackage Checkout
+ */
+
+/**
  * This file is part of TheCartPress.
  * 
- * TheCartPress is free software: you can redistribute it and/or modify
+ * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * TheCartPress is distributed in the hope that it will be useful,
+ * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with TheCartPress.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+// Exit if accessed directly
+if ( !defined( 'ABSPATH' ) ) exit;
+
+if ( ! class_exists( 'TCPCheckoutBox' ) ) {
 
 /**
  * Parent class for all boxes for the checkout
@@ -31,7 +45,21 @@ class TCPCheckoutBox {
 		return '';
 	}
 
-	function show_config_settings() {
+	function get_name() {
+		return get_class( $this );
+	}
+
+	/**
+	 * To hide the box in the checkout
+	 *
+	 * @since 1.2.9
+	 */
+	function is_hidden() {
+		return false;
+	}
+
+	function show_config_settings() { ?>
+		<p><?php _e( 'No config settings', 'tcp' );?></p><?php
 		return false;
 	}
 
@@ -41,6 +69,15 @@ class TCPCheckoutBox {
 	function delete_config_settings() {
 	}
 
+	/**
+	 * Recovery box will be a box to get the execution after a checkout ko
+	 * Payment methods will be the recovery box
+	 * @since 1.2.8
+	 */
+	function isRecoveryBox() {
+		return false;
+	}
+	
 	/**
 	 * Returns true if the box needs a form tag encapsulating it
 	 */
@@ -62,5 +99,14 @@ class TCPCheckoutBox {
 	function show() {
 		return '';
 	}
+
+	/**
+	 * Outputs any message associated with an id. It's for forms.
+	 *
+	 * @since 1.3.2
+	 */ 
+	protected function showErrorMsg( $id ) {
+		return '';
+	}
 }
-?>
+} // class_exists check

@@ -24,8 +24,8 @@ class RelEntities {
 			`id_from`		bigint(20) unsigned NOT NULL,
 			`id_to`			bigint(20) unsigned NOT NULL,
 			`rel_type`		varchar(20)			NOT NULL,
-   			`list_order`	int(4) unsigned		NOT NULL default 0,
-  			`meta_value`	longtext			NOT NULL,
+			`list_order`	int(4) unsigned		NOT NULL default 0,
+			`meta_value`	longtext			NOT NULL,
 			PRIMARY KEY (`id_to`,`id_from`,`rel_type`)
 		) ENGINE=MyISAM DEFAULT CHARSET=utf8;';
 		$wpdb->query( $sql );
@@ -85,7 +85,7 @@ class RelEntities {
 	}
 
 	/**
-	 * Returns the number of children from an id_from
+	 * Returns number of children from an id_from
 	 */
 	static function count( $id_from, $rel_type = 'GROUPED' ) {
 		global $wpdb;
@@ -94,7 +94,7 @@ class RelEntities {
 	}
 
 	/**
-	 * Returns the children from an id_from
+	 * Returns children from an id_from
 	 */
 	static function select( $id_from, $rel_type = 'GROUPED' ) {
 		global $wpdb;

@@ -16,9 +16,10 @@
  * along with TheCartPress.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-require_once( dirname( dirname( __FILE__ ) ).'/daos/Countries.class.php' );
-require_once( dirname( dirname( __FILE__ ) ).'/daos/Taxes.class.php' );
-require_once( dirname( dirname( __FILE__ ) ).'/daos/TaxRates.class.php' );
+require_once( TCP_DAOS_FOLDER . 'Countries.class.php' );
+require_once( TCP_DAOS_FOLDER . 'Taxes.class.php' );
+require_once( TCP_DAOS_FOLDER . 'TaxRates.class.php' );
+
 add_action( 'admin_footer', 'tcp_states_footer_scripts' );
 
 ?><h2><?php _e( 'Taxes Rates', 'tcp' );?></h2><?php
@@ -45,8 +46,9 @@ if ( isset( $_REQUEST['tcp_add_tax_rate'] ) ) {
 	}
 }
 ?>
-<ul class="subsubsub">
-</ul>
+<p><?php _e( 'Create tax percentages for Countries/States', 'tcp' ); ?></p>
+
+<ul class="subsubsub"></ul>
 <div class="clear"></div>
 
 <table class="widefat fixed" cellspacing="0">
@@ -85,13 +87,14 @@ if ( isset( $_REQUEST['tcp_add_tax_rate'] ) ) {
 	<td><?php echo tcp_number_format( $taxRate->rate, 3 );?></td>
 	<td><?php echo $taxRate->label;?>&nbsp;</td>
 	<td>
-	<a href="#" onclick="jQuery('.delete_tax_rate').hide();jQuery('#delete_<?php echo $taxRate->tax_rate_id;?>').show();" class="delete"><?php _e( 'delete', 'tcp' );?></a>
+	<a href="#" onclick="jQuery('.delete_tax_rate').hide();jQuery('#delete_<?php echo $taxRate->tax_rate_id;?>').show(200);" class="delete"><?php _e( 'Delete', 'tcp' );?></a>
 	<div id="delete_<?php echo $taxRate->tax_rate_id;?>" class="delete_tax_rate" style="display:none; width: 75%;border: 1px dotted orange; padding: 2px">
-		<form method="post">
+		<form method="post" name="frm_delete_tax_rate_<?php echo $taxRate->tax_rate_id; ?>">
 			<input type="hidden" name="tax_rate_id" value="<?php echo $taxRate->tax_rate_id;?>" />
 			<p><?php _e( 'Do you really want to delete the tax rate?', 'tcp' );?></p>
-			<input type="submit" name="tcp_delete_tax_rate" value="<?php _e( 'Yes', 'tcp' );?>" class="button-secondary"/> |
-			<a href="#" onclick="jQuery('#delete_<?php echo $taxRate->tax_rate_id;?>').hide();"><?php _e( 'No, I don\'t' , 'tcp' );?></a>
+			<input type="hidden" name="tcp_delete_tax_rate" value="y"/>
+			<a href="javascript:document.frm_delete_tax_rate_<?php echo $taxRate->tax_rate_id; ?>.submit();" class="delete"><?php _e( 'Yes' , 'tcp' );?></a> |
+			<a href="#" onclick="jQuery('#delete_<?php echo $taxRate->tax_rate_id;?>').hide(100);"><?php _e( 'No, I don\'t' , 'tcp' );?></a>
 		</form>
 	</div>
 	</td>
@@ -144,7 +147,7 @@ if ( isset( $_REQUEST['tcp_add_tax_rate'] ) ) {
 		<input type="text" id="label" name="label" value="" size="10" maxlength="255" />
 	</td>
 	<td>
-		<input type="submit" name="tcp_add_tax_rate" value="<?php _e( 'add', 'tcp' );?>" class="button-secondary" />
+		<input type="submit" name="tcp_add_tax_rate" value="<?php _e( 'Add', 'tcp' );?>" class="button-primary" />
 	</td>
 	</form>
 </tr>

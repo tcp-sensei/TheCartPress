@@ -15,6 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with TheCartPress.  If not, see <http://www.gnu.org/licenses/>.
  */
+exit();
 ?>
 <div class="wrap">
 <h2><?php _e( 'Admin Bar Config', 'tcp' );?></h2>

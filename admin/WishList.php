@@ -112,7 +112,7 @@ class TCPWishListTable extends WP_List_Table {
 		if ( count( $ids ) == 0 ) return;
 		foreach( $ids as $id ) if ( $id > 0 ) {
 			$post = get_post( $id );
-			echo $post->post_title, '<br>';
+			if ( $post ) echo $post->post_title, '<br>';
 		}
 	}
 }
@@ -121,9 +121,8 @@ $wishListTable->prepare_items();?>
 <form id="posts-filter" method="get" action="">
 <input type="hidden" name="page" value="<?php echo isset( $_REQUEST['page'] ) ? $_REQUEST['page'] : 0; ?>" />
 <div class="wrap">
-<?php //screen_icon(); ?>
-<h2><?php _e( 'Wish List', 'tcp' );?></h2>
+<?php screen_icon( 'tcp-wish-list' ); ?><h2><?php _e( 'Wish List', 'tcp' );?></h2>
 <div class="clear"></div>
 <?php $wishListTable->display(); ?>
-</div>
+</div><!-- .wrap -->
 </form>

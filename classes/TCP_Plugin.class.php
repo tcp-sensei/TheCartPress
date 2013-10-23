@@ -1,5 +1,14 @@
 <?php
 /**
+ * Plugin
+ *
+ * Parent Class for all payments or shipping methods
+ *
+ * @package TheCartPress
+ * @subpackage Classes
+ */
+
+/**
  * This file is part of TheCartPress.
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -15,6 +24,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+// Exit if accessed directly
+if ( !defined( 'ABSPATH' ) ) exit;
+
+if ( ! class_exists( 'TCP_Plugin' ) ) {
 
 /**
  * All the checkout plugins must implement this class
@@ -33,6 +47,15 @@ class TCP_Plugin {
 	 * Must be implemented
 	 */
 	function getTitle() {
+	}
+
+	/**
+	 * Returns the url to the icon, false if not icon
+	 * It's used to display the icon of the plugin in the admin pages
+	 * @since 1.2
+	 */
+	function getIcon() {
+		return false;
 	}
 
 	/**
@@ -67,7 +90,6 @@ class TCP_Plugin {
 
 	/**
 	 * Returns if the plugin is applicable
-	 * Must be implemented
 	 */
 	function isApplicable( $shippingCountry, $shoppingCart, $data ) {
 		return true;
@@ -82,10 +104,18 @@ class TCP_Plugin {
 	}
 
 	/**
+	 * Returns if the plugin allows to send the "purchase" email
+	 * @since 1.2.3
+	 */
+	function sendPurchaseMail() {
+		return true;
+	}
+
+	/**
 	 * Returns the text label to show in the checkout.
 	 * Must be implemented
 	 */
-	function getCheckoutMethodLabel( $instance, $shippingCountry, $shoppingCart ) {
+	function getCheckoutMethodLabel( $instance, $shippingCountry = '', $shoppingCart = false ) {
 	}
 
 	/**
@@ -97,11 +127,19 @@ class TCP_Plugin {
 	}
 
 	/**
+	 * Returns a notice to store in orders
+	 * @since 1.2.5.3
+	 */
+	function getNotice( $instance, $shippingCountry, $shoppingCart, $order_id = 0  ) {
+		return '';
+	}
+
+	/**
 	 * Shows the button or the notice after the orders have been saved
 	 *
 	 * Must be implemented only for payment methods
 	 */
-	function showPayForm( $instance, $shippingCountry, $shoppingCart, $order_id ) {
+	function showPayForm( $instance, $shippingCountry, $shoppingCart, $order_id = 0 ) {
 	}
 
 	function __construct() {
@@ -114,9 +152,10 @@ $tcp_payment_plugins = array();
 /**
  * Registers a shipping plugin
  */
-function tcp_register_shipping_plugin( $class_name ) {
+function tcp_register_shipping_plugin( $class_name, $object = false ) {
 	global $tcp_shipping_plugins;
-	$obj = new $class_name();
+	if ( $object === false ) $obj = new $class_name();
+	else $obj = $object;
 	$tcp_shipping_plugins['shi_' . $class_name] = $obj;
 	tcp_add_template_class( 'tcp_shipping_plugins_' . $class_name, sprintf( __( 'This notice will be displayed in the checkout process and added in the email to the customer with the info related to %s', 'tcp' ), $obj->getName() ) );
 }
@@ -124,11 +163,14 @@ function tcp_register_shipping_plugin( $class_name ) {
 /**
  * Registers a payment plugin
  */
-function tcp_register_payment_plugin( $class_name ) {
+function tcp_register_payment_plugin( $class_name, $object = false ) {
 	global $tcp_payment_plugins;
-	$obj = new $class_name();
+	if ( $object === false ) $obj = new $class_name();
+	else $obj = $object;
 	$tcp_payment_plugins['pay_' . $class_name] = $obj;
 	tcp_add_template_class( 'tcp_payment_plugins_' . $class_name, sprintf( __( 'This notice will be displayed in the checkout process and added in the email to the customer with the info related to %s', 'tcp' ), $obj->getName() ) );
+	global $tcp_miranda;
+	if ( $tcp_miranda ) $tcp_miranda->add_item( 'settings', 'payments', $obj->getTitle(), $obj->getDescription(), 'http://google.com', $obj->getIcon() );
 }
 
 /**
@@ -157,18 +199,9 @@ function tcp_get_plugin_type( $plugin_id ) {
 }
 
 function tcp_get_applicable_shipping_plugins( $shipping_country, $shoppingCart ) {
-	if ( $shoppingCart->isDownloadable() )
-		return array();
-	else
-		$shipping_plugins = tcp_get_applicable_plugins( $shipping_country, $shoppingCart );
-		//FreeTrans
-		//var_dump( $shipping_plugins );
-		/*foreach( $shipping_plugins as $shipping_plugin )
-			if ( get_class( $shipping_plugin['plugin'] ) == 'FreeTrans' ) {
-				$shipping_plugins = array ( $shipping_plugin );
-				break;
-			}*/
-		return $shipping_plugins;
+	if ( $shoppingCart->isDownloadable() ) return array();
+	else $shipping_plugins = tcp_get_applicable_plugins( $shipping_country, $shoppingCart );
+	return $shipping_plugins;
 }
 
 function tcp_get_applicable_payment_plugins( $shipping_country, $shoppingCart ) {
@@ -187,7 +220,7 @@ function tcp_get_applicable_plugins( $shipping_country, $shoppingCart, $type = '
 	$applicable_plugins = array();
 	$applicable_for_country = false;
 	foreach( $tcp_plugins as $plugin_id => $plugin ) {
-		$plugin_data = get_option( 'tcp_plugins_data_' . $plugin_id );
+		$plugin_data = tcp_get_plugin_data( $plugin_id );
 		if ( is_array( $plugin_data ) && count( $plugin_data ) > 0 ) {
 			$applicable_instance_id = -1;
 			$applicable_for_country = false;
@@ -241,22 +274,38 @@ function tcp_get_applicable_plugins( $shipping_country, $shoppingCart, $type = '
 			$all_countrie =	isset( $data['all_countries'] ) ? $data['all_countries'] == 'yes' : false;
 			if ( $all_countrie ) unset( $applicable_plugins[$id] );
 		}
+	foreach( $applicable_plugins as $id => $plugin_instance ) {
+		if ( $type == 'shipping' ) $data = tcp_get_shipping_plugin_data( get_class( $plugin_instance['plugin'] ), $plugin_instance['instance'] );
+		else $data = tcp_get_payment_plugin_data( get_class( $plugin_instance['plugin'] ), $plugin_instance['instance'] );
+		$unique	= isset( $data['unique'] ) ? $data['unique'] : false;
+		if ( $unique ) return array( $plugin_instance );
+	}
 	return $applicable_plugins;
 }
 
-function tcp_get_shipping_plugin_data( $plugin_name, $instance = 0 ) {
-	return tcp_get_plugin_data( 'shi_' . $plugin_name, $instance );
+/**
+ * Returns the data saved for a shipping method
+ *
+ * @param String plugin_name, plugin class
+ * @param int instance, each shipping method could have more than one shipping instance
+ * @param int order id
+ */
+function tcp_get_shipping_plugin_data( $plugin_name, $instance = 0, $order_id = false ) {
+	return tcp_get_plugin_data( 'shi_' . $plugin_name, $instance, $order_id );
 }
 
-function tcp_get_payment_plugin_data( $plugin_name, $instance = 0 ) {
-	return tcp_get_plugin_data( 'pay_' . $plugin_name, $instance );
+function tcp_get_payment_plugin_data( $plugin_name, $instance = 0, $order_id = false ) {
+	return tcp_get_plugin_data( 'pay_' . $plugin_name, $instance, $order_id );
 }
 
-function tcp_get_plugin_data( $plugin_id, $instance = -1 ) {
-	$plugin_data = get_option( 'tcp_plugins_data_' . $plugin_id );
-	if ( $instance == -1 )
-		return $plugin_data;
-	else
-		return $plugin_data[$instance];
+function tcp_get_plugin_data( $plugin_id, $instance = -1, $order_id = false ) {
+	$plugin_data = get_option( apply_filters( 'tcp_plugin_data_get_option_key', 'tcp_plugins_data_' . $plugin_id, $order_id ), array() );
+	if ( $instance == -1 ) return $plugin_data;
+	else return isset( $plugin_data[$instance] ) ? $plugin_data[$instance] : false;
 }
-?>
+
+function tcp_update_plugin_data( $plugin_id, $plugin_data ) {
+	update_option( apply_filters( 'tcp_plugin_data_get_option_key', 'tcp_plugins_data_' . $plugin_id, false ), $plugin_data );
+}
+
+} // class_exists check

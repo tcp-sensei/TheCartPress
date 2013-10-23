@@ -48,7 +48,7 @@ if ( isset( $_REQUEST['tcp_update_stock'] ) ) {
 }
 ?>
 <div class="wrap">
-<h2><?php _e( 'Stock Update', 'tcp' );?></h2>
+	<?php screen_icon( 'tcp-stock-update' ); ?><h2><?php _e( 'Stock Update', 'tcp' );?></h2>
 <div class="clear"></div>
 
 <form method="post">

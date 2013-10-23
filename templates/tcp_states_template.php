@@ -16,7 +16,6 @@
  * along with This program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 /**
  * To Use:
  * add_action( 'admin_footer', 'tcp_states_footer_scripts' );
@@ -33,7 +32,7 @@ function tcp_get_billing_country() {
 		if ( $_SESSION['tcp_checkout']['billing']['selected_billing_address'] == 'new' ) {
 			$billing_country_id = $_SESSION['tcp_checkout']['billing']['billing_country_id'];
 		} else { //if ( $_SESSION['tcp_checkout']['billing']['selected_billing_address'] == 'Y' ) {
-			require_once( dirname( dirname( __FILE__ ) ) .'/daos/Addresses.class.php' );
+			require_once( dirname( dirname( __FILE__ ) ) . '/daos/Addresses.class.php' );
 			$billing_address = Addresses::get( $_SESSION['tcp_checkout']['billing']['selected_billing_id'] );
 			$billing_country_id = $billing_address->country_id;
 		}
@@ -75,7 +74,6 @@ function tcp_set_billing_region( $region_id ) {
 	$_SESSION['tcp_checkout']['billing']['selected_billing_address'] = 'new';
 	$_SESSION['tcp_checkout']['billing']['billing_region_id'] = $region_id;
 }
-
 
 function tcp_get_shipping_country() {
 	if ( isset( $_SESSION['tcp_checkout']['shipping']['selected_shipping_address'] ) ) {
@@ -121,7 +119,7 @@ function tcp_get_shipping_region() {
  * @since 1.1.8
  */
 function tcp_set_shipping_as_billing() {
-	$_SESSION['tcp_checkout']['shipping']['selected_shipping_address']	= 'BIL';
+	$_SESSION['tcp_checkout']['shipping']['selected_shipping_address'] = 'BIL';
 }
 
 /**

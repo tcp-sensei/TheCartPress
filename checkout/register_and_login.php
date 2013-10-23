@@ -16,7 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+die('not in use');
+
 require( dirname( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) ) . '/wp-load.php' );
+
 $user_name		= $_REQUEST['tcp_new_user_name'];
 $user_pass		= $_REQUEST['tcp_new_user_pass'];
 $user_pass_2	= $_REQUEST['tcp_repeat_user_pass'];
@@ -32,13 +35,13 @@ if ( $user_pass != $user_pass_2 ) {
 	if ( is_wp_error( $user_id ) ) {
 		$tcp_register_error = $user_id->get_error_message();
 	} else {
-		$creds = array();
-		$creds['user_login'] = $user_name;
-		$creds['user_password'] = $user_pass;
-		$creds['remember'] = false;
-		$user = wp_signon( $creds, false );
-		if ( is_wp_error( $user ) )
-			$tcp_register_error = $user->get_error_message();
+		do_action( 'tcp_register_and_login', $user_name, $_REQUEST);
+		$user = wp_signon( array(
+			'user_login'		=> $user_name,
+			'user_password'	=> $user_pass,
+			'remember'	=> false,
+		), false );
+		if ( is_wp_error( $user ) ) $tcp_register_error = $user->get_error_message();
 	}
 }
 if ( isset( $tcp_register_error ) )

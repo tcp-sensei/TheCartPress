@@ -57,19 +57,19 @@ class TheCartPressSearchEngine {
 
 	static private function guid() {
 		if ( function_exists( 'com_create_guid' ) )
-		    return com_create_guid();
+			return com_create_guid();
 		else {
-		    mt_srand( (float)microtime() * 10000 ); //optional for php 4.2.0 and up.
-		    $char_id = strtoupper( md5( uniqid( rand(), true ) ) );
-		    $hyphen = chr( 45 );// "-"
-		    $uuid = chr( 123 )// "{"
-		            .substr( $char_id,  0,  8 ) . $hyphen
-		            .substr( $char_id,  8,  4 ) . $hyphen
-		            .substr( $char_id, 12,  4 ) . $hyphen
-		            .substr( $char_id, 16,  4 ) . $hyphen
-		            .substr( $char_id, 20, 12 )
-		            .chr( 125 );// "}"
-		    return $uuid;
+			mt_srand( (float)microtime() * 10000 ); //optional for php 4.2.0 and up.
+			$char_id = strtoupper( md5( uniqid( rand(), true ) ) );
+			$hyphen = chr( 45 );// "-"
+			$uuid = chr( 123 )// "{"
+					.substr( $char_id,  0,  8 ) . $hyphen
+					.substr( $char_id,  8,  4 ) . $hyphen
+					.substr( $char_id, 12,  4 ) . $hyphen
+					.substr( $char_id, 16,  4 ) . $hyphen
+					.substr( $char_id, 20, 12 )
+					.chr( 125 );// "}"
+			return $uuid;
 		}
 	}
 }

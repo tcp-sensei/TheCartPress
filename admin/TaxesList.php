@@ -44,9 +44,11 @@ if ( isset( $_REQUEST['tcp_edit_tax'] ) ) {
 $taxes = Taxes::getAll();
 ?>
 <div class="wrap">
-<h2><?php _e( 'List of taxes', 'tcp' );?></h2>
-<ul class="subsubsub">
-</ul>
+<?php screen_icon( 'tcp-taxes-list' ); ?><h2><?php _e( 'List of taxes', 'tcp' );?></h2>
+
+<p><?php _e( 'Add taxes to apply to products', 'tcp' ); ?></p>
+
+<ul class="subsubsub"></ul>
 <div class="clear"></div>
 
 <?php if ( isset( $error_tax ) && count( $error_tax ) > 0 ) : ?>
@@ -76,7 +78,7 @@ $taxes = Taxes::getAll();
 <tbody>
 	<tr>
 		<td colspan="3">
-			<a href="#" onclick="jQuery('.edit_tax').hide();jQuery('.delete_tax').hide();jQuery('#edit_tax_0').show();"><?php _e( 'create new tax', 'tcp' );?></a>
+			<a href="#" onclick="jQuery('.edit_tax').hide();jQuery('.delete_tax').hide();jQuery('#edit_tax_0').show(200);"><?php _e( 'Create new tax', 'tcp' );?></a>
 			<div id="edit_tax_0" class="edit_tax" style="display:none; width: 75%;border: 1px dotted orange; padding: 2px">
 				<form method="post" name="frm_edit_0">
 				<input type="hidden" name="tax_id" value="0" />
@@ -87,11 +89,11 @@ $taxes = Taxes::getAll();
 					<input type="text" id="title" name="title" size="40" maxlength="100" value=""/>
 				</p><p>
 					<label for="tax"><?php _e( 'Description', 'tcp' );?>:</label>
-					<input type="text" id="desc" name="desc" size="50" maxlength="255" value=""/>
+					<input type="text" id="desc" name="desc" size="40" maxlength="255" value=""/>
 				</p>
 				<p>
-				<input name="tcp_edit_tax" value="<?php _e( 'Save', 'tcp' );?>" type="submit" class="button-secondary" />
-				&nbsp;<a href="#" onclick="jQuery('#edit_tax_0').hide();"><?php _e( 'Cancel' , 'tcp' );?></a>
+				<input name="tcp_edit_tax" value="<?php _e( 'Save', 'tcp' );?>" type="submit" class="button-primary" />
+				&nbsp;<a href="#" onclick="jQuery('#edit_tax_0').hide(100);"><?php _e( 'Cancel' , 'tcp' );?></a>
 				</p>
 				</form>
 			</div>		
@@ -107,8 +109,8 @@ $taxes = Taxes::getAll();
 		<td><?php echo $tax->title;?></td>
 		<td><?php echo $tax->desc;?></td>
 		<td style="width: 20%;">
-		<div><a href="#" onclick="jQuery('.edit_tax').hide();jQuery('.delete_tax').hide();jQuery('#edit_tax_<?php echo $tax->tax_id;?>').show();" class="edit"><?php _e( 'edit', 'tcp' );?></a>
-		 | <a href="#" onclick="jQuery('.delete_tax').hide();jQuery('.edit_tax').hide();jQuery('#delete_tax_<?php echo $tax->tax_id;?>').show();" class="delete"><?php _e( 'delete', 'tcp' );?></a></div>
+		<div><a href="#" onclick="jQuery('.edit_tax').hide();jQuery('.delete_tax').hide();jQuery('#edit_tax_<?php echo $tax->tax_id;?>').show(200);" class="edit"><?php _e( 'Edit', 'tcp' );?></a>
+		 | <a href="#" onclick="jQuery('.delete_tax').hide();jQuery('.edit_tax').hide();jQuery('#delete_tax_<?php echo $tax->tax_id;?>').show(200);" class="delete"><?php _e( 'Delete', 'tcp' );?></a></div>
 		
 		<div id="edit_tax_<?php echo $tax->tax_id;?>" class="edit_tax" style="display:none; border: 1px dotted orange; padding: 2px">
 			<form method="post" name="frm_edit_<?php echo $tax->tax_id;?>">
@@ -123,7 +125,7 @@ $taxes = Taxes::getAll();
 			</p>
 			<p>
 			<input name="tcp_edit_tax" value="<?php _e( 'Save', 'tcp' );?>" type="submit" class="button-secondary" />
-			&nbsp;<a href="#" onclick="jQuery('#edit_tax_<?php echo $tax->tax_id;?>').hide();"><?php _e( 'Cancel' , 'tcp' );?></a>
+			&nbsp;<a href="#" onclick="jQuery('#edit_tax_<?php echo $tax->tax_id;?>').hide(100);"><?php _e( 'Cancel' , 'tcp' );?></a>
 			</p>
 			</form>
 		</div>		
@@ -134,7 +136,7 @@ $taxes = Taxes::getAll();
 			<input type="hidden" name="tcp_delete_tax" value="y" />
 			<p><?php _e( 'Do you really want to delete this tax?', 'tcp' );?></p>
 			<a href="javascript:document.frm_delete_tax_<?php echo $tax->tax_id;?>.submit();" class="delete"><?php _e( 'Yes' , 'tcp' );?></a> |
-			<a href="#" onclick="jQuery('#delete_tax_<?php echo $tax->tax_id;?>').hide();"><?php _e( 'No, I don\'t' , 'tcp' );?></a>
+			<a href="#" onclick="jQuery('#delete_tax_<?php echo $tax->tax_id;?>').hide(100);"><?php _e( 'No, I don\'t' , 'tcp' );?></a>
 			</form>
 		</div>
 		</td>

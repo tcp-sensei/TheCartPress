@@ -27,6 +27,18 @@ if ( isset( $_REQUEST['tcp_submit'] ) ) {
 	if ( is_wp_error( $user ) ) $tcp_register_error = $user->get_error_message();
 }
 $redirect_to = isset( $_REQUEST['tcp_redirect_to'] ) ? $_REQUEST['tcp_redirect_to'] : '';
+if ( strrpos( $redirect_to, ',') !== false ) {
+//$redirect_to = role:redirect,role_2:redirect_2
+	$redirects = explode( ',', $redirect_to );
+	$role = tcp_get_current_user_role();
+	foreach( $redirects as $redirect ) {
+		$role_redirect = explode( ':', $redirect );
+		if ( $role == $role_redirect[0] ) {
+			$redirect_to = $role[1];
+			break;
+		}
+	}
+}
 
 if ( isset( $tcp_register_error ) ) {
 	wp_redirect( add_query_arg( 'tcp_register_error', urlencode( $tcp_register_error ), $redirect_to ) );

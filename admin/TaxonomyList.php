@@ -29,16 +29,17 @@
 	update_option( 'tcp_rewrite_rules', true ); ?>
 	<div id="message" class="updated"><p><?php _e( 'Taxonomy deleted', 'tcp' );?></p></div>
 <?php endif; ?>
+<?php do_action( 'tcp_taxonomy_list_actions' ); ?>
 <script>
 jQuery(document).ready(function() {
 	jQuery('.tcp_show_delete_area').click(function() {
 		var id = jQuery(this).attr('id');
 		jQuery('.tcp_delete_taxonomy_area').hide();
-		jQuery('#tcp_delete_area_' + id).show();
+		jQuery('#tcp_delete_area_' + id).show(200);
 		return false;
 	});
 	jQuery('.tcp_no_delete').click(function() {
-		jQuery('.tcp_delete_taxonomy_area').hide();
+		jQuery('.tcp_delete_taxonomy_area').hide(100);
 		return false;
 	});
 	jQuery('.tcp_delete_taxonomy').click(function() {
@@ -73,23 +74,29 @@ jQuery(document).ready(function() {
 if ( is_array( $taxonomy_defs ) && count( $taxonomy_defs ) > 0 ) :
 	foreach( $taxonomy_defs as $taxonomy => $taxonomy_def ) : ?>
 <tr>
-	<td><?php $object = get_post_type_object( $taxonomy_def['post_type'] );
-		if ( $object ) echo $object->labels->name;
-		else _e( 'No post type', 'tcp' );?></td>
+	<td><?php $post_types = $taxonomy_def['post_type'];
+		if ( ! is_array( $post_types ) ) $post_types = array( $post_types );
+		foreach( $post_types as $post_type ) {
+			$object = get_post_type_object( $post_type );
+			if ( $object ) echo $object->labels->name;
+			else _e( 'No post type', 'tcp' );
+		} ?></td>
 	<td><?php echo $taxonomy_def['name']; ?></td>
 	<td><?php echo $taxonomy; ?></td>
 	<td><?php echo $taxonomy_def['desc']; ?>&nbsp;</td>
 	<td><?php $taxonomy_def['activate'] ? _e( 'Activated', 'tcp' ) : _e( 'No Activated', 'tcp' ); ?></td>
 	<td><a href="<?php echo TCP_ADMIN_PATH; ?>TaxonomyEdit.php&taxonomy=<?php echo $taxonomy; ?>"><?php _e( 'Edit', 'tcp' ); ?></a>
-	| <a href="" class="tcp_show_delete_area" id="<?php echo $taxonomy; ?>"><?php _e( 'delete', 'tcp' ); ?></a></div>
+	| <a href="#" class="tcp_show_delete_area" id="<?php echo $taxonomy; ?>"><?php _e( 'delete', 'tcp' ); ?></a></div>
 		<div id="tcp_delete_area_<?php echo $taxonomy; ?>" class="tcp_delete_taxonomy_area" style="display:none; border: 1px dotted orange; padding: 2px">
 			<form method="post">
 			<input type="hidden" name="taxonomy" value="<?php echo $taxonomy; ?>" />
 			<input type="hidden" name="tcp_delete_taxonomy" value="y" />
 			<p><?php _e( 'Do you really want to delete this taxonomy?', 'tcp' ); ?></p>
-			<a href="" class="tcp_delete_taxonomy"><?php _e( 'Yes' , 'tcp' ); ?></a> |
-			<a href="" class="tcp_no_delete"><?php _e( 'No, I don\'t' , 'tcp' ); ?></a>
+			<a href="#" class="tcp_delete_taxonomy"><?php _e( 'Yes' , 'tcp' ); ?></a> |
+			<a href="#" class="tcp_no_delete"><?php _e( 'No, I don\'t' , 'tcp' ); ?></a>
 			</form>
+		</div>
+		<?php do_action( 'tcp_taxonomy_list_action_list', $taxonomy, $taxonomy_def ); ?>
 	</td>
 </tr>
 	<?php endforeach; ?>

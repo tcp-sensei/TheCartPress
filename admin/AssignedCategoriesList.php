@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-require_once( dirname( dirname( __FILE__ ) ).'/daos/RelEntities.class.php' );
+require_once( TCP_DAOS_FOLDER . 'RelEntities.class.php' );
 
 $post_id	= isset( $_REQUEST['post_id'] ) ? $_REQUEST['post_id'] : 0;
 if ( $post_id == 0 ) die( __( 'post_id param required!!!', 'tcp' ) );

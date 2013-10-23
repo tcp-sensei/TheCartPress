@@ -21,18 +21,18 @@ class Countries {
 	static function createTable() {
 		global $wpdb;
 		$sql = 'CREATE TABLE IF NOT EXISTS `' . $wpdb->prefix . 'tcp_countries` (
-		  `iso`		char(2) NOT NULL,
-		  `name`	varchar(50) NOT NULL,
-		  `en`		varchar(50) NOT NULL,
-		  `es`		varchar(50) NOT NULL,
-		  `de`		varchar(50) NOT NULL,
-		  `fr`		varchar(50) NOT NULL,
-		  `iso3`	char(3)		NOT NULL,
-		  `code`	int(4)		NOT NULL,
-		  `ue`		int(1)		NOT NULL,
-		  `nue`		int(1)		NOT NULL,
-		  `re`		int(1)		NOT NULL,
-		  PRIMARY KEY  (`ISO`)
+			`iso`	char(2) NOT NULL,
+			`name`	varchar(50) NOT NULL,
+			`en`	varchar(50) NOT NULL,
+			`es`	varchar(50) NOT NULL,
+			`de`	varchar(50) NOT NULL,
+			`fr`	varchar(50) NOT NULL,
+			`iso3`	char(3)		NOT NULL,
+			`code`	int(4)		NOT NULL,
+			`ue`	int(1)		NOT NULL,
+			`nue`	int(1)		NOT NULL,
+			`re`	int(1)		NOT NULL,
+			PRIMARY KEY  (`ISO`)
 		) ENGINE=MyISAM DEFAULT CHARSET=utf8;';
 		$wpdb->query( $sql );
 	}
@@ -69,7 +69,7 @@ class Countries {
 			return $language;
 		} else {
 			global $wpdb;
-			$row = $wpdb->get_row( $wpdb->prepare( 'SHOW COLUMNS FROM ' . $wpdb->prefix . 'tcp_countries WHERE field = %s' ), $language );
+			$row = $wpdb->get_row( $wpdb->prepare( 'SHOW COLUMNS FROM ' . $wpdb->prefix . 'tcp_countries WHERE field = %s', $language ) );
 			if ( $row ) {
 				return $language;
 			} else {
@@ -317,7 +317,7 @@ class Countries {
 			 (\'TT\',\'TRINIDAD AND TOBAGO\',\'TRINIDAD AND TOBAGO\',\'TRINIDAD Y TOBAGO\',\'TRINIDAD UND TOBAGO\',\'TRINITÉ-ET-TOBAGO\',\'TTO\',780,0,0,0);';
 			$wpdb->query( $sql );
 			$sql = 'INSERT INTO `' . $wpdb->prefix . 'tcp_countries` VALUES  (\'TV\',\'TUVALU\',\'TUVALU\',\'TUVALU\',\'TUVALU\',\'TUVALU\',\'TUV\',798,0,0,0),
-			 (\'TW\',\'TAIWAN, PROVINCE OF CHINA\',\'TAIWAN, PROVINCE OF CHINA\',\'TAIWÁN\',\'TAIWAN\',\'TAÏWAN, PROVINCE DE CHINA\',\'TWN\',158,0,0,0),
+			 (\'TW\',\'TAIWAN\',\'TAIWAN\',\'TAIWÁN\',\'TAIWAN\',\'TAÏWAN\',\'TWN\',158,0,0,0),
 			 (\'TZ\',\'TANZANIA, UNITED REPUBLIC OF\',\'TANZANIA, UNITED REPUBLIC OF\',\'TANZANIA\',\'TANSANIA\',\'TANZANIE, RÉPUBLIQUE-UNIE DE\',\'TZA\',834,0,0,0),
 			 (\'UA\',\'UKRAINE\',\'UKRAINE\',\'UCRANIA\',\'UKRAINE\',\'UKRAINE\',\'UKR\', 804, 0, 0, 1),
 			 (\'UG\',\'UGANDA\',\'UGANDA\',\'UGANDA\',\'UGANDA\',\'OUGANDA\',\'UGA\', 800, 0, 0, 0),

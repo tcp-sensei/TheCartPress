@@ -16,40 +16,55 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// Exit if accessed directly
+if ( !defined( 'ABSPATH' ) ) exit;
+
+if ( ! class_exists( 'FreeTrans' ) ) {
+
 class FreeTrans extends TCP_Plugin {
 
 	function getTitle() {
-		return 'Free Trans';
+		return __( 'Free Trans', 'tcp' );
 	}
 
 	function getDescription() {
-		return 'Free transport for orders with cost greater than an editable minimun.<br>Author: <a href="http://thecartpress.com" target="_blank">TheCartPress team</a>';
+		return sprintf( __( 'Free transport for orders with cost greater than an editable minimun. <br>Author: <a href="%s" target="_blank">TheCartPress team</a>', 'tcp' ), 'http://thecartpress.com' );
 	}
 
-	function showEditFields( $data ) {?>
+	function getIcon() {
+		return plugins_url( 'images/freedelivery.png', __FILE__ );
+	}
+
+	function showEditFields( $data, $instance = 0 ) {?>
 		<tr valign="top">
-		<th scope="row">
-			<label for="minimun"><?php _e( 'Minimun amount', 'tcp' );?>:</label>
-		</th><td>
-			<input type="text" id="minimun" name="minimun" value="<?php echo isset( $data['minimun'] ) ? $data['minimun'] : 0;?>" size="13" maxlength="13"/>
-		</td></tr>
+			<th scope="row">
+				<label for="minimun"><?php _e( 'Minimun amount', 'tcp' ); ?>:</label>
+			</th>
+			<td>
+				<input type="text" id="minimun" name="minimun" value="<?php echo isset( $data['minimun'] ) ? $data['minimun'] : 0; ?>" size="13" maxlength="13"/>
+			</td>
+		</tr>
 		<?php
 	}
 
-	function saveEditFields( $data ) {
+	function saveEditFields( $data, $instance = 0 ) {
 		$data['minimun'] = isset( $_REQUEST['minimun'] ) ? $_REQUEST['minimun'] : '0';
 		return $data;
 	}
 
 	function isApplicable( $shippingCountry, $shoppingCart, $data ) {
 		$minimun_amount = $data['minimun'];
-		return $shoppingCart->getTotal() > $minimun_amount;
+		return $shoppingCart->getTotal() >= $minimun_amount;
 	}
 
-	function getCheckoutMethodLabel( $instance, $shippingCountry, $shoppingCart ) {
+	function getCheckoutMethodLabel( $instance, $shippingCountry = '', $shoppingCart = false ) {
 		$data = tcp_get_shipping_plugin_data( get_class( $this ), $instance );
-		$title = isset( $data['title'] ) ? $data['title'] : __( 'Free transport', 'tcp' );
-		return $title;
+		if ( isset( $data['title'] ) ) {
+			//return tcp_string( 'TheCartPress', 'shi_FreeTrans-title', $title );
+			return tcp_string( 'TheCartPress', apply_filters( 'tcp_plugin_data_get_option_translatable_key', 'shi_FreeTrans-title-' . $instance ), $data['title'] );
+		} else {
+			return __( 'Free transport', 'tcp' );
+		}
 	}
 }
-?>
+} // class_exists check

@@ -34,7 +34,7 @@ class TCPRoles {
 		add_role( 'customer', __( 'Customer', 'tcp' ) );
 		$customer = get_role( 'customer' );
 		$customer->add_cap( 'tcp_read_orders' );
-		$customer->add_cap( 'tcp_edit_addresses' );
+		$customer->add_cap( 'tcp_edit_address' );
 		$customer->add_cap( 'tcp_edit_wish_list' );
 		$customer->add_cap( 'tcp_downloadable_products' );
 		$subscriber = get_role( 'subscriber' );
@@ -57,6 +57,7 @@ class TCPRoles {
 		$merchant->add_cap( 'tcp_update_price' );
 		$merchant->add_cap( 'tcp_update_stock' );
 		$merchant->add_cap( 'tcp_checkout_editor' );
+		$merchant->add_cap( 'tcp_edit_address' );
 		$merchant->add_cap( 'tcp_edit_addresses' );
 		$merchant->add_cap( 'tcp_edit_wish_list' );
 		$merchant->add_cap( 'tcp_downloadable_products' );
@@ -90,6 +91,7 @@ class TCPRoles {
 		$administrator->add_cap( 'tcp_update_stock' );
 		$administrator->add_cap( 'tcp_checkout_editor' );
 		$administrator->add_cap( 'tcp_downloadable_products' );
+		$administrator->add_cap( 'tcp_edit_address' );
 		$administrator->add_cap( 'tcp_edit_addresses' );
 		$administrator->add_cap( 'tcp_edit_wish_list' );
 		$administrator->add_cap( 'tcp_edit_taxes' );

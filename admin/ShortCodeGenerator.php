@@ -15,9 +15,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-$shortcodes_data	= get_option( 'tcp_shortcodes_data' );
-$shortcode_id		= isset( $_REQUEST['shortcode_id'] ) ? $_REQUEST['shortcode_id'] : -1;
+?>
+<div class="wrap">
+<?php
+$shortcodes_data = get_option( 'tcp_shortcodes_data' );
+$shortcode_id = isset( $_REQUEST['shortcode_id'] ) ? $_REQUEST['shortcode_id'] : -1;
 
 function tcp_exists_shortcode_id( $id ) {
 	global $shortcodes_data;
@@ -29,10 +31,10 @@ function tcp_exists_shortcode_id( $id ) {
 	return false;
 }
 
-function tcp_shortcode_sorting_fields( $sorting_fields ) {
+/*function tcp_shortcode_sorting_fields( $sorting_fields ) {
 	$sorting_fields[] = array( 'value' => 'rand', 'title' => __( 'Random', 'tcp' ) );
 	return $sorting_fields;
-}
+}*/
 
 if ( isset( $_REQUEST['tcp_shortcode_save'] ) ) {
 	if ( ! isset( $_REQUEST['id'] ) || strlen( trim( $_REQUEST['id'] ) ) == 0 ) {?>
@@ -50,32 +52,40 @@ if ( isset( $_REQUEST['tcp_shortcode_save'] ) ) {
 			'title'					=> '', //isset( $_REQUEST['title'] ) ? $_REQUEST['title'] : '',
 			'desc'					=> isset( $_REQUEST['desc'] ) ? $_REQUEST['desc'] : '',
 			'post_type'				=> isset( $_REQUEST['post_type'] ) ? $_REQUEST['post_type'] : '',
-			'use_taxonomy'			=> isset( $_REQUEST['use_taxonomy'] ) ? $_REQUEST['use_taxonomy'] == 'yes' : false,
+			'use_taxonomy'			=> isset( $_REQUEST['use_taxonomy'] ),// ? $_REQUEST['use_taxonomy'] == 'yes' : false,
 			'taxonomy'				=> isset( $_REQUEST['taxonomy'] ) ? $_REQUEST['taxonomy'] : '',
 			'included'				=> isset( $_REQUEST['included'] ) ? $_REQUEST['included'] : array(),
 			'term'					=> isset( $_REQUEST['term'] ) ? $_REQUEST['term'] : '',
 			'limit'					=> isset( $_REQUEST['limit'] ) ? $_REQUEST['limit'] : '10',
 			'see_pagination'		=> isset( $_REQUEST['see_pagination'] ),
+			'see_order_panel'		=> isset( $_REQUEST['see_order_panel'] ),
 			'loop'					=> isset( $_REQUEST['loop'] ) ? $_REQUEST['loop'] : 'default',
 			'order_type'			=> isset( $_REQUEST['order_type'] ) ? $_REQUEST['order_type'] : 'date',
 			'order_desc'			=> isset( $_REQUEST['order_desc'] ) ? 'desc' : 'asc',
 			'columns'				=> isset( $_REQUEST['columns'] ) ? (int)$_REQUEST['columns'] : 2,
-			'see_title'				=> isset( $_REQUEST['see_title'] ) ? $_REQUEST['see_title'] == 'yes' : false,
+
+			'columns_xs'			=> isset( $_REQUEST['columns_xs'] ) ? (int)$_REQUEST['columns_xs'] : 2,
+			'columns_sm'			=> isset( $_REQUEST['columns_sm'] ) ? (int)$_REQUEST['columns_sm'] : 4,
+			'columns_lg'			=> isset( $_REQUEST['columns_lg'] ) ? (int)$_REQUEST['columns_lg'] : 6,
+
+			'see_title'				=> isset( $_REQUEST['see_title'] ),// ? $_REQUEST['see_title'] == 'yes' : false,
 			'title_tag'				=> isset( $_REQUEST['title_tag'] ) ? $_REQUEST['title_tag'] : '',
-			'see_image'				=> isset( $_REQUEST['see_image'] ) ? $_REQUEST['see_image'] == 'yes' : false,
+			'see_image'				=> isset( $_REQUEST['see_image'] ),// ? $_REQUEST['see_image'] == 'yes' : false,
 			'image_size'			=> isset( $_REQUEST['image_size'] ) ? $_REQUEST['image_size'] : 'thumbnail',
-			'see_content'			=> isset( $_REQUEST['see_content'] ) ? $_REQUEST['see_content'] == 'yes' : false,
-			'see_excerpt'			=> isset( $_REQUEST['see_excerpt'] ) ? $_REQUEST['see_excerpt'] == 'yes' : false,
-			'see_author'			=> isset( $_REQUEST['see_author'] ) ? $_REQUEST['see_author'] == 'yes' : false,
-			'see_posted_on'			=> isset( $_REQUEST['see_posted_on'] ) ? $_REQUEST['see_posted_on'] == 'yes' : false,
-			'see_taxonomies'		=> isset( $_REQUEST['see_taxonomies'] ) ? $_REQUEST['see_taxonomies'] == 'yes' : false,
-			'see_meta_utilities'	=> isset( $_REQUEST['see_meta_utilities'] ) ? $_REQUEST['see_meta_utilities'] == 'yes' : false,
-			'see_price'				=> isset( $_REQUEST['see_price'] ) ? $_REQUEST['see_price'] == 'yes' : false,
-			'see_buy_button'		=> isset( $_REQUEST['see_buy_button'] ) ? $_REQUEST['see_buy_button'] == 'yes' : false,
-			'see_first_custom_area' => isset( $_REQUEST['see_first_custom_area'] ) ? $_REQUEST['see_first_custom_area'] == 'yes' : false,
-			'see_second_custom_area'=> isset( $_REQUEST['see_second_custom_area'] ) ? $_REQUEST['see_second_custom_area'] == 'yes' : false,
-			'see_third_custom_area' => isset( $_REQUEST['see_third_custom_area'] ) ? $_REQUEST['see_third_custom_area'] == 'yes' : false,
+			'see_content'			=> isset( $_REQUEST['see_content'] ),// ? $_REQUEST['see_content'] == 'yes' : false,
+			'see_excerpt'			=> isset( $_REQUEST['see_excerpt'] ),// ? $_REQUEST['see_excerpt'] == 'yes' : false,
+			'excerpt_length'		=> isset( $_REQUEST['excerpt_length'] ) ? (int)$_REQUEST['excerpt_length'] : false,
+			'see_author'			=> isset( $_REQUEST['see_author'] ),// ? $_REQUEST['see_author'] == 'yes' : false,
+			'see_posted_on'			=> isset( $_REQUEST['see_posted_on'] ),// ? $_REQUEST['see_posted_on'] == 'yes' : false,
+			'see_taxonomies'		=> isset( $_REQUEST['see_taxonomies'] ),// ? $_REQUEST['see_taxonomies'] == 'yes' : false,
+			'see_meta_utilities'	=> isset( $_REQUEST['see_meta_utilities'] ),// ? $_REQUEST['see_meta_utilities'] == 'yes' : false,
+			'see_price'				=> isset( $_REQUEST['see_price'] ),// ? $_REQUEST['see_price'] == 'yes' : false,
+			'see_buy_button'		=> isset( $_REQUEST['see_buy_button'] ),// ? $_REQUEST['see_buy_button'] == 'yes' : false,
+			'see_first_custom_area' => isset( $_REQUEST['see_first_custom_area'] ),// ? $_REQUEST['see_first_custom_area'] == 'yes' : false,
+			'see_second_custom_area'=> isset( $_REQUEST['see_second_custom_area'] ),// ? $_REQUEST['see_second_custom_area'] == 'yes' : false,
+			'see_third_custom_area' => isset( $_REQUEST['see_third_custom_area'] ),// ? $_REQUEST['see_third_custom_area'] == 'yes' : false,
 		);
+		$shortcodes_data = apply_filters( 'tcp_shortcode_generator_settings_action', $shortcodes_data, $shortcode_id );
 		update_option( 'tcp_shortcodes_data', $shortcodes_data ); ?>
 		<div id="message" class="updated"><p>
 			<?php _e( 'Shortcode saved', 'tcp' ); ?>
@@ -96,7 +106,7 @@ if ( $shortcode_id == -1 ) {
 		$shortcode_id = array_shift( $keys );
 		$shortcode_data = $shortcodes_data[$shortcode_id];
 	 } else {
-		 $shortcode_id = 0;
+		$shortcode_id = 0;
 		$shortcode_data = array();
 	 }
 } elseif ( isset( $shortcodes_data[$shortcode_id] ) ) {
@@ -106,8 +116,7 @@ if ( $shortcode_id == -1 ) {
 }
 $shortcode_href = TCP_ADMIN_PATH . 'ShortCodeGenerator.php&shortcode_id='; ?>
 
-<div class="wrap">
-	<h2><?php _e( 'ShortCode Generator', 'tcp' ); ?></h2>
+	<?php screen_icon( 'tcp-shortcode-generator' ); ?><h2><?php _e( 'ShortCode Generator', 'tcp' ); ?></h2>
 	<ul class="subsubsub">
 	</ul><!-- subsubsub -->
 	<div class="clear"></div>
@@ -138,8 +147,14 @@ $shortcode_href = TCP_ADMIN_PATH . 'ShortCodeGenerator.php&shortcode_id='; ?>
 	$term					= isset( $shortcode_data['term'] ) ? $shortcode_data['term'] : '';
 	$limit					= isset( $shortcode_data['limit'] ) ? $shortcode_data['limit'] : 10;
 	$see_pagination			= isset( $shortcode_data['see_pagination'] ) ? $shortcode_data['see_pagination'] : false;
+	$see_order_panel		= isset( $shortcode_data['see_order_panel'] ) ? $shortcode_data['see_order_panel'] : false;
 	$loop					= isset( $shortcode_data['loop'] ) ? $shortcode_data['loop'] : '';
 	$columns				= isset( $shortcode_data['columns'] ) ? $shortcode_data['columns'] : 2;
+
+	$columns_xs				= isset( $shortcode_data['columns_xs'] ) ? $shortcode_data['columns_xs'] : 2;
+	$columns_sm				= isset( $shortcode_data['columns_sm'] ) ? $shortcode_data['columns_sm'] : 2;
+	$columns_lg				= isset( $shortcode_data['columns_lg'] ) ? $shortcode_data['columns_lg'] : 2;
+
 	$order_type				= isset( $shortcode_data['order_type'] ) ? $shortcode_data['order_type'] : 'date';
 	$order_desc				= isset( $shortcode_data['order_desc'] ) ? $shortcode_data['order_desc'] : 'desc';
 	$see_title				= isset( $shortcode_data['see_title'] ) ? $shortcode_data['see_title'] == 'yes' : true;
@@ -148,6 +163,7 @@ $shortcode_href = TCP_ADMIN_PATH . 'ShortCodeGenerator.php&shortcode_id='; ?>
 	$image_size				= isset( $shortcode_data['image_size'] ) ? $shortcode_data['image_size'] : 'thumbnail';
 	$see_content			= isset( $shortcode_data['see_content'] ) ? $shortcode_data['see_content'] == 'yes' : false;
 	$see_excerpt			= isset( $shortcode_data['see_excerpt'] ) ? $shortcode_data['see_excerpt'] == 'yes' : false;
+	$excerpt_length			= isset( $shortcode_data['excerpt_length'] ) ? $shortcode_data['excerpt_length'] : false;
 	$see_author				= isset( $shortcode_data['see_author'] ) ? $shortcode_data['see_author'] == 'yes' : false;
 	$see_posted_on			= isset( $shortcode_data['see_posted_on'] ) ? $shortcode_data['see_posted_on'] == 'yes' : false;
 	$see_taxonomies			= isset( $shortcode_data['see_taxonomies'] ) ? $shortcode_data['see_taxonomies'] == 'yes' : false;
@@ -155,9 +171,9 @@ $shortcode_href = TCP_ADMIN_PATH . 'ShortCodeGenerator.php&shortcode_id='; ?>
 	$see_price				= isset( $shortcode_data['see_price'] ) ? $shortcode_data['see_price'] == 'yes' : false;
 	$see_buy_button			= isset( $shortcode_data['see_buy_button'] ) ? $shortcode_data['see_buy_button'] == 'yes' : false;
 	$use_taxonomy 			= isset( $shortcode_data['use_taxonomy'] ) ? $shortcode_data['use_taxonomy'] == 'yes' : false;
-	$see_first_custom_area	= isset( $shortcode_data['see_first_custom_area'] ) ? $shortcode_data['see_first_custom_area'] == 'yes' : false;
-	$see_second_custom_area	= isset( $shortcode_data['see_second_custom_area'] ) ? $shortcode_data['see_second_custom_area'] == 'yes' : false;
-	$see_third_custom_area	= isset( $shortcode_data['see_third_custom_area'] ) ? $shortcode_data['see_third_custom_area'] == 'yes' : false;
+	$see_first_custom_area	= isset( $shortcode_data['see_first_custom_area'] ) ? $shortcode_data['see_first_custom_area'] : false;
+	$see_second_custom_area	= isset( $shortcode_data['see_second_custom_area'] ) ? $shortcode_data['see_second_custom_area'] : false;
+	$see_third_custom_area	= isset( $shortcode_data['see_third_custom_area'] ) ? $shortcode_data['see_third_custom_area'] : false;
 	if ( $use_taxonomy ) {
 		$use_taxonomy_style = '';
 		$included_style = 'display: none;';
@@ -214,12 +230,12 @@ $shortcode_href = TCP_ADMIN_PATH . 'ShortCodeGenerator.php&shortcode_id='; ?>
 		</tr>
 		<tr>
 			<th scope="row">
-				<label for="use_taxonomy"><?php _e( 'Use Taxonomy', 'tcp' ); ?></label>
+				<label for="use_taxonomy"><?php _e( 'Use Taxonomy', 'tcp' ); ?>:</label>
 			</th>
 			<td>
 				<input type="checkbox" class="checkbox" onclick="tcp_show_taxonomy(this.checked);" id="use_taxonomy" name="use_taxonomy" value="yes" <?php checked( $use_taxonomy, true ); ?> />
+				<p class="description"><?php _e( 'If checked, you can select which Taxonomy (category) you want to display. If not checked you can select as many product as you want to show.', 'tcp' ); ?></p>
 			</td>
-		</p>
 		</tr>
 		<tr valign="top" class="tcp_taxonomy_controls" style="<?php echo $use_taxonomy_style; ?>">
 			<th scope="row">
@@ -304,21 +320,32 @@ $shortcode_href = TCP_ADMIN_PATH . 'ShortCodeGenerator.php&shortcode_id='; ?>
 		</tr>
 		<tr valign="top">
 			<th scope="row">
+				<label for="id"><?php _e( 'See Order Panel', 'tcp' ); ?>:</label>
+			</th>
+			<td>
+				<input type="checkbox" name="see_order_panel" id="see_order_panel" value="yes" <?php checked( $see_order_panel ); ?>/>
+				<br/><span class="description"><?php _e( 'Allows to display an order panel in the shortcode.', 'tcp' ); ?></span>
+			</td>
+		</tr>
+		<tr valign="top">
+			<th scope="row">
 				<label for="loop"><?php _e( 'Loop', 'tcp' ); ?>:</label>
-				<br/>(<?php _e( 'theme', 'tcp' ); ?>:&nbsp;<?php echo get_template(); ?>)
+				<br/>(<?php _e( 'theme', 'tcp' ); ?>:&nbsp;<?php if ( function_exists('wp_get_theme') ) echo wp_get_theme(); else echo get_template(); ?>)
 			</th>
 			<td>
 				<select name="loop" id="loop">
-					<option value="" <?php selected( $loop, '' ); ?>"><?php _e( 'default', 'tcp' ); ?></option>
+					<option value="" <?php selected( $loop, '' ); ?>><?php _e( 'default', 'tcp' ); ?></option>
 				<?php $files = array();
-				$folder = STYLESHEETPATH;
+				$folder = get_stylesheet_directory();
+
 				if ( $handle = opendir( $folder ) ) :
+					$folder = stripslashes( str_replace( '\\', "/", $folder ) );
 					while ( false !== ( $file = readdir( $handle ) ) ) :
 						if ( $file != '.' && $file != '..' && strpos( $file, 'loop' ) === 0 ) : ?>
 							<option value="<?php echo $folder . '/' . $file; ?>" <?php selected( $loop, $folder . '/' . $file ); ?>><?php echo $file; ?></option>
 						<?php $files[] = $file;
-						endif; ?>
-					<?php endwhile;
+						endif;
+					endwhile;
 					closedir( $handle );
 				endif;			
 				$folder = get_template_directory();
@@ -327,8 +354,8 @@ $shortcode_href = TCP_ADMIN_PATH . 'ShortCodeGenerator.php&shortcode_id='; ?>
 						while ( false !== ( $file = readdir( $handle ) ) ) :
 							if ( $file != '.' && $file != '..' && strpos( $file, 'loop' ) === 0 && ! in_array( $file, $files ) ) : ?>
 								<option value="<?php echo $folder . '/' . $file; ?>" <?php selected( $loop, $folder . '/' . $file ); ?>>[<?php _e( 'parent', 'tcp' ); ?>] <?php echo $file; ?></option>
-							<?php endif; ?>
-						<?php endwhile;
+							<?php endif;
+						endwhile;
 					closedir( $handle );
 				endif;
 				if ( strlen( $loop ) > 0 && ! file_exists( $loop ) ) : ?>
@@ -342,9 +369,9 @@ $shortcode_href = TCP_ADMIN_PATH . 'ShortCodeGenerator.php&shortcode_id='; ?>
 				<label for="order_type"><?php _e( 'Order by', 'tcp' ); ?></label>:
 			</th>
 			<td>
-				<?php add_filter( 'tcp_sorting_fields', 'tcp_shortcode_sorting_fields' );
+				<?php //add_filter( 'tcp_sorting_fields', 'tcp_shortcode_sorting_fields' );
 				$sorting_fields = tcp_get_sorting_fields();
-				remove_filter( 'tcp_sorting_fields', 'tcp_shortcode_sorting_fields' ); ?>
+				//remove_filter( 'tcp_sorting_fields', 'tcp_shortcode_sorting_fields' ); ?>
 				<select id="order_type" name="order_type">
 				<?php foreach( $sorting_fields as $sorting_field ) : ?>
 				<option value="<?php echo $sorting_field['value']; ?>" <?php selected( $order_type, $sorting_field['value'] ); ?>><?php echo $sorting_field['title']; ?></option>
@@ -360,6 +387,7 @@ $shortcode_href = TCP_ADMIN_PATH . 'ShortCodeGenerator.php&shortcode_id='; ?>
 				<input type="checkbox" name="order_desc" id="order_desc" value="yes" <?php checked( $order_desc, 'desc' ); ?>/>
 			</td>
 		</tr>
+		<?php do_action( 'tcp_shortcode_generator_form', $shortcode_data ); ?>
 		</tbody>
 		</table>
 		<p>
@@ -367,8 +395,20 @@ $shortcode_href = TCP_ADMIN_PATH . 'ShortCodeGenerator.php&shortcode_id='; ?>
 		</p>
 	<div id="advanced" style="display:none;">
 		<p>
-			<label for="columns"><?php _e( 'N<sup>o</sup> columns', 'tcp' ); ?>:</label>
+			<label for="columns_xs"><?php _e( 'N<sup>o</sup> columns for Extra Small Devices (Phones)', 'tcp' ); ?>:</label>
+			<input id="columns_xs" name="columns_xs" type="text" value="<?php echo $columns_xs; ?>" size="3" />
+		</p>
+		<p>
+			<label for="columns_sm"><?php _e( 'N<sup>o</sup> columns for Small Devices (Tablets)', 'tcp' ); ?>:</label>
+			<input id="columns_sm" name="columns_sm" type="text" value="<?php echo $columns_sm; ?>" size="3" />
+		</p>
+		<p>
+			<label for="columns"><?php _e( 'N<sup>o</sup> columns for Medium Devices (Desktop)', 'tcp' ); ?>:</label>
 			<input id="columns" name="columns" type="text" value="<?php echo $columns; ?>" size="3" />
+		</p>
+		<p>
+			<label for="columns_lg"><?php _e( 'N<sup>o</sup> columns for Large Devices (Large Desktop)', 'tcp' ); ?>:</label>
+			<input id="columns_lg" name="columns_lg" type="text" value="<?php echo $columns_lg; ?>" size="3" />
 		</p>
 		<p>
 			<input type="checkbox" class="checkbox" id="see_title" name="see_title" value="yes" <?php checked( $see_title ); ?> />
@@ -396,8 +436,8 @@ $shortcode_href = TCP_ADMIN_PATH . 'ShortCodeGenerator.php&shortcode_id='; ?>
 			<label for="image_size"><?php _e( 'Image size', 'tcp' ); ?>:</label>
 			<select id="image_size" name="image_size">
 			<?php $imageSizes = get_intermediate_image_sizes();
-			foreach($imageSizes as $imageSize) : ?>
-				<option value="<?php echo $imageSize; ?>" <?php selected( $imageSize, $image_size); ?>><?php echo $imageSize; ?></option>
+			foreach( $imageSizes as $imageSize ) : ?>
+				<option value="<?php echo $imageSize; ?>" <?php selected( $imageSize, $image_size ); ?>><?php echo $imageSize; ?></option>
 			<?php endforeach; ?>
 			?>
 			</select>
@@ -409,6 +449,10 @@ $shortcode_href = TCP_ADMIN_PATH . 'ShortCodeGenerator.php&shortcode_id='; ?>
 		<p>
 			<input type="checkbox" class="checkbox" id="see_excerpt" name="see_excerpt" value="yes" <?php checked( $see_excerpt ); ?> />
 			<label for="see_excerpt"><?php _e( 'Show excerpt', 'tcp' ); ?></label>
+		</p>
+		<p>
+			<label for="excerpt_length"><?php _e( 'Excerpt length', 'tcp' ); ?>: </label>
+			<input type="number" class="input-mini" id="excerpt_length" name="excerpt_length" value="<?php echo $excerpt_length; ?>" maxlength="3" />
 		</p>
 		<p>
 			<input type="checkbox" class="checkbox" id="see_author" name="see_author" value="yes" <?php checked( $see_author ); ?> />
@@ -439,7 +483,7 @@ $shortcode_href = TCP_ADMIN_PATH . 'ShortCodeGenerator.php&shortcode_id='; ?>
 			<label for="see_first_custom_area"><?php _e( 'Show first custom area', 'tcp' ); ?></label>
 		</p>
 		<p>
-			<input type="checkbox" class="checkbox" id="see_second_custom_area" name="see_first_custom_area" value="yes" <?php checked( $see_second_custom_area ); ?> />
+			<input type="checkbox" class="checkbox" id="see_second_custom_area" name="see_second_custom_area" value="yes" <?php checked( $see_second_custom_area ); ?> />
 			<label for="see_second_custom_area"><?php _e( 'Show second custom area', 'tcp' ); ?></label>
 		</p>
 		<p>

@@ -1,5 +1,14 @@
 <?php
 /**
+ * Cart Source DB
+ *
+ * Allows to fill a Cart using the Shopping Cart
+ *
+ * @package TheCartPress
+ * @subpackage Classes
+ */
+
+/**
  * This file is part of TheCartPress.
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -25,19 +34,47 @@ class TCPCartSourceSession implements TCP_ICartSource {
 	private $orders_costs;
 
 	private $is_editing_units;
-	private $see_other_costs;
 	private $see_address;
-	private $see_full;
-	private $see_thumbnail;
+	private $see_sku;
+	private $see_weight;
+	private $see_tax;
 	private $see_tax_summary;
+	private $see_comment;	
+	private $see_other_costs;
+	private $see_thumbnail;
 
-	function __construct( $is_editing_units = true, $see_other_costs = false, $see_address = false, $see_full = false, $see_tax_summary = false, $see_thumbnail = true ) {
+	/**
+	 * @param $args, array ($see_address => true/false, $see_full => true/false, $see_tax_summary => true/false, $see_comment => true/false, $see_thumbnail => true/false(default))
+	 */
+	function __construct( $args = array() ) {
+		$defaults = array(
+			'is_editing_units'	=> true,
+			'see_address'		=> false,
+			'see_sku'			=> false,
+			'see_weight'		=> true,
+			'see_tax'			=> false,
+			'see_tax_summary'	=> false,
+			'see_comment'		=> false,
+			'see_other_costs'	=> true,//TODO
+			'see_thumbnail'		=> true
+		);
+		global $thecartpress;
+		if ( $thecartpress ) $defaults['see_weight'] = $thecartpress->get_setting( 'use_weight', true );
+		$args = wp_parse_args( $args, $defaults );
+		extract( $args );
 		$this->is_editing_units	= $is_editing_units;
-		$this->see_other_costs	= $see_other_costs;
 		$this->see_address		= $see_address;
-		$this->see_full			= $see_full;
+		$this->see_sku			= $see_sku;
+		$this->see_weight		= $see_weight;
+		$this->see_tax			= $see_tax;
 		$this->see_tax_summary	= $see_tax_summary;
+		$this->set_commect		= $see_comment;
+		$this->see_other_costs	= $see_other_costs;
 		$this->see_thumbnail	= $see_thumbnail;
+	}
+
+	public function __set( $name, $value ) {
+		if ( isset( $this->$name ) ) $this->$name = $value;
 	}
 
 	public function get_order_id() {
@@ -52,7 +89,19 @@ class TCPCartSourceSession implements TCP_ICartSource {
 		return false;
 	}
 
+	public function get_payment_name() {
+		return false;
+	}
+
+	public function get_payment_notice() {
+		return false;
+	}
+
 	public function get_shipping_method() {
+		return false;
+	}
+
+	public function get_shipping_notice() {
 		return false;
 	}
 
@@ -60,20 +109,24 @@ class TCPCartSourceSession implements TCP_ICartSource {
 		return false;
 	}
 
-	public function see_other_costs() {
-		return $this->see_other_costs;
-	}
-
 	public function see_address() {
 		return $this->see_address;
 	}
 
-	public function see_full() {
-		return $this->see_full;
-	}
-
 	public function see_thumbnail() {
 		return $this->see_thumbnail;
+	}
+
+	public function see_sku() {
+		return $this->see_sku;
+	}
+
+	public function see_weight() {
+		return $this->see_weight;
+	}
+
+	public function see_tax() {
+		return $this->see_tax;
 	}
 
 	public function see_tax_summary() {
@@ -84,12 +137,16 @@ class TCPCartSourceSession implements TCP_ICartSource {
 		return $this->is_editing_units;
 	}
 
+	public function see_other_costs() {
+		return $this->see_other_costs;
+	}
+
 	public function see_product_link() {
 		return true;
 	}
 	
 	public function see_comment() {
-		return false;
+		return $this->see_comment;
 	}
 
 	public function get_shipping_firstname() {
@@ -127,8 +184,18 @@ class TCPCartSourceSession implements TCP_ICartSource {
 		else return false;
 	}
 
+	public function get_shipping_region_id() {
+		if ( isset( $_SESSION['tcp_checkout'] ) ) return $_SESSION['tcp_checkout']['shipping']['shipping_region_id'];
+		else return false;
+	}
+
 	public function get_shipping_country() {
 		if ( isset( $_SESSION['tcp_checkout'] ) ) return $_SESSION['tcp_checkout']['shipping']['shipping_country'];
+		else return false;
+	}
+
+	public function get_shipping_country_id() {
+		if ( isset( $_SESSION['tcp_checkout'] ) ) return $_SESSION['tcp_checkout']['shipping']['shipping_country_id'];
 		else return false;
 	}
 
@@ -166,6 +233,11 @@ class TCPCartSourceSession implements TCP_ICartSource {
 		if ( isset( $_SESSION['tcp_checkout'] ) ) return $_SESSION['tcp_checkout']['billing']['billing_company'];
 		else return false;
 	}
+	
+	public function get_billing_tax_id_number() {
+		if ( isset( $_SESSION['tcp_checkout'] ) ) return $_SESSION['tcp_checkout']['billing']['billing_tax_id_number'];
+		else return false;
+	}
 
 	public function get_billing_street() {
 		if ( isset( $_SESSION['tcp_checkout'] ) ) return $_SESSION['tcp_checkout']['billing']['billing_street'];
@@ -186,9 +258,19 @@ class TCPCartSourceSession implements TCP_ICartSource {
 		if ( isset( $_SESSION['tcp_checkout'] ) ) return $_SESSION['tcp_checkout']['billing']['billing_region'];
 		else return false;
 	}
+	
+	public function get_billing_region_id() {
+		if ( isset( $_SESSION['tcp_checkout'] ) ) return $_SESSION['tcp_checkout']['billing']['billing_region_id'];
+		else return false;
+	}
 
 	public function get_billing_country() {
 		if ( isset( $_SESSION['tcp_checkout'] ) ) return $_SESSION['tcp_checkout']['billing']['billing_country'];
+		else return false;
+	}
+	
+	public function get_billing_country_id() {
+		if ( isset( $_SESSION['tcp_checkout'] ) ) return $_SESSION['tcp_checkout']['billing']['billing_country_id'];
 		else return false;
 	}
 
@@ -232,7 +314,7 @@ class TCPCartSourceSession implements TCP_ICartSource {
 	}
 
 	public function get_comment() {
-		return false;
+		return '';
 	}
 
 	public function has_orders_costs() {
@@ -275,8 +357,15 @@ class TCP_DetailSourceSession implements TCP_IDetailSource {
 	}
 
 	public function get_name() {
-		if ( $this->item ) return stripslashes( $this->item->getTitle() );
-		else return false;
+		if ( $this->item ) {
+			//return stripslashes( $this->item->getTitle() );
+			$post_id = tcp_get_current_id( $this->get_post_id() );
+			$option_1_id = tcp_get_current_id( $this->get_option_1_id() );
+			$option_2_id = tcp_get_current_id( $this->get_option_2_id() );
+			return stripslashes( tcp_get_the_title( $post_id, $option_1_id, $option_2_id ) );
+		} else {
+			return false;
+		}
 	}
 
 	/*public function get_option_1_name() {
@@ -308,11 +397,27 @@ class TCP_DetailSourceSession implements TCP_IDetailSource {
 	}
 
 	public function get_sku() {
+		if ( $this->item ) return $this->item->getSKU();
 		return false;
 	}
 
 	public function get_weight() {
-		if ( $this->item ) return $this->item->getUnitWeight();
+		if ( $this->item ) return $this->item->getUnitWeight() * $this->get_qty_ordered();
+		else return false;
+	}
+
+	public function has_attributes() {
+		if ( $this->item ) return $this->item->has_attributes();
+		else return false;
+	}
+
+	public function get_attributes() {
+		if ( $this->item ) return $this->item->get_attributes();
+		else return false;
+	}
+
+	public function get_attribute( $id ) {
+		if ( $this->item ) return $this->item->get_attribute( $id );
 		else return false;
 	}
 }

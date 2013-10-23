@@ -16,18 +16,42 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-require_once( dirname( __FILE__ ) . '/TCPCheckoutBox.class.php' );
+require_once( TCP_CHECKOUT_FOLDER . 'TCPCheckoutBox.class.php' );
 
 class TCPShippingMethodsBox extends TCPCheckoutBox {
 	private $errors = array();
+	private $applicable_sending_plugins = array();
 	private $shipping_sorting = array();
 
 	function get_title() {
-		return __( 'Sending methods', 'tcp' );
+		//return __( 'Sending methods', 'tcp' );
+		if ( isset( $_SESSION['tcp_checkout']['shipping_methods'] ) ) {
+			$plugin = explode( '#', $_SESSION['tcp_checkout']['shipping_methods']['shipping_method_id'] );
+			$object = new $plugin[0]();
+			return sprintf( __( 'Sending method: %s', 'tcp' ), $object->getCheckoutMethodLabel( $plugin[1], '', false ) );
+		} else {
+			return __( 'Sending methods', 'tcp' );
+		}
 	}
 
 	function get_class() {
 		return 'sending_layer';
+	}
+
+	function get_name() {
+		return 'shipping-methods';
+	}
+
+	function is_hidden() {
+		$settings = get_option( 'tcp_' . get_class( $this ), array() );
+		$hide_box = isset( $settings['hide_box'] ) ? $settings['hide_box'] : false;
+		if ( count( $this->applicable_sending_plugins ) == 1 ) {
+			$hidden_if_unique = isset( $settings['hidden_if_unique'] ) ? $settings['hidden_if_unique'] : false;
+			if ( $hidden_if_unique && $hide_box) return true;
+		} elseif ( count( $this->applicable_sending_plugins ) == 0 && $hide_box ) {
+			return true;
+		}
+		return false;
 	}
 
 	function before_action() {
@@ -36,7 +60,36 @@ class TCPShippingMethodsBox extends TCPCheckoutBox {
 			unset( $_SESSION['tcp_checkout']['shipping_methods'] );
 			return 1;
 		} else {
-			return 0;
+			$selected_shipping_address = isset( $_SESSION['tcp_checkout']['shipping']['selected_shipping_address'] ) ? $_SESSION['tcp_checkout']['shipping']['selected_shipping_address'] : false;
+			if ( $selected_shipping_address == 'new' ) {
+				$shipping_country = $_SESSION['tcp_checkout']['shipping']['shipping_country_id'];
+			} elseif ( $selected_shipping_address == 'BIL' ) {
+				if ( $_SESSION['tcp_checkout']['billing']['selected_billing_address'] == 'new' ) {
+					$shipping_country = $_SESSION['tcp_checkout']['billing']['billing_country_id'];
+				} else { //if ( $_SESSION['tcp_checkout']['billing']['selected_billing_addres'] == 'Y' ) {
+					$shipping_country = Addresses::getCountryId( $_SESSION['tcp_checkout']['billing']['selected_billing_id'] );
+				}
+			} else { //if ( $selected_billing_address == 'Y' ) {
+				$shipping_country = Addresses::getCountryId( $_SESSION['tcp_checkout']['shipping']['selected_shipping_id'] );
+			}
+			if ( ! $shipping_country ) $shipping_country = '';
+			$this->applicable_sending_plugins = tcp_get_applicable_shipping_plugins( $shipping_country, $shoppingCart );
+			$settings = get_option( 'tcp_' . get_class( $this ), array() );
+			//If hidden if unique (not display the box opened) and the numbers of applucable methos is one
+			$hidden_if_unique = isset( $settings['hidden_if_unique'] ) ? $settings['hidden_if_unique'] : false;
+			if ( $hidden_if_unique && count( $this->applicable_sending_plugins ) == 1 ) {
+				$plugin_data = $this->applicable_sending_plugins[0];
+				$tcp_plugin = $plugin_data['plugin'];
+				$instance = $plugin_data['instance'];
+				$plugin_name = get_class( $tcp_plugin );
+				$_SESSION['tcp_checkout']['shipping_methods'] = array(
+					'shipping_method_id' => $plugin_name . '#' . $instance,
+				);
+				return 1;
+			} else {
+				$this->shipping_sorting = isset( $settings['sorting'] ) ? $settings['sorting'] : '';
+				return 0;
+			}
 		}
 	}
 
@@ -71,9 +124,9 @@ class TCPShippingMethodsBox extends TCPCheckoutBox {
 			border: 1px solid #BBBBBB;
 			padding: 2px;
 			background: url("../images/white-grad.png") repeat-x scroll left top #F2F2F2;
-		    text-shadow: 0 1px 0 #FFFFFF;
-		    -moz-box-sizing: content-box;
-		    border-radius: 5px 0px 0px 0px;
+			text-shadow: 0 1px 0 #FFFFFF;
+			-moz-box-sizing: content-box;
+			border-radius: 5px 0px 0px 0px;
 			cursor: move;
 		}
 		</style>
@@ -99,22 +152,27 @@ class TCPShippingMethodsBox extends TCPCheckoutBox {
 		<ul id="tcp_shipping_list">
 		<?php global $tcp_shipping_plugins;
 		if ( is_array( $shipping_sorting ) && count( $shipping_sorting ) > 1)
-			foreach( $shipping_sorting as $id ) 
-				if ( isset( $tcp_shipping_plugins[$id] ) ) :
-				$tcp_shipping_plugin = $tcp_shipping_plugins[$id]; ?>
+			foreach( $shipping_sorting as $id ) if ( isset( $tcp_shipping_plugins[$id] ) ) : $tcp_shipping_plugin = $tcp_shipping_plugins[$id]; ?>
 				<li class="tcp_shipping_item" id="<?php echo $id; ?>"><?php echo $tcp_shipping_plugin->getName(); ?></li>
 			<?php endif;
-		else
-			foreach( $tcp_shipping_plugins as $id => $tcp_shipping_plugin ) : ?>
+		else foreach( $tcp_shipping_plugins as $id => $tcp_shipping_plugin ) : ?>
 				<li class="tcp_shipping_item" id="<?php echo $id; ?>"><?php echo $tcp_shipping_plugin->getName(); ?></li>
-			<?php endforeach; ?>
+		<?php endforeach; ?>
+		</ul>
+		<?php $tcp_hidden_if_unique	= isset( $settings['hidden_if_unique'] ) ? $settings['hidden_if_unique'] : false;
+		$tcp_hide_box = isset( $settings['hide_box'] ) ? $settings['hide_box'] : false; ?>
+		<ul>
+			<li><label><input type="checkbox" value="yes" name="tcp_hidden_if_unique" <?php checked( $tcp_hidden_if_unique ); ?>/> <?php _e( 'Hide box, displaying only header, if only one method is applicable', 'tcp' ); ?></label></li>
+			<li><label><input type="checkbox" value="yes" name="tcp_hide_box" <?php checked( $tcp_hide_box ); ?>/> <?php _e( 'Hide box if only one method is applicable', 'tcp' ); ?></label></li>
 		</ul>
 		<?php return true;
 	}
 
 	function save_config_settings() {
 		$settings = array(
-			'sorting'	=> isset( $_REQUEST['tcp_shipping_sorting'] ) ? explode( ',', $_REQUEST['tcp_shipping_sorting'] ) : '',
+			'sorting' => isset( $_REQUEST['tcp_shipping_sorting'] ) ? explode( ',', $_REQUEST['tcp_shipping_sorting'] ) : '',
+			'hidden_if_unique' => isset( $_REQUEST['tcp_hidden_if_unique'] ),
+			'hide_box' => isset( $_REQUEST['tcp_hide_box'] ),
 		);
 		update_option( 'tcp_' . get_class( $this ), $settings );
 		return true;
@@ -135,18 +193,15 @@ class TCPShippingMethodsBox extends TCPCheckoutBox {
 			$shipping_country = Addresses::getCountryId( $_SESSION['tcp_checkout']['shipping']['selected_shipping_id'] );
 		}
 		if ( ! $shipping_country ) $shipping_country = '';
-		$applicable_sending_plugins = tcp_get_applicable_shipping_plugins( $shipping_country, $shoppingCart );
-		$settings = get_option( 'tcp_' . get_class( $this ), array() );
-		$this->shipping_sorting = isset( $settings['sorting'] ) ? $settings['sorting'] : '';
 		if ( is_array( $this->shipping_sorting ) && count( $this->shipping_sorting ) > 0 ) {
-			usort( $applicable_sending_plugins, array( $this, 'sort_plugins' ) );
+			usort( $this->applicable_sending_plugins, array( $this, 'sort_plugins' ) );
 		} ?>
 		<div class="checkout_info clearfix" id="sending_layer_info"><?php
-		if ( is_array( $applicable_sending_plugins ) && count( $applicable_sending_plugins ) > 0 ) : ?>
+		if ( is_array( $this->applicable_sending_plugins ) && count( $this->applicable_sending_plugins ) > 0 ) : ?>
 			<ul><?php
 			$shipping_method_id = isset( $_SESSION['tcp_checkout']['shipping_methods']['shipping_method_id'] ) ? $_SESSION['tcp_checkout']['shipping_methods']['shipping_method_id'] : false;
 			$exist_id = false;
-			foreach( $applicable_sending_plugins as $plugin_data ) {
+			foreach( $this->applicable_sending_plugins as $plugin_data ) {
 				$tcp_plugin = $plugin_data['plugin'];
 				$instance = $plugin_data['instance'];
 				$plugin_name = get_class( $tcp_plugin );
@@ -157,15 +212,17 @@ class TCPShippingMethodsBox extends TCPCheckoutBox {
 				}
 			}
 			if ( ! $exist_id ) $shipping_method_id = false;
-			foreach( $applicable_sending_plugins as $plugin_data ) :
+			foreach( $this->applicable_sending_plugins as $plugin_data ) :
 				$tcp_plugin = $plugin_data['plugin'];
 				$instance = $plugin_data['instance'];
 				$plugin_name = get_class( $tcp_plugin );
 				$plugin_value = $plugin_name . '#' . $instance;
 				if ( ! $shipping_method_id ) $shipping_method_id = $plugin_value; ?>
 				<li>
+					<label for="<?php echo $plugin_name;?>_<?php echo $instance;?>">
 					<input type="radio" id="<?php echo $plugin_name;?>_<?php echo $instance;?>" name="shipping_method_id" value="<?php echo $plugin_value;?>" <?php checked( $plugin_value, $shipping_method_id );?> />
-					<label for="<?php echo $plugin_name;?>_<?php echo $instance;?>"><span class="tcp_shipping_title_<?php echo $plugin_name;?>"><?php echo $tcp_plugin->getCheckoutMethodLabel( $instance, $shipping_country, $shoppingCart );?></span></label>
+					<span class="tcp_shipping_title_<?php echo $plugin_name;?>"><?php echo $tcp_plugin->getCheckoutMethodLabel( $instance, $shipping_country, $shoppingCart );?></span>
+					</label>
 					<div class="tcp_plugin_notice tcp_plugin_notice_<?php echo $plugin_name; ?>"><?php tcp_do_template( 'tcp_shipping_plugins_' . $plugin_name ); ?></div>
 				</li>
 			<?php endforeach;?>

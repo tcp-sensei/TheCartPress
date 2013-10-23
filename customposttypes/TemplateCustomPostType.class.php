@@ -1,5 +1,15 @@
 <?php
 /**
+ * Template Post Type
+ *
+ * Notices, emails, adverstisment
+ * This class defines the post type 'tcp_template'.
+ *
+ * @package TheCartPress
+ * @subpackage Classes
+ */
+
+/**
  * This file is part of TheCartPress.
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -16,15 +26,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * Notices, emails, adverstisment
- * This class defines the post type 'tcp_template'.
- */
+// Exit if accessed directly
+if ( !defined( 'ABSPATH' ) ) exit;
+
+if ( ! class_exists( 'TemplateCustomPostType' ) ) {
+
 class TemplateCustomPostType {
 	public static $TEMPLATE = 'tcp_template';
 	
-	function __construct() {
-		global $thecartpress;
+	static function initPlugin() {
+		add_action( 'init', array( __CLASS__, 'init' ) );
+	}
+	
+	static function init() {
+		//global $thecartpress;
 		$labels = array(
 			'name'					=> _x( 'Notices', 'post type general name', 'tcp' ),
 			'singular_name'			=> _x( 'Notice', 'post type singular name', 'tcp' ),
@@ -60,4 +75,6 @@ class TemplateCustomPostType {
 		register_post_type( TemplateCustomPostType::$TEMPLATE, $register );
 	}
 }
-?>
+
+TemplateCustomPostType::initPlugin();
+} // class_exists check

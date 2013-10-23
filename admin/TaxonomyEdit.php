@@ -19,7 +19,7 @@
 $taxonomy = isset( $_REQUEST['taxonomy'] ) ? $_REQUEST['taxonomy'] : '';
 
 if ( isset( $_REQUEST['save_taxonomy'] ) ) {
-	$taxonomy = strtolower( str_replace( ' ' , '_', $taxonomy ) );
+	$taxonomy = sanitize_key( $taxonomy );
 	$taxonomy_def = array(
 		'post_type'			=> isset( $_REQUEST['post_type'] ) ? $_REQUEST['post_type'] : 'post',
 		'name'				=> isset( $_REQUEST['name'] ) ? $_REQUEST['name'] : __( 'Category Name', 'tcp' ),
@@ -43,7 +43,7 @@ if ( isset( $_REQUEST['save_taxonomy'] ) ) {
 	);
 	tcp_update_custom_taxonomy( $taxonomy, $taxonomy_def );
 	update_option( 'tcp_rewrite_rules', true ); ?>
-	<div id="message" class="updated"><p><?php _e( 'Taxonomy saved', 'tcp' );?></p></div><?php
+	<div id="message" class="updated"><p><?php _e( 'Taxonomy saved', 'tcp' ); ?></p></div><?php
 	unset( $taxonomy_def );
 } elseif ( strlen( $taxonomy ) > 0 ) {
 	$taxonomy_def = tcp_get_custom_taxonomy( $taxonomy );
@@ -89,15 +89,16 @@ if ( ! isset( $taxonomy_def ) ) {
 	$query_var			= isset( $_REQUEST['query_var'] );
 	$hierarchical		= isset( $_REQUEST['hierarchical'] );
 	$rewrite			= isset( $_REQUEST['rewrite'] ) ? $_REQUEST['rewrite'] : false;
-}
-?>
+} ?>
 <div class="wrap">
-<h2><?php _e( 'Taxonomy', 'tcp' );?></h2>
+<h2><?php _e( 'Taxonomy', 'tcp' ); ?></h2>
 <ul class="subsubsub">
-	<li><a href="<?php echo TCP_ADMIN_PATH; ?>TaxonomyList.php"><?php _e( 'Return to the list', 'tcp' );?></a></li>
+	<li><a href="<?php echo TCP_ADMIN_PATH; ?>TaxonomyList.php"><?php _e( 'Return to the list', 'tcp' ); ?></a></li>
 	<?php if ( strlen( $taxonomy ) > 0 ) : ?>
 	<li> | </li>
 	<li><a href="<?php echo TCP_ADMIN_PATH; ?>TaxonomyEdit.php"><?php _e( 'Add new taxonomy', 'tcp' ); ?></a></li>
+	<li>|</li>
+	<li><a href="edit-tags.php?taxonomy=<?php echo $taxonomy; ?>&post_type=<?php echo TCP_DYNAMIC_OPTIONS_POST_TYPE; ?>" title="<?php _e( 'add terms', 'tcp' ); ?>"><?php _e( 'Terms', 'tcp' ); ?></a></li>
 	<?php endif; ?>
 </ul>
 <div class="clear"></div>
@@ -110,167 +111,185 @@ if ( ! isset( $taxonomy_def ) ) {
 	<table class="form-table">
 	<tr valign="top">
 		<th scope="row">
-			<label for="post_type"><?php _e( 'Post Type', 'tcp' );?>:</label>
+			<label for="post_type"><?php _e( 'Post Type', 'tcp' ); ?>:</label>
 		</th>
 		<td>
-			<select name="post_type" id="post_type">
+			<select name="post_type" id="post_type"><?php // multiple="multiple" size="10" style="height: auto;"> ?>
 			<?php //foreach( get_post_types( array( 'show_in_nav_menus' => true ), object ) as $type ) : ?>
 			<?php foreach( get_post_types( '', object ) as $type ) : ?>
-				<option value="<?php echo $type->name; ?>"<?php selected( $post_type, $type->name ); ?>><?php echo $type->labels->name; ?></option>
+				<option value="<?php echo $type->name; ?>"<?php selected( $post_type, $type->name ); //tcp_selected_multiple( $post_type, $type->name ); ?>><?php echo $type->labels->name; ?></option>
 			<?php endforeach; ?>
 			</select>
 		</td>
 	</tr>
+
 	<tr valign="top">
 		<th scope="row">
-			<label for="name"><?php _e( 'Taxonomy name', 'tcp' );?>:<span class="compulsory">(*)</span></label>
+			<label for="name"><?php _e( 'Taxonomy name', 'tcp' ); ?>:<span class="compulsory">(*)</span></label>
 		</th>
 		<td>
-			<input type="text" id="name" name="name" value="<?php echo $name;?>" size="20" maxlength="50" />
-			<?php //tcp_show_error_msg( $error_taxo, 'name' );?>
+			<input type="text" id="name" name="name" value="<?php echo $name; ?>" size="20" maxlength="50" />
+			<p class="description"><?php _e( 'The name of the taxonomy. Name should be in slug form (must not contain capital letters or spaces)', 'tcp' ); ?></p>
+			<?php //tcp_show_error_msg( $error_taxo, 'name' ); ?>
 		</td>
 	</tr>
+
 	<tr valign="top">
 		<th scope="row">
-			<label for="taxonomy"><?php _e( 'Taxonomy id', 'tcp' );?>:<span class="compulsory">(*)</span>
-			<br /><span class="description"><?php _e( 'No blank spaces', 'tcp' );?></span></label>
+			<label for="taxonomy"><?php _e( 'Taxonomy id', 'tcp' ); ?>:<span class="compulsory">(*)</span>
+			<br /><span class="description"><?php _e( 'No blank spaces', 'tcp' ); ?></span></label>
 		</th>
 		<td>
-			<input type="text" id="taxonomy" name="taxonomy" value="<?php echo $taxonomy;?>" size="20" maxlength="50" />
-			<?php if ( strlen( $taxonomy ) > 0 ) : ?><br /><span class="description"><?php _e( 'For an existing taxonomy, if this name is changed a new taxonomy will be created', 'tcp' );?></span><?php endif; ?>
+			<input type="text" id="taxonomy" name="taxonomy" value="<?php echo $taxonomy; ?>" size="20" maxlength="50" />
+			<?php if ( strlen( $taxonomy ) > 0 ) : ?><br /><span class="description"><?php _e( 'For an existing taxonomy, if this name is changed a new taxonomy will be created', 'tcp' ); ?></span><?php endif; ?>
 		</td>
 	</tr>
 <!--	<tr valign="top">
 		<th scope="row">
-			<label for="label"><?php _e( 'Label', 'tcp' );?>:</label>
+			<label for="label"><?php _e( 'Label', 'tcp' ); ?>:</label>
 		</th>
 		<td>
-			<input type="text" id="label" name="label" value="<?php echo $label;?>" size="20" maxlength="50" />
+			<input type="text" id="label" name="label" value="<?php echo $label; ?>" size="20" maxlength="50" />
 		</td>
 	</tr>
 	<tr valign="top">
 		<th scope="row">
-			<label for="singular_label"><?php _e( 'Singular label', 'tcp' );?>:</label>
+			<label for="singular_label"><?php _e( 'Singular label', 'tcp' ); ?>:</label>
 		</th>
 		<td>
-			<input type="text" id="singular_label" name="singular_label" value="<?php echo $singular_label;?>" size="20" maxlength="50" />
+			<input type="text" id="singular_label" name="singular_label" value="<?php echo $singular_label; ?>" size="20" maxlength="50" />
 		</td>
 	</tr>-->
+
 	<tr valign="top">
 		<th scope="row">
-			<label for="activate"><?php _e( 'Activated', 'tcp' );?>:</label>
+			<label for="activate"><?php _e( 'Activated', 'tcp' ); ?>:</label>
 		</th>
 		<td>
-			<input type="checkbox" id="activate" name="activate" value="y" <?php checked( $activate );?> />
+			<input type="checkbox" id="activate" name="activate" value="y" <?php checked( $activate ); ?> />
+		</td>
+	</tr>
+
+	<tr valign="top">
+		<th scope="row">
+			<label for="desc"><?php _e( 'Description', 'tcp' ); ?>:</label>
+		</th>
+		<td>
+			<textarea id="desc" name="desc" cols="40" rows="4"><?php echo $desc; ?></textarea>
+		</td>
+	</tr>
+
+	<tr valign="top">
+		<th scope="row">
+			<label for="singular_name"><?php _e( 'Singular name', 'tcp' ); ?>:</label>
+		</th>
+		<td>
+			<input type="text" id="singular_name" name="singular_name" value="<?php echo $singular_name; ?>" size="20" maxlength="50" />
+		</td>
+	</tr>
+
+	<tr valign="top">
+		<th scope="row">
+			<label for="search_items"><?php _e( 'Search items', 'tcp' ); ?>:</label>
+		</th>
+		<td>
+			<input type="text" id="search_items" name="search_items" value="<?php echo $search_items; ?>" size="20" maxlength="50" />
+		</td>
+	</tr>
+
+	<tr valign="top">
+		<th scope="row">
+			<label for="all_items"><?php _e( 'All items', 'tcp' ); ?>:</label>
+		</th>
+		<td>
+			<input type="text" id="all_items" name="all_items" value="<?php echo $all_items; ?>" size="20" maxlength="50" />
 		</td>
 	</tr>
 	<tr valign="top">
 		<th scope="row">
-			<label for="desc"><?php _e( 'Description', 'tcp' );?>:</label>
+			<label for="parent_item"><?php _e( 'Parent item', 'tcp' ); ?>:</label>
 		</th>
 		<td>
-			<textarea id="desc" name="desc" cols="40" rows="4"><?php echo $desc;?></textarea>
+			<input type="text" id="parent_item" name="parent_item" value="<?php echo $parent_item; ?>" size="20" maxlength="50" />
 		</td>
 	</tr>
+
 	<tr valign="top">
 		<th scope="row">
-			<label for="singular_name"><?php _e( 'Singular name', 'tcp' );?>:</label>
+			<label for="parent_item_colon"><?php _e( 'Parent item colon', 'tcp' ); ?>:</label>
 		</th>
 		<td>
-			<input type="text" id="singular_name" name="singular_name" value="<?php echo $singular_name;?>" size="20" maxlength="50" />
+			<input type="text" id="parent_item_colon" name="parent_item_colon" value="<?php echo $parent_item_colon; ?>" size="20" maxlength="50" />
 		</td>
 	</tr>
+
 	<tr valign="top">
 		<th scope="row">
-			<label for="search_items"><?php _e( 'Search items', 'tcp' );?>:</label>
+			<label for="edit_item"><?php _e( 'Edit item', 'tcp' ); ?>:</label>
 		</th>
 		<td>
-			<input type="text" id="search_items" name="search_items" value="<?php echo $search_items;?>" size="20" maxlength="50" />
+			<input type="text" id="edit_item" name="edit_item" value="<?php echo $edit_item; ?>" size="20" maxlength="50" />
 		</td>
 	</tr>
+
 	<tr valign="top">
 		<th scope="row">
-			<label for="all_items"><?php _e( 'All items', 'tcp' );?>:</label>
+			<label for="update_item"><?php _e( 'Update item', 'tcp' ); ?>:</label>
 		</th>
 		<td>
-			<input type="text" id="all_items" name="all_items" value="<?php echo $all_items;?>" size="20" maxlength="50" />
+			<input type="text" id="update_item" name="update_item" value="<?php echo $update_item; ?>" size="20" maxlength="50" />
 		</td>
 	</tr>
+
 	<tr valign="top">
 		<th scope="row">
-			<label for="parent_item"><?php _e( 'Parent item', 'tcp' );?>:</label>
+			<label for="add_new_item"><?php _e( 'Add new item', 'tcp' ); ?>:</label>
 		</th>
 		<td>
-			<input type="text" id="parent_item" name="parent_item" value="<?php echo $parent_item;?>" size="20" maxlength="50" />
+			<input type="text" id="add_new_item" name="add_new_item" value="<?php echo $add_new_item; ?>" size="20" maxlength="50" />
 		</td>
 	</tr>
+
 	<tr valign="top">
 		<th scope="row">
-			<label for="parent_item_colon"><?php _e( 'Parent item colon', 'tcp' );?>:</label>
+			<label for="new_item_name"><?php _e( 'New item name', 'tcp' ); ?>:</label>
 		</th>
 		<td>
-			<input type="text" id="parent_item_colon" name="parent_item_colon" value="<?php echo $parent_item_colon;?>" size="20" maxlength="50" />
+			<input type="text" id="new_item_name" name="new_item_name" value="<?php echo $new_item_name; ?>" size="20" maxlength="50" />
 		</td>
 	</tr>
+
 	<tr valign="top">
 		<th scope="row">
-			<label for="edit_item"><?php _e( 'Edit item', 'tcp' );?>:</label>
+			<label for="query_var"><?php _e( 'Query var', 'tcp' ); ?>:</label>
 		</th>
 		<td>
-			<input type="text" id="edit_item" name="edit_item" value="<?php echo $edit_item;?>" size="20" maxlength="50" />
+			<input type="checkbox" id="query_var" name="query_var" value="yes" <?php checked( $query_var != false ); ?> />
 		</td>
 	</tr>
+
 	<tr valign="top">
 		<th scope="row">
-			<label for="update_item"><?php _e( 'Update item', 'tcp' );?>:</label>
+			<label for="hierarchical"><?php _e( 'Hierarchical', 'tcp' ); ?>:</label>
 		</th>
 		<td>
-			<input type="text" id="update_item" name="update_item" value="<?php echo $update_item;?>" size="20" maxlength="50" />
+			<input type="checkbox" id="hierarchical" name="hierarchical" value="y" <?php checked( $hierarchical ); ?> />
+			<p class="description"><?php _e( 'Is this taxonomy hierarchical (have descendants) like categories or not hierarchical like tags', 'tcp' ); ?></p>
 		</td>
 	</tr>
+
 	<tr valign="top">
 		<th scope="row">
-			<label for="add_new_item"><?php _e( 'Add new item', 'tcp' );?>:</label>
-		</th>
-		<td>
-			<input type="text" id="add_new_item" name="add_new_item" value="<?php echo $add_new_item;?>" size="20" maxlength="50" />
-		</td>
-	</tr>
-	<tr valign="top">
-		<th scope="row">
-			<label for="new_item_name"><?php _e( 'New item name', 'tcp' );?>:</label>
-		</th>
-		<td>
-			<input type="text" id="new_item_name" name="new_item_name" value="<?php echo $new_item_name;?>" size="20" maxlength="50" />
-		</td>
-	</tr>
-		<tr valign="top">
-		<th scope="row">
-			<label for="query_var"><?php _e( 'Query var', 'tcp' );?>:</label>
-		</th>
-		<td>
-			<input type="checkbox" id="query_var" name="query_var" value="yes" <?php checked( $query_var != false );?> />
-		</td>
-	</tr>
-	<tr valign="top">
-		<th scope="row">
-			<label for="hierarchical"><?php _e( 'Hierarchical', 'tcp' );?>:</label>
-		</th>
-		<td>
-			<input type="checkbox" id="hierarchical" name="hierarchical" value="y" <?php checked( $hierarchical );?> />
-		</td>
-	</tr>
-	<tr valign="top">
-		<th scope="row">
-			<label for="rewrite"><?php _e( 'Rewrite', 'tcp' );?>:</label>
+			<label for="rewrite"><?php _e( 'Rewrite', 'tcp' ); ?>:</label>
 		</th>
 		<td>
 			<input type="text" id="rewrite" name="rewrite" value="<?php echo $rewrite; ?>" size="20" maxlength="50" />
+			<p class="description"><?php _e( 'Set to false to prevent automatic URL rewriting a.k.a. "pretty permalinks".', 'tcp' ); ?></p>
 		</td>
 	</tr>
 	</table>
 
 	<p class="submit">
-		<input type="submit" name="save_taxonomy" id="save_taxonomy" value="<?php _e( 'Save' , 'tcp' );?>" class="button-primary" />
+		<input type="submit" name="save_taxonomy" id="save_taxonomy" value="<?php _e( 'Save' , 'tcp' ); ?>" class="button-primary" />
 	</p>
 </form>

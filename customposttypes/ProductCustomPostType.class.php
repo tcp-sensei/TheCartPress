@@ -16,100 +16,120 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-define( 'TCP_PRODUCT_POST_TYPE'	, 'tcp_product' );
-define( 'TCP_PRODUCT_CATEGORY'	, 'tcp_product_category' );
-define( 'TCP_PRODUCT_TAG'		, 'tcp_product_tag' );
-define( 'TCP_SUPPLIER_TAG'		, 'tcp_product_supplier' );
+define( 'TCP_PRODUCT_POST_TYPE',	'tcp_product' );
+define( 'TCP_PRODUCT_CATEGORY',		'tcp_product_category' );
+define( 'TCP_PRODUCT_TAG',			'tcp_product_tag' );
+
+// Exit if accessed directly
+if ( !defined( 'ABSPATH' ) ) exit;
+
+if ( !class_exists( 'ProductCustomPostType' ) ) {
 
 /**
- * This class defines the post type 'tcp_product'
- * @author sensei
+ * Defines the default post type 'tcp_product'
+ * 
+ * @since 1.0
  */
 class ProductCustomPostType {
 
 	function __construct() {
-		if ( is_admin() ) {
-			add_filter( 'post_row_actions', array( $this, 'postRowActions' ) );
-			add_filter( 'manage_edit-' . TCP_PRODUCT_POST_TYPE . '_columns', array( $this, 'custom_columns_definition' ) );
-			add_action( 'manage_posts_custom_column', array( $this, 'manage_posts_custom_column' ) );
-			add_action( 'restrict_manage_posts', array( $this, 'restrictManagePosts' ) );
-			add_filter( 'parse_query', array( $this, 'parseQuery' ) );
-			//for quick edit
-			//add_action('quick_edit_custom_box', array( $this, 'quickEditCustomBox' ), 10, 2 );
+		add_action( 'admin_init', array( &$this, 'admin_init' ) );
+		add_filter( 'tcp_custom_values_get_other_values', array( &$this, 'tcp_custom_values_get_other_values' ) );//Supports Custom Values Widget
+	}
+
+	function admin_init() {
+		add_action( 'admin_head', array( &$this, 'plugin_header') );
+		add_filter( 'post_row_actions', array( &$this, 'postRowActions' ) );
+		add_action( 'manage_posts_custom_column', array( &$this, 'manage_posts_custom_column' ) );
+		add_action( 'restrict_manage_posts', array( &$this, 'restrictManagePosts' ) );
+		add_filter( 'parse_query', array( &$this, 'parse_query' ) );
+		//for quick edit
+		//add_action('quick_edit_custom_box', array( $this, 'quickEditCustomBox' ), 10, 2 );
+	}
+
+	function plugin_header() {
+		global $post_type;
+		if ( ( isset( $_GET['post_type'] ) && $_GET['post_type'] == TCP_PRODUCT_POST_TYPE ) || ( $post_type == TCP_PRODUCT_POST_TYPE ) ) { ?>
+<style>
+#icon-edit { background:transparent url('<?php echo plugins_url( '/images/tcp_icon_32.png', dirname( __FILE__ ) ); ?>') no-repeat; }
+</style><?php
 		}
 	}
 
 	static function create_default_custom_post_type_and_taxonomies() {
-		global $thecartpress;
-		$def = array(
-			'name'					=> _x( 'Products', 'post type general name', 'tcp' ),
-			'desc'					=> __( 'Default post type for TheCartPress'),
-			'activate'				=> true,
-			'singular_name'			=> _x( 'Product', 'post type singular name', 'tcp' ),
-			'add_new'				=> _x( 'Add New', 'product', 'tcp' ),
-			'add_new_item'			=> __( 'Add New', 'tcp' ),
-			'edit_item'				=> __( 'Edit Product', 'tcp' ),
-			'new_item'				=> __( 'New Product', 'tcp' ),
-			'view_item'				=> __( 'View Product', 'tcp' ),
-			'search_items'			=> __( 'Search Products', 'tcp' ),
-			'not_found'				=> __( 'No products found', 'tcp' ),
-			'not_found_in_trash'	=> __( 'No products found in Trash', 'tcp' ),
-			'public'				=> true,
-			'show_ui'				=> true,
-			'show_in_menu'			=> true,
-			'can_export'			=> true,
-			'show_in_nav_menus'		=> true,
-			'query_var'				=> true,
-			'supports'				=> array( 'title', 'excerpt', 'editor', 'thumbnail', 'comments' ),
-			'rewrite'				=> 'product',
-			'has_archive'			=> 'product',
-			'is_saleable'			=> true,
-		);
-		tcp_create_custom_post_type( TCP_PRODUCT_POST_TYPE, $def );
-
-		$taxonomy_def = array(
-			'post_type'			=> TCP_PRODUCT_POST_TYPE,
-			'name'				=> _x( 'Categories', 'taxonomy general name', 'tcp' ),
-			'desc'				=> __( 'Categories for products', 'tcp' ),
-			'activate'			=> true,
-			'singular_name'		=> _x( 'Category', 'taxonomy singular name', 'tcp' ),
-			'search_items'		=> __( 'Search Categories', 'tcp' ),
-			'all_items'			=> __( 'All Categories', 'tcp' ),
-			'parent_item'		=> __( 'Parent Category', 'tcp' ),
-			'parent_item_colon'	=> __( 'Parent Category', 'tcp' ),
-			'edit_item'			=> __( 'Edit Category', 'tcp' ), 
-			'update_item'		=> __( 'Update Category', 'tcp' ),
-			'add_new_item'		=> __( 'Add New Category', 'tcp' ),
-			'new_item_name'		=> __( 'New Category Name', 'tcp' ),
-			'hierarchical'		=> true,
-			'query_var'			=> true, //'cat_prods',
-			'label'				=> __( 'Category', 'tcp' ),
-			'rewrite'			=> 'product_category',
-		);
-		tcp_create_custom_taxonomy( TCP_PRODUCT_CATEGORY, $taxonomy_def, array( TCP_PRODUCT_POST_TYPE ) );
-
-		$taxonomy_def = array(
-			'post_type'			=> TCP_PRODUCT_POST_TYPE,
-			'name'				=> __( 'Products Tags', 'tcp' ),
-			'desc'				=> __( 'Tags for products', 'tcp'),
-			'activate'			=> true,
-			'singular_name'		=> __( 'Products', 'tcp' ),
-			'search_items'		=> __( 'Search Tags', 'tcp' ),
-			'all_items'			=> __( 'All Tags', 'tcp' ),
-			'parent_item'		=> __( 'Parent Tag', 'tcp' ),
-			'parent_item_colon'	=> __( 'Parent Tag', 'tcp' ),
-			'edit_item'			=> __( 'Edit Tag', 'tcp' ), 
-			'update_item'		=> __( 'Update Tag', 'tcp' ),
-			'add_new_item'		=> __( 'Add New Tag', 'tcp' ),
-			'new_item_name'		=> __( 'New Tag Name', 'tcp' ),
-			'hierarchical'		=> false,
-			'query_var'			=> true,
-			'label'				=> __( 'Tag', 'tcp' ),
-			'rewrite'			=> 'product_tag',
-		);
-		tcp_create_custom_taxonomy( TCP_PRODUCT_TAG, $taxonomy_def );
-
-		$taxonomy_def = array(
+		if ( ! tcp_exist_custom_post_type( TCP_PRODUCT_POST_TYPE ) ) {
+			$def = array(
+				'name'					=> _x( 'Products', 'post type general name', 'tcp' ),
+				'desc'					=> __( 'Default post type for TheCartPress'),
+				'activate'				=> true,
+				'singular_name'			=> _x( 'Product', 'post type singular name', 'tcp' ),
+				'add_new'				=> _x( 'Add New', 'product', 'tcp' ),
+				'add_new_item'			=> __( 'Add New', 'tcp' ),
+				'edit_item'				=> __( 'Edit Product', 'tcp' ),
+				'new_item'				=> __( 'New Product', 'tcp' ),
+				'view_item'				=> __( 'View Product', 'tcp' ),
+				'search_items'			=> __( 'Search Products', 'tcp' ),
+				'not_found'				=> __( 'No products found', 'tcp' ),
+				'not_found_in_trash'	=> __( 'No products found in Trash', 'tcp' ),
+				'public'				=> true,
+				'show_ui'				=> true,
+				'show_in_menu'			=> true,
+				'can_export'			=> true,
+				'show_in_nav_menus'		=> true,
+				'query_var'				=> true,
+				'supports'				=> array( 'title', 'excerpt', 'editor', 'thumbnail', 'comments' ),
+				'rewrite'				=> 'product',
+				'has_archive'			=> 'product',
+				'is_saleable'			=> true,
+				'menu_icon'				=> plugins_url( '/images/tcp.png', dirname( __FILE__ ) ), // 16px16
+			);
+			tcp_create_custom_post_type( TCP_PRODUCT_POST_TYPE, $def );
+		}
+		if ( ! tcp_exist_custom_taxonomy( TCP_PRODUCT_CATEGORY ) ) {
+			$taxonomy_def = array(
+				'post_type'			=> TCP_PRODUCT_POST_TYPE,
+				'name'				=> _x( 'Categories', 'taxonomy general name', 'tcp' ),
+				'desc'				=> __( 'Categories for products', 'tcp' ),
+				'activate'			=> true,
+				'singular_name'		=> _x( 'Category', 'taxonomy singular name', 'tcp' ),
+				'search_items'		=> __( 'Search Categories', 'tcp' ),
+				'all_items'			=> __( 'All Categories', 'tcp' ),
+				'parent_item'		=> __( 'Parent Category', 'tcp' ),
+				'parent_item_colon'	=> __( 'Parent Category', 'tcp' ),
+				'edit_item'			=> __( 'Edit Category', 'tcp' ), 
+				'update_item'		=> __( 'Update Category', 'tcp' ),
+				'add_new_item'		=> __( 'Add New Category', 'tcp' ),
+				'new_item_name'		=> __( 'New Category Name', 'tcp' ),
+				'hierarchical'		=> true,
+				'query_var'			=> true, //'cat_prods',
+				'label'				=> __( 'Category', 'tcp' ),
+				'rewrite'			=> 'product_category',
+			);
+			tcp_create_custom_taxonomy( TCP_PRODUCT_CATEGORY, $taxonomy_def, array( TCP_PRODUCT_POST_TYPE ) );
+		}
+		if ( ! tcp_exist_custom_taxonomy( TCP_PRODUCT_TAG ) ) {
+			$taxonomy_def = array(
+				'post_type'			=> TCP_PRODUCT_POST_TYPE,
+				'name'				=> __( 'Products Tags', 'tcp' ),
+				'desc'				=> __( 'Tags for products', 'tcp'),
+				'activate'			=> true,
+				'singular_name'		=> __( 'Products', 'tcp' ),
+				'search_items'		=> __( 'Search Tags', 'tcp' ),
+				'all_items'			=> __( 'All Tags', 'tcp' ),
+				'parent_item'		=> __( 'Parent Tag', 'tcp' ),
+				'parent_item_colon'	=> __( 'Parent Tag', 'tcp' ),
+				'edit_item'			=> __( 'Edit Tag', 'tcp' ), 
+				'update_item'		=> __( 'Update Tag', 'tcp' ),
+				'add_new_item'		=> __( 'Add New Tag', 'tcp' ),
+				'new_item_name'		=> __( 'New Tag Name', 'tcp' ),
+				'hierarchical'		=> false,
+				'query_var'			=> true,
+				'label'				=> __( 'Tag', 'tcp' ),
+				'rewrite'			=> 'product_tag',
+			);
+			tcp_create_custom_taxonomy( TCP_PRODUCT_TAG, $taxonomy_def );
+		}
+		/*$taxonomy_def = array(
 			'post_type'		=> TCP_PRODUCT_POST_TYPE,
 			'name'			=> _x( 'Suppliers', 'taxonomy general name', 'tcp' ),
 			'desc'			=> __( 'Suppliers for products', 'tcp'),
@@ -125,13 +145,11 @@ class ProductCustomPostType {
 			'query_var'		=> true,
 			'rewrite'		=> 'product_supplier',
 		);
-		tcp_create_custom_taxonomy( TCP_SUPPLIER_TAG, $taxonomy_def );
+		tcp_create_custom_taxonomy( TCP_SUPPLIER_TAG, $taxonomy_def );*/
 	}
 
 	//http://vocecommunications.com/blog/2010/11/adding-rewrite-rules-for-custom-post-types/
-	static function register_post_type_archives( $post_type, $base_path = '' ) {
-//echo "register_post_type_archives( $post_type, $base_path )<br>";
-
+	/*static function register_post_type_archives( $post_type, $base_path = '' ) {
 		global $wp_rewrite;
 		$permalink_prefix = $base_path;
 		$permalink_structure = '%year%/%monthnum%/%day%/%' . $post_type . '%/';
@@ -152,7 +170,7 @@ class ProductCustomPostType {
 			}
 			$wp_rewrite->add_rule( $regex, $redirect, 'top' ); //add the rewrite rule to wp_rewrite
 		}
-	}
+	}*/
 
 	/*function quickEditCustomBox( $column_name, $post_type ) {
 		if ( $post_type == TCP_PRODUCT_POST_TYPE ) {
@@ -198,6 +216,11 @@ class ProductCustomPostType {
 				echo $post->ID;
 			} elseif ( 'thumbnail' == $column_name ) {
 				$image = tcp_get_the_thumbnail( $post->ID, 0, 0, array( '50', '50' )  );
+				if ( $image == '' ) {
+					//$image = '<a href="' . get_admin_url() . '/media-upload.php?post_id=' . $post->ID . '&type=image&TB_iframe=1" class="thickbox" title="' . __( 'Set featured image' ) . '">';
+					$image .= '<img src="' . plugins_url( 'images/tcp_icon_gray.png', dirname( __FILE__ ) ) .'" />';
+					//$image .= '</a>';
+				}
 				echo '&nbsp;', $image;
 			} elseif ( 'sku' == $column_name ) {
 				$sku = tcp_get_the_sku( $post->ID );
@@ -205,11 +228,11 @@ class ProductCustomPostType {
 				echo $sku;
 			} elseif ( 'price' == $column_name ) {
 				$price = tcp_get_the_price( $post->ID );
+				//$price = $post->tcp_price;
 				if ( $price > 0 ) echo '<strong>', tcp_format_the_price( $price ), '</strong>';
-				echo '<br/>';
 				$product_type = tcp_get_the_product_type( $post->ID );
 				$types = tcp_get_product_types();
-				if ( isset( $types[$product_type] ) ) echo $types[$product_type];
+				if ( isset( $types[$product_type] ) && $product_type != 'SIMPLE' ) echo '<br/>', $types[$product_type]['label'];
 			}
 			do_action( 'tcp_manage_posts_custom_column', $column_name, $post );
 		}
@@ -220,8 +243,7 @@ class ProductCustomPostType {
 	 */
 	function restrictManagePosts() {
 		global $typenow;
-		if ( $typenow == TCP_PRODUCT_POST_TYPE ) {
-		//if ( tcp_is_saleable_post_type( $typenow ) )
+		if ( tcp_is_saleable_post_type( $typenow ) ) {
 			global $wp_query;
 			wp_dropdown_categories( array(
 				'show_option_all'	=> __( 'View all categories', 'tcp' ),
@@ -236,19 +258,24 @@ class ProductCustomPostType {
 			) );?>
 			<label for="tcp_product_type"><?php _e( 'type:', 'tcp' );?></label>
 			<?php $product_types = tcp_get_product_types( true, __( 'all', 'tcp' ) );
-			tcp_html_select( 'tcp_product_type', $product_types, isset( $_REQUEST['tcp_product_type'] ) ? $_REQUEST['tcp_product_type'] : '' );
-		}
-		if ( tcp_is_saleable_post_type( $typenow ) ) { ?>
+			$product_type = isset( $_REQUEST['tcp_product_type'] ) ? $_REQUEST['tcp_product_type'] : ''; ?>
+			<select name="tcp_product_type" id="tcp_product_type">
+			<?php foreach( $product_types as $id => $item ) : ?>
+				<option value="<?php echo $id; ?>" <?php selected( $id, $product_type ); ?>><?php echo $item['label']; ?></option>
+			<?php endforeach; ?>
+			</select>
 			<label for="tcp_SKU"><?php _e( 'SKU:', 'tcp' );?></label>
-			<input type="text" size="10" name="tcp_sku" value="<?php echo isset( $_REQUEST['tcp_sku'] ) ? $_REQUEST['tcp_sku'] : ''; ?>" /><?php
+			<input type="text" size="10" name="tcp_sku" value="<?php echo isset( $_REQUEST['tcp_sku'] ) ? $_REQUEST['tcp_sku'] : ''; ?>" />
+			<?php
 		}
 	}
 
 	/**
 	 * This function is executed before the admin product list query. WP 3.1
 	 */
-	function parseQuery( $query ) {
-		if ( isset( $_REQUEST['tcp_product_cat'] ) && $_REQUEST['tcp_product_cat'] > 0) {
+	function parse_query( $query ) {
+		if ( ! is_admin() ) return $query;
+		if ( isset( $_REQUEST['tcp_product_cat'] ) && $_REQUEST['tcp_product_cat'] > 0 ) {
 			$query->query_vars['tax_query'] = array(
 				array(
 					'taxonomy'	=> TCP_PRODUCT_CATEGORY,
@@ -294,7 +321,40 @@ class ProductCustomPostType {
 		}
 		return $query;
 	}
+	
+	function sortable_columns( $columns ) {
+		$columns['price'] = 'tcp_price';
+		return $columns;
+	}
+
+	function price_column_orderby( $vars ) {
+		if ( isset( $vars['orderby'] ) && 'tcp_price' == $vars['orderby'] ) {
+			$vars = array_merge( $vars, array(
+				'orderby' => 'meta_value_num',
+				'meta_key' => 'tcp_price',
+			) );
+		}
+		return $vars;
+	}
+
+	function tcp_custom_values_get_other_values( $other_values ) {
+		$other_values['tcp_price'] = array(
+			'label' => __( 'Price', 'tcp' ),
+			'callback' => 'tcp_get_the_price_label',
+		);
+		$other_values['tcp_sku'] = array(
+			'label' => __( 'SKU', 'tcp' ),
+			'callback' => 'tcp_get_the_SKU',
+		);
+		$other_values['tcp_weight'] = array(
+			'label' => __( 'Weight', 'tcp' ),
+			'callback' => 'tcp_get_the_weight_label',
+		);
+		
+		return $other_values;
+	}
 }
 
-$productcustomposttype = new ProductCustomPostType();
-?>
+$GLOBALS['productcustomposttype'] = new ProductCustomPostType();
+
+} // class_exists check

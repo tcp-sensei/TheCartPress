@@ -17,60 +17,58 @@
  */
 
 class TCPCountrySelection {
+
+	static function init() {
+		add_action( 'wp_head', array( __CLASS__, 'wp_head' ), 5 );
+	}
+	
 	static function show() { ?>
-		<form method="post">
+		<form method="post" id="tcp_country_selection">
 		<div class="tcp_select_country">
-			<label for="billing_country_id"><?php _e( 'Country', 'tcp' ); ?></label>
+			<label for="selected_country_id"><?php _e( 'Country', 'tcp' ); ?></label>
 			<?php global $thecartpress;
-			$country = isset( $_REQUEST['tcp_billing_country_id'] ) ? $_REQUEST['tcp_billing_country_id'] : false;
-			if ( ! $country ) $country = tcp_get_tax_country();
+			$country = isset( $_REQUEST['tcp_selected_country_id'] ) ? $_REQUEST['tcp_selected_country_id'] : false;
+			if ( ! $country ) $country = tcp_get_billing_country();
+			//if ( ! $country ) $country = tcp_get_tax_country();
 			$billing_isos = $thecartpress->get_setting( 'billing_isos', false );
-			if ( $billing_isos ) $countries = Countries::getSome( $billing_isos,  $country);
+			if ( $billing_isos ) $countries = Countries::getSome( $billing_isos,  $country );
 			else $countries = Countries::getAll( $country ); ?>
-			<select id="billing_country_id" name="tcp_billing_country_id">
-			<?php foreach( $countries as $item ) :?>
-				<option value="<?php echo $item->iso;?>" <?php selected( $item->iso, $country )?>><?php echo $item->name;?></option>
+			<select id="selected_country_id" name="tcp_selected_country_id">
+			<?php foreach( $countries as $item ) : ?>
+				<option value="<?php echo $item->iso; ?>" <?php selected( $item->iso, $country ); ?>><?php echo $item->name; ?></option>
 			<?php endforeach; ?>
 			</select>
+			<script>
+				jQuery( '#selected_country_id' ).change( function() {
+					jQuery( '#tcp_country_selection' ).submit();
+				} );
+			</script>
 		</div>
-		<div class="tcp_select_region">
-			<label for="billing_region_id"><?php _e( 'Region', 'tcp' ); ?></label>
-			<?php $regions = apply_filters( 'tcp_load_regions_for_billing', false ); //array( 'id' => array( 'name'), 'id' => array( 'name'), ... )
-			$region_id = isset( $_REQUEST['tcp_billing_region_id'] ) ? $_REQUEST['tcp_billing_region_id'] : false;
-			if ( ! $region_id ) $region_id = tcp_get_default_tax_region(); ?>
-			<select id="billing_region_id" name="tcp_billing_region_id" <?php if ( is_array( $regions ) && count( $regions ) > 0 ) {} else { echo 'style="display:none;"'; }?>>
-				<option value=""><?php _e( 'No state selected', 'tcp' );?></option>
-			<?php if ( is_array( $regions ) && count( $regions ) > 0 ) foreach( $regions as $id => $region ) : ?>
-				<option value="<?php echo $id;?>" <?php selected( $id, $region_id ); ?>><?php echo $region['name']; ?></option>
-			<?php endforeach; ?>
+		<!--<div class="tcp_select_region">
+			<label for="selected_region_id"><?php //_e( 'Region', 'tcp' ); ?></label>
+			<?php //$regions = apply_filters( 'tcp_load_regions_for_billing', false ); //array( 'id' => array( 'name'), 'id' => array( 'name'), ... )
+			//$region_id = isset( $_REQUEST['tcp_selected_region_id'] ) ? $_REQUEST['tcp_selected_region_id'] : false;
+			//if ( ! $region_id ) $region_id = tcp_get_default_tax_region(); ?>
+			<select id="selected_region_id" name="tcp_selected_region_id" <?php //if ( is_array( $regions ) && count( $regions ) > 0 ) {} else { echo 'style="display:none;"'; }?>>
+				<option value=""><?php //_e( 'No state selected', 'tcp' );?></option>
+			<?php //if ( is_array( $regions ) && count( $regions ) > 0 ) foreach( $regions as $id => $region ) : ?>
+				<option value="<?php //echo $id;?>" <?php //selected( $id, $region_id ); ?>><?php //echo $region['name']; ?></option>
+			<?php //endforeach; ?>
 			</select>
-			<input type="hidden" id="billing_region_selected_id" value="<?php echo $region_id;?>"/>
-		</div>
-		<div class="tcp_select_country_submit"><input type="submit" value="<?php _e( 'Set', 'tcp' ); ?>" /></div>
+			<input type="hidden" id="billing_region_selected_id" value="<?php //echo $region_id;?>"/>
+		</div>-->
+		<!--<div class="tcp_select_country_submit"><input type="submit" value="<?php //_e( 'Set country', 'tcp' ); ?>" /></div>-->
 		</form><?php
 	}
 
-	function tcp_shopping_cart_after_cart() { ?>
-		<h3><?php _e( 'Select your country', 'tcp' ); ?></h3>
-		<?php TCPCountrySelection::show();
-	}
-
-	function wp_head() {
-		if ( isset( $_REQUEST['tcp_billing_country_id'] ) ) {
-			tcp_set_billing_country( $_REQUEST['tcp_billing_country_id'] );
+	static function wp_head() {
+		if ( isset( $_REQUEST['tcp_selected_country_id'] ) ) {
+			tcp_set_billing_country( $_REQUEST['tcp_selected_country_id'] );
 			tcp_set_shipping_as_billing();
 		}
-		if ( isset( $_REQUEST['tcp_billing_region_id'] ) ) tcp_set_billing_region( $_REQUEST['tcp_billing_region_id'] );
-		//if ( isset( $_REQUEST['tcp_billing_country_id'] ) ) tcp_set_shipping_country( $_REQUEST['tcp_billing_country_id'] );
-		//if ( isset( $_REQUEST['tcp_billing_region_id'] ) ) tcp_set_shipping_region( $_REQUEST['tcp_billing_region_id'] );
-	}
-
-	function __construct() {
-		add_action( 'wp_footer', 'tcp_states_footer_scripts' );
-		//add_action( 'tcp_shopping_cart_after_cart', array( $this, 'tcp_shopping_cart_after_cart' ) );
-		add_action( 'wp_head', array( $this, 'wp_head' ), 5 );
+		//if ( isset( $_REQUEST['tcp_selected_region_id'] ) ) tcp_set_billing_region( $_REQUEST['tcp_selected_region_id'] );
 	}
 }
 
-new TCPCountrySelection();
+TCPCountrySelection::init();
 ?>

@@ -1,5 +1,14 @@
 <?php
 /**
+ * Post related content Metabox
+ *
+ * Displays related info
+ *
+ * @package TheCartPress
+ * @subpackage Metaboxes
+ */
+
+/**
  * This file is part of TheCartPress.
  * 
  * TheCartPress is free software: you can redistribute it and/or modify
@@ -16,13 +25,22 @@
  * along with TheCartPress.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// Exit if accessed directly
+if ( !defined( 'ABSPATH' ) ) exit;
+
+if ( ! class_exists( 'TCPPostMetabox' ) ) {
+
 require_once( TCP_DAOS_FOLDER . 'RelEntities.class.php' );
 		
-class PostMetabox {
+class TCPPostMetabox {
 
-	function register_metabox() {
+	function __construct() {
+		add_action( 'admin_init', array( $this, 'admin_init' ) );
+	}
+
+	function admin_init() {
 		add_meta_box( 'tcp-post-related-content', __( 'Related content', 'tcp' ), array( $this, 'show' ), 'post', 'normal', 'high' );
-		add_action( 'delete_post', array( $this, 'delete' ) );
+		add_action( 'delete_post', array( $this, 'delete_post' ) );
 	}
 
 	function show() {
@@ -42,23 +60,23 @@ class PostMetabox {
 			<?php $count = RelEntities::count( $post_id, 'POST-PROD' );
 			if ( $count > 0 ) $count = ' (' . $count . ')';
 			else $count = '';?>
-			<li><a href="<?php echo TCP_ADMIN_PATH;?>AssignedProductsList.php&post_id=<?php echo $post_id;?>&rel_type=POST-PROD"><?php _e( 'related products', 'tcp' );?> <?php echo $count;?></a></li>
+			<li><a href="<?php echo TCP_ADMIN_PATH;?>AssignedProductsList.php&post_id=<?php echo $post_id;?>&rel_type=POST-PROD&post_type_to=tcp_product"><?php _e( 'Related Products', 'tcp' );?> <?php echo $count;?></a></li>
 			<?php $count = RelEntities::count( $post_id, 'POST-POST' );
 			if ( $count > 0 ) $count = ' (' . $count . ')';
 			else $count = '';?>
 			<li>|</li>
-			<li><a href="<?php echo TCP_ADMIN_PATH;?>AssignedProductsList.php&post_id=<?php echo $post_id;?>&rel_type=POST-POST&post_type_to=post"><?php _e( 'related posts', 'tcp' );?> <?php echo $count;?></a></li>
+			<li><a href="<?php echo TCP_ADMIN_PATH;?>AssignedProductsList.php&post_id=<?php echo $post_id;?>&rel_type=POST-POST&post_type_to=post"><?php _e( 'Related Posts', 'tcp' );?> <?php echo $count;?></a></li>
 			<?php $count = RelEntities::count( $post_id, 'POST-CAT_PROD' );
 			if ( $count > 0 ) $count = ' (' . $count . ')';
 			else $count = ''; ?>
 			<li>|</li>
-			<li><a href="<?php echo TCP_ADMIN_PATH;?>AssignedCategoriesList.php&post_id=<?php echo $post_id;?>&rel_type=POST-CAT_PROD"  title="<?php _e( 'For crossing sell, adds post to the current product', 'tcp' ); ?>"><?php _e( 'related cat. of products', 'tcp' );?> <?php echo $count;?></a></li>
+			<li><a href="<?php echo TCP_ADMIN_PATH;?>AssignedCategoriesList.php&post_id=<?php echo $post_id;?>&rel_type=POST-CAT_PROD"  title="<?php _e( 'For crossing sell, adds post to the current product', 'tcp' ); ?>"><?php _e( 'Related Cat. of Products', 'tcp' );?> <?php echo $count;?></a></li>
 			<?php do_action( 'tcp_template_metabox_show', $post );?>
 		</ul>
 		<div class="clear"></div>
 	<?php }
 
-	function delete( $post_id ) {
+	function delete_post( $post_id ) {
 		$post = get_post( $post_id );
 		if ( ! wp_verify_nonce( isset( $_POST['tcp_pm_noncename'] ) ? $_POST['tcp_pm_noncename'] : '', 'tcp_pm_noncename' ) ) return array( $post_id, $post );
 		if ( $post->post_type != 'post' ) return array( $post_id, $post );
@@ -67,11 +85,7 @@ class PostMetabox {
 		do_action( 'tcp_template_metabox_delete', $post_id );
 		return $post_id;
 	}
-
-	function __construct() {
-		add_action( 'admin_init', array( $this, 'register_metabox' ) );
-	}
 }
 
-new PostMetabox();
-?>
+new TCPPostMetabox();
+} // class_exists check

@@ -42,9 +42,14 @@ class OrdersCosts {
 		return $wpdb->get_results( $wpdb->prepare( 'select * from ' . $wpdb->prefix . 'tcp_orders_costs where order_id = %d order by cost_order', $order_id ) );
 	}
 
+	/**
+	 * Returns the total costs associated to an order
+	 *
+	 * @param int $order_id, id of the order
+	 * @param double $total, inital total
+	 */
 	static function getTotalCost( $order_id, $total = 0 ) {
 		global $wpdb;
-		//return $wpdb->get_var( $wpdb->prepare( 'select sum(cost) from ' . $wpdb->prefix . 'tcp_orders_costs where order_id = %d', $order_id ) );
 		$res = $wpdb->get_results( $wpdb->prepare( 'select order_cost_id, cost, tax from ' . $wpdb->prefix . 'tcp_orders_costs where order_id = %d', $order_id ) );
 		foreach( $res as $row ) {
 			if ( $row->tax > 0 ) {
@@ -56,18 +61,48 @@ class OrdersCosts {
 		return $total;
 	}
 
+	static function getTotalDetailed( $order_id ) {
+		$detailed = array(
+			'amount'	=> 0,
+			'tax'		=> 0,
+		);
+		global $wpdb;
+		$res = $wpdb->get_results( $wpdb->prepare( 'select order_cost_id, cost, tax from ' . $wpdb->prefix . 'tcp_orders_costs where order_id = %d', $order_id ) );
+		foreach( $res as $row ) {
+			$detailed['amount'] += $row->cost;
+			if ( $row->tax > 0 ) {
+				$detailed['tax'] += $detailed['amount'] * $row->tax / 100;
+			}
+		}
+		return $detailed;
+	}
+
 	static function insert( $ordersCosts ) {
 		global $wpdb;
 		$wpdb->insert( $wpdb->prefix . 'tcp_orders_costs', array (
-				'order_id'			=> $ordersCosts['order_id'],
-				'description'		=> $ordersCosts['description'],
-				'cost'				=> $ordersCosts['cost'],
-				'tax'				=> $ordersCosts['tax'],
-				'cost_order'		=> $ordersCosts['cost_order'],
+				'order_id'		=> $ordersCosts['order_id'],
+				'description'	=> $ordersCosts['description'],
+				'cost'			=> $ordersCosts['cost'],
+				'tax'			=> $ordersCosts['tax'],
+				'cost_order'	=> $ordersCosts['cost_order'],
 			),
 			array( '%d', '%s', '%f', '%f', '%s' )
 		);
 		return $wpdb->insert_id;
+	}
+
+	static function delete_by_order_id( $order_id ) {
+		global $wpdb;
+		$sql = 'delete from ' . $wpdb->prefix . 'tcp_orders_costs where ';
+		$sql .= $wpdb->prepare( 'order_id = %d', $order_id);
+		return $wpdb->query( $sql );
+	}
+
+	static function get_orders_costs_ids_by_order_id( $order_id ) {
+		global $wpdb;
+		$sql = 'select order_cost_id from ' . $wpdb->prefix . 'tcp_orders_costs where ';
+		$sql .= $wpdb->prepare( 'order_id = %d', $order_id);
+		return $wpdb->get_results( $sql );
 	}
 }
 ?>

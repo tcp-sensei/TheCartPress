@@ -151,7 +151,8 @@ $allowed_ext = array(
 	'mxu'	=> 'video/vnd.mpegurl',
 	'avi'	=> 'video/x-msvideo',
 	'movie'	=> 'video/x-sgi-movie',
-	'ice'	=> 'x-conference-xcooltalk'
+	'ice'	=> 'x-conference-xcooltalk',
+	'epub'	=> 'application/epub+zip',
 );
 $wordpress_path = dirname( dirname( dirname( dirname( dirname( __FILE__) ) ) ) ) . '/';
 include_once( $wordpress_path . 'wp-config.php' );
@@ -163,14 +164,15 @@ if ( isset( $_REQUEST['order_detail_id'] ) || ( isset( $_REQUEST['uuid'] ) && is
 	global $current_user;
 	get_currentuserinfo();
 	$customer_id = $current_user->ID;
-	require_once( dirname( dirname( __FILE__ ) ) . '/templates/tcp_template.php' );
-	require_once( dirname( dirname( __FILE__ ) ) . '/daos/Orders.class.php' );
+	$thecartpresss_path = dirname( dirname( __FILE__) ) . '/';
+	require_once( $thecartpresss_path . 'templates/tcp_template.php' );
+	require_once( $thecartpresss_path . 'daos/Orders.class.php' );
 	if ( Orders::isProductDownloadable( $customer_id, $order_detail_id ) ) {
 		if ( $customer_id == 0 ) {
 			$uuid = isset( $_REQUEST['uuid'] ) ? $_REQUEST['uuid'] : '';
-			require_once( dirname( dirname( __FILE__ ) ) . '/classes/DownloadableProducts.class.php' );
+			require_once( $thecartpresss_path . 'classes/DownloadableProducts.class.php' );
 			if ( $uuid != tcp_get_download_uuid( $order_detail_id ) ) {
-				wp_die( __( 'You do not have sufficient permissions to access this page.', 'tcp' ) );
+				wp_die( __( 'You do not have sufficient permissions to access this page.(101)', 'tcp' ) );
 			}
 		}
 		$order_detail = OrdersDetails::get( $order_detail_id );
@@ -178,7 +180,7 @@ if ( isset( $_REQUEST['order_detail_id'] ) || ( isset( $_REQUEST['uuid'] ) && is
 		$file_path = tcp_get_the_file( $post_id );
 		do_action( 'tcp_download_file', $file_path );
 		if ( ! file_exists( $file_path ) ) {
-			wp_die( __( 'The file doesn\'t exists.', 'tcp' ) );
+			wp_die( $file_path . '<br>' . __( 'The file doesn\'t exists.', 'tcp' ) );
 			return;
 		}
 		$file_size = filesize( $file_path );
@@ -186,19 +188,20 @@ if ( isset( $_REQUEST['order_detail_id'] ) || ( isset( $_REQUEST['uuid'] ) && is
 		$file_name = $path[count( $path ) - 1];
 		$file_ext = strtolower( substr( strrchr( $file_name, "." ), 1 ) );
 
-		if ( array_key_exists( $file_ext, $allowed_ext ) )
+		if ( array_key_exists( $file_ext, $allowed_ext ) ) {
 			$mime_type = $allowed_ext[$file_ext];
-		elseif ( function_exists( 'mime_content_type' ) )
+		} elseif ( function_exists( 'mime_content_type' ) ) {
 			$mime_type = mime_content_type( $file_path );
-		else if ( function_exists( 'finfo_file' ) ) {
+		} else if ( function_exists( 'finfo_file' ) ) {
 			$file_info = finfo_open( FILEINFO_MIME );
 			$mime_type = finfo_file( $file_info, $file_path );
 			finfo_close( $file_info );
+		} else {
+			$mime_type = 'application/force-download';
 		}
-		else $mime_type = 'application/force-download';
-		$file_name = get_the_title( $post_id ) . '.' . $file_ext . '';
-		$file_name = str_replace( ' ', '_', $file_name );
-		//$file_name = esc_html( $file_name );
+		//$file_name = get_the_title( $post_id ) . '.' . $file_ext . '';
+		$file_name = sanitize_title( get_the_title( $post_id ) ) . '.' . $file_ext . '';
+		//$file_name = str_replace( ' ', '_', $file_name );
 		// set headers
 		header( 'Pragma: public' );
 		header( 'Expires: 0' );
@@ -229,9 +232,9 @@ if ( isset( $_REQUEST['order_detail_id'] ) || ( isset( $_REQUEST['uuid'] ) && is
 			wp_die( __( 'The file doesn\'t exists.', 'tcp' ) );
 		}
 	} else {
-		wp_die( __( 'You do not have sufficient permissions to access this page.', 'tcp' ) );
+		wp_die( __( 'You do not have sufficient permissions to access this page(102).', 'tcp' ) );
 	}
 } else {
-	wp_die( __( 'You do not have sufficient permissions to access this page.', 'tcp' ) );
+	wp_die( __( 'You do not have sufficient permissions to access this page(103).', 'tcp' ) );
 }
 ?>

@@ -30,5 +30,11 @@ class OrdersMeta {
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8;';
 		$wpdb->query( $sql );
 	}
+
+	function delete_by_order_id( $order_id ) {
+		global $wpdb;
+		$sql = 'delete from ' . $wpdb->tcp_ordersmeta . ' where ';
+		$wpdb->query( $sql . $wpdb->prepare( 'tcp_orders_id = %d', $order_id ) );
+	}
 }
 ?>

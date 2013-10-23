@@ -38,7 +38,7 @@ if ( isset( $_REQUEST['tcp_save_related_categories'] ) ) {
 <div class="wrap">
 <form method="post">
 	<input type="hidden" name="rel_type" value="<?php echo $rel_type;?>" />
-	<h2><?php _e( 'Related categories', 'tcp' );?></h2>
+	<?php screen_icon( 'tcp-related-cats' ); ?><h2><?php _e( 'Related categories', 'tcp' );?></h2>
 	<ul class="subsubsub">
 	<?php if ( $rel_type == 'CAT_POST-CAT_PROD' ) : ?>
 		<li class="current"><strong><?php _e( 'Cat. of Posts &raquo; Cat. of Products', 'tcp' );?></strong></li>

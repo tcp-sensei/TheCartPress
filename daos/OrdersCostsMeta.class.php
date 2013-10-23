@@ -30,5 +30,14 @@ class OrdersCostsMeta {
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8;';
 		$wpdb->query( $sql );
 	}
+
+	static function delete_by_order_id( $order_id ) {
+		global $wpdb;
+		$sql = 'delete from ' . $wpdb->tcp_orders_costsmeta . ' where ';
+		$tcp_orders_costs_ids = OrdersCosts::get_orders_costs_ids_by_order_id( $order_id );
+		foreach( $tcp_orders_costs_ids as $tcp_orders_costs_id ) {
+			$wpdb->query( $sql . $wpdb->prepare( 'tcp_orders_costs_id = %d', $tcp_orders_costs_id ) );
+		}
+	}
 }
 ?>

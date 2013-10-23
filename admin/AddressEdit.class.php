@@ -25,17 +25,23 @@ class TCPAddressEdit {
 	function show( $echo = true ) {
 		if ( is_admin() ) add_action( 'admin_footer', 'tcp_states_footer_scripts' );
 		else tcp_states_footer_scripts();
+		if ( ! is_user_logged_in() ) : ob_start(); ?>
+			<p><?php _e( 'You need to login to see your address.', 'tcp' ); ?></p>
+			<?php tcp_login_form( array( 'echo' => true ) ); ?>
+		<?php return ob_get_clean(); 
+		endif;
 		$address_id = isset( $_REQUEST['address_id'] ) ? $_REQUEST['address_id'] : '0';
 		global $current_user;
 		get_currentuserinfo();
-		$customer_id = $current_user->ID;
-		if ( $address_id > 0 && $customer_id > 0 && ! Addresses::isOwner( $address_id, $current_user->ID ) )
-			wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
-
+		if ( $current_user->ID == 0 ) return false;
+		if ( ! current_user_can( 'tcp_edit_orders' ) ) {
+			if ( $address_id > 0 && $current_user->ID > 0 && ! Addresses::isOwner( $address_id, $current_user->ID ) ) {
+				wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
+			}
+		}
 		require_once( TCP_DAOS_FOLDER . 'Countries.class.php' );
-
 		//array( 'id' => array( 'name', ), 'id' => array( 'name', ), ... )
-		$regions = array(); //apply_filters( 'tcp_address_editor_load_regions', false );
+		$regions = array();
 		$error_address = array();
 		ob_start();
 		if ( isset( $_REQUEST['tcp_save_address'] ) ) {
@@ -59,7 +65,7 @@ class TCPAddressEdit {
 				$error_address['email'][] = __( 'eMail field must be completed', 'tcp' );
 			$has_validation_error = count( $error_address ) > 0;
 			if ( ! $has_validation_error ) {
-				$_REQUEST['customer_id'] = $customer_id;
+				$_REQUEST['customer_id'] = $current_user->ID;
 				if ( ! isset( $_REQUEST['city'] ) ) $_REQUEST['city'] = '';
 				if ( ! isset( $_REQUEST['city_id'] ) ) $_REQUEST['city_id'] = '';
 				if ( ! isset( $_REQUEST['region'] ) ) $_REQUEST['region'] = '';
@@ -119,7 +125,7 @@ class TCPAddressEdit {
 			<th scope="row"><label for="company"><?php _e( 'Company', 'tcp' ); ?>:</label></th>
 			<td>
 				<input type="text" id="company" name="company" value="<?php $this->tcp_get_value( 'company' ); ?>" size="20" maxlength="50" />
-				<?php $this->tcp_show_error_msg( $error_address, 'company' ); ?></td>
+				<?php //$this->tcp_show_error_msg( $error_address, 'company' ); ?></td>
 			</tr>
 			<tr valign="top">
 			<th scope="row"><label for="tax_id_number"><?php _e( 'Tax id number', 'tcp' ); ?>:</label></th>
@@ -133,6 +139,14 @@ class TCPAddressEdit {
 				<input type="text" id="company_id" name="company_id" value="<?php $this->tcp_get_value( 'company_id' ); ?>" size="20" maxlength="30" />
 				<span class="description"><?php _e( 'This id is useful to connect the companies with third software', 'tcp' ); ?></span></td>
 			</tr>
+
+			<tr valign="top">
+			<th scope="row"><label for="street"><?php _e( 'Street', 'tcp' ); ?>:<span class="compulsory">(*)</span></label></th>
+			<td>
+				<input type="text" id="street" name="street" value="<?php $this->tcp_get_value( 'street' ); ?>" size="20" maxlength="50" />
+				<?php $this->tcp_show_error_msg( $error_address, 'street' ); ?></td>
+			</tr>
+
 			<tr valign="top">
 			<th scope="row"><label for="country_id"><?php _e( 'Country', 'tcp' ); ?>:</label></th>
 			<td>
@@ -195,18 +209,14 @@ class TCPAddressEdit {
 				<input type="text" id="postcode" name="postcode" value="<?php $this->tcp_get_value( 'postcode' ); ?>" size="7" maxlength="7" />
 				<?php $this->tcp_show_error_msg( $error_address, 'postcode' ); ?></td>
 			</tr>
-			<tr valign="top">
-			<th scope="row"><label for="street"><?php _e( 'Address', 'tcp' ); ?>:<span class="compulsory">(*)</span></label></th>
-			<td>
-				<input type="text" id="street" name="street" value="<?php $this->tcp_get_value( 'street' ); ?>" size="20" maxlength="50" />
-				<?php $this->tcp_show_error_msg( $error_address, 'street' ); ?></td>
-			</tr>
+
 			<tr>
 			<th scope="row"><label for="telephone_1"><?php _e( 'Telephone 1', 'tcp' ); ?>:</label></th>
 			<td>
 				<input type="text" id="telephone_1" name="telephone_1" value="<?php $this->tcp_get_value( 'telephone_1' ); ?>" size="15" maxlength="20" />
 				<?php $this->tcp_show_error_msg( $error_address, 'telephone_1' ); ?></td>
 			</tr>
+
 			<tr valign="top">
 			<th scope="row"><label for="telephone_2"><?php _e( 'Telephone 2', 'tcp' ); ?>:</label></th>
 			<td>

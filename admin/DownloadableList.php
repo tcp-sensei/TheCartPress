@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-require_once( dirname( __FILE__ ) . '/DownloadableList.class.php' );
+require_once( 'DownloadableList.class.php' );
 $downloadableList = new TCPDownloadableList();
 $downloadableList->show();
 ?>

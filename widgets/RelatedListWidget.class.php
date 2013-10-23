@@ -16,6 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// Exit if accessed directly
+if ( !defined( 'ABSPATH' ) ) exit;
+
+if ( ! class_exists( 'RelatedListWidget' ) ) {
+
 require_once( TCP_WIDGETS_FOLDER . 'CustomListWidget.class.php' );
 
 class RelatedListWidget extends CustomListWidget {
@@ -131,7 +136,8 @@ class RelatedListWidget extends CustomListWidget {
 					'value'	=> true,
 				),
 			);
-		parent::widget( $args, $loop_args, $instance );
+		$instance['loop_args'] = $loop_args;
+		parent::widget( $args, $instance );
 	}
 
 	function update( $new_instance, $old_instance ) {
@@ -140,7 +146,8 @@ class RelatedListWidget extends CustomListWidget {
 	}
 
 	function form( $instance ) {
-		parent::form( $instance, __( 'Related List', 'tcp' ) );
+		if ( ! isset( $instance['title'] ) ) $instance['title'] = __( 'Related List', 'tcp');
+		parent::form( $instance );
 		$defaults = array(
 			'rel_type'		=> 'CAT_PROD-CAT_PROD',
 		);
@@ -167,4 +174,4 @@ class RelatedListWidget extends CustomListWidget {
 	<?php
 	}
 }
-?>
+} // class_exists check

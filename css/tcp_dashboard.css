@@ -1,7 +1,21 @@
-/*
- Dashboard
-*/
-
+/**
+ * This file is part of TheCartPress.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+ 
+/* Dashboard and Back-end admin panels */
 
 /* gral tcp boxes */
 div#tcp_orders_resume h3,
@@ -15,7 +29,6 @@ div#tcp_sales_chart h3 {
 	color: #5e6b7c;
 	font-weight:bold;
 }
-
 #tcp_rss_widget .inside ul,
 #tcp_orders_resume .table_content {
 	background-image:url(/wp-content/plugins/thecartpress/images/tcp_icon.png);
@@ -24,9 +37,7 @@ div#tcp_sales_chart h3 {
 	
 }
 
-/* Latest Orders*/
-.table_last_orders  {
-}
+/* Latest Orders */
 #tcp_orders_resume .table_last_orders h4 {
 	font-weight:bold;
 	border-radius: 3px;
@@ -78,25 +89,7 @@ div#tcp_sales_chart h3 {
 	padding:10px;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-/*div#tcp_orders_resume a.tcp_link_to_tcp
-{
-	font-weight: bold;
-	text-decoration: none;
-}
-*/
-
+/* Orders */
 div#tcp_orders_resume {
 	line-height:1.325em;	
 }
@@ -104,74 +97,45 @@ div#tcp_orders_resume a.tcp_link_to_tcp:hover
 {
 	text-decoration: underline;
 }
-
-div#tcp_orders_resume td.tcp_status_COMPLETED a {
+td.tcp_status_COMPLETED,
+td.tcp_status_COMPLETED a {
 	color: green;
 	font-weight: bold;
 }
-
-div#tcp_orders_resume td.tcp_status_PENDING a {
+td.tcp_status_PENDING,
+td.tcp_status_PENDING a {
 	color: #f90;
 	font-weight: bold;
 }
-
-div#tcp_orders_resume td.tcp_status_PROCESSING a {
+td.tcp_status_PROCESSING,
+td.tcp_status_PROCESSING a {
 	color: red;
 	font-weight: bold;
 }
-
+td.tcp_status_CANCELLED,
+td.tcp_status_SUSPENDED,
 div#tcp_orders_resume td.tcp_status_CANCELLED a,
 div#tcp_orders_resume td.tcp_status_SUSPENDED a {
 }
-
 div#tcp_orders_resume .table_content td a:hover {
 	text-decoration:underline;
 }
-/*
-Plugins list
-*/
 
-/*table.plugins tr#thecartpress
-{
-	background: #5e6b7c;
-	height: 69px;
-}*/
-
+/* Plugins list */
 table.plugins tr#thecartpress td.plugin-title {
    background: url("../images/tcp_icon.png") no-repeat scroll 0 4px transparent;
    padding-left: 44px;
 }
 
-/*table.plugins tr#thecartpress td.plugin-title strong,
-table.plugins tr#thecartpress td.column-description p,
-table.plugins tr#thecartpress td.column-description div
-{
-	color: white;
-}
-
-table.plugins tr#thecartpress td.plugin-title div.row-actions-visible a,
-table.plugins tr#thecartpress td.column-description div a
-{
-	text-decoration: underline;
-	color: white;
-}*/
-
-/*
- Admin downloadable list
-*/
-li.tcp_file
-{
+/* Admin downloadable list */
+li.tcp_file {
 	padding-left: 20px;
 }
-
 span.tcp_folder_options,
-span.tcp_file_options
-{
+span.tcp_file_options {
 	padding-left: 100px;
 }
-
-.popup_close
-{
+.popup_close {
 	float:right; 
 	margin-right:5px; 
 	cursor:pointer; 
@@ -196,38 +160,26 @@ th.tcp_meta_value {
 div.tcp_first_time_setup
 {
 	background: url('../images/tcp_icon.png') no-repeat top left;
-    float: left;
-    height: 48px;
-    margin: 7px 8px 0 0;
-    width: 48px;
+	float: left;
+	height: 48px;
+	margin: 7px 8px 0 0;
+	width: 48px;
 }
 
 /*Settings*/
-ul.tabs_section
-{
-
-}
-
-ul.tabs_section li
-{
+ul.tabs_section li {
 	padding-left: 0;
 	padding-right: 2em;
 	float: left;
 }
-
-ul.tabs_section li a
-{
+ul.tabs_section li a {
 	text-decoration: none;
 }
-
-.section_active
-{
+.section_active {
 	font-weight: bold;
 }
 
-
-/*tcp-quantity
----------------------------*/
+/* tcp-quantity */
 .tcp_buy_button_count {
 	width:auto;
 	white-space:nowrap;
@@ -238,10 +190,8 @@ ul.tabs_section li a
 	position: relative;
 }
 .tcp_add_sub input {
-    margin-left: 0;
-    margin-right: 0;
-}
-.tcp_add_sub input {
+	margin-left: 0;
+	margin-right: 0;
 }
 .tcp_add_sub input.tcp_count {
 	width: 19px;
@@ -261,11 +211,11 @@ ul.tabs_section li a
 .tcp_add_sub input.tcp_button_add, .tcp_add_sub input.tcp_button_sub {
 	float:left;
 	clear:left;
-    color: #373737 !important;
-    cursor: pointer;
-    line-height: 1em;
-    vertical-align: middle;
-    width: 17px;
+	color: #373737 !important;
+	cursor: pointer;
+	line-height: 1em;
+	vertical-align: middle;
+	width: 17px;
 	height:16px;
 	padding: -0px 0 0 !important;
 	border:1px solid #bbbbbb;
@@ -280,38 +230,36 @@ ul.tabs_section li a
 	font-size:12px;
 	
 }
-
 .tcp_add_sub input.tcp_button_sub {
-    border-radius: 0 0 3px 0;
+	border-radius: 0 0 3px 0;
 	position:absolute;
 	left:24px;
 	top:12px;
 	border-top:0;
-	}
+}
 .tcp_add_sub input.tcp_button_add {
-    border-radius: 0 3px 0 0;
+	border-radius: 0 3px 0 0;
 	position:absolute;
 	left:24px;
 	top:0px;
-	}
-.tcp_add_sub input.tcp_button_sub:hover, .tcp_add_sub input.tcp_button_add:hover {
-    background: none repeat scroll 0 0 #FFFFFF;
 }
-
-
+.tcp_add_sub input.tcp_button_sub:hover, .tcp_add_sub input.tcp_button_add:hover {
+	background: none repeat scroll 0 0 #FFFFFF;
+}
 .tcp_added_product_title {
 	display:block;
 	clear:left;
 	font-size:.9em;
 	color:#C00;
 }
-
 .tcp_error {
 	padding: 0.2em;
 	background-color: #FFEBE8;
-    border: 1px solid #CC0000;
+	border: 1px solid #CC0000;
 }
 
+/* Stock dashboard */
+.tcp_stock_0,
 .tcp_stock_1,
 .tcp_stock_2,
 .tcp_stock_3 {
@@ -328,4 +276,215 @@ ul.tabs_section li a
 .tcp_stock_9,
 .tcp_stock_10 {
 	color: green;
+}
+
+/* checkout editor */
+ul.tcp_activated_boxes,
+ul.tcp_deactivated_boxes {
+	margin-bottom: 5px;
+	width: 100%;
+	min-height: 24px;
+}
+li.tcp_checkout_placeholder {
+	border: 1px dashed #AEAEAE;
+	height: 2em;
+	width: 60%;
+}
+li.tcp_checkout_step {
+	background: #C7C7C7;
+	background-image: -moz-linear-gradient(center top , #E9E9E9, #C7C7C7);
+	border: 1px solid #AEAEAE;
+	text-shadow: 0 1px 0 #FFFFFF;
+	overflow: hidden;
+	width: 60%;
+	padding: 0;
+	border-radius: 3px 3px 3px 3px;
+}
+li.tcp_checkout_step h4 {
+	cursor: move;
+	margin: 2px;
+	padding: .5em 0em .5em 1em;
+	float: left;
+}
+a.tcp_checkout_step_open {
+	text-indent: -999em;
+	display: block;
+	float: right;
+	width: 24px;
+	background: url("../../../../wp-admin/images/arrows.png") no-repeat scroll 50% 5px transparent;
+}
+a.tcp_checkout_step_open:hover {
+	background: url("../../../../wp-admin/images/arrows-dark.png") no-repeat scroll 50% 5px transparent;
+}
+div.tcp_checkout_box_edit {
+	background: none repeat scroll 0 0 #FBFBFB;
+	border-top: 1px solid #DFDFDF;
+	clear: both;
+	display: none;
+	float: none;
+	padding: 5px 10px;
+}
+
+/**
+ * to convert multiple selects to lists of checkboxes
+ * since 1.2.0
+ */
+.tcp-multiselect {
+	width: 20em;
+	height: 16em;
+	border: solid 1px #c0c0c0;
+	overflow: auto;
+}
+.tcp-multiselect label {
+	display: block;
+}
+.tcp-multiselect-on {
+	font-weight: bold;
+}
+
+.tcp-label {
+	display: block;
+}
+
+.tcp-attachment-image {
+	float: left;
+	padding-right: 2em;
+}
+
+.tcp-attachment {
+	clear:both;
+	padding: 1em;
+	border-bottom: solid #dfdfdf 1px;
+}
+
+.tcp-attachment-width-height {
+	color: grey;
+}
+div#icon-tcp-localize {
+	background: url('../images/miranda/localize_settings_32.png') no-repeat center;
+}
+div#icon-tcp-main {
+	background: url('../images/miranda/main_settings_32.png') no-repeat center;
+}
+div#icon-tcp-checkout {
+	background: url('../images/miranda/checkout_settings_32.png') no-repeat center;
+}
+div#icon-tcp-payment {
+	background: url('../images/miranda/payments_settings_32.png') no-repeat center;
+}
+div#icon-tcp-shipping {
+	background: url('../images/miranda/shippings_settings_32.png') no-repeat center;
+}
+div#icon-tcp-tax {
+	background: url('../images/miranda/tax_settings_32.png') no-repeat center;
+}
+div#icon-tcp-first {
+	background: url('../images/miranda/first_settings_32.png') no-repeat center;
+}
+div#icon-tcp-theme {
+	background: url('../images/miranda/theme_settings_32.png') no-repeat center;
+}
+div#icon-tcp-loop-settings {
+	background: url('../images/miranda/theme_settings_32.png') no-repeat center;
+}
+div#icon-tcp-custom-styles {
+	background: url('../images/miranda/customstyles_settings_32.png') no-repeat center;
+}
+div#icon-tcp-underconstruction {
+	background: url('../images/miranda/under_construction_32.png') no-repeat center;
+}
+div#icon-tcp-download-list {
+	background: url('../images/miranda/download_32.png') no-repeat center;
+}
+div#icon-tcp-custom-javascript {
+	background: url('../images/miranda/js_32.png') no-repeat center;
+}
+
+.icon32-posts-tcp_template,
+div#icon-tcp-default,
+div#icon-tcp-order,
+div#icon-tcp-shortcode-generator,
+div#icon-tcp-plugins-list,
+div#icon-tcp-custom-templates,
+div#icon-tcp-shortcode-generator,
+div#icon-tcp-post-type-editor,
+div#icon-tcp-post-type-list,
+div#icon-tcp-buybuttons-templates,
+div#icon-tcp-orders-list,
+div#icon-tcp-wish-list,
+div#icon-tcp-stock-update,
+div#icon-tcp-price-update,
+div#icon-tcp-related-cats,
+div#icon-tcp-taxes-list,
+div#icon-tcp-addresses-list,
+div#icon-tcp-discounts-by-roles {
+	background: url('../images/tcp_icon_32.png') no-repeat center;	
+}
+/**
+ * Extend
+ */
+.tcp-inner-product {
+	width: 100%;
+	padding: 10px;
+	line-height:1.625em;
+	text-decoration: none;
+	-moz-border-radius: 0px;
+	-khtml-border-radius: 0px;
+	-webkit-border-radius: 0px;
+	vertical-align: top;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+	overflow: hidden;
+	margin-bottom: 20px;
+	position: relative;
+}
+.tcp-inner-product a:hover {
+	text-decoration: none;
+}
+.tcp-inner-product img {
+	text-decoration: none;
+	margin-bottom: 10px;
+}
+.tcp-inner-product .tcp-product-title {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	font-weight: normal;
+	line-height: 1.5em;
+}
+/* tcp-product-caption */
+.tcp-product-caption {
+	display: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,.75);
+	padding: 10px;
+}
+.tcp-product-caption h3 {
+}
+.tcp-product-caption h3 {
+	font-size: 18px;
+	margin: 10px;
+	color: #fff;
+}
+.tcp-product-caption p {
+	font-size: .95em;
+	line-height: 1.5em;
+	margin: 0 10px 15px;
+	color: #ccc;
+}
+.tcp-product-caption a.tcp-learn-more {
+	padding: 5px 10px;
+	background: #08c;
+	color: #fff;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	font-weight: bold;
+	text-decoration: none;
+}
+.tcp-product-caption a.tcp-learn-more:hover {
+	background: #fff;
+	color: #08c;
 }

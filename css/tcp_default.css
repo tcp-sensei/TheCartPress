@@ -1,0 +1,17 @@
+/* Fix floats container "Clearfix" */
+
+/* For modern browsers */
+.tcp-cf:before,
+.tcp-cf:after {
+	content:"";
+	display:table;
+}
+
+.tcp-cf:after {
+	clear:both;
+}
+
+/* For IE 6/7 (trigger hasLayout) */
+.tcp-cf {
+	zoom:1;
+}

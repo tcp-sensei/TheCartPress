@@ -2,19 +2,25 @@
 /**
  * This file is part of TheCartPress.
  * 
- * TheCartPress is free software: you can redistribute it and/or modify
+ * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * TheCartPress is distributed in the hope that it will be useful,
+ * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with TheCartPress.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+// Exit if accessed directly
+if ( !defined( 'ABSPATH' ) ) exit;
+
+if ( ! class_exists( 'TCPDownloadableManager' ) ) {
+
 require_once( dirname( __FILE__ ) . '/IDownloadableManager.interface.php' );
 
 class TCPDownloadableManager implements IDownloadableManager {
@@ -87,7 +93,7 @@ class TCPDownloadableManager implements IDownloadableManager {
 
 	private function tcp_get_downloadable_path() {
 		global $thecartpress;
-		return isset( $thecartpress->settings['downloadable_path'] ) ? trim( $thecartpress->settings['downloadable_path'] ) : false;
+		return $thecartpress->get_setting( 'downloadable_path', false );
 	}
 
 	private function load_folders( $folder, $name = '' ) {
@@ -118,6 +124,7 @@ class TCPDownloadableManager implements IDownloadableManager {
 		}
 		return $folders;
 	}
+
 	private function path_to_url( $file ) {
 		$downloadable_path = $this->tcp_get_downloadable_path();
 		if ( strpos( $file, $downloadable_path ) !== FALSE ) {
@@ -127,4 +134,4 @@ class TCPDownloadableManager implements IDownloadableManager {
 		}
 	}
 }
-?>
+} // class_exists check

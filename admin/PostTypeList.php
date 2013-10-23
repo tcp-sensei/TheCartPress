@@ -18,7 +18,7 @@
 
 ?>
 <div class="wrap">
-<h2><?php _e( 'Post types', 'tcp' ); ?></h2>
+	<?php screen_icon( 'tcp-post-type-list' ); ?><h2><?php _e( 'Post types', 'tcp' ); ?></h2>
 <ul class="subsubsub">
 	<li><a href="<?php echo TCP_ADMIN_PATH; ?>PostTypeEdit.php"><?php _e( 'Add new post type', 'tcp' ); ?></a></li>
 </ul>
@@ -63,7 +63,8 @@ jQuery(document).ready(function() {
 	<th scope="col" class="manage-column"><?php _e( 'Id', 'tcp' ); ?></th>
 	<th scope="col" class="manage-column"><?php _e( 'Description', 'tcp' ); ?></th>
 	<th scope="col" class="manage-column"><?php _e( 'Activate', 'tcp' ); ?></th>
-	<th scope="col" class="manage-column" style="width: 20%;">&nbsp;</th></tr>
+	<th scope="col" class="manage-column" style="width: 20%;">&nbsp;</th>
+</tr>
 </tfoot>
 <tbody>
 <?php $post_type_defs = tcp_get_custom_post_types();
