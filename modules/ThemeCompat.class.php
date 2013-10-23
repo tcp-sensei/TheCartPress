@@ -101,7 +101,7 @@ class TCPThemeCompat {
 				), $post );
 				$this->theme_compatibility_reset_post( array(
 					'post_title'	=> $post->post_title,
-					//'post_content'	=> $post->post_content,
+					'post_content'	=> $post->post_content,
 					'is_single'		=> true,
 				) );
 				$template = locate_template( $template_names );

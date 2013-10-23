@@ -19,7 +19,7 @@
 // Exit if accessed directly
 if ( !defined( 'ABSPATH' ) ) exit;
 
-require_once( 'AttachmentsMetabox.class.php' );
+//require_once( 'AttachmentsMetabox.class.php' );
 require_once( 'PostMetabox.class.php' );
 require_once( 'ProductCustomFieldsMetabox.class.php' );
 require_once( 'RelationsMetabox.class.php' );

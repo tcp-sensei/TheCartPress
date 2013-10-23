@@ -142,7 +142,6 @@ class TheCartPress {
 		require_once( TCP_CUSTOM_POST_TYPE_FOLDER	. 'TemplateCustomPostType.class.php' );
 
 		require_once( TCP_CLASSES_FOLDER			. 'ShoppingCart.class.php' );
-
 		require_once( TCP_CLASSES_FOLDER			. 'TCP_Plugin.class.php' );
 		require_once( TCP_CLASSES_FOLDER			. 'DownloadableProducts.class.php' );
 		require_once( TCP_CLASSES_FOLDER			. 'CountrySelection.class.php' );
@@ -151,11 +150,9 @@ class TheCartPress {
 		require_once( TCP_CHECKOUT_FOLDER			. 'tcp_checkout_template.php' );
 		require_once( TCP_SHORTCODES_FOLDER			. 'manage_shortcodes.php' );
 		require_once( TCP_WIDGETS_FOLDER			. 'manage_widgets.php' );
-
 		require_once( TCP_SETTINGS_FOLDER			. 'manage_settings.php' );
 		require_once( TCP_APPEARANCE_FOLDER			. 'manage_appearance.php' );
 		require_once( TCP_METABOXES_FOLDER			. 'manage_metaboxes.php' );
-
 		require_once( TCP_MODULES_FOLDER			. 'manage_modules.php' );
 	}
 
@@ -193,28 +190,28 @@ class TheCartPress {
 		$this->load_custom_post_types_and_custom_taxonomies();
 
 		//Load javascript libraries
-		wp_register_script( 'tcp_scripts', plugins_url( 'thecartpress/js/tcp_admin_scripts.js' ) );
+		wp_register_script( 'tcp_scripts', plugins_url( 'js/tcp_admin_scripts.js', __FILE__ ) );
 
 		//Load jquery ui modules
 		wp_enqueue_script( 'jquery-ui-core' );
 		wp_enqueue_script( 'jquery-ui-sortable' );
 		
 		//Load TheCartPress css styles
-		wp_enqueue_style( 'tcp_default_style'	, plugins_url( 'thecartpress/css/tcp_default.css' ) );
-		wp_enqueue_style( 'tcp_front_style'		, plugins_url( 'thecartpress/css/tcpfront.min.prefixed.css' ) );
-
-		//TheCartPress css styles for the ShoppingCart and the Checkout. Can be disabled/enabled in Look&Feel/Theme Compatibilty
-		if ( $this->get_setting( 'load_default_shopping_cart_checkout_style', true ) ) {
-			wp_enqueue_style( 'tcp_shopping_cart_style'	, plugins_url( 'thecartpress/css/tcp_shopping_cart.css' ) );
-			wp_enqueue_style( 'tcp_checkout_style'		, plugins_url( 'thecartpress/css/tcp_checkout.css' ) );
-		}
+		wp_enqueue_style( 'tcp_default_style'	, plugins_url( 'css/tcp_default.css', __FILE__ ) );
+		wp_enqueue_style( 'tcp_front_style'		, plugins_url( 'css/tcpfront.min.prefixed.css', __FILE__ ) );
 
 		//TheCartPress can be used as a catalogue, disabling all ecommerces features
 		if ( ! $this->get_setting( 'disable_ecommerce', false ) ) {
 
+			//TheCartPress css styles for the ShoppingCart and the Checkout. Can be disabled/enabled in Look&Feel/Theme Compatibilty
+			if ( $this->get_setting( 'load_default_shopping_cart_checkout_style', true ) ) {
+				wp_enqueue_style( 'tcp_shopping_cart_style'	, plugins_url( 'css/tcp_shopping_cart.css', __FILE__ ) );
+				wp_enqueue_style( 'tcp_checkout_style'		, plugins_url( 'css/tcp_checkout.css', __FILE__ ) );
+			}
+
 			//TheCartPress css styles for the BuyButton. Can be disabled/enabled in Look&Feel/Theme Compatibilty
 			if ( $this->get_setting( 'load_default_buy_button_style', true ) )
-				wp_enqueue_style( 'tcp_buy_button_style', plugins_url( 'thecartpress/css/tcp_buy_button.css' ) );
+				wp_enqueue_style( 'tcp_buy_button_style', plugins_url( 'css/tcp_buy_button.css', __FILE__ ) );
 
 			//Initializing checkout
 			$this->loading_default_checkout_boxes();
@@ -293,7 +290,7 @@ class TheCartPress {
 		wp_enqueue_script( 'tcp_scripts' );
 
 		//TheCartPress css style for the backend
-		wp_enqueue_style( 'tcp_dashboard_style', plugins_url( 'thecartpress/css/tcp_dashboard.css' ) );
+		wp_enqueue_style( 'tcp_dashboard_style', plugins_url( 'css/tcp_dashboard.css', __FILE__ ) );
 
 		//TheCartPress can be used as a catalogue, disabling all ecommerces features
 		if ( ! $this->get_setting( 'disable_ecommerce', false ) ) {
@@ -694,10 +691,10 @@ class TheCartPress {
 			add_submenu_page( 'tcpml', __( 'TheCartPress checking', 'tcp' ), __( 'TheCartPress checking', 'tcp' ), 'tcp_edit_products', TCP_ADMIN_FOLDER . 'Checking.php' );
 		}
 		$base = $this->get_base_settings();
-		add_menu_page( '', __( 'Settings', 'tcp' ), 'tcp_edit_products', $base, '', plugins_url( 'thecartpress/images/tcp.png', TCP_FOLDER ), 41 );
+		add_menu_page( '', __( 'Settings', 'tcp' ), 'tcp_edit_products', $base, '', plugins_url( 'images/tcp.png', __FILE__ ), 41 );
 
 		$base = $this->get_base_tools();
-		add_menu_page( '', __( 'Tools', 'tcp' ), 'tcp_edit_products', $base, '', plugins_url( '/images/tcp.png', __FILE__ ), 43 );
+		add_menu_page( '', __( 'Tools', 'tcp' ), 'tcp_edit_products', $base, '', plugins_url( 'images/tcp.png', __FILE__ ), 43 );
 		add_submenu_page( $base, __( 'Shortcodes Generator', 'tcp' ), __( 'Shortcodes', 'tcp' ), 'tcp_shortcode_generator', $base );
 		add_submenu_page( $base, __( 'Manage post types', 'tcp' ), __( 'Manage post types', 'tcp' ), 'manage_options', TCP_ADMIN_FOLDER . 'PostTypeList.php' );
 		add_submenu_page( $base, __( 'Manage taxonomies', 'tcp' ), __( 'Manage taxonomies', 'tcp' ), 'manage_options', TCP_ADMIN_FOLDER . 'TaxonomyList.php' );
@@ -935,11 +932,7 @@ class TheCartPress {
 				'disable_shopping_cart'		=> false,
 				'disable_ecommerce'			=> false,
 				'user_registration'			=> false,
-				'see_price_in_content'		=> false,
-				'see_price_in_excerpt'		=> true,
-				'downloadable_path'			=> WP_PLUGIN_DIR . '/thecartpress/uploads',
-				'see_buy_button_in_content'	=> true,
-				'see_buy_button_in_excerpt'	=> false,
+				'downloadable_path'			=> TCP_FOLDER . 'uploads',
 				'load_default_buy_button_style'				=> true,
 				'load_default_shopping_cart_checkout_style'	=> true,
 				'load_default_loop_style'					=> true,

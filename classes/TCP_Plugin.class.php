@@ -30,11 +30,11 @@ if ( !defined( 'ABSPATH' ) ) exit;
 
 if ( ! class_exists( 'TCP_Plugin' ) ) {
 
+require_once( TCP_TEMPLATES_FOLDER . 'tcp_template_template.php' );
+
 /**
  * All the checkout plugins must implement this class
  */
-require_once( WP_PLUGIN_DIR . '/thecartpress/templates/tcp_template_template.php' );
-
 class TCP_Plugin {
 
 	function isForOtherPayments() {

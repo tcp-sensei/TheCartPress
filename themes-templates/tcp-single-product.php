@@ -66,13 +66,7 @@ $attachments = get_children( array(
 			<span class="single-discount">-<?php tcp_the_discount_value(); ?></span>
 		<?php endif; ?>
 
-		<?php $see_buy_button = $thecartpress->get_setting( 'see_buy_button_in_content' . $suffix , true );
-		$see_price_in_content = $thecartpress->get_setting( 'see_price_in_content' . $suffix, false );
-		if ( $see_buy_button ) {
-			if ( function_exists( 'tcp_the_buy_button' ) ) tcp_the_buy_button();
-		} elseif ( $see_price_in_content ) {
-			echo '<p id="tcp_price_post-', $post->ID, '">', tcp_get_the_price_label( $post->ID ), '</p>';
-		} ?>
+		<?php tcp_the_buy_button(); ?>
 
 		<?php if ( is_active_sidebar( 'sidebar-buying-area' ) ) : ?>
 			<div class="widget-area" role="complementary">
@@ -82,6 +76,6 @@ $attachments = get_children( array(
 
 	</div><!-- .single-product-options -->
 
-	<?php the_content(); ?>
 </div><!-- .tcp-row -->
+<?php the_content(); ?>
 </div><!-- .single-product-container -->
