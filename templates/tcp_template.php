@@ -848,35 +848,19 @@ function tcp_get_the_content( $post_id = 0, $echo = false ) {
  * @since 1.1.8
  */
 function tcp_the_excerpt( $post_id = 0, $length = 0 ) {
-	tcp_get_the_excerpt( $post_id, $length, true );
+	echo tcp_get_the_excerpt( $post_id, $length );
 }
-
-/**
- * Returns the excerpt of the given post
- * @since 1.1.8
- *
-function tcp_get_the_excerpt( $post_id = 0, $echo = false ) {
-	global $thecartpress;
-	// remove_filter( 'the_excerpt', array( $thecartpress, 'the_excerpt' ) );
-	// remove_filter( 'the_content', array( $thecartpress, 'the_content' ) );
-	$post = get_post( $post_id );
-	$excerpt = $post->post_excerpt; //TODO
-	//$excerpt = apply_filters( 'get_the_excerpt', $excerpt );
-	// add_filter( 'the_content', array( $thecartpress, 'the_content' ) );
-	// add_filter( 'the_excerpt', array( $thecartpress, 'the_excerpt' ) );
-	if ( $echo ) echo $excerpt;
-	else return $excerpt;
-}*/
 
 /**
  * Returns the excerpt of the given post
  * @since 1.2.8
  * @see http://wp-snippets.com/dynamic-custom-length-excpert/
  */
-function tcp_get_the_excerpt( $post_id = 0, $length = 0, $echo = false ) { // Max excerpt length. Length is set in characters
+function tcp_get_the_excerpt( $post_id = 0, $length = 0 ) { // Max excerpt length. Length is set in characters
 	if ( $post_id == 0 ) $post_id = get_the_ID();
 	$post = get_post( $post_id );
 	$text = $post->post_excerpt;
+	$text = apply_filters( 'the_excerpt', $text );
 	$see_points = false;
 	if ( strlen( $text ) == 0 ) {
 		$text = tcp_get_the_content( $post_id );
@@ -893,11 +877,7 @@ function tcp_get_the_excerpt( $post_id = 0, $length = 0, $echo = false ) { // Ma
 		$see_points = $initial_length > strlen( $text );
 	}
 	if ( $see_points && strlen( $text ) ) $text .= sprintf( ' <a href="%s">[...]</a>', tcp_get_permalink( $post_id ) );
-//	$excerpt = tcp_reverse_strrchr( $text, '.', 1 );
-	$excerpt = $text;
-	$excerpt = apply_filters( 'the_excerpt', $excerpt );
-	if ( $echo ) echo $excerpt;
-	else return $excerpt;
+	return $text;
 }
 
 // Returns the portion of haystack which goes until the last occurrence of needle
@@ -905,12 +885,11 @@ function tcp_reverse_strrchr( $haystack, $needle, $trail ) {
 	return strrpos( $haystack, $needle ) ? substr( $haystack, 0, strrpos( $haystack, $needle ) + $trail ) : false;
 }
 
-function tcp_the_meta( $meta_key, $before = '', $after = '', $echo = true ) {
+function tcp_the_meta( $meta_key, $before = '', $after = '' ) {
 	$meta_value = tcp_get_the_meta( $meta_key );
 	if ( strlen( $meta_value ) == 0 ) return '';
 	$meta_value = $before . $meta_value . $after;
-	if ( $echo ) echo $meta_value;
-	else return $meta_value;
+	echo $meta_value;
 }
 
 function tcp_get_the_meta( $meta_key, &$post_id = 0 ) {
