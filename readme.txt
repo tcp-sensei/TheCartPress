@@ -23,6 +23,8 @@ You can extend its functionality with plugins and themes to customize your store
 * [TheCartPress Community/Support](http://community.thecartpress.com/activity/)
 * [TheCartPress Site](http://thecartpress.com)
 
+= Universal theme compatibility, making it compatible also with all WordPress themes =
+
 = eCommerce 100% WordPress, naturaly flexible & Scalable =
 
 * Native integration with WordPress since conception of TheCartPress.
@@ -115,7 +117,7 @@ You can extend its functionality with plugins and themes to customize your store
  * See utilities.
  * See author.
  * See custom areas.
-* Use custom and configurable loops also in shortcode generator and widgets.
+* Use custom and configurable loops, also in shortcode generator and widgets.
 
 = Full Catalog Browsing Offering =
 
@@ -298,10 +300,6 @@ This plugin is released under a GPL license.
 2. Take a look to Catalogue and product detail in your store. Those pages are now displayed using new Theme Compatibility featured.
 
 == Changelog ==
-= 1.3.3 =
-* Reports
-* Media Loader Improvement
-
 = 1.3.2.1 =
 * Issue with svn
 

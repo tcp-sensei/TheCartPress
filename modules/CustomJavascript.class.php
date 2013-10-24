@@ -107,7 +107,7 @@ class TCPCustomJavascript {
 		if ( empty( $_POST ) ) return;
 		check_admin_referer( 'tcp_custom_javascript_settings' );
 		update_option( 'tcp_custom_javascript_activate', isset( $_POST['tcp_custom_javascript_activate'] ) );
-		update_option( 'tcp_custom_javascript', $_POST['tcp_custom_javascript'] );
+		update_option( 'tcp_custom_javascript', trim( $_POST['tcp_custom_javascript'] ) );
 		$this->updated = true;
 	}
 }

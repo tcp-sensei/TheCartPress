@@ -78,7 +78,7 @@ class TCPShippingMethodsBox extends TCPCheckoutBox {
 			//If hidden if unique (not display the box opened) and the numbers of applucable methos is one
 			$hidden_if_unique = isset( $settings['hidden_if_unique'] ) ? $settings['hidden_if_unique'] : false;
 			if ( $hidden_if_unique && count( $this->applicable_sending_plugins ) == 1 ) {
-				$plugin_data = $this->applicable_sending_plugins[0];
+				$plugin_data = reset( $this->applicable_sending_plugins );
 				$tcp_plugin = $plugin_data['plugin'];
 				$instance = $plugin_data['instance'];
 				$plugin_name = get_class( $tcp_plugin );

@@ -78,7 +78,7 @@ class TCPPaymentMethodsBox extends TCPCheckoutBox {
 		$settings = get_option( 'tcp_' . get_class( $this ), array() );
 		$hidden_if_unique = isset( $settings['hidden_if_unique'] ) ? $settings['hidden_if_unique'] : false;
 		if ( $hidden_if_unique && count( $this->applicable_plugins ) == 1 ) {
-			$plugin_data = $this->applicable_plugins[0];
+			$plugin_data = reset( $this->applicable_plugins );
 			$tcp_plugin = $plugin_data['plugin'];
 			$instance = $plugin_data['instance'];
 			$plugin_name = get_class( $tcp_plugin );
