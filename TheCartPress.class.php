@@ -10,7 +10,7 @@ Text Domain: tcp
 Domain Path: /languages/
 License: GPL
 Parent: thecartpress
-/
+*/
 
 /**
  * The TheCartPress Plugin
@@ -1046,10 +1046,10 @@ class TheCartPress {
 	}
 
 	function deactivate_plugin() {
-		wp_delete_post( get_option( 'tcp_shopping_cart_page_id' ) );
-		wp_delete_post( get_option( 'tcp_checkout_page_id' ) );
-		wp_delete_post( get_option( 'tcp_my_account_page_id' ) );
-		wp_delete_post( get_option( 'tcp_catalogue_page_id' ) );
+		// wp_delete_post( get_option( 'tcp_shopping_cart_page_id' ) );
+		// wp_delete_post( get_option( 'tcp_checkout_page_id' ) );
+		// wp_delete_post( get_option( 'tcp_my_account_page_id' ) );
+		// wp_delete_post( get_option( 'tcp_catalogue_page_id' ) );
 		remove_role( 'customer' );
 		remove_role( 'merchant' );
 	}
