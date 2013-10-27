@@ -97,7 +97,7 @@ class TCPSigninBox extends TCPCheckoutBox {
 	function show() {?>
 <div class="checkout_info clearfix" id="identify_layer_info">
 	<?php $settings		= get_option( 'tcp_' . get_class( $this ), array() );
-	$display			= isset( $settings['display'] ) ? $settings['display'] : array( 'guest', 'login', 'register' );
+	$display			= isset( $settings['display'] ) && is_array( $settings['display'] ) ? $settings['display'] : array( 'guest', 'login', 'register' );
 	global $thecartpress;
 	$user_registration	= $thecartpress->get_setting( 'user_registration', false ); ?>
 	<?php if ( ! is_user_logged_in() ) { ?>
