@@ -69,7 +69,7 @@ if ( isset( $instance['title_tag'] ) && $instance['title_tag'] != '' ) {
 }
 ?>
 
-<div class="tcp-tcpf">
+<div class="tcp-tcpf tcp-cf">
 
 	<div class="tcp-product-list tcp-product-grid">
 	<?php if ( $see_sorting_panel ) tcp_the_sort_panel(); ?>
@@ -143,33 +143,31 @@ if ( isset( $instance['title_tag'] ) && $instance['title_tag'] != '' ) {
 				<?php endif; ?>
 
 				<?php if ( tcp_is_saleable() ) : ?>
-					<div class="tcp-wrapper-prices">
+					<div class="tcp-product-price">
 						<?php if ( $see_price ) :?>
-							<span class="tcp-product-price">
 							<?php tcp_the_price_label();?>
-							</span><!-- tcp-price -->
 						<?php endif;?>
 
 						<?php if ( $see_discount && function_exists( 'tcp_has_discounts' ) ) :
 							if ( tcp_has_discounts() ) {
 								$discount = tcp_get_the_discount_value();
 								ob_start(); ?>
-								<span class="tcp-product-discount">-<?php echo $discount; ?></span>
+								<div class="tcp-product-discount"><span class="tcp-label tcp-label-success">-<?php echo $discount; ?></span></div>
 								<?php $out = ob_get_clean();
 								echo apply_filters( 'tcp_loop_tcp_grid_discount', $out, $discount, get_the_ID() );
 							}
 						endif; ?>
 
+					</div><!-- .tcp-product-price -->
 						<?php if ( $see_stock && function_exists( 'tcp_get_the_stock' ) ) :
 							$stock = tcp_get_the_stock( get_the_ID() );
 							ob_start();
 							if ( $stock == 0 ) { ?>
-							<div class="tcp-product-outstock"><?php _e( 'Out of stock', 'tcp' ); ?></div>
+							<div class="tcp-product-outstock"><span class="tcp-label tcp-label-danger"><?php _e( 'Out of stock', 'tcp' ); ?></span></div>
 							<?php }
 							$out = ob_get_clean();
 							echo apply_filters( 'tcp_loop_tcp_grid_stock', $out, $stock, get_the_ID() );
 						endif; ?>
-					</div><!-- .tcp-wrapper-prices -->
 				<?php endif; ?>
 
 				<?php if ( function_exists( 'sharing_display' ) ) remove_filter( 'the_content', 'sharing_display', 19 ); ?>

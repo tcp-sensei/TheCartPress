@@ -3,17 +3,20 @@
 #checkout  {
 	font-size: 14px;
 }
+#checkout > div {
+	border-radius: 2px;
+}
 #checkout  p {
 	margin-bottom:6px;
 }
 #checkout h3 {
-	line-height: 30px !important;
+	line-height: 36px !important;
 	margin: 0px 0px 1px 0px !important;
-	font-size: 12px;
-    letter-spacing: 0.1em;
+	font-size: 14px;
 	border: 1px solid;
 	text-transform: uppercase;
 	padding-left: 24px;
+	border-radius: 2px;
 }
 #checkout h3 a {
 	text-decoration: none;	
@@ -48,6 +51,7 @@
 	background-position: left -10px;*/
 	border: 1px solid;
 	font-family: Arial, Helvetica, sans-serif;
+	border-radius: 2px;
 }
 .identify_layer .checkout_info {
 	padding-top: 0px;
@@ -219,6 +223,10 @@ li.tcp_checkout_active_step span{
 }
 .tcp_back_continue{
 	display: block;
+}
+
+.tcp-tcpf label {
+	font-weight: normal;
 }
 
 /* ***Float containers fix*** */ 

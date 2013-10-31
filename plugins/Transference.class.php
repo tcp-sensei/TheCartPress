@@ -215,13 +215,14 @@ class Transference extends TCP_Plugin {
 	}
 
 	function showPayForm( $instance, $shippingCountry, $shoppingCart, $order_id = 0 ) {
-		$url = tcp_get_the_checkout_ok_url( $order_id );
-		$data = tcp_get_payment_plugin_data( get_class( $this ), $instance, $order_id );
-		$redirect = isset( $data['redirect'] ) ? $data['redirect'] : false;
-		$additional = $this->getNotice( $instance, $shippingCountry, $shoppingCart, $order_id );
+		$url				= tcp_get_the_checkout_ok_url( $order_id );
+		$data				= tcp_get_payment_plugin_data( get_class( $this ), $instance, $order_id );
+		$redirect			= isset( $data['redirect'] ) ? $data['redirect'] : false;
+		$additional			= $this->getNotice( $instance, $shippingCountry, $shoppingCart, $order_id );
+		$buy_button_color	= thecartpress()->get_setting( 'buy_button_color' );
 		echo $additional;
 		if ( ! $redirect ) : ?>
-		<p><input type="button" class="tcp_pay_button" id="tcp_transference" value="<?php _e( 'Finish', 'tcp' ); ?>" onclick="window.location.href='<?php echo $url; ?>';"/></p>
+		<p><input type="button" class="tcp_pay_button tcp-btn tcp-btn-lg <?php echo $buy_button_color; ?>" id="tcp_transference" value="<?php _e( 'Finish', 'tcp' ); ?>" onclick="window.location.href='<?php echo $url; ?>';"/></p>
 		<?php endif;
 		require_once( TCP_DAOS_FOLDER . 'Orders.class.php' );
 		$new_status = isset( $data['new_status'] ) ? $data['new_status'] : Orders::$ORDER_PENDING;

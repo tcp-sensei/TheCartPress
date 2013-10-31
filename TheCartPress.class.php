@@ -190,12 +190,19 @@ class TheCartPress {
 		$this->load_custom_post_types_and_custom_taxonomies();
 
 		//Load javascript libraries
-		wp_register_script( 'tcp_scripts', plugins_url( 'js/tcp_admin_scripts.js', __FILE__ ) );
+		// if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+		// 	wp_register_script( 'tcp_bootstrap'	, plugins_url( 'js/bootstrap.prefixed.js', __FILE__ ) );
+		// } else {
+			wp_register_script( 'tcp_bootstrap'	, plugins_url( 'js/bootstrap.min.prefixed.js', __FILE__ ) );
+		//}
 
 		//Load jquery ui modules
 		wp_enqueue_script( 'jquery-ui-core' );
 		wp_enqueue_script( 'jquery-ui-sortable' );
-		
+
+		//Load TheCartPress javascript
+		wp_enqueue_script( 'tcp_bootstrap' );
+
 		//Load TheCartPress css styles
 		wp_enqueue_style( 'tcp_default_style'	, plugins_url( 'css/tcp_default.css', __FILE__ ) );
 		wp_enqueue_style( 'tcp_front_style'		, plugins_url( 'css/tcpfront.min.prefixed.css', __FILE__ ) );
@@ -288,6 +295,7 @@ class TheCartPress {
 
 	function admin_init() {
 		//TheCartPress javascript for the backend
+		wp_register_script( 'tcp_scripts', plugins_url( 'js/tcp_admin_scripts.js', __FILE__ ) );
 		wp_enqueue_script( 'tcp_scripts' );
 
 		//TheCartPress css style for the backend
@@ -1046,10 +1054,6 @@ class TheCartPress {
 	}
 
 	function deactivate_plugin() {
-		// wp_delete_post( get_option( 'tcp_shopping_cart_page_id' ) );
-		// wp_delete_post( get_option( 'tcp_checkout_page_id' ) );
-		// wp_delete_post( get_option( 'tcp_my_account_page_id' ) );
-		// wp_delete_post( get_option( 'tcp_catalogue_page_id' ) );
 		remove_role( 'customer' );
 		remove_role( 'merchant' );
 	}

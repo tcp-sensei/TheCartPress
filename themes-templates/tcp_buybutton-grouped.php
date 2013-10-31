@@ -85,9 +85,9 @@ remove_filter( 'tcp_the_add_to_cart_button', array( $wish_list, 'tcp_the_add_to_
 			<?php endif; ?>
 	
 			<?php if ( function_exists( 'tcp_the_buy_button_dyamic_options' ) && tcp_has_dynamic_options( $product_id ) ) : ?>
-				<div class="tcp-buy-dynamic-options">
-					<?php tcp_the_buy_button_dyamic_options( $product_id ); ?>
-			</div>
+			<div class="tcp-buy-dynamic-options">
+				<?php tcp_the_buy_button_dyamic_options( $product_id ); ?>
+			</div><!-- .tcp-buy-dynamic-options -->
 			<?php endif; ?>
 
 			<div class="tcp-add-to-cart">
@@ -112,7 +112,7 @@ remove_filter( 'tcp_the_add_to_cart_button', array( $wish_list, 'tcp_the_add_to_
 		
 				<?php endif; ?>
 
-			</div>
+			</div><!-- .tcp_buy_button_main -->
 
 			<?php if ( function_exists( 'tcp_the_tier_price' ) && tcp_has_tier_price( $product_id ) ) : ?>
 

@@ -67,9 +67,7 @@ table.tcp_products_list table.tcp_buy_button tr td {
 
 input.tcp_count {
 	text-align: center;
-	margin-bottom:0;
-	max-width:34px;
-
+	max-width: 60px;
 }
 .tcp_add_row {
 }

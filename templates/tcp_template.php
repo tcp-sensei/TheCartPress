@@ -339,22 +339,6 @@ function tcp_get_the_price_without_tax( $post_id = 0, $price = false ) {
 }
 
 /**
- * Returns the tax to apply to a product
- * @since 1.0.9
- */
-function tcp_get_the_tax( $post_id = 0 ) {
-	$tax_id = tcp_get_the_tax_id( $post_id );
-	if ( $tax_id == 0 ) return 0;
-	$country_iso = tcp_get_tax_country();
-	$region_iso = tcp_get_tax_region();
-	require_once( TCP_DAOS_FOLDER . 'TaxRates.class.php' );
-	$tax = TaxRates::find( $country_iso, $region_iso, 'all', $tax_id );
-	$tax = apply_filters( 'tcp_get_the_tax', $tax, $post_id );
-	if ( $tax ) return $tax->rate; //$tax->label
-	else return 0;
-}
-
-/**
  * Returns the default tax to apply to a product
  * @since 1.1.8
  */
@@ -373,14 +357,26 @@ function tcp_get_the_default_tax( $post_id = 0 ) {
 /**
  * @since 1.0.9
  */
-function tcp_the_tax( $before = '', $after = '', $echo = true ) {
+function tcp_the_tax( $before = '', $after = '' ) {
 	$tax = tcp_number_format( tcp_get_the_tax() );
-	$tax = $before . $tax . $after;
-	if ( $echo )
-		echo $tax;
-	else
-		return $tax;
+	echo $before . $tax . $after;
 }
+
+	/**
+	 * Returns the tax to apply to a product
+	 * @since 1.0.9
+	 */
+	function tcp_get_the_tax( $post_id = 0 ) {
+		$tax_id = tcp_get_the_tax_id( $post_id );
+		if ( $tax_id == 0 ) return 0;
+		$country_iso = tcp_get_tax_country();
+		$region_iso = tcp_get_tax_region();
+		require_once( TCP_DAOS_FOLDER . 'TaxRates.class.php' );
+		$tax = TaxRates::find( $country_iso, $region_iso, 'all', $tax_id );
+		$tax = apply_filters( 'tcp_get_the_tax', $tax, $post_id );
+		if ( $tax ) return $tax->rate; //$tax->label
+		else return 0;
+	}
 
 function tcp_get_the_tax_id( $post_id = 0 ) {
 	$tax_id = tcp_get_the_meta( 'tcp_tax_id', $post_id );
@@ -598,37 +594,32 @@ function tcp_get_the_product_type( $post_id = 0 ) {
 /**
  * @since 1.2
  */
-function tcp_get_the_initial_units( $post_id = 0 ) {
-	$initial_units = (int)tcp_get_the_meta( 'tcp_initial_units', $post_id );
-	$initial_units = (int)apply_filters( 'tcp_get_the_initial_units', $initial_units, $post_id );
-	return $initial_units;
-}
-
-/**
- * @since 1.2
- */
-function tcp_the_initial_units( $before = '', $after = '', $echo = true ) {
+function tcp_the_initial_units( $before = '', $after = '' ) {
 	$initial_units = tcp_get_the_initial_units();
-	$initial_units = $before . $initial_units . $after;
-	if ( $echo ) echo $initial_units;
-	else return $initial_units;
+	echo $before . $initial_units . $after;
 }
+	/**
+	 * @since 1.2
+	 */
+	function tcp_get_the_initial_units( $post_id = 0 ) {
+		$initial_units = (int)tcp_get_the_meta( 'tcp_initial_units', $post_id );
+		$initial_units = (int)apply_filters( 'tcp_get_the_initial_units', $initial_units, $post_id );
+		return $initial_units;
+	}
 
-function tcp_get_the_weight( $post_id = 0 ) {
-	$weight = (float)tcp_get_the_meta( 'tcp_weight', $post_id );
-	$weight = apply_filters( 'tcp_get_the_weight', $weight, $post_id );
-	return $weight;
-}
-
-function tcp_the_weight( $before = '', $after = '', $echo = true ) {
+function tcp_the_weight( $before = '', $after = '' ) {
 	$weight = tcp_number_format( tcp_get_the_weight() );
-	$weight = $before . $weight . $after;
-	if ( $echo ) echo $weight;
-	else return $weight;
+	echo $before . $weight . $after;
 }
+
+	function tcp_get_the_weight( $post_id = 0 ) {
+		$weight = (float)tcp_get_the_meta( 'tcp_weight', $post_id );
+		$weight = apply_filters( 'tcp_get_the_weight', $weight, $post_id );
+		return $weight;
+	}
 
 /**
- * @sonce 1.2.9
+ * @since 1.2.9
  */
 function tcp_get_the_weight_label( $post_id = 0 ) {
 	return sprintf( '%s %s', tcp_get_the_weight( $post_id ), tcp_get_the_unit_weight() );
@@ -638,29 +629,27 @@ function tcp_get_the_order( $post_id = 0 ) {
 	return (int)tcp_get_the_meta( 'tcp_order', $post_id );
 }
 
-function tcp_the_sku( $before = '', $after = '', $echo = true ) {
-	//$sku = tcp_the_meta( 'tcp_sku', $before, $after, false );
+function tcp_the_sku( $before = '', $after = '' ) {
 	$sku = tcp_get_the_sku( get_the_ID() );
-	if ( $echo ) echo $before . $sku . $after;
-	else return $before . $sku . $after;
+	echo $before . $sku . $after;
 }
 
-function tcp_get_the_sku( $post_id = 0, $option_1_id = 0, $option_2_id = 0 ) {
-	if ( $option_2_id > 0) {
-		$sku = tcp_get_the_meta( 'tcp_sku', $option_2_id );
-		if ( strlen( $sku ) == 0 ) {
-			return tcp_get_the_sku( $post_id, $option_1_id );
+	function tcp_get_the_sku( $post_id = 0, $option_1_id = 0, $option_2_id = 0 ) {
+		if ( $option_2_id > 0) {
+			$sku = tcp_get_the_meta( 'tcp_sku', $option_2_id );
+			if ( strlen( $sku ) == 0 ) {
+				return tcp_get_the_sku( $post_id, $option_1_id );
+			}
+		} elseif ( $option_1_id > 0) {
+			$sku = tcp_get_the_meta( 'tcp_sku', $option_1_id );
+			if ( strlen( $sku ) == 0 )
+				return tcp_get_the_sku( $post_id );
+		} else {
+			$sku = tcp_get_the_meta( 'tcp_sku', $post_id );
 		}
-	} elseif ( $option_1_id > 0) {
-		$sku = tcp_get_the_meta( 'tcp_sku', $option_1_id );
-		if ( strlen( $sku ) == 0 )
-			return tcp_get_the_sku( $post_id );
-	} else {
-		$sku = tcp_get_the_meta( 'tcp_sku', $post_id );
+		$sku = apply_filters( 'tcp_get_the_sku', $sku, $post_id, $option_1_id, $option_2_id );
+		return $sku;
 	}
-	$sku = apply_filters( 'tcp_get_the_sku', $sku, $post_id, $option_1_id, $option_2_id );
-	return $sku;
-}
 
 /**
  * @since 1.2.5
@@ -925,6 +914,7 @@ function tcp_get_saleable_post_types( $one_more = false ) {
  * @since 1.1.6
  */
 function tcp_is_saleable_post_type( $post_type ) {
+	if ( is_array( $post_type ) ) $post_type = reset( $post_type );
 	$saleable_post_types = tcp_get_saleable_post_types();
 	return in_array( $post_type, $saleable_post_types );
 }

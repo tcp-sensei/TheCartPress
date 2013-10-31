@@ -54,12 +54,11 @@ class TCPStockManagement {
 			add_filter( 'tcp_get_shopping_cart_summary'					, array( $this, 'tcp_get_shopping_cart_summary' ), 10, 2 );
 			add_action( 'tcp_show_shopping_cart_summary_widget_params'	, array( $this, 'tcp_show_shopping_cart_summary_widget_params' ) );
 
-			add_filter( 'tcp_the_add_to_cart_unit_field'				, array( $this, 'tcp_the_add_to_cart_unit_field' ), 10, 2 );
+			//add_filter( 'tcp_the_add_to_cart_unit_field'				, array( $this, 'tcp_the_add_to_cart_unit_field' ), 10, 2 );
 
 			add_filter( 'tcp_the_add_to_cart_button'					, array( $this, 'tcp_the_add_to_cart_button' ), 10, 2 );
 
 			add_filter( 'tcp_apply_filters_for_saleables'				, array( $this, 'tcp_apply_filters_for_saleables' ) );
-			add_filter( 'tcp_custom_post_type_list_widget'				, array( $this, 'tcp_custom_post_type_list_widget' ), 10, 2 );
 
 			add_filter( 'tcp_checkout_manager'							, array( $this, 'tcp_checkout_manager' ) );
 			add_action( 'tcp_checkout_create_order_insert_detail'		, array( $this, 'tcp_checkout_create_order_insert_detail' ), 10, 4 );
@@ -76,7 +75,7 @@ class TCPStockManagement {
 
 	function admin_init() {
 		add_action( 'tcp_main_settings_after_page'	, array( $this, 'tcp_main_settings_after_page' ) );
-		add_filter( 'tcp_main_settings_action'	, array( $this, 'tcp_main_settings_action' ) );
+		add_filter( 'tcp_main_settings_action'		, array( $this, 'tcp_main_settings_action' ) );
 		global $thecartpress;
 		if ( ! empty( $thecartpress ) ) {
 			$stock_management = $thecartpress->get_setting( 'stock_management', false );
@@ -770,18 +769,6 @@ function show_hide_stock_management() {
 		}
 		return $query;
 	}
-	
-	function tcp_custom_post_type_list_widget( $query, $wp_query ) {
-		global $thecartpress;
-		if ( $thecartpress->get_setting( 'hide_out_of_stock' ) )
-			$query['meta_query'][] = array(
-				'key'		=> 'tcp_stock',
-				'value'		=> 0,
-				'type'		=> 'NUMERIC',
-				'compare'	=> '!='
-			);
-		return $query;
-	}
 
 	function stock_column_sortable_column( $columns ) {
 		$columns['stock'] = 'tcp_stock';
@@ -805,33 +792,30 @@ $GLOBALS['stock_management'] = new TCPStockManagement();
 
 require_once( TCP_WIDGETS_FOLDER . 'StockSummaryDashboard.class.php' );
 
-function tcp_the_stock( $before = '', $after = '', $echo = true ) {
-	$stock = tcp_the_meta( 'tcp_stock', $before, $after, false );
-	if ( $echo )
-		echo $stock;
-	else
-		return $stock;
+function tcp_the_stock( $before = '', $after = '' ) {
+	$stock = tcp_get_the_meta( 'tcp_stock' );
+	echo $before . $stock . $after;
 }
 
-function tcp_get_the_stock( $post_id = 0, $option_1_id = 0, $option_2_id = 0 ) {
-	if ( $option_2_id > 0 ) {
-		$stock = tcp_get_the_meta( 'tcp_stock', $option_2_id );
-		if ( $stock == -1 )
-			$stock = tcp_get_the_stock( $post_id, $option_1_id );
-	} elseif ( $option_1_id > 0) {
-		$stock = tcp_get_the_meta( 'tcp_stock', $option_1_id );
-		if ( $stock == -1 )
-			$stock = tcp_get_the_stock( $post_id );
-	} else {
-		$post_id = tcp_get_default_id( $post_id );
-		$stock = tcp_get_the_meta( 'tcp_stock', $post_id );
-		if ( strlen( $stock ) > 0 )
-			$stock = (int)$stock;
-		else
-			$stock = -1;
+	function tcp_get_the_stock( $post_id = 0, $option_1_id = 0, $option_2_id = 0 ) {
+		if ( $option_2_id > 0 ) {
+			$stock = tcp_get_the_meta( 'tcp_stock', $option_2_id );
+			if ( $stock == -1 )
+				$stock = tcp_get_the_stock( $post_id, $option_1_id );
+		} elseif ( $option_1_id > 0) {
+			$stock = tcp_get_the_meta( 'tcp_stock', $option_1_id );
+			if ( $stock == -1 )
+				$stock = tcp_get_the_stock( $post_id );
+		} else {
+			$post_id = tcp_get_default_id( $post_id );
+			$stock = tcp_get_the_meta( 'tcp_stock', $post_id );
+			if ( strlen( $stock ) > 0 )
+				$stock = (int)$stock;
+			else
+				$stock = -1;
+		}
+		return apply_filters( 'tcp_get_the_stock', $stock, $post_id, $option_1_id, $option_2_id );
 	}
-	return apply_filters( 'tcp_get_the_stock', $stock, $post_id, $option_1_id, $option_2_id );
-}
 
 /**
  * Returns the current stock.
@@ -908,9 +892,11 @@ function tcp_is_stock_in_shopping_cart( $post_id = 0, $option_1_id = 0, $option_
 }
 
 function tcp_the_initial_stock( $before = '', $after = '', $echo = true ) {
-	$stock = tcp_the_meta( 'tcp_initial_stock', $before, $after, false );
-	if ( $echo ) echo $stock;
-	else return $stock;
+	//$stock = tcp_the_meta( 'tcp_initial_stock', $before, $after, false );
+	//if ( $echo ) echo $stock;
+	//else return $stock;
+	$stock = tcp_get_the_initial_stock();
+	if ( $stock > 0 ) echo $before . $stock . $after;
 }
 
 function tcp_get_the_initial_stock( $post_id = 0, $option_1_id = 0, $option_2_id = 0 ) {

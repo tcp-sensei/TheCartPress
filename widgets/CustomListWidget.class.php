@@ -32,9 +32,9 @@ class CustomListWidget extends TCPParentWidget {
 	function widget( $args, $instance ) {
 		if ( ! parent::widget( $args, $instance ) ) return;
 		extract( $args );
-		$order_type = isset( $instance['order_type'] ) ? $instance['order_type'] : 'date';
-		$order_desc = isset( $instance['order_desc'] ) ? $instance['order_desc'] : 'asc';
-		$loop_args = isset( $instance['loop_args'] ) ? $instance['loop_args'] : array();
+		$order_type	= isset( $instance['order_type'] ) ? $instance['order_type'] : 'date';
+		$order_desc	= isset( $instance['order_desc'] ) ? $instance['order_desc'] : 'asc';
+		$loop_args	= isset( $instance['loop_args'] ) ? $instance['loop_args'] : array();
 		if ( $order_type == 'price' ) {
 			$loop_args['orderby'] = 'meta_value_num';
 			$loop_args['meta_key'] = 'tcp_price';
@@ -158,23 +158,23 @@ class CustomListWidget extends TCPParentWidget {
 
 	function update( $new_instance, $old_instance ) {
 		$instance = parent::update( $new_instance, $old_instance );
-		$instance['limit'] = (int)$new_instance['limit'];
-		$instance['loop'] = $new_instance['loop'];
-		$instance['columns'] = (int)$new_instance['columns'];
-		$instance['columns_xs'] = (int)$new_instance['columns_xs'];
-		$instance['columns_sm'] = (int)$new_instance['columns_sm'];
-		$instance['columns_lg'] = (int)$new_instance['columns_lg'];
-		$instance['see_title'] = $new_instance['see_title'] == 'yes';
-		$instance['title_tag'] = $new_instance['title_tag'];
-		$instance['see_image'] = $new_instance['see_image'] == 'yes';
-		$instance['image_size'] = $new_instance['image_size'];
-		$instance['see_content'] = $new_instance['see_content'] == 'yes';
-		$instance['see_excerpt'] = $new_instance['see_excerpt'] == 'yes';
-		$instance['see_author'] = $new_instance['see_author'] == 'yes';
-		$instance['see_posted_on'] = $new_instance['see_posted_on'] == 'yes';
-		$instance['see_price'] = $new_instance['see_price'] == 'yes';
-		$instance['see_buy_button']	= $new_instance['see_buy_button'] == 'yes';
-		$instance['see_meta_utilities']	= $new_instance['see_meta_utilities'] == 'yes';
+		$instance['limit']					= (int)$new_instance['limit'];
+		$instance['loop']					= $new_instance['loop'];
+		$instance['columns']				= (int)$new_instance['columns'];
+		$instance['columns_xs'] 			= (int)$new_instance['columns_xs'];
+		$instance['columns_sm'] 			= (int)$new_instance['columns_sm'];
+		$instance['columns_lg'] 			= (int)$new_instance['columns_lg'];
+		$instance['see_title']				= $new_instance['see_title'] == 'yes';
+		$instance['title_tag']				= $new_instance['title_tag'];
+		$instance['see_image']				= $new_instance['see_image'] == 'yes';
+		$instance['image_size']				= $new_instance['image_size'];
+		$instance['see_content']			= $new_instance['see_content'] == 'yes';
+		$instance['see_excerpt']			= $new_instance['see_excerpt'] == 'yes';
+		$instance['see_author']				= $new_instance['see_author'] == 'yes';
+		$instance['see_posted_on']			= $new_instance['see_posted_on'] == 'yes';
+		$instance['see_price']				= $new_instance['see_price'] == 'yes';
+		$instance['see_buy_button']			= $new_instance['see_buy_button'] == 'yes';
+		$instance['see_meta_utilities']		= $new_instance['see_meta_utilities'] == 'yes';
 		$instance['see_first_custom_area']	= $new_instance['see_first_custom_area'] == 'yes';
 		$instance['see_second_custom_area']	= $new_instance['see_second_custom_area'] == 'yes';
 		$instance['see_third_custom_area']	= $new_instance['see_third_custom_area'] == 'yes';

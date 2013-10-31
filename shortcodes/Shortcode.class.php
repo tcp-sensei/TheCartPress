@@ -1,5 +1,14 @@
 <?php
 /**
+ * TheCartPress Shortcodes
+ *
+ * Outputs a shortcode generated
+ *
+ * @package TheCartPress
+ * @subpackage Shortcodes
+ */
+
+/**
  * This file is part of TheCartPress.
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -15,6 +24,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) exit;
+
+if ( ! class_exists( 'TCPShortcode' ) ) {
 
 class TCPShortcode {
 
@@ -36,12 +50,12 @@ class TCPShortcode {
 					'widget_id' => $id,
 				);
 				ob_start();
-				if ( isset( $shortcode_data['see_order_panel'] ) && $shortcode_data['see_order_panel'] ) {
-					tcp_the_sort_panel();
+				//if ( isset( $shortcode_data['see_order_panel'] ) && $shortcode_data['see_order_panel'] ) {
 					$filter = new TCPFilterNavigation();
 					$shortcode_data['order_type'] = $filter->get_order_type();
 					$shortcode_data['order_desc'] = $filter->get_order_desc();
-				}
+				//}
+				$shortcode_data['see_sorting_panel'] = isset( $shortcode_data['see_order_panel'] ) ? $shortcode_data['see_order_panel'] : false;
 				$customPostTypeListWidget->widget( $args, $shortcode_data );
 				return ob_get_clean();
 			}
@@ -49,5 +63,5 @@ class TCPShortcode {
 	}
 }
 
-$tcpshortcode = new TCPShortcode();
-?>
+new TCPShortcode();
+} // class_exists check

@@ -33,15 +33,11 @@ if ( ! class_exists( 'TCPWishList' ) ) {
 class TCPWishList {
 
 	function __construct() {
-		add_action( 'tcp_init', array( $this, 'tcp_init' ) );
+		add_action( 'tcp_init'		, array( $this, 'tcp_init' ) );
+		add_action( 'tcp_admin_init', array( $this, 'tcp_admin_init' ) );
 	}
 
 	function tcp_init( $thecartpress ) {
-		if ( is_admin() ) {
-			add_action( 'tcp_main_settings_after_page'	, array( $this, 'tcp_main_settings_after_page' ) );
-			add_filter( 'tcp_main_settings_action'		, array( $this, 'tcp_main_settings_action' ) );
-			add_action( 'tcp_admin_menu'				, array( $this, 'tcp_admin_menu' ) );
-		}
 		if ( $thecartpress->get_setting( 'enabled_wish_list', false ) ) {
 			if ( is_admin() ) {
 				add_action( 'widgets_init'	, array( $this, 'widgets_init' ) );
@@ -49,6 +45,12 @@ class TCPWishList {
 				add_action( 'tcp_init'		, array( $this, 'wp_head' ), 99 );
 			}
 		}
+	}
+
+	function tcp_admin_init( $thecartpress ) {
+		add_action( 'tcp_main_settings_after_page'	, array( $this, 'tcp_main_settings_after_page' ) );
+		add_filter( 'tcp_main_settings_action'		, array( $this, 'tcp_main_settings_action' ) );
+		add_action( 'tcp_admin_menu'				, array( $this, 'tcp_admin_menu' ) );
 	}
 
 	function wp_head() {
@@ -134,8 +136,7 @@ class TCPWishList {
 		return $settings;
 	}
 
-	function tcp_admin_menu() {
-		global $thecartpress;
+	function tcp_admin_menu( $thecartpress ) {
 		if ( ! $thecartpress->get_setting( 'enabled_wish_list', false ) ) return;
 		$base = $thecartpress->get_base();
 		add_submenu_page( $base, __( 'Wish List', 'tcp' ), __( 'My Wish List', 'tcp' ), 'tcp_edit_wish_list', TCP_ADMIN_FOLDER . 'WishList.php' );
@@ -147,15 +148,15 @@ class TCPWishList {
 		$buy_button_color	= $thecartpress->get_setting( 'buy_button_color' );
 		$buy_button_size	= $thecartpress->get_setting( 'buy_button_size' );
 		$shoppingCart		= TheCartPress::getShoppingCart();
-		if ( ! $shoppingCart->isInWishList( $post_id ) ) : 
+		if ( ! $shoppingCart->isInWishList( $post_id ) ) {
 			ob_start(); ?>
 			<input type="hidden" value="" name="tcp_new_wish_list_item" id="tcp_new_wish_list_item_<?php echo $post_id; ?>" />
 			<button type="submit" name="tcp_add_to_wish_list" class="tcp_add_to_wish_list <?php echo $buy_button_color, ' ', $buy_button_size; ?>" id="tcp_add_wish_list_<?php echo $post_id; ?>"
 			onclick="jQuery('#tcp_new_wish_list_item_<?php echo $post_id; ?>').val('<?php echo $post_id; ?>');jQuery('#tcp_frm_<?php echo $post_id; ?>').attr('action', '');"><?php _e( 'Add to Wish list', 'tcp' ); ?></button>
 			<?php do_action( 'tcp_buy_button_add_to_wish_list', $post_id );
 			$out .= ob_get_clean();
-		endif;
-		return $out;
+		}
+		return apply_filters( 'tcp_wishlist_the_add_to_cart_button', $out, $post_id );
 	}
 
 	function widgets_init() {

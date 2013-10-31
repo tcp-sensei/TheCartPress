@@ -126,9 +126,9 @@ table#tcp_shopping_cart_table .tcp_cart_price .tcp_cart_discount {
 #shopping_cart input {
 	font-size: 12px;
 }
-.tcp_count  {
-	text-align: center;
-	max-width: 34px;
+input.tcp_count {
+    max-width: 60px;
+    text-align: center;
 }
 td.tcp_cart_units span.tcp_no_stock_enough {
 	white-space: normal;
@@ -178,6 +178,7 @@ input[type=submit].tcp_delete_shopping_cart:hover {
 */
 .tcp_chk_coupons {
 	margin: 30px 0;
+	text-align: right;
 }
 
  /* Buttons */

@@ -71,35 +71,38 @@ class TCPLoopSettings {
 	$suffix = '';
 	$current_post_type = '';
 }
-$see_title				= isset( $settings['see_title' . $suffix ] ) ? $settings['see_title' . $suffix ] : true;
-$title_tag				= isset( $settings['title_tag' . $suffix ] ) ? $settings['title_tag' . $suffix ] : 'h2';
-$see_image				= isset( $settings['see_image' . $suffix ] ) ? $settings['see_image' . $suffix ] : true;
-$image_size				= isset( $settings['image_size' . $suffix ] ) ? $settings['image_size' . $suffix ] : 'thumbnail';
-$see_discount			= isset( $settings['see_discount' . $suffix ] ) ? $settings['see_discount' . $suffix ] : true;
-$see_stock				= isset( $settings['see_stock' . $suffix ] ) ? $settings['see_stock' . $suffix ] : false;
-$see_excerpt			= isset( $settings['see_excerpt' . $suffix ] ) ? $settings['see_excerpt' . $suffix ] : true;
-$see_content			= isset( $settings['see_content' . $suffix ] ) ? $settings['see_content' . $suffix ] : false;
-$see_author				= isset( $settings['see_author' . $suffix ] ) ? $settings['see_author' . $suffix ] : false;
-$see_price				= isset( $settings['see_price' . $suffix ] ) ? $settings['see_price' . $suffix ] : false;
-$see_buy_button			= isset( $settings['see_buy_button' . $suffix ] ) ? $settings['see_buy_button' . $suffix ] : true;
-$see_posted_on			= isset( $settings['see_posted_on' . $suffix ] ) ? $settings['see_posted_on' . $suffix ] : false;
-$see_taxonomies			= isset( $settings['see_taxonomies' . $suffix ] ) ? $settings['see_taxonomies' . $suffix ] : false;
-$see_meta_utilities		= isset( $settings['see_meta_utilities' . $suffix ] ) ? $settings['see_meta_utilities' . $suffix ] : false;
-$disabled_order_types	= isset( $settings['disabled_order_types' . $suffix ] ) ? $settings['disabled_order_types' . $suffix ] : array();
-$order_type				= isset( $settings['order_type' . $suffix ] ) ? $settings['order_type' . $suffix ] : 'date';
-$order_desc				= isset( $settings['order_desc' . $suffix ] ) ? $settings['order_desc' . $suffix ] : 'desc';
-$see_sorting_panel		= isset( $settings['see_sorting_panel' . $suffix ] ) ? $settings['see_sorting_panel' . $suffix ] : false;
+$see_title				= isset( $settings['see_title' . $suffix] ) ? $settings['see_title' . $suffix] : true;
+$title_tag				= isset( $settings['title_tag' . $suffix] ) ? $settings['title_tag' . $suffix] : 'h2';
+$see_image				= isset( $settings['see_image' . $suffix] ) ? $settings['see_image' . $suffix] : true;
+$image_size				= isset( $settings['image_size' . $suffix] ) ? $settings['image_size' . $suffix] : 'thumbnail';
+
+$see_discount			= isset( $settings['see_discount' . $suffix] ) ? $settings['see_discount' . $suffix] : true;
+$see_stock				= isset( $settings['see_stock' . $suffix] ) ? $settings['see_stock' . $suffix] : false;
+
+$see_excerpt			= isset( $settings['see_excerpt' . $suffix] ) ? $settings['see_excerpt' . $suffix] : true;
+$excerpt_length			= isset( $settings['excerpt_length' . $suffix] ) ? $settings['excerpt_length' . $suffix] : false;
+$see_content			= isset( $settings['see_content' . $suffix] ) ? $settings['see_content' . $suffix] : false;
+$see_author				= isset( $settings['see_author' . $suffix] ) ? $settings['see_author' . $suffix] : false;
+$see_price				= isset( $settings['see_price' . $suffix] ) ? $settings['see_price' . $suffix] : false;
+$see_buy_button			= isset( $settings['see_buy_button' . $suffix] ) ? $settings['see_buy_button' . $suffix] : true;
+$see_posted_on			= isset( $settings['see_posted_on' . $suffix] ) ? $settings['see_posted_on' . $suffix] : false;
+$see_taxonomies			= isset( $settings['see_taxonomies' . $suffix] ) ? $settings['see_taxonomies' . $suffix] : false;
+$see_meta_utilities		= isset( $settings['see_meta_utilities' . $suffix] ) ? $settings['see_meta_utilities' . $suffix] : false;
+$disabled_order_types	= isset( $settings['disabled_order_types' . $suffix] ) ? $settings['disabled_order_types' . $suffix] : array();
+$order_type				= isset( $settings['order_type' . $suffix] ) ? $settings['order_type' . $suffix] : 'date';
+$order_desc				= isset( $settings['order_desc' . $suffix] ) ? $settings['order_desc' . $suffix] : 'desc';
+$see_sorting_panel		= isset( $settings['see_sorting_panel' . $suffix] ) ? $settings['see_sorting_panel' . $suffix] : false;
 
 $number_columns_xs		= isset( $settings['columns_xs' . $suffix] ) ? (int)$settings['columns_xs' . $suffix] : 1; //extra small devices (phones)
 $number_columns_sm		= isset( $settings['columns_sm' . $suffix] ) ? (int)$settings['columns_sm' . $suffix] : 2; //small devices (tablets)
 $number_columns			= isset( $settings['columns' . $suffix] ) ? (int)$settings['columns' . $suffix] : 3; //medium devices (desktop) md
 $number_columns_lg		= isset( $settings['columns_lg' . $suffix] ) ? (int)$settings['columns_lg' . $suffix] : 4; //large devices (large desktops)
 
-$see_pagination			= isset( $settings['see_pagination' . $suffix ] ) ? $settings['see_pagination' . $suffix ] : false;
-$see_first_custom_area	= isset( $settings['see_first_custom_area' . $suffix ] )  ? $settings['see_first_custom_area' . $suffix ] : false;
-$see_second_custom_area	= isset( $settings['see_second_custom_area' . $suffix ] ) ? $settings['see_second_custom_area' . $suffix ] : false;
-$see_third_custom_area	= isset( $settings['see_third_custom_area' . $suffix ] ) ? $settings['see_third_custom_area' . $suffix ] : false;
-$see_jetpack_sharing	= isset( $settings['see_jetpack_sharing' . $suffix ] ) ? $settings['see_jetpack_sharing' . $suffix ] : false; ?>
+$see_pagination			= isset( $settings['see_pagination' . $suffix] ) ? $settings['see_pagination' . $suffix] : false;
+$see_first_custom_area	= isset( $settings['see_first_custom_area' . $suffix] )  ? $settings['see_first_custom_area' . $suffix] : false;
+$see_second_custom_area	= isset( $settings['see_second_custom_area' . $suffix] ) ? $settings['see_second_custom_area' . $suffix] : false;
+$see_third_custom_area	= isset( $settings['see_third_custom_area' . $suffix] ) ? $settings['see_third_custom_area' . $suffix] : false;
+$see_jetpack_sharing	= isset( $settings['see_jetpack_sharing' . $suffix] ) ? $settings['see_jetpack_sharing' . $suffix] : false; ?>
 	<form method="post" action="">
 	<div class="postbox">
 		<table class="form-table">
@@ -274,6 +277,16 @@ $see_jetpack_sharing	= isset( $settings['see_jetpack_sharing' . $suffix ] ) ? $s
 				<input type="checkbox" name="see_excerpt" id="see_excerpt" value="yes" <?php checked( $see_excerpt, true ); ?> />
 			</td>
 		</tr>
+
+		<tr valign="top">
+			<th scope="row">
+				<label for="excerpt_length"><?php _e( 'Excerpt Length', 'tcp' ); ?>:</label>
+			</th>
+			<td>
+				<input type="numer" min="0" name="excerpt_length" id="excerpt_length" value="<?php echo $excerpt_length; ?>" maxlength="2" size="2" />
+			</td>
+		</tr>
+
 		<tr valign="top">
 			<th scope="row">
 				<label for="see_content"><?php _e( 'Display Content', 'tcp' ); ?>:</label>
@@ -439,6 +452,7 @@ $see_jetpack_sharing	= isset( $settings['see_jetpack_sharing' . $suffix ] ) ? $s
 			unset( $settings['see_discount' . $suffix] );
 			unset( $settings['see_stock' . $suffix] );
 			unset( $settings['see_excerpt' . $suffix] );
+			unset( $settings['excerpt_length' . $suffix] );
 			unset( $settings['see_content' . $suffix] );
 			unset( $settings['see_author' . $suffix] );
 			unset( $settings['see_price' . $suffix] );
@@ -477,6 +491,7 @@ $see_jetpack_sharing	= isset( $settings['see_jetpack_sharing' . $suffix ] ) ? $s
 		$settings['see_discount' . $suffix]				= isset( $_REQUEST['see_discount'] ) ? $_REQUEST['see_discount'] == 'yes' : false;
 		$settings['see_stock' . $suffix]				= isset( $_REQUEST['see_stock'] ) ? $_REQUEST['see_stock'] == 'yes' : false;
 		$settings['see_excerpt' . $suffix]				= isset( $_REQUEST['see_excerpt'] ) ? $_REQUEST['see_excerpt'] == 'yes' : false;
+		$settings['excerpt_length' . $suffix]			= isset( $_REQUEST['excerpt_length'] ) ? (int)$_REQUEST['excerpt_length'] : 20;
 		$settings['see_content' . $suffix]				= isset( $_REQUEST['see_content'] ) ? $_REQUEST['see_content'] == 'yes' : false;
 		$settings['see_author' . $suffix]				= isset( $_REQUEST['see_author'] ) ? $_REQUEST['see_author'] == 'yes' : false;
 		$settings['see_price' . $suffix]				= isset( $_REQUEST['see_price'] ) ? $_REQUEST['see_price'] == 'yes' : false;

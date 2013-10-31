@@ -29,6 +29,7 @@
 if ( !defined( 'ABSPATH' ) ) exit;
 
 if ( ! class_exists( 'TCPExtend' ) ) {
+
 class TCPExtend {
 
 	static function tcp_admin_menu() {
@@ -52,6 +53,7 @@ class TCPExtend {
 		get_current_screen()->set_help_sidebar(
 			'<p><strong>' . __( 'For more information:', 'tcp' ) . '</strong></p>' .
 			'<p>' . __( '<a href="http://thecartpress.com" target="_blank">Documentation on TheCartPress</a>', 'tcp' ) . '</p>' .
+			'<p>' . __( '<a href="http://extend.thecartpress.com/" target="_blank">Extend site</a>', 'tcp' ) . '</p>' .
 			'<p>' . __( '<a href="http://community.thecartpress.com/" target="_blank">Support Forums</a>', 'tcp' ) . '</p>'
 		);
 		wp_register_script( 'jquery.xmlrpc', plugins_url( 'thecartpress/js/jquery.xmlrpc.js' ) );
@@ -60,7 +62,7 @@ class TCPExtend {
 
 	static function admin_page() { ?>
 <div class="wrap">
-	<?php screen_icon( 'tcp-extend' ); ?><h2><?php _e( 'Extend', 'tcp' ); ?><?php tcp_the_feedback_image( 'tcp_extend_feedback' ); ?></h2>
+	<?php tcp_the_feedback_image( 'tcp_extend_feedback', __( 'Loading...', 'tcp' ) ); ?>
 	<div class="tcp-category-list">
 		<div class="tcp-category" style="display:none;">
 			<div class="tcp-category-title"></div>
@@ -73,7 +75,7 @@ class TCPExtend {
 
 <div class="tcp-products tcp-tcpf">
 
-	<div class="tcp-col-xs-6 tcp-col-sm-4 tcp-col-md-3 tcp-col-lg-2 tcp-product-template tcp-product" style="display: none;">
+	<div class="tcp-col-xs-12 tcp-col-sm-6 tcp-col-md-4 tcp-col-lg-3 tcp-product-template tcp-product" style="display: none;">
 
 		<a href="#" class="tcp-extend-link">
 			<div class="tcp-inner-product slide">
@@ -100,6 +102,7 @@ class TCPExtend {
 
 <script>
 var URL = 'http://extend.thecartpress.com/xmlrpc.php';
+//var URL = 'http://localhost/tcpml/xmlrpc.php';
 var TAXONOMY = 'tcp_product_category';
 
 function tcp_get_categories( parent, callback ) {
@@ -134,7 +137,7 @@ var load_categories = function( terms ) {
 };
 
 function tcp_get_products( term_id, taxonomy, callback ) {
-	//window.sessionStorage.removeItem( 'tcp_extend_items' );
+	window.sessionStorage.removeItem( 'tcp_extend_items' );
 	if ( window.sessionStorage ) {
 		var products = window.sessionStorage.getItem( 'tcp_extend_items' );
 		if ( products ) {
@@ -143,11 +146,13 @@ function tcp_get_products( term_id, taxonomy, callback ) {
 		}
 	}
 	var feedback = jQuery( '.tcp_extend_feedback' );
+	var params = { term_id : term_id, taxonomy : taxonomy };
+	
 	feedback.show();
 	jQuery.xmlrpc( {
 		url : URL,
 		methodName : 'tcp.getProducts',
-		params : [ 0, '', '', { term_id : term_id, taxonomy : taxonomy }, true ],
+		params : [ 0, '', '', params, true ],
 		datatype : 'jsonp',
 		success: function( response, status, jqXHR ) {
 			feedback.hide();
@@ -213,8 +218,8 @@ jQuery('.slide').live( 'mouseleave',  function() {
 
 jQuery().ready( function(event, ui) {
 	//tcp_get_categories( 43, load_categories );
-	tcp_get_products( '10', 'category-price', load_products );
-	
+	//tcp_get_products( '16', 'category-price', load_products );
+	tcp_get_products( '58', 'tcp_product_tag', load_products );//58, 30
 } );
 </script>
 	<?php }
