@@ -236,9 +236,9 @@ class TCPBuyButton {
 			jQuery( '#tcp_btn_example' ).removeClass().addClass( colors ).addClass( sizes );
 		} );
 		</script>
-		<span class="description tcp-tcpf">
+		<span class="description tcpf">
 			<?php _e( 'Example ', 'tcp' ); ?>
-			<button id="tcp_btn_example" class="<?php echo $buy_button_color, ' ', $buy_button_size; ?>"/><?php _e( 'Add to Cart', 'tcp' ); ?></button>
+			<button id="tcp_btn_example" type="submit" class="<?php echo $buy_button_color, ' ', $buy_button_size; ?>"/><?php _e( 'Add to Cart', 'tcp' ); ?></button>
 		</span>
 	</td>
 </tr>

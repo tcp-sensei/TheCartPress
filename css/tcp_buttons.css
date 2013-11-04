@@ -6,11 +6,354 @@
  * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Designed and built with all the love in the world @twitter by @mdo and @fat.
+ */
+.tcp-btn {
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: normal;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.428571429;
+  border-radius: 4px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+.tcp-btn:focus {
+  outline: thin dotted #333;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+.tcp-btn:hover,
+.tcp-btn:focus {
+  color: #333333;
+  text-decoration: none;
+}
+.tcp-btn:active,
+.tcp-btn.active {
+  outline: 0;
+  background-image: none;
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+.tcp-btn.disabled,
+.tcp-btn[disabled],
+fieldset[disabled] .tcp-btn {
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.65;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.tcp-btn-default {
+  color: #333333;
+  background-color: #ffffff;
+  border-color: #cccccc;
+}
+.tcp-btn-default:hover,
+.tcp-btn-default:focus,
+.tcp-btn-default:active,
+.tcp-btn-default.active,
+.open .dropdown-toggle.tcp-btn-default {
+  color: #333333;
+  background-color: #ebebeb;
+  border-color: #adadad;
+}
+.tcp-btn-default:active,
+.tcp-btn-default.active,
+.open .dropdown-toggle.tcp-btn-default {
+  background-image: none;
+}
+.tcp-btn-default.disabled,
+.tcp-btn-default[disabled],
+fieldset[disabled] .tcp-btn-default,
+.tcp-btn-default.disabled:hover,
+.tcp-btn-default[disabled]:hover,
+fieldset[disabled] .tcp-btn-default:hover,
+.tcp-btn-default.disabled:focus,
+.tcp-btn-default[disabled]:focus,
+fieldset[disabled] .tcp-btn-default:focus,
+.tcp-btn-default.disabled:active,
+.tcp-btn-default[disabled]:active,
+fieldset[disabled] .tcp-btn-default:active,
+.tcp-btn-default.disabled.active,
+.tcp-btn-default[disabled].active,
+fieldset[disabled] .tcp-btn-default.active {
+  background-color: #ffffff;
+  border-color: #cccccc;
+}
+.tcp-btn-primary {
+  color: #ffffff;
+  background-color: #428bca;
+  border-color: #357ebd;
+}
+.tcp-btn-primary:hover,
+.tcp-btn-primary:focus,
+.tcp-btn-primary:active,
+.tcp-btn-primary.active,
+.open .dropdown-toggle.tcp-btn-primary {
+  color: #ffffff;
+  background-color: #3276b1;
+  border-color: #285e8e;
+}
+.tcp-btn-primary:active,
+.tcp-btn-primary.active,
+.open .dropdown-toggle.tcp-btn-primary {
+  background-image: none;
+}
+.tcp-btn-primary.disabled,
+.tcp-btn-primary[disabled],
+fieldset[disabled] .tcp-btn-primary,
+.tcp-btn-primary.disabled:hover,
+.tcp-btn-primary[disabled]:hover,
+fieldset[disabled] .tcp-btn-primary:hover,
+.tcp-btn-primary.disabled:focus,
+.tcp-btn-primary[disabled]:focus,
+fieldset[disabled] .tcp-btn-primary:focus,
+.tcp-btn-primary.disabled:active,
+.tcp-btn-primary[disabled]:active,
+fieldset[disabled] .tcp-btn-primary:active,
+.tcp-btn-primary.disabled.active,
+.tcp-btn-primary[disabled].active,
+fieldset[disabled] .tcp-btn-primary.active {
+  background-color: #428bca;
+  border-color: #357ebd;
+}
+.tcp-btn-warning {
+  color: #ffffff;
+  background-color: #f0ad4e;
+  border-color: #eea236;
+}
+.tcp-btn-warning:hover,
+.tcp-btn-warning:focus,
+.tcp-btn-warning:active,
+.tcp-btn-warning.active,
+.open .dropdown-toggle.tcp-btn-warning {
+  color: #ffffff;
+  background-color: #ed9c28;
+  border-color: #d58512;
+}
+.tcp-btn-warning:active,
+.tcp-btn-warning.active,
+.open .dropdown-toggle.tcp-btn-warning {
+  background-image: none;
+}
+.tcp-btn-warning.disabled,
+.tcp-btn-warning[disabled],
+fieldset[disabled] .tcp-btn-warning,
+.tcp-btn-warning.disabled:hover,
+.tcp-btn-warning[disabled]:hover,
+fieldset[disabled] .tcp-btn-warning:hover,
+.tcp-btn-warning.disabled:focus,
+.tcp-btn-warning[disabled]:focus,
+fieldset[disabled] .tcp-btn-warning:focus,
+.tcp-btn-warning.disabled:active,
+.tcp-btn-warning[disabled]:active,
+fieldset[disabled] .tcp-btn-warning:active,
+.tcp-btn-warning.disabled.active,
+.tcp-btn-warning[disabled].active,
+fieldset[disabled] .tcp-btn-warning.active {
+  background-color: #f0ad4e;
+  border-color: #eea236;
+}
+.tcp-btn-danger {
+  color: #ffffff;
+  background-color: #d9534f;
+  border-color: #d43f3a;
+}
+.tcp-btn-danger:hover,
+.tcp-btn-danger:focus,
+.tcp-btn-danger:active,
+.tcp-btn-danger.active,
+.open .dropdown-toggle.tcp-btn-danger {
+  color: #ffffff;
+  background-color: #d2322d;
+  border-color: #ac2925;
+}
+.tcp-btn-danger:active,
+.tcp-btn-danger.active,
+.open .dropdown-toggle.tcp-btn-danger {
+  background-image: none;
+}
+.tcp-btn-danger.disabled,
+.tcp-btn-danger[disabled],
+fieldset[disabled] .tcp-btn-danger,
+.tcp-btn-danger.disabled:hover,
+.tcp-btn-danger[disabled]:hover,
+fieldset[disabled] .tcp-btn-danger:hover,
+.tcp-btn-danger.disabled:focus,
+.tcp-btn-danger[disabled]:focus,
+fieldset[disabled] .tcp-btn-danger:focus,
+.tcp-btn-danger.disabled:active,
+.tcp-btn-danger[disabled]:active,
+fieldset[disabled] .tcp-btn-danger:active,
+.tcp-btn-danger.disabled.active,
+.tcp-btn-danger[disabled].active,
+fieldset[disabled] .tcp-btn-danger.active {
+  background-color: #d9534f;
+  border-color: #d43f3a;
+}
+.tcp-btn-success {
+  color: #ffffff;
+  background-color: #5cb85c;
+  border-color: #4cae4c;
+}
+.tcp-btn-success:hover,
+.tcp-btn-success:focus,
+.tcp-btn-success:active,
+.tcp-btn-success.active,
+.open .dropdown-toggle.tcp-btn-success {
+  color: #ffffff;
+  background-color: #47a447;
+  border-color: #398439;
+}
+.tcp-btn-success:active,
+.tcp-btn-success.active,
+.open .dropdown-toggle.tcp-btn-success {
+  background-image: none;
+}
+.tcp-btn-success.disabled,
+.tcp-btn-success[disabled],
+fieldset[disabled] .tcp-btn-success,
+.tcp-btn-success.disabled:hover,
+.tcp-btn-success[disabled]:hover,
+fieldset[disabled] .tcp-btn-success:hover,
+.tcp-btn-success.disabled:focus,
+.tcp-btn-success[disabled]:focus,
+fieldset[disabled] .tcp-btn-success:focus,
+.tcp-btn-success.disabled:active,
+.tcp-btn-success[disabled]:active,
+fieldset[disabled] .tcp-btn-success:active,
+.tcp-btn-success.disabled.active,
+.tcp-btn-success[disabled].active,
+fieldset[disabled] .tcp-btn-success.active {
+  background-color: #5cb85c;
+  border-color: #4cae4c;
+}
+.tcp-btn-info {
+  color: #ffffff;
+  background-color: #5bc0de;
+  border-color: #46b8da;
+}
+.tcp-btn-info:hover,
+.tcp-btn-info:focus,
+.tcp-btn-info:active,
+.tcp-btn-info.active,
+.open .dropdown-toggle.tcp-btn-info {
+  color: #ffffff;
+  background-color: #39b3d7;
+  border-color: #269abc;
+}
+.tcp-btn-info:active,
+.tcp-btn-info.active,
+.open .dropdown-toggle.tcp-btn-info {
+  background-image: none;
+}
+.tcp-btn-info.disabled,
+.tcp-btn-info[disabled],
+fieldset[disabled] .tcp-btn-info,
+.tcp-btn-info.disabled:hover,
+.tcp-btn-info[disabled]:hover,
+fieldset[disabled] .tcp-btn-info:hover,
+.tcp-btn-info.disabled:focus,
+.tcp-btn-info[disabled]:focus,
+fieldset[disabled] .tcp-btn-info:focus,
+.tcp-btn-info.disabled:active,
+.tcp-btn-info[disabled]:active,
+fieldset[disabled] .tcp-btn-info:active,
+.tcp-btn-info.disabled.active,
+.tcp-btn-info[disabled].active,
+fieldset[disabled] .tcp-btn-info.active {
+  background-color: #5bc0de;
+  border-color: #46b8da;
+}
+.tcp-btn-link {
+  color: #428bca;
+  font-weight: normal;
+  cursor: pointer;
+  border-radius: 0;
+}
+.tcp-btn-link,
+.tcp-btn-link:active,
+.tcp-btn-link[disabled],
+fieldset[disabled] .tcp-btn-link {
+  background-color: transparent;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.tcp-btn-link,
+.tcp-btn-link:hover,
+.tcp-btn-link:focus,
+.tcp-btn-link:active {
+  border-color: transparent;
+}
+.tcp-btn-link:hover,
+.tcp-btn-link:focus {
+  color: #2a6496;
+  text-decoration: underline;
+  background-color: transparent;
+}
+.tcp-btn-link[disabled]:hover,
+fieldset[disabled] .tcp-btn-link:hover,
+.tcp-btn-link[disabled]:focus,
+fieldset[disabled] .tcp-btn-link:focus {
+  color: #999999;
+  text-decoration: none;
+}
+.tcp-btn-lg {
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.33;
+  border-radius: 6px;
+}
+.tcp-btn-sm,
+.tcp-btn-xs {
+  padding: 5px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 3px;
+}
+.tcp-btn-xs {
+  padding: 1px 5px;
+}
+.tcp-btn-block {
+  display: block;
+  width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+}
+.tcp-btn-block + .tcp-btn-block {
+  margin-top: 5px;
+}
+input[type="submit"].tcp-btn-block,
+input[type="reset"].tcp-btn-block,
+input[type="button"].tcp-btn-block {
+  width: 100%;
+}
+
+
+
+
+
+
+
+/*!
+ * Bootstrap v3.0.0
+ *
  *
  * THECARTPRESS buttons customization to ensure compatibility theme
  * replaced .btn by button[type="submit"].tcp-btn
  */
-}
+
 button[type="submit"].tcp-btn {
   display: inline-block;
   padding: 6px 12px;
@@ -335,5 +678,346 @@ button[type="submit"].tcp-btn-block {
   padding-right: 0;
 }
 button[type="submit"].tcp-btn-block + button[type="submit"].tcp-btn-block {
+  margin-top: 5px;
+}
+
+
+/*!
+ * Bootstrap v3.0.0
+ *
+ * Copyright 2013 Twitter, Inc
+ * Licensed under the Apache License v2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Designed and built with all the love in the world @twitter by @mdo and @fat.
+ *
+ * THECARTPRESS buttons customization to ensure compatibility theme
+ * replaced .btn by a.tcp-btn
+ */
+
+a.tcp-btn {
+  display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.428571429;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+a.tcp-btn:focus {
+  outline: thin dotted #333;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+a.tcp-btn:hover,
+a.tcp-btn:focus {
+  color: #333333;
+  text-decoration: none;
+}
+a.tcp-btn:active,
+a.tcp-btn.active {
+  outline: 0;
+  background-image: none;
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+a.tcp-btn.disabled,
+a.tcp-btn[disabled],
+fieldset[disabled] a.tcp-btn {
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.65;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+a.tcp-btn-default {
+  color: #333333;
+  background: #ffffff;
+  border-color: #cccccc;
+}
+a.tcp-btn-default:hover,
+a.tcp-btn-default:focus,
+a.tcp-btn-default:active,
+a.tcp-btn-default.active,
+.open .dropdown-togglea.tcp-btn-default {
+  color: #333333;
+  background: #ebebeb;
+  border-color: #adadad;
+}
+a.tcp-btn-default:active,
+a.tcp-btn-default.active,
+.open .dropdown-togglea.tcp-btn-default {
+  background-image: none;
+}
+a.tcp-btn-default.disabled,
+a.tcp-btn-default[disabled],
+fieldset[disabled] a.tcp-btn-default,
+a.tcp-btn-default.disabled:hover,
+a.tcp-btn-default[disabled]:hover,
+fieldset[disabled] a.tcp-btn-default:hover,
+a.tcp-btn-default.disabled:focus,
+a.tcp-btn-default[disabled]:focus,
+fieldset[disabled] a.tcp-btn-default:focus,
+a.tcp-btn-default.disabled:active,
+a.tcp-btn-default[disabled]:active,
+fieldset[disabled] a.tcp-btn-default:active,
+a.tcp-btn-default.disabled.active,
+a.tcp-btn-default[disabled].active,
+fieldset[disabled] a.tcp-btn-default.active {
+  background: #ffffff;
+  border-color: #cccccc;
+}
+a.tcp-btn-primary {
+  color: #ffffff;
+  background: #428bca;
+  border-color: #357ebd;
+}
+a.tcp-btn-primary:hover,
+a.tcp-btn-primary:focus,
+a.tcp-btn-primary:active,
+a.tcp-btn-primary.active,
+.open .dropdown-togglea.tcp-btn-primary {
+  color: #ffffff;
+  background: #3276b1;
+  border-color: #285e8e;
+}
+a.tcp-btn-primary:active,
+a.tcp-btn-primary.active,
+.open .dropdown-togglea.tcp-btn-primary {
+  background-image: none;
+}
+a.tcp-btn-primary.disabled,
+a.tcp-btn-primary[disabled],
+fieldset[disabled] a.tcp-btn-primary,
+a.tcp-btn-primary.disabled:hover,
+a.tcp-btn-primary[disabled]:hover,
+fieldset[disabled] a.tcp-btn-primary:hover,
+a.tcp-btn-primary.disabled:focus,
+a.tcp-btn-primary[disabled]:focus,
+fieldset[disabled] a.tcp-btn-primary:focus,
+a.tcp-btn-primary.disabled:active,
+a.tcp-btn-primary[disabled]:active,
+fieldset[disabled] a.tcp-btn-primary:active,
+a.tcp-btn-primary.disabled.active,
+a.tcp-btn-primary[disabled].active,
+fieldset[disabled] a.tcp-btn-primary.active {
+  background: #428bca;
+  border-color: #357ebd;
+}
+a.tcp-btn-warning {
+  color: #ffffff;
+  background: #f0ad4e;
+  border-color: #eea236;
+}
+a.tcp-btn-warning:hover,
+a.tcp-btn-warning:focus,
+a.tcp-btn-warning:active,
+a.tcp-btn-warning.active,
+.open .dropdown-togglea.tcp-btn-warning {
+  color: #ffffff;
+  background: #ed9c28;
+  border-color: #d58512;
+}
+a.tcp-btn-warning:active,
+a.tcp-btn-warning.active,
+.open .dropdown-togglea.tcp-btn-warning {
+  background-image: none;
+}
+a.tcp-btn-warning.disabled,
+a.tcp-btn-warning[disabled],
+fieldset[disabled] a.tcp-btn-warning,
+a.tcp-btn-warning.disabled:hover,
+a.tcp-btn-warning[disabled]:hover,
+fieldset[disabled] a.tcp-btn-warning:hover,
+a.tcp-btn-warning.disabled:focus,
+a.tcp-btn-warning[disabled]:focus,
+fieldset[disabled] a.tcp-btn-warning:focus,
+a.tcp-btn-warning.disabled:active,
+a.tcp-btn-warning[disabled]:active,
+fieldset[disabled] a.tcp-btn-warning:active,
+a.tcp-btn-warning.disabled.active,
+a.tcp-btn-warning[disabled].active,
+fieldset[disabled] a.tcp-btn-warning.active {
+  background: #f0ad4e;
+  border-color: #eea236;
+}
+a.tcp-btn-danger {
+  color: #ffffff;
+  background: #d9534f;
+  border-color: #d43f3a;
+}
+a.tcp-btn-danger:hover,
+a.tcp-btn-danger:focus,
+a.tcp-btn-danger:active,
+a.tcp-btn-danger.active,
+.open .dropdown-togglea.tcp-btn-danger {
+  color: #ffffff;
+  background: #d2322d;
+  border-color: #ac2925;
+}
+a.tcp-btn-danger:active,
+a.tcp-btn-danger.active,
+.open .dropdown-togglea.tcp-btn-danger {
+  background-image: none;
+}
+a.tcp-btn-danger.disabled,
+a.tcp-btn-danger[disabled],
+fieldset[disabled] a.tcp-btn-danger,
+a.tcp-btn-danger.disabled:hover,
+a.tcp-btn-danger[disabled]:hover,
+fieldset[disabled] a.tcp-btn-danger:hover,
+a.tcp-btn-danger.disabled:focus,
+a.tcp-btn-danger[disabled]:focus,
+fieldset[disabled] a.tcp-btn-danger:focus,
+a.tcp-btn-danger.disabled:active,
+a.tcp-btn-danger[disabled]:active,
+fieldset[disabled] a.tcp-btn-danger:active,
+a.tcp-btn-danger.disabled.active,
+a.tcp-btn-danger[disabled].active,
+fieldset[disabled] a.tcp-btn-danger.active {
+  background: #d9534f;
+  border-color: #d43f3a;
+}
+a.tcp-btn-success {
+  color: #ffffff;
+  background: #5cb85c;
+  border-color: #4cae4c;
+}
+a.tcp-btn-success:hover,
+a.tcp-btn-success:focus,
+a.tcp-btn-success:active,
+a.tcp-btn-success.active,
+.open .dropdown-togglea.tcp-btn-success {
+  color: #ffffff;
+  background: #47a447;
+  border-color: #398439;
+}
+a.tcp-btn-success:active,
+a.tcp-btn-success.active,
+.open .dropdown-togglea.tcp-btn-success {
+  background-image: none;
+}
+a.tcp-btn-success.disabled,
+a.tcp-btn-success[disabled],
+fieldset[disabled] a.tcp-btn-success,
+a.tcp-btn-success.disabled:hover,
+a.tcp-btn-success[disabled]:hover,
+fieldset[disabled] a.tcp-btn-success:hover,
+a.tcp-btn-success.disabled:focus,
+a.tcp-btn-success[disabled]:focus,
+fieldset[disabled] a.tcp-btn-success:focus,
+a.tcp-btn-success.disabled:active,
+a.tcp-btn-success[disabled]:active,
+fieldset[disabled] a.tcp-btn-success:active,
+a.tcp-btn-success.disabled.active,
+a.tcp-btn-success[disabled].active,
+fieldset[disabled] a.tcp-btn-success.active {
+  background: #5cb85c;
+  border-color: #4cae4c;
+}
+a.tcp-btn-info {
+  color: #ffffff;
+  background: #5bc0de;
+  border-color: #46b8da;
+}
+a.tcp-btn-info:hover,
+a.tcp-btn-info:focus,
+a.tcp-btn-info:active,
+a.tcp-btn-info.active,
+.open .dropdown-togglea.tcp-btn-info {
+  color: #ffffff;
+  background: #39b3d7;
+  border-color: #269abc;
+}
+a.tcp-btn-info:active,
+a.tcp-btn-info.active,
+.open .dropdown-togglea.tcp-btn-info {
+  background-image: none;
+}
+a.tcp-btn-info.disabled,
+a.tcp-btn-info[disabled],
+fieldset[disabled] a.tcp-btn-info,
+a.tcp-btn-info.disabled:hover,
+a.tcp-btn-info[disabled]:hover,
+fieldset[disabled] a.tcp-btn-info:hover,
+a.tcp-btn-info.disabled:focus,
+a.tcp-btn-info[disabled]:focus,
+fieldset[disabled] a.tcp-btn-info:focus,
+a.tcp-btn-info.disabled:active,
+a.tcp-btn-info[disabled]:active,
+fieldset[disabled] a.tcp-btn-info:active,
+a.tcp-btn-info.disabled.active,
+a.tcp-btn-info[disabled].active,
+fieldset[disabled] a.tcp-btn-info.active {
+  background: #5bc0de;
+  border-color: #46b8da;
+}
+a.tcp-btn-link {
+  color: #428bca;
+  font-weight: normal;
+  cursor: pointer;
+  border-radius: 0;
+}
+a.tcp-btn-link,
+a.tcp-btn-link:active,
+a.tcp-btn-link[disabled],
+fieldset[disabled] a.tcp-btn-link {
+  background: transparent;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+a.tcp-btn-link,
+a.tcp-btn-link:hover,
+a.tcp-btn-link:focus,
+a.tcp-btn-link:active {
+  border-color: transparent;
+}
+a.tcp-btn-link:hover,
+a.tcp-btn-link:focus {
+  color: #2a6496;
+  text-decoration: underline;
+  background: transparent;
+}
+a.tcp-btn-link[disabled]:hover,
+fieldset[disabled] a.tcp-btn-link:hover,
+a.tcp-btn-link[disabled]:focus,
+fieldset[disabled] a.tcp-btn-link:focus {
+  color: #999999;
+  text-decoration: none;
+}
+a.tcp-btn-lg {
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.33;
+  border-radius: 6px;
+}
+a.tcp-btn-sm,
+a.tcp-btn-xs {
+  padding: 5px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 3px;
+}
+a.tcp-btn-xs {
+  padding: 1px 5px;
+}
+a.tcp-btn-block {
+  display: block;
+  width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+}
+a.tcp-btn-block + a.tcp-btn-block {
   margin-top: 5px;
 }

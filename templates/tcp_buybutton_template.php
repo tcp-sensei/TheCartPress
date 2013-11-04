@@ -71,9 +71,9 @@ function tcp_the_add_to_cart_items_in_the_cart( $post_id, $echo = true ) {
 	$item = $shoppingCart->getItem( tcp_get_default_id( $post_id, get_post_type( $post_id ) ) );
 	ob_start();
 	if ( $item ) { ?>
-		<div class="tcp_added_product_title tcp_added_product_title_<?php echo $post_id; ?> tcp-alert tcp-alert-success tcp-alert-dismissable">
-		<button type="button" class="tcp-close" data-dismiss="alert" aria-hidden="true">&times;</button>
-		<?php printf ( __( '<span class="tcp_units">%s</span> unit(s) <a href="%s" class="tcp-alert-link">in your cart</a>', 'tcp' ), $item->getCount(), tcp_get_the_shopping_cart_url() ); ?>
+		<div class="tcp_added_product_title tcp_added_product_title_<?php echo $post_id; ?> alert alert-success alert-dismissable">
+		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		<?php printf ( __( '<span class="tcp_units">%s</span> unit(s) <a href="%s" class="alert-link">in your cart</a>', 'tcp' ), $item->getCount(), tcp_get_the_shopping_cart_url() ); ?>
 		</div>
 	<?php }
 	$out = apply_filters( 'tcp_the_add_to_cart_items_in_the_cart', ob_get_clean(), $post_id );

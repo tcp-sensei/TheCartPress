@@ -35,10 +35,10 @@ if ( ! class_exists( 'TCPCheckoutBox' ) ) {
  */
 class TCPCheckoutBox {
 
-	function __construct() {
-	}
+	function __construct() {}
 
 	function get_title() {
+		return '';
 	}
 
 	function get_class() {
@@ -58,16 +58,14 @@ class TCPCheckoutBox {
 		return false;
 	}
 
-	function show_config_settings() { ?>
-		<p><?php _e( 'No config settings', 'tcp' );?></p><?php
+	function show_config_settings() {
+		echo '<p>', __( 'No config settings', 'tcp' ), '</p>';
 		return false;
 	}
 
-	function save_config_settings() {
-	}
+	function save_config_settings() {}
 
-	function delete_config_settings() {
-	}
+	function delete_config_settings() {}
 
 	/**
 	 * Recovery box will be a box to get the execution after a checkout ko

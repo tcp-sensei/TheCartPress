@@ -97,28 +97,39 @@ div#tcp_orders_resume a.tcp_link_to_tcp:hover
 {
 	text-decoration: underline;
 }
-td.tcp_status_COMPLETED,
-td.tcp_status_COMPLETED a {
-	color: green;
+.tcp_status_COMPLETED,
+.tcp_status_COMPLETED a {
+	color: #56a353;
 	font-weight: bold;
 }
-td.tcp_status_PENDING,
-td.tcp_status_PENDING a {
-	color: #f90;
+.tcp_status_PENDING,
+.tcp_status_PENDING a {
+	color: #d7bb68;
 	font-weight: bold;
 }
-td.tcp_status_PROCESSING,
-td.tcp_status_PROCESSING a {
-	color: red;
+.tcp_status_PROCESSING,
+.tcp_status_PROCESSING a {
+	color: #f64040;
 	font-weight: bold;
 }
-td.tcp_status_CANCELLED,
-td.tcp_status_SUSPENDED,
-div#tcp_orders_resume td.tcp_status_CANCELLED a,
-div#tcp_orders_resume td.tcp_status_SUSPENDED a {
+.tcp_status_CANCELLED,
+.tcp_status_SUSPENDED,
+{
 }
 div#tcp_orders_resume .table_content td a:hover {
 	text-decoration:underline;
+}
+
+/* Order list */
+.tcp_orders #order_id,
+.tcp_orders #payment_name,
+.tcp_orders #shipping_method {
+	width: 20%;
+}
+
+/* Products List */
+.wp-list-table #tcp-product-thumbnail {
+	width: 64px;
 }
 
 /* Plugins list */

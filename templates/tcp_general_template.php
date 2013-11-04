@@ -541,13 +541,14 @@ function tcp_get_sorting_fields() {
 }
 
 function tcp_the_sort_panel() {
-	$filter = new TCPFilterNavigation();
+	$filter		= new TCPFilterNavigation();
 	$order_type = $filter->get_order_type();
 	$order_desc = $filter->get_order_desc();
-	$settings = get_option( 'ttc_settings' );
-	$disabled_order_types = isset( $settings['disabled_order_types'] ) ? $settings['disabled_order_types'] : array();
-	$sorting_fields = tcp_get_sorting_fields(); ?>
-<div class="tcp_order_panel">
+	$settings	= get_option( 'ttc_settings' );
+	$disabled_order_types	= isset( $settings['disabled_order_types'] ) ? $settings['disabled_order_types'] : array();
+	$sorting_fields			= tcp_get_sorting_fields();
+	$buy_button_color		= thecartpress()->get_setting( 'buy_button_color' ); ?>
+<div class="tcp_order_panel tcpf">
 	<form action="" method="post">
 	<span class="tcp_order_type">
 	<label for="tcp_order_type"><?php _e( 'Order by', 'tcp' ); ?>:</label>&nbsp;
@@ -564,7 +565,7 @@ function tcp_the_sort_panel() {
 		<label for="tcp_order_asc"><?php _e( 'Asc.', 'tcp' ); ?></label>
 		<input type="radio" name="tcp_order_desc" id="tcp_order_desc" value="desc" <?php checked( $order_desc, 'desc' );?>/>
 		<label for="tcp_order_desc"><?php _e( 'Desc.', 'tcp' ); ?></label>
-		<span class="tcp_order_submit"><input type="submit" name="tcp_order_by" value="<?php _e( 'Sort', 'tcp' );?>" /></span>
+		<span class="tcp_order_submit"><button type="submit" name="tcp_order_by" class="tcp-btn <?php echo $buy_button_color; ?>"><?php _e( 'Sort', 'tcp' );?></button></span>
 	</span><!-- .tcp_order_desc -->
 	</form>
 </div><!-- .tcp_order_panel --><?php
@@ -652,7 +653,7 @@ function tcp_login_form( $args = array() ) {
 		</div>
 		<?php apply_filters( 'login_form_middle', '', $args ); ?>
 		<div class="tcp_login_submit">
-			<input id="<?php echo esc_attr( $args['id_submit'] ); ?>" class="tcp_checkout_button tcp-btn tcp-btn-default" type="submit" value="<?php echo esc_html( $args['label_log_in'] ); ?>" name="tcp_submit" />
+			<button id="<?php echo esc_attr( $args['id_submit'] ); ?>" class="tcp_checkout_button tcp-btn <?php echo thecartpress()->get_setting( 'buy_button_color' ); ?>" type="submit" value="" name="tcp_submit"><?php echo esc_html( $args['label_log_in'] ); ?></button>
 			<?php $redirect = $args['redirect'];
 			if ( strlen( $redirect ) == 0 ) $redirect = isset( $_REQUEST['redirect'] ) ? $_REQUEST['redirect'] : ''; ?>
 			<input type="hidden" value="<?php echo esc_attr(  remove_query_arg( 'tcp_register_error', $redirect ) ); ?>" name="tcp_redirect_to" />
@@ -767,7 +768,7 @@ function tcp_register_form( $args = array() ) {
 		<?php if ( $args['locked'] ) : ?><input type="hidden" name="tcp_locked" value="yes" /><?php endif; ?>
 		<?php if ( $args['login'] ) : ?><input type="hidden" name="tcp_login" value="yes" /><?php endif; ?>
 		<p>
-			<input type="submit" value="<?php _e( 'Register', 'tcp' ); ?>" name="tcp_register_action" id="tcp_register_action" class="tcp_checkout_button" />
+			<button type="submit" value="<?php _e( 'Register', 'tcp' ); ?>" name="tcp_register_action" id="tcp_register_action" class="tcp_checkout_button" />
 		</p>
 		<p id="tcp_error_register" class="tcp_error" style="display:none;"><?php _e( 'Error', 'tcp' ); ?>: </p>
 	</form>
@@ -828,8 +829,8 @@ function tcp_get_the_pagination( $echo = true ) {
 			'type'		=> 'list'
 		) );
 		$out = paginate_links( $args );
-		$out = str_replace( '<ul class=\'page-numbers\'>', '<ul class="page-numbers tcp-pagination">', $out );
-		echo '<div class="tcp-tcpf">', $out, '</div>';
+		$out = str_replace( '<ul class=\'page-numbers\'>', '<ul class="page-numbers pagination">', $out );
+		echo '<div class="tcpf">', $out, '</div>';
 	}
 	$out = ob_get_clean();
 	if ( $echo ) echo $out;

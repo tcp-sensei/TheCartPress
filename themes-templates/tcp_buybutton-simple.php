@@ -1,5 +1,4 @@
 <?php
-
 /**
  * This file is part of TheCartPress.
  *
@@ -25,36 +24,36 @@ elseif ( $after_add_to_cart == 'sco' ) $action = get_permalink( tcp_get_current_
 else $action = '';
 
 /**** Start editing to customise your buy buttons! */ ?>
-<div class="tcp_buy_button_area tcp_buy_button_simple tcp_buy_button_<?php echo get_post_type(); ?> tcp-tcpf <?php echo implode( ' ' , apply_filters( 'tcp_buy_button_get_product_classes', array(), $post_id ) ); ?>">
-	<form method="post" id="tcp_frm_<?php echo $post_id; ?>" action="<?php echo $action; ?>" class="tcp-form-inline">
+<div class="tcp_buy_button_area tcp_buy_button_simple tcp_buy_button_<?php echo get_post_type(); ?> tcpf <?php echo implode( ' ' , apply_filters( 'tcp_buy_button_get_product_classes', array(), $post_id ) ); ?>">
+	<form method="post" id="tcp_frm_<?php echo $post_id; ?>" action="<?php echo $action; ?>" class="form-inline">
 		<div class="tcp_buy_button tcp_buy_button_simple">
 		<?php do_action( 'tcp_buy_button_top', $post_id ); ?>
 		
 		<?php if ( function_exists( 'tcp_the_buy_button_options' ) && tcp_has_options( $post_id ) ) : ?>  
-			<div class="tcp-buy-options tcp-form-group">
+			<div class="tcp-buy-options form-group">
 				<?php echo tcp_the_buy_button_options( $post_id ); ?>
 			</div>
 		<?php else : ?>
-			<div class="tcp_unit_price tcp-form-group" id="tcp_unit_price_<?php echo $post_id; ?>">
+			<div class="tcp_unit_price form-group" id="tcp_unit_price_<?php echo $post_id; ?>">
 				<?php echo tcp_get_the_price_label( $post_id ); ?>
 			</div>
 		<?php endif; ?>
 		<?php if ( function_exists( 'tcp_has_dynamic_options' ) && tcp_has_dynamic_options( $post_id ) ) : ?>
 			<div class="tcp-buy-dynamic-options">
-				<div class="tcp-form-group">
+				<div class="form-group">
 					<?php tcp_the_buy_button_dynamic_options( $post_id ); ?>
-				</div><!-- .tcp-form-group -->
+				</div><!-- .form-group -->
 			</div><!-- .tcp-buy-dynamic-options -->
 		<?php endif; ?>
 		<?php if ( ! tcp_hide_buy_button( $post_id ) && ! $disable_shopping_cart ) : ?>
 			<div class="tcp-add-to-cart">
-				<div class="tcp-form-group">
+				<div class="form-group">
 					<?php tcp_the_add_to_cart_unit_field( $post_id, tcp_get_the_initial_units( $post_id ) ); ?>
 				</div>
-				<div class="tcp-form-group">
+				<div class="form-group">
 					<?php tcp_the_add_to_cart_button( $post_id ); ?>
 				</div>
-				<div class="tcp-add-to-wishlist tcp-form-group">
+				<div class="tcp-add-to-wishlist form-group">
 					<?php tcp_the_add_wishlist_button( $post_id ) ; ?>
 				</div>	
 			</div><!-- .tcp-add-to-cart -->

@@ -16,7 +16,6 @@
 		<header class="entry-header">
 			<h1 class="entry-title"><?php _e( 'Nothing Found', 'tcp' ); ?></h1>
 		</header><!-- .entry-header -->
-
 		<div class="entry-content">
 			<p>
 				<?php _e( 'Apologies, but no results were found for the requested archive. Perhaps searching will help find a related post.', 'tcp' ); ?>
@@ -69,7 +68,7 @@ if ( isset( $instance['title_tag'] ) && $instance['title_tag'] != '' ) {
 }
 ?>
 
-<div class="tcp-tcpf tcp-cf">
+<div class="tcpf tcp-cf">
 
 	<div class="tcp-product-list tcp-product-grid">
 	<?php if ( $see_sorting_panel ) tcp_the_sort_panel(); ?>
@@ -80,10 +79,10 @@ if ( isset( $instance['title_tag'] ) && $instance['title_tag'] != '' ) {
 	<?php /* Start the Loop.*/
 	$class = array(
 		'tcp_' . $number_columns . '_cols',
-		'tcp-col-xs-' . (int)(12 / $number_columns_xs ),
-		'tcp-col-sm-' . (int)(12 / $number_columns_sm ),
-		'tcp-col-md-' . (int)(12 / $number_columns ),
-		'tcp-col-lg-' . (int)(12 / $number_columns_lg ),
+		'col-xs-' . (int)(12 / $number_columns_xs ),
+		'col-sm-' . (int)(12 / $number_columns_sm ),
+		'col-md-' . (int)(12 / $number_columns ),
+		'col-lg-' . (int)(12 / $number_columns_lg ),
 	);
 
 	$tcp_col = 0;
@@ -94,22 +93,22 @@ if ( isset( $instance['title_tag'] ) && $instance['title_tag'] != '' ) {
 	while ( have_posts() ) : the_post();
 		if ( $tcp_col >= $number_columns ) {
 			$tcp_col = 0; ?>
-		<div class="tcp-clearfix tcp-visible-md"></div>
+		<div class="clearfix visible-md"></div>
 		<?php }
 
 		if ( $tcp_col_xs >= $number_columns_xs ) {
 			$tcp_col_xs = 0; ?>
-		<div class="tcp-clearfix tcp-visible-xs"></div>
+		<div class="clearfix visible-xs"></div>
 		<?php }
 
 		if ( $tcp_col_sm >= $number_columns_sm ) {
 			$tcp_col_sm = 0; ?>
-		<div class="tcp-clearfix tcp-visible-sm"></div>
+		<div class="clearfix visible-sm"></div>
 		<?php }
 
 		if ( $tcp_col_lg >= $number_columns_lg ) {
 			$tcp_col_lg = 0; ?>
-		<div class="tcp-clearfix tcp-visible-lg"></div>
+		<div class="clearfix visible-lg"></div>
 		<?php }
 
 		$tcp_col++;
@@ -152,7 +151,7 @@ if ( isset( $instance['title_tag'] ) && $instance['title_tag'] != '' ) {
 							if ( tcp_has_discounts() ) {
 								$discount = tcp_get_the_discount_value();
 								ob_start(); ?>
-								<div class="tcp-product-discount"><span class="tcp-label tcp-label-success">-<?php echo $discount; ?></span></div>
+								<div class="tcp-product-discount"><span class="label label-success">-<?php echo $discount; ?></span></div>
 								<?php $out = ob_get_clean();
 								echo apply_filters( 'tcp_loop_tcp_grid_discount', $out, $discount, get_the_ID() );
 							}
@@ -163,7 +162,7 @@ if ( isset( $instance['title_tag'] ) && $instance['title_tag'] != '' ) {
 							$stock = tcp_get_the_stock( get_the_ID() );
 							ob_start();
 							if ( $stock == 0 ) { ?>
-							<div class="tcp-product-outstock"><span class="tcp-label tcp-label-danger"><?php _e( 'Out of stock', 'tcp' ); ?></span></div>
+							<div class="tcp-product-outstock"><span class="label label-danger"><?php _e( 'Out of stock', 'tcp' ); ?></span></div>
 							<?php }
 							$out = ob_get_clean();
 							echo apply_filters( 'tcp_loop_tcp_grid_stock', $out, $stock, get_the_ID() );
@@ -208,12 +207,12 @@ if ( isset( $instance['title_tag'] ) && $instance['title_tag'] != '' ) {
 				<div class="tcp-product-meta">
 
 				<?php if ( $see_author ) :?>
-					<div class="tcp-product-author-info tcp-media clearfix">
-						<div class="tcp-product-author-avatar tcp-pull-left">
+					<div class="tcp-product-author-info media clearfix">
+						<div class="tcp-product-author-avatar pull-left">
 							<?php echo get_avatar( get_the_author_meta( 'user_email' ), apply_filters( 'tcp_author_bio_avatar_size', 60 ) ); ?>
 						</div><!-- #author-avatar -->
 
-						<div class="tcp-product-author-description tcp-media-body">
+						<div class="tcp-product-author-description media-body">
 							<p class="tcp-product-author-user"><a href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ); ?>"><?php printf( esc_attr__( 'By %s', 'tcp' ), get_the_author_meta('display_name') ); ?></a></p>
 							<!--<?php if ( get_the_author_meta( 'description') ) : // If a user has filled out their description, show a bio on their products  ?>
 								<?php the_author_meta( 'description'); ?>
@@ -245,8 +244,7 @@ if ( isset( $instance['title_tag'] ) && $instance['title_tag'] != '' ) {
 				<?php if ( $see_taxonomies ) : ?>
 					<div class="tcp-product-taxonomies clearfix">
 						<span class="tcp_taxonomies">
-						<?php
-						$taxonomies = get_object_taxonomies( get_post_type(), 'objects' );
+						<?php $taxonomies = get_object_taxonomies( get_post_type(), 'objects' );
 						foreach( $taxonomies as $id => $taxonomy ) :
 							$terms_list = get_the_term_list( 0, $id, '', ', ' );
 							if ( strlen( $terms_list ) > 0 ) : ?>
@@ -259,14 +257,13 @@ if ( isset( $instance['title_tag'] ) && $instance['title_tag'] != '' ) {
 					</div><!-- tcp-product-taxonomies -->
 				<?php endif;?>
 				</div><!-- .tcp-product-meta -->
-
+				<?php do_action( 'tcp_after_loop_tcp_grid_item', get_the_ID() ); ?>
 			</div><!-- grid-item -->
 		</div><!-- .tcp-product -->
 <?php endwhile; // End the loop ?>
 
-	</div><!-- .tcp-tcpf .entry-content -->
+	</div><!-- .tcpf .entry-content -->
 </div><!-- .tcp-product-list .tcp-product-grid -->
-
 
 <?php /* Display pagination */
 if ( $see_pagination ) tcp_get_the_pagination(); ?>

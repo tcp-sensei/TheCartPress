@@ -568,8 +568,8 @@ function tcp_is_price_include_tax() {
  * @since 1.1.8
  */
 function tcp_price_include_tax_message() {
-	if ( tcp_is_price_include_tax() ) _e( '(Inc. Tax)', 'tcp' );
-	else _e( '(No inc. Tax)', 'tcp' );
+	if ( tcp_is_price_include_tax() ) _e( '(Inc. tax)', 'tcp' );
+	else _e( '(No inc. tax)', 'tcp' );
 }
 
 function tcp_get_tax_based_on() {
@@ -1300,12 +1300,12 @@ function tcp_redirect_302( $url ) {
 }
 
 /**
- * Loads a template from an specific location. If not, it attempts to load it from the theme
+ * Loads a template from a specific location. If not, it attempts to load it from the theme
  *
  * @since 1.2.6
  * @uses get_template_part
  */
-function tcp_get_template_part( $path, $slug, $name = '' ) {
+function tcp_get_template_part( $path, $slug = '', $name = '' ) {
 	$template = $path . '/' . $slug;
 	$template .= ( $name != '' ) ? '-' . $name : '';
 	$template .= '.php';
@@ -1313,32 +1313,33 @@ function tcp_get_template_part( $path, $slug, $name = '' ) {
 	else get_template_part( $slug, $name );
 }
 
-/*
+/**
  * Loads the default TheCartPress loop
  * First, it attempts to load the file from the theme (child or parent theme),
- * if not it loads the loop availabe in the core
+ * if not, it loads the loop availabe in the core
  *
- * @since 1.3.1
- * @uses locate_template, tcp_get_template_part, plugins_url, apply_filters (called using 'tcp_the_loop')
- *
-function tcp_the_loop() {
-	if ( ! locate_template( 'loop-tcp-grid.php', true ) ) {
-		$url = plugins_url( dirname( __FILE__ ), 'themes-templates/loop-tcp-grid.php';
-		tcp_get_template_part( apply_filters( 'tcp_the_loop', $url ) );
+ * @since 1.3.3
+ * @uses locate_template, tcp_get_template_part, plugin_dir_path, apply_filters (called using 'tcp_the_loop')
+ */
+function tcp_the_loop( $loop = 'tcp-grid' ) {
+	if ( ! locate_template( "loop-$loop.php", true ) ) {
+		$path = plugin_dir_path( dirname( __FILE__ ) ) . "themes-templates/loop-$loop.php";
+		if ( !file_exists( $path ) ) $path = plugin_dir_path( dirname( __FILE__ ) ) . "themes-templates/loop-tcp-grid.php";
+		require( apply_filters( 'tcp_the_loop', $path, $loop ) );
 	}
-}*/
+}
 
 /**
  * @since 1.2.7
  */
 function tcp_debug_trace( $object = false, $args = false ) {
 	$traces = debug_backtrace(); ?>
-	<ul>
-	<?php foreach( $traces as $id => $trace ) : ?>
-		<li><?php printf( '%s -> %s: line %s (%s)', isset( $trace['class'] ) ? $trace['class'] : '', $trace['function'], isset( $trace['line'] ) ? $trace['line'] : '', isset( $trace['file'] ) ? $trace['file'] : '' ); ?></li>
-	<?php endforeach; ?>
-	</ul>
-<?php }
+<ul>
+<?php foreach( $traces as $id => $trace ) : ?>
+	<li><?php printf( '%s -> %s: line %s (%s)', isset( $trace['class'] ) ? $trace['class'] : '', $trace['function'], isset( $trace['line'] ) ? $trace['line'] : '', isset( $trace['file'] ) ? $trace['file'] : '' ); ?></li>
+<?php endforeach; ?>
+</ul><?php
+}
 
 function tcp_update_premium_plugin( $plugin_file ) {
 	require_once ( TCP_CLASSES_FOLDER . 'AutoUpdate.class.php' );
@@ -1366,4 +1367,3 @@ function tcp_return_jsonp( $params ) {
 //var_dump( json_encode( $params ) );
 	exit( json_encode( $params ) );
 }
-?>

@@ -193,8 +193,8 @@ class ProductCustomPostType {
 	function custom_columns_definition( $columns ) {
 		$columns = array(
 			'cb'			=> '<input type="checkbox" />',
-			'thumbnail'		=> __( 'Thumbnail', 'tcp' ),
-			'title'			=> __( 'Name', 'tcp' ),
+			'tcp-product-thumbnail'		=> '', //__( 'Thumbnail', 'tcp' ),
+			'title'	=> __( 'Name', 'tcp' ),
 			'sku'			=> __( 'SKU', 'tcp' ),
 			'price'			=> __( 'Price - Type', 'tcp' ),
 			//'date'			=> __( 'Date', 'tcp' ),
@@ -214,7 +214,7 @@ class ProductCustomPostType {
 		if ( tcp_is_saleable_post_type( $post->post_type ) ) {
 			if ( 'ID' == $column_name ) {
 				echo $post->ID;
-			} elseif ( 'thumbnail' == $column_name ) {
+			} elseif ( 'tcp-product-thumbnail' == $column_name ) {
 				$image = tcp_get_the_thumbnail( $post->ID, 0, 0, array( '50', '50' )  );
 				if ( $image == '' ) {
 					//$image = '<a href="' . get_admin_url() . '/media-upload.php?post_id=' . $post->ID . '&type=image&TB_iframe=1" class="thickbox" title="' . __( 'Set featured image' ) . '">';
@@ -222,6 +222,8 @@ class ProductCustomPostType {
 					//$image .= '</a>';
 				}
 				echo '&nbsp;', $image;
+			// } elseif ( 'tcp-product-title' == $column_name ) {
+			// 	echo $post->post_title;
 			} elseif ( 'sku' == $column_name ) {
 				$sku = tcp_get_the_sku( $post->ID );
 				if ( strlen( trim( $sku ) ) == 0 ) $sku = __( 'N/A', 'tcp' );
@@ -356,5 +358,4 @@ class ProductCustomPostType {
 }
 
 $GLOBALS['productcustomposttype'] = new ProductCustomPostType();
-
 } // class_exists check

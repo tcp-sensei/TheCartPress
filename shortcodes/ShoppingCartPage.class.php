@@ -37,7 +37,7 @@ class TCPShoppingCartPage {
 		require_once( TCP_CLASSES_FOLDER . 'CartTable.class.php' );
 		require_once( TCP_CLASSES_FOLDER . 'CartSourceSession.class.php' );
 		ob_start(); ?>
-<div class="tcp_shopping_cart_page "><!-- .tcp-tcpf -->
+<div class="tcp_shopping_cart_page "><!-- .tcpf -->
 	<?php if ( $shoppingCart->isEmpty() ) { ?>
 	<span class="tcp_shopping_cart_empty"><?php echo __( 'The cart is empty', 'tcp' );?></span>
 	<?php tcp_do_template( 'tcp_shopping_cart_empty' ); ?>
@@ -68,23 +68,25 @@ class TCPShoppingCartPage {
 		),
 		'tcp_continue'	=> array(
 			'li_class'	=> 'tcp_sc_continue',
-			'a_class'	=> 'tcp-btn' . ' ' . $buy_button_size,
+			'a_class'	=> $buy_button_size,
 			'url'		=> tcp_get_the_continue_url(),
 			'label'		=> __( 'Continue Shopping', 'tcp' )
 		),
 	);
 	$links = apply_filters( 'tcp_shopping_cart_bottom_links', $links ); ?>
-	<div class="tcp-tcpf">
+	<div class="tcpf">
 		<ul class="tcp_sc_links">
 		<?php foreach( $links as $link ) { ?>
-			<li class="<?php echo $link['li_class']; ?>"><a href="<?php echo $link['url']; ?>" class="<?php echo $link['a_class']; ?>"><?php echo $link['label']; ?></a></li>
+			<li class="<?php echo $link['li_class']; ?>">
+				<a href="<?php echo $link['url']; ?>" class="<?php echo $link['a_class']; ?>"><?php echo $link['label']; ?></a>
+			</li>
 		<?php } ?>
 		</ul>
-	</div><!-- .tcp-tcpf -->
+	</div><!-- .tcpf -->
 	</div><!-- #shopping_cart -->
 	<?php } ?>
 	<?php do_action( 'tcp_shopping_cart_footer' ); ?>
-</div><!-- .tcp_shopping_cart_page.tcp-tcpf -->
+</div><!-- .tcp_shopping_cart_page.tcpf -->
 <?php do_action( 'tcp_shopping_cart_after' );
 		return ob_get_clean();
 	}

@@ -63,7 +63,7 @@ class TCPThemeCompatibilitySettings {
 
 <?php if ( !empty( $this->updated ) ) : ?>
 	<div id="message" class="updated">
-	<p><?php _e( 'Settings updated', 'tcp' ); ?></p>
+		<p><?php _e( 'Settings updated', 'tcp' ); ?></p>
 	</div>
 <?php endif; ?>
 
@@ -76,13 +76,18 @@ if ( isset( $_POST['current_post_type'] ) && strlen( trim( $_POST['current_post_
 	$current_post_type = '';
 }
 
-$load_default_buy_button_style	= $thecartpress->get_setting( 'load_default_buy_button_style', true );
+$load_default_buy_button_style				= $thecartpress->get_setting( 'load_default_buy_button_style', true );
 $load_default_shopping_cart_checkout_style	= $thecartpress->get_setting( 'load_default_shopping_cart_checkout_style', true );
-$load_default_loop_style = $thecartpress->get_setting( 'load_default_loop_style', true );
+$load_default_loop_style					= $thecartpress->get_setting( 'load_default_loop_style', true );
+$load_bootstrap_js							= $thecartpress->get_setting( 'load_bootstrap_js', true );
 
-$products_per_page			= $thecartpress->get_setting( 'products_per_page' . $suffix, '10' );//TODO
+$products_per_page							= $thecartpress->get_setting( 'products_per_page' . $suffix, '10' );
+$image_size_grouped_by_button				= $thecartpress->get_setting( 'image_size_grouped_by_button' . $suffix, 'thumbnail' );
+//image
+$image_size_content							= $thecartpress->get_setting( 'image_size_content', 'thumbnail' );
+//$image_align_content						= $thecartpress->get_setting( 'image_align_content' . $suffix );
+//$image_link_content							= $thecartpress->get_setting( 'image_link_content' . $suffix );
 
-$image_size_grouped_by_button = $thecartpress->get_setting( 'image_size_grouped_by_button' . $suffix, 'thumbnail' );
 ?>
 
 <form method="post" action="">
@@ -98,7 +103,7 @@ $image_size_grouped_by_button = $thecartpress->get_setting( 'image_size_grouped_
 
 <tr valign="top">
 	<th scope="row">
-	<label for="load_default_buy_button_style"><?php _e( 'Load default Buy Button styles', 'tcp' ); ?></label>
+		<label for="load_default_buy_button_style"><?php _e( 'Load default Buy Button styles', 'tcp' ); ?></label>
 	</th>
 	<td>
 		<input type="checkbox" id="load_default_buy_button_style" name="load_default_buy_button_style" value="yes" <?php checked( true, $load_default_buy_button_style ); ?> />
@@ -107,7 +112,7 @@ $image_size_grouped_by_button = $thecartpress->get_setting( 'image_size_grouped_
 
 <tr valign="top">
 	<th scope="row">
-	<label for="load_default_shopping_cart_checkout_style"><?php _e( 'Load default Shopping Cart & Checkout styles', 'tcp' ); ?></label>
+		<label for="load_default_shopping_cart_checkout_style"><?php _e( 'Load default Shopping Cart & Checkout styles', 'tcp' ); ?></label>
 	</th>
 	<td>
 		<input type="checkbox" id="load_default_shopping_cart_checkout_style" name="load_default_shopping_cart_checkout_style" value="yes" <?php checked( true, $load_default_shopping_cart_checkout_style ); ?> />
@@ -116,7 +121,7 @@ $image_size_grouped_by_button = $thecartpress->get_setting( 'image_size_grouped_
 
 <tr valign="top">
 	<th scope="row">
-	<label for="load_default_loop_style"><?php _e( 'Load default Catalogue styles', 'tcp' ); ?></label>
+		<label for="load_default_loop_style"><?php _e( 'Load default Catalogue styles', 'tcp' ); ?></label>
 	</th>
 	<td>
 		<input type="checkbox" id="load_default_loop_style" name="load_default_loop_style" value="yes" <?php checked( true, $load_default_loop_style ); ?> />
@@ -125,7 +130,16 @@ $image_size_grouped_by_button = $thecartpress->get_setting( 'image_size_grouped_
 
 <tr valign="top">
 	<th scope="row">
-	<label for="products_per_page"><?php _e( 'Product pages show at most', 'tcp' ); ?></label>
+		<label for="load_default_loop_style"><?php _e( 'Load Bootstrap JavaScript', 'tcp' ); ?></label>
+	</th>
+	<td>
+		<input type="checkbox" id="load_bootstrap_js" name="load_bootstrap_js" value="yes" <?php checked( true, $load_bootstrap_js ); ?> />
+	</td>
+</tr>
+
+<tr valign="top">
+	<th scope="row">
+		<label for="products_per_page"><?php _e( 'Product pages show at most', 'tcp' ); ?></label>
 	</th>
 	<td>
 		<input type="text" id="products_per_page" name="products_per_page" value="<?php echo $products_per_page; ?>" class="small-text tcp_count" maxlength="4"/>
@@ -192,6 +206,47 @@ $image_size_grouped_by_button = $thecartpress->get_setting( 'image_size_grouped_
 	</td>
 </tr>
 
+<tr valign="top">
+	<th scope="row">
+	<label for="image_size_content"><?php _e( 'Image size in content', 'tcp' ); ?></label>
+	</th>
+	<td>
+		<?php $image_sizes = get_intermediate_image_sizes(); ?>
+		<select id="image_size_content" name="image_size_content">
+		<?php foreach( $image_sizes as $image_size ) : ?>
+			<option value="<?php echo $image_size; ?>" <?php selected( $image_size, $image_size_content ); ?>><?php echo $image_size; ?></option>
+		<?php endforeach; ?>
+		</select>
+	</td>
+</tr>
+
+<!--<tr valign="top">
+	<th scope="row">
+	<label for="image_align_content"><?php _e( 'Image align in content', 'tcp' ); ?></label>
+	</th>
+	<td>
+		<select id="image_align_content" name="image_align_content">
+			<option value="" <?php selected( '', $image_align_content ); ?>><?php _e( 'None', 'tcp' ); ?></option>
+			<option value="alignleft" <?php selected( 'alignleft', $image_align_content ); ?>><?php _e( 'Align Left', 'tcp' ); ?></option>
+			<option value="aligncenter" <?php selected( 'aligncenter', $image_align_content ); ?>><?php _e( 'Align Center', 'tcp' ); ?></option>
+			<option value="alignright" <?php selected( 'alignright', $image_align_content ); ?>><?php _e( 'Align Right', 'tcp' ); ?></option>
+		</select>
+	</td>
+</tr>-->
+
+<!--<tr valign="top">
+	<th scope="row">
+	<label for="image_link_content"><?php _e( 'Image link in content', 'tcp' ); ?></label>
+	</th>
+	<td>
+		<select id="image_link_content" name="image_link_content">
+			<option value="" <?php selected( '', $image_link_content ); ?>><?php _e( 'None', 'tcp' ); ?></option>
+			<option value="file" <?php selected( 'file', $image_link_content ); ?>><?php _e( 'File url', 'tcp' ); ?></option>
+			<option value="post" <?php selected( 'post', $image_link_content ); ?>><?php _e( 'Post url', 'tcp' ); ?></option>
+		</select>
+	</td>
+</tr>-->
+
 </tbody>
 </table>
 
@@ -216,10 +271,7 @@ $image_size_grouped_by_button = $thecartpress->get_setting( 'image_size_grouped_
 			if ( strlen( $suffix ) == 0 ) return;
 			$settings = get_option( 'tcp_settings' );
 			unset( $settings['products_per_page' . $suffix] );
-
 			unset( $settings['image_size_grouped_by_button' . $suffix] );
-
-
 			$settings = apply_filters( 'tcp_theme_compatibility_unset_settings_action', $settings, $suffix );
 			update_option( 'tcp_settings', $settings );
 			$this->updated = true;
@@ -232,14 +284,14 @@ $image_size_grouped_by_button = $thecartpress->get_setting( 'image_size_grouped_
 		$settings['load_default_buy_button_style']			= isset( $_POST['load_default_buy_button_style'] ) ? $_POST['load_default_buy_button_style'] == 'yes' : false;
 		$settings['load_default_shopping_cart_checkout_style'] = isset( $_POST['load_default_shopping_cart_checkout_style'] ) ? $_POST['load_default_shopping_cart_checkout_style'] == 'yes' : false;
 		$settings['load_default_loop_style']				= isset( $_POST['load_default_loop_style'] ) ? $_POST['load_default_loop_style'] == 'yes' : false;
-
+		$settings['load_bootstrap_js']						= isset( $_POST['load_bootstrap_js'] );
 		$settings['products_per_page' . $suffix]			= isset( $_POST[ 'products_per_page' ] ) ? $_POST[ 'products_per_page' ] : false;
 
 		$settings['image_size_grouped_by_button' . $suffix]	= isset( $_POST['image_size_grouped_by_button'] ) ? $_POST['image_size_grouped_by_button'] : 'thumbnail';
 		$settings['see_image_in_content' . $suffix]			= isset( $_POST['see_image_in_content'] ) ? $_POST['see_image_in_content'] == 'yes' : false;
 		$settings['image_size_content' . $suffix]			= isset( $_POST['image_size_content'] ) ? $_POST['image_size_content'] : 'thumbnail';
-		$settings['image_align_content' . $suffix]			= isset( $_POST['image_align_content'] ) ? $_POST['image_align_content'] : 'north';
-		$settings['image_link_content' . $suffix]			= isset( $_POST['image_link_content'] ) ? $_POST['image_link_content'] : '';
+		//$settings['image_align_content' . $suffix]			= isset( $_POST['image_align_content'] ) ? $_POST['image_align_content'] : 'north';
+		//$settings['image_link_content' . $suffix]			= isset( $_POST['image_link_content'] ) ? $_POST['image_link_content'] : '';
 
 		$settings = apply_filters( 'tcp_theme_compatibility_settings_action', $settings, $suffix );
 		

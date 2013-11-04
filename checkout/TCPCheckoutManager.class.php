@@ -170,7 +170,7 @@ class TCPCheckoutManager {
 		$buy_button_color	= $thecartpress->get_setting( 'buy_button_color' );
 		if ( $user_registration && $step > 0 && ! is_user_logged_in() ) return $this->show_box( $this->get_box( 0 ) );
 		ob_start(); ?>
-<div class="checkout tcp-tcpf" id="checkout">
+<div class="checkout tcpf" id="checkout">
 	<?php $last_step_number = $this->show_header( $box, $step );
 	if ( $step == count( $this->steps ) ) { //last step, no return
 		if ( in_the_loop() ) {

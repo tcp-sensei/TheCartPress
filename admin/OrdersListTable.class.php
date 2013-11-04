@@ -72,62 +72,104 @@ class OrdersListTable extends WP_List_Table {
 		return array( 'widefat', 'fixed', 'pages', 'tcp_orders'  );
 	}
 
+	/**
+	 * Defines the column of the table.
+	 *
+	 * @uses apply_filters, filter 'tcp_manage_orders_columns' to change the column definition
+	 */
 	function get_column_info() {
 		$orders_columns = array();
-		//$orders_columns['cb'] = '<input type="checkbox" />';
-		$orders_columns['order_id'] = _x( 'ID', 'column name', 'tcp' );
-		$orders_columns['created_at'] = _x( 'Date', 'column name', 'tcp' );
-		$orders_columns['customer_id'] = _x( 'User', 'column name', 'tcp' );
-		$orders_columns['status'] = _x( 'Status', 'column name', 'tcp' );
-		$orders_columns['payment_name'] = _x( 'Payment', 'column name', 'tcp' );
-		$orders_columns['shipping_method'] = _x( 'Shipping', 'column name', 'tcp' );
-		$orders_columns['total'] = _x( 'Total', 'column name', 'tcp' );
+		//$orders_columns['cb']				= '<input type="checkbox" />';
+		$orders_columns['status']			= _x( 'Status', 'column name', 'tcp' );
+		$orders_columns['created_at']		= _x( 'Date', 'column name', 'tcp' );
+		$orders_columns['order_id']			= _x( 'Order', 'column name', 'tcp' );
+		//$orders_columns['customer_id']	= _x( 'User', 'column name', 'tcp' );
+		$orders_columns['payment_name']		= _x( 'Billing', 'column name', 'tcp' );
+		$orders_columns['shipping_method']	= _x( 'Shipping', 'column name', 'tcp' );
+		$orders_columns['total']			= _x( 'Total', 'column name', 'tcp' );
+		//
 		$orders_columns = apply_filters( 'tcp_manage_orders_columns', $orders_columns );
 		return array( $orders_columns , array(), array() );
 	}
 
+	//not in use
 	function column_cb( $item ) {
 		?><input type="checkbox" name="order[]" value="<?php echo $item->order_id; ?>" /><?php
 	}
 
+	/**
+	 * Calculates, and outputs, the total of each order
+	 */
 	function column_total( $item ) {
-		//$total = - $item->discount_amount;
-		//$total = OrdersCosts::getTotalCost( $item->order_id, $total );
-		//$total = tcp_format_the_price( OrdersDetails::getTotal( $item->order_id, $total ) );
-
 		$total = Orders::getTotal( $item->order_id );
 		$total = apply_filters( 'tcp_orders_list_column_total', $total, $item );
 		echo tcp_format_the_price( $total, $item->order_currency_code );
 	}
 
-	function column_customer_id( $item ) {
-		$user_data = get_userdata( $item->customer_id );
-		if ( $user_data ) {
-			echo $user_data->user_nicename, ' &lt;', $user_data->user_email, '&gt;';
-		} else {
-			echo '&lt;', $item->billing_email, '&gt;';
-		}
+	/**
+	 * Outputs the date of the order
+	 */
+	function column_created_at( $item ) {
+		echo date( 'M d, H:i' , strtotime( $item->created_at) );
 	}
 
 	function column_order_id( $item ) {
+		echo __( 'Order #', 'tcp' );
+		if ( current_user_can( 'tcp_edit_orders' ) ) {
+			$status = isset( $_REQUEST['status'] ) ? $_REQUEST['status'] : '';
+			$paged = isset( $_REQUEST['paged'] ) ? $_REQUEST['paged'] : 0;
+			$href = TCP_ADMIN_PATH . 'OrderEdit.php&order_id=' . $item->order_id . '&status=' . $status . '&paged=' . $paged;
+			echo '<a href="' . $href . '" title="' . esc_attr( __( 'Edit this order', 'tcp' ) ) . '">';
+		}
 		echo $item->order_id;
+		if ( current_user_can( 'tcp_edit_orders' ) ) echo '</a>';
+
+		echo __( ', by ', 'tcp' );
+		$user_data = get_userdata( $item->customer_id );
+		if ( $user_data ) echo '<a href="', admin_url( 'user-edit.php?user_id=' . $item->customer_id ), '">', $user_data->display_name, '</a>';//, ' (', $user_data->user_email, ')';
+		echo '<br/>', $item->billing_email;
+	}
+
+	function column_status( $item ) {
 		$actions = array();
-		$status = isset( $_REQUEST['status'] ) ? $_REQUEST['status'] : '';
-		$paged = isset( $_REQUEST['paged'] ) ? $_REQUEST['paged'] : 0;
-		$href = TCP_ADMIN_PATH . 'OrderEdit.php&order_id=' . $item->order_id . '&status=' . $status . '&paged=' . $paged;
-		if ( current_user_can( 'tcp_edit_orders' ) )
+		if ( current_user_can( 'tcp_edit_orders' ) ) {
+			$status = isset( $_REQUEST['status'] ) ? $_REQUEST['status'] : '';
+			$paged = isset( $_REQUEST['paged'] ) ? $_REQUEST['paged'] : 0;
+			$href = TCP_ADMIN_PATH . 'OrderEdit.php&order_id=' . $item->order_id . '&status=' . $status . '&paged=' . $paged;
 			$actions['edit'] = '<a href="' . $href . '" title="' . esc_attr( __( 'Edit this order', 'tcp' ) ) . '">' . __( 'Edit', 'tcp' ) . '</a>';
+		}
 		$actions['inline hide-if-no-js'] = '<a href="javascript:tcp_show_order_view(' . $item->order_id . ');" class="editinline" title="' . esc_attr( __( 'View this item inline' ) ) . '">' . __( 'View', 'tcp' ) . '</a>';
-		//$url = plugins_url( 'admin/PrintOrder.php', dirname( __FILE__ ) );
-		//$url = add_query_arg( 'sorder_id', $item->order_id, $url );
-		//$actions['inline hide-if-no-js'] = '<a href="' . $url . '" onclick="return false;" class="thickbox" title="' . esc_attr( __( 'View this item inline' ) ) . '">' . __( 'View', 'tcp' ) . '</a>';
-		
+
+		$all_status = tcp_get_order_status();
+		if ( isset( $all_status[$item->status]['name'] ) ) $class = 'tcp_status_' . $all_status[$item->status]['name'];
+		else $class = '';
+		echo '<span class="', $class, '">', tcp_get_status_label( $item->status ), '</span>';
 		echo $this->row_actions( $actions );
 		$this->get_inline_data( $item->order_id );
 	}
 
-	function column_status( $item ) {
-		echo tcp_get_status_label( $item->status );
+	function column_shipping_method( $item ) {
+		echo $item->shipping_method;
+		echo '<br/>', $item->shipping_street, '<br/>';
+		if ( strlen( $item->shipping_city ) > 0 ) echo $item->shipping_city;
+		if ( strlen( $item->shipping_postcode ) > 0 ) echo ', ', $item->shipping_postcode;
+		echo ' (', $item->shipping_country_id, ')';
+		printf ('<a href="%s" target="_blank"><img src="%s"/></a>',
+			"http://maps.google.com/maps?&q={$item->shipping_street},+{$item->shipping_city},+{$item->shipping_postcode},+{$item->shipping_country_id}&z=16",
+			plugins_url( 'images/tcp_map_link_16.png', dirname( __FILE__ ) )
+		);
+	}
+
+	function column_payment_name( $item ) {
+		echo $item->payment_name;
+		echo '<br/>', $item->billing_street, '<br/>';
+		if ( strlen( $item->billing_city ) > 0 ) echo $item->billing_city;
+		if ( strlen( $item->billing_postcode ) > 0 ) echo ', ', $item->billing_postcode;
+		echo ' (', $item->billing_country_id, ')';
+		printf ('<a href="%s" target="_blank"><img src="%s"/></a>',
+			"http://maps.google.com/maps?&q={$item->billing_street},+{$item->billing_city},+{$item->billing_postcode},+{$item->billing_country_id}&z=16",
+			plugins_url( 'images/tcp_map_link_16.png', dirname( __FILE__ ) )
+		);
 	}
 
 	function column_default( $item, $column_name ) {

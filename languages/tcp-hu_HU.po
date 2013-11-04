@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tcp\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-21 15:26+0100\n"
+"POT-Creation-Date: 2013-11-04 17:18+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: sensei <sensei@thecartpress.com>\n"
 "Language-Team: \n"
@@ -14,211 +14,211 @@ msgstr ""
 "X-Poedit-Basepath: ../../\n"
 "X-Poedit-SearchPath-0: thecartpress\n"
 
-#: thecartpress/TheCartPress.class.php:297
+#: thecartpress/TheCartPress.class.php:314
 #, fuzzy
 msgid "This notice will be added in the email to the customer when the Checkout process ends"
 msgstr "Ez a azsöveg jelenik meg a megrendelés végrehajtásakor."
 
-#: thecartpress/TheCartPress.class.php:298
+#: thecartpress/TheCartPress.class.php:315
 #, fuzzy
 msgid "This notice will be showed in the Checkout Notice Box into the checkout process"
 msgstr "Ez a azsöveg jelenik meg a megrendelés végrehajtásakor."
 
-#: thecartpress/TheCartPress.class.php:299
+#: thecartpress/TheCartPress.class.php:316
 #, fuzzy
 msgid "This notice will be showed if the checkout process ends right"
 msgstr "Ez a azsöveg jelenik meg a megrendelés végrehajtásakor."
 
-#: thecartpress/TheCartPress.class.php:300
+#: thecartpress/TheCartPress.class.php:317
 #, fuzzy
 msgid "This notice will be showed if the checkout process ends wrong: Declined payments, etc."
 msgstr "Ez a azsöveg jelenik meg a megrendelés végrehajtásakor."
 
-#: thecartpress/TheCartPress.class.php:301
+#: thecartpress/TheCartPress.class.php:318
 #, fuzzy
 msgid "This notice will be showed at the Shopping Cart or Checkout page, if the Shopping Cart is empty"
 msgstr "Ez a azsöveg jelenik meg a megrendelés végrehajtásakor."
 
-#: thecartpress/TheCartPress.class.php:302
+#: thecartpress/TheCartPress.class.php:319
 #, fuzzy
 msgid "This notice will be showed at the Checkout Resume Cart"
 msgstr "Ez a azsöveg jelenik meg a megrendelés végrehajtásakor."
 
-#: thecartpress/TheCartPress.class.php:303
+#: thecartpress/TheCartPress.class.php:320
 #, fuzzy
 msgid "This notice will be showed at Billing address in Checkout"
 msgstr "Ez a azsöveg jelenik meg a megrendelés végrehajtásakor."
 
-#: thecartpress/TheCartPress.class.php:518
+#: thecartpress/TheCartPress.class.php:538
 msgid "The <strong>Shopping Cart page</strong> has been deleted."
 msgstr "A Kosár törölve!"
 
-#: thecartpress/TheCartPress.class.php:521
+#: thecartpress/TheCartPress.class.php:541
 msgid "The <strong>Checkout page</strong> has been deleted."
 msgstr "A Kassza oldal tölrölve!"
 
-#: thecartpress/TheCartPress.class.php:524
+#: thecartpress/TheCartPress.class.php:544
 #, fuzzy
 msgid "My Account page has been deleted"
 msgstr "A Kassza oldal létrehozva"
 
-#: thecartpress/TheCartPress.class.php:527
+#: thecartpress/TheCartPress.class.php:547
 #, fuzzy
 msgid "Catalogue page has been deleted"
 msgstr "A Kassza oldal létrehozva"
 
-#: thecartpress/TheCartPress.class.php:532
+#: thecartpress/TheCartPress.class.php:552
 msgid "Notice:"
 msgstr "Megjegyzés:"
 
-#: thecartpress/TheCartPress.class.php:536
+#: thecartpress/TheCartPress.class.php:556
 #, php-format
 msgid "Visit the <a href=\"%s\">Checking page</a> to fix those warnings."
 msgstr "Látogassaon el a Kassza oldalra a figyelmeztetések javításáért."
 
-#: thecartpress/TheCartPress.class.php:670
+#: thecartpress/TheCartPress.class.php:690
 #: thecartpress/widgets/SalesChartDashboard.class.php:87
 #: thecartpress/widgets/SalesChartDashboard.class.php:132
 #: thecartpress/widgets/SalesChartDashboard.class.php:246
 msgid "Orders"
 msgstr "Rendelésk"
 
-#: thecartpress/TheCartPress.class.php:671
+#: thecartpress/TheCartPress.class.php:691
 #, fuzzy
 msgid "My Downloads"
 msgstr "Letöltő Zóna"
 
-#: thecartpress/TheCartPress.class.php:672
+#: thecartpress/TheCartPress.class.php:692
 msgid "Addresses"
 msgstr "Címjegyzék"
 
-#: thecartpress/TheCartPress.class.php:673
+#: thecartpress/TheCartPress.class.php:693
 msgid "Taxes"
 msgstr "ÁFA"
 
-#: thecartpress/TheCartPress.class.php:674
+#: thecartpress/TheCartPress.class.php:694
 msgid "Related Categories"
 msgstr "Összefüggő Kategóriák"
 
-#: thecartpress/TheCartPress.class.php:675
+#: thecartpress/TheCartPress.class.php:695
 msgid "Update Prices"
 msgstr "Árak frissítése"
 
-#: thecartpress/TheCartPress.class.php:676
+#: thecartpress/TheCartPress.class.php:696
 msgid "Order"
 msgstr "Rendelés"
 
-#: thecartpress/TheCartPress.class.php:677
+#: thecartpress/TheCartPress.class.php:697
 msgid "list of Assigned products"
 msgstr "Hozzárendelt termékek listája"
 
-#: thecartpress/TheCartPress.class.php:678
+#: thecartpress/TheCartPress.class.php:698
 #, fuzzy
 msgid "list of Assigned categories"
 msgstr "Hozzárendelt termékek listája"
 
-#: thecartpress/TheCartPress.class.php:679
+#: thecartpress/TheCartPress.class.php:699
 msgid "Plugin editor"
 msgstr "Bővítmény szerkesztő"
 
-#: thecartpress/TheCartPress.class.php:680
+#: thecartpress/TheCartPress.class.php:700
 msgid "Address editor"
 msgstr "Cím szerkesztő"
 
-#: thecartpress/TheCartPress.class.php:681
+#: thecartpress/TheCartPress.class.php:701
 msgid "Upload files"
 msgstr "Fájlfeltöltés"
 
-#: thecartpress/TheCartPress.class.php:682
+#: thecartpress/TheCartPress.class.php:702
 #, fuzzy
 msgid "Files"
 msgstr "Fájl"
 
-#: thecartpress/TheCartPress.class.php:683
+#: thecartpress/TheCartPress.class.php:703
 msgid "Downloadable products"
 msgstr "Termékek letöltése"
 
-#: thecartpress/TheCartPress.class.php:684
+#: thecartpress/TheCartPress.class.php:704
 msgid "TheCartPress checking"
 msgstr ""
 
-#: thecartpress/TheCartPress.class.php:687
+#: thecartpress/TheCartPress.class.php:707
 msgid "Settings"
 msgstr "Beállítások"
 
-#: thecartpress/TheCartPress.class.php:690
+#: thecartpress/TheCartPress.class.php:710
 msgid "Tools"
 msgstr ""
 
-#: thecartpress/TheCartPress.class.php:691
+#: thecartpress/TheCartPress.class.php:711
 msgid "Shortcodes Generator"
 msgstr ""
 
-#: thecartpress/TheCartPress.class.php:691
+#: thecartpress/TheCartPress.class.php:711
 msgid "Shortcodes"
 msgstr ""
 
-#: thecartpress/TheCartPress.class.php:692
+#: thecartpress/TheCartPress.class.php:712
 msgid "Manage post types"
 msgstr ""
 
-#: thecartpress/TheCartPress.class.php:693
+#: thecartpress/TheCartPress.class.php:713
 msgid "Manage taxonomies"
 msgstr ""
 
-#: thecartpress/TheCartPress.class.php:694
+#: thecartpress/TheCartPress.class.php:714
 msgid "Post Type Editor"
 msgstr ""
 
-#: thecartpress/TheCartPress.class.php:695
+#: thecartpress/TheCartPress.class.php:715
 #, fuzzy
 msgid "Taxonomy Editor"
 msgstr "Taxonómia"
 
-#: thecartpress/TheCartPress.class.php:844
+#: thecartpress/TheCartPress.class.php:867
 msgid "TheCartPress requires WordPress version 3.0 or newer."
 msgstr "TheCartPress WordPress version 3.0-t vagy újabb kiadást igényel."
 
-#: thecartpress/TheCartPress.class.php:871
+#: thecartpress/TheCartPress.class.php:898
 msgid "Free transport"
 msgstr "Ingyenes kiszállítás"
 
-#: thecartpress/TheCartPress.class.php:882
+#: thecartpress/TheCartPress.class.php:909
 msgid "Cash on delivery"
 msgstr ""
 
-#: thecartpress/TheCartPress.class.php:922
+#: thecartpress/TheCartPress.class.php:949
 msgid "Checkout notice"
 msgstr "Fizetési üzenet"
 
-#: thecartpress/TheCartPress.class.php:957
+#: thecartpress/TheCartPress.class.php:982
 #: thecartpress/widgets/ShoppingCartWidget.class.php:71
 msgid "Shopping Cart"
 msgstr "Kosár"
 
-#: thecartpress/TheCartPress.class.php:970
+#: thecartpress/TheCartPress.class.php:995
 msgid "Checkout"
 msgstr "Kassza"
 
-#: thecartpress/TheCartPress.class.php:985
+#: thecartpress/TheCartPress.class.php:1010
 #, fuzzy
 msgid "My Account"
 msgstr "Bankszámla"
 
-#: thecartpress/TheCartPress.class.php:998
+#: thecartpress/TheCartPress.class.php:1023
 msgid "Catalogue"
 msgstr ""
 
-#: thecartpress/TheCartPress.class.php:1011
-#: thecartpress/TheCartPress.class.php:1035
+#: thecartpress/TheCartPress.class.php:1036
+#: thecartpress/TheCartPress.class.php:1060
 msgid "Category One"
 msgstr ""
 
-#: thecartpress/TheCartPress.class.php:1012
+#: thecartpress/TheCartPress.class.php:1037
 msgid "Category One for Product One"
 msgstr ""
 
-#: thecartpress/TheCartPress.class.php:1019
+#: thecartpress/TheCartPress.class.php:1044
 msgid "Product One"
 msgstr ""
 
@@ -949,13 +949,13 @@ msgstr "teszt mód"
 msgid "Id"
 msgstr "Azonosító"
 
-#: thecartpress/widgets/OrdersSummaryDashboard.class.php:64
-msgid "Customer"
-msgstr "Ügyfél"
-
-#: thecartpress/widgets/OrdersSummaryDashboard.class.php:65
+#: thecartpress/widgets/OrdersSummaryDashboard.class.php:63
 msgid "Status"
 msgstr "Állapot"
+
+#: thecartpress/widgets/OrdersSummaryDashboard.class.php:65
+msgid "Customer"
+msgstr "Ügyfél"
 
 #: thecartpress/widgets/OrdersSummaryDashboard.class.php:66
 msgid "Total"
@@ -1285,14 +1285,13 @@ msgstr "Új hozzásadása"
 #: thecartpress/admin/PostTypeEdit.php:45
 #: thecartpress/admin/PostTypeEdit.php:87
 #: thecartpress/admin/PostTypeEdit.php:121
-#: thecartpress/admin/OrdersListTable.class.php:120
+#: thecartpress/admin/OrdersListTable.class.php:141
 msgid "View"
 msgstr ""
 
 #: thecartpress/admin/PostTypeEdit.php:46
 #: thecartpress/admin/PostTypeEdit.php:88
 #: thecartpress/admin/PostTypeEdit.php:122
-#: thecartpress/admin/StockUpdate.php:102
 msgid "Search"
 msgstr "Keres"
 
@@ -1596,6 +1595,47 @@ msgstr ""
 #, fuzzy
 msgid "Is saleable"
 msgstr "Letölthető"
+
+#: thecartpress/admin/NewVersionDetails.class.php:42
+#, fuzzy
+msgid "Enjoy TheCartPress"
+msgstr "Webshop üzenet"
+
+#: thecartpress/admin/NewVersionDetails.class.php:71
+#, fuzzy, php-format
+msgid "Welcome to TheCartPress %s"
+msgstr "Webshop üzenet"
+
+#: thecartpress/admin/NewVersionDetails.class.php:73
+msgid "Thank you for updating to the latest version!"
+msgstr ""
+
+#: thecartpress/admin/NewVersionDetails.class.php:76
+msgid "What's new?"
+msgstr ""
+
+#: thecartpress/admin/NewVersionDetails.class.php:77
+msgid "New User interface improvements to make your day a day more easy."
+msgstr ""
+
+#: thecartpress/admin/NewVersionDetails.class.php:81
+#, fuzzy
+msgid "Orders list"
+msgstr "Rendelésk"
+
+#: thecartpress/admin/NewVersionDetails.class.php:82
+msgid "New orders list, to see your orders faster. Take a quick look using \"view\", localize addresses in map, etc."
+msgstr ""
+
+#: thecartpress/admin/NewVersionDetails.class.php:85
+#, fuzzy
+msgid "Products list"
+msgstr "Termék beállítások"
+
+#: thecartpress/admin/NewVersionDetails.class.php:89
+#, fuzzy
+msgid "Product Settings"
+msgstr "Kassza beállítások"
 
 #: thecartpress/admin/PluginEdit.php:63
 msgid "Instance saved"
@@ -1958,68 +1998,72 @@ msgstr "Alap szállítás"
 msgid "No Orders found."
 msgstr "Nem találtam"
 
-#: thecartpress/admin/OrdersListTable.class.php:78
-#, fuzzy
-msgctxt "column name"
-msgid "ID"
-msgstr "Azonosító"
-
-#: thecartpress/admin/OrdersListTable.class.php:79
-msgctxt "column name"
-msgid "Date"
-msgstr ""
-
-#: thecartpress/admin/OrdersListTable.class.php:80
-#, fuzzy
-msgctxt "column name"
-msgid "User"
-msgstr "Felhasználó"
-
-#: thecartpress/admin/OrdersListTable.class.php:81
+#: thecartpress/admin/OrdersListTable.class.php:83
 #, fuzzy
 msgctxt "column name"
 msgid "Status"
 msgstr "Állapot"
 
-#: thecartpress/admin/OrdersListTable.class.php:82
+#: thecartpress/admin/OrdersListTable.class.php:84
+msgctxt "column name"
+msgid "Date"
+msgstr ""
+
+#: thecartpress/admin/OrdersListTable.class.php:85
 #, fuzzy
 msgctxt "column name"
-msgid "Payment"
-msgstr "fizetési"
+msgid "Order"
+msgstr "Rendelés"
 
-#: thecartpress/admin/OrdersListTable.class.php:83
+#: thecartpress/admin/OrdersListTable.class.php:87
+#, fuzzy
+msgctxt "column name"
+msgid "Billing"
+msgstr "Számlázás"
+
+#: thecartpress/admin/OrdersListTable.class.php:88
 #, fuzzy
 msgctxt "column name"
 msgid "Shipping"
 msgstr "Szállítás"
 
-#: thecartpress/admin/OrdersListTable.class.php:84
+#: thecartpress/admin/OrdersListTable.class.php:89
 #, fuzzy
 msgctxt "column name"
 msgid "Total"
 msgstr "Összesen"
 
-#: thecartpress/admin/OrdersListTable.class.php:119
+#: thecartpress/admin/OrdersListTable.class.php:117
+#, fuzzy
+msgid "Order #"
+msgstr "Rendelés"
+
+#: thecartpress/admin/OrdersListTable.class.php:122
+#: thecartpress/admin/OrdersListTable.class.php:139
 msgid "Edit this order"
 msgstr ""
 
-#: thecartpress/admin/OrdersListTable.class.php:120
+#: thecartpress/admin/OrdersListTable.class.php:127
+msgid ", by "
+msgstr ""
+
+#: thecartpress/admin/OrdersListTable.class.php:141
 #, fuzzy
 msgid "View this item inline"
 msgstr "Kategória szerkesztés"
 
-#: thecartpress/admin/OrdersListTable.class.php:151
+#: thecartpress/admin/OrdersListTable.class.php:193
 #: thecartpress/admin/AddressesListTable.class.php:149
 #, fuzzy
 msgid "Search by"
 msgstr "Keres"
 
-#: thecartpress/admin/OrdersListTable.class.php:153
+#: thecartpress/admin/OrdersListTable.class.php:195
 #: thecartpress/admin/AddressesListTable.class.php:151
 msgid "Filter"
 msgstr "Szűrő"
 
-#: thecartpress/admin/OrdersListTable.class.php:174
+#: thecartpress/admin/OrdersListTable.class.php:216
 #, fuzzy
 msgid "Search Orders"
 msgstr "Kereső motor"
@@ -2083,8 +2127,6 @@ msgstr "Új hozzárendelt termék létrehozása"
 #: thecartpress/admin/AssignedProductsList.php:303
 #: thecartpress/admin/BuyButtonList.class.php:46
 #: thecartpress/admin/BuyButtonList.class.php:53
-#: thecartpress/admin/StockUpdate.php:119
-#: thecartpress/admin/StockUpdate.php:127
 msgid "Name"
 msgstr "Név"
 
@@ -2130,12 +2172,10 @@ msgid "Do you really want to delete the relation?"
 msgstr ""
 
 #: thecartpress/admin/AssignedProductsList.php:259
-#: thecartpress/admin/StockUpdate.php:81
 msgid "Category"
 msgstr "Kategória"
 
 #: thecartpress/admin/AssignedProductsList.php:262
-#: thecartpress/admin/StockUpdate.php:84
 msgid "no one selected"
 msgstr "semmi sincs kiválasztva"
 
@@ -2403,10 +2443,12 @@ msgid "Stock Update"
 msgstr "Készlet frissítése"
 
 #: thecartpress/admin/StockUpdate.php:66
+#: thecartpress/admin/PriceUpdate.php:89
 msgid "Load taxonomies"
 msgstr ""
 
 #: thecartpress/admin/StockUpdate.php:77
+#: thecartpress/admin/PriceUpdate.php:100
 #, fuzzy
 msgid "Load categories"
 msgstr "Összefüggő Kategóriák"
@@ -2443,6 +2485,8 @@ msgid "no stock"
 msgstr "Nincs készleten"
 
 #: thecartpress/admin/StockUpdate.php:165
+#: thecartpress/admin/PriceUpdate.php:159
+#: thecartpress/admin/PriceUpdate.php:199
 msgid "Update"
 msgstr "Aktualizál"
 
@@ -3111,112 +3155,112 @@ msgstr "Fájlfeltöltés"
 msgid "close"
 msgstr "bezár"
 
-#: thecartpress/admin/ShortCodeGenerator.php:42
+#: thecartpress/admin/ShortCodeGenerator.php:46
 msgid "The field Identifier must be filled"
 msgstr ""
 
-#: thecartpress/admin/ShortCodeGenerator.php:46
+#: thecartpress/admin/ShortCodeGenerator.php:50
 msgid "The field Identifier is repeated"
 msgstr ""
 
-#: thecartpress/admin/ShortCodeGenerator.php:91
-#: thecartpress/admin/ShortCodeGenerator.php:99
+#: thecartpress/admin/ShortCodeGenerator.php:95
+#: thecartpress/admin/ShortCodeGenerator.php:103
 msgid "Shortcode saved"
 msgstr ""
 
-#: thecartpress/admin/ShortCodeGenerator.php:119
+#: thecartpress/admin/ShortCodeGenerator.php:123
 msgid "ShortCode Generator"
 msgstr ""
 
-#: thecartpress/admin/ShortCodeGenerator.php:135
+#: thecartpress/admin/ShortCodeGenerator.php:139
 msgid "new shortcode"
 msgstr ""
 
-#: thecartpress/admin/ShortCodeGenerator.php:138
+#: thecartpress/admin/ShortCodeGenerator.php:142
 msgid "No shortcodes, create one now:"
 msgstr ""
 
-#: thecartpress/admin/ShortCodeGenerator.php:202
+#: thecartpress/admin/ShortCodeGenerator.php:206
 msgid "Identifier"
 msgstr ""
 
-#: thecartpress/admin/ShortCodeGenerator.php:203
+#: thecartpress/admin/ShortCodeGenerator.php:207
 msgid "Don't use whitespace. For example use the_identifier"
 msgstr "Ne használjon üres karaktert, használjon helyette pl.: _"
 
-#: thecartpress/admin/ShortCodeGenerator.php:207
+#: thecartpress/admin/ShortCodeGenerator.php:211
 #, php-format
 msgid "Usage: [tcp_list id=\"%s\"]"
 msgstr ""
 
-#: thecartpress/admin/ShortCodeGenerator.php:228
+#: thecartpress/admin/ShortCodeGenerator.php:232
 msgid "Save to load the list of taxonomies"
 msgstr ""
 
-#: thecartpress/admin/ShortCodeGenerator.php:237
+#: thecartpress/admin/ShortCodeGenerator.php:241
 msgid "If checked, you can select which Taxonomy (category) you want to display. If not checked you can select as many product as you want to show."
 msgstr ""
 
-#: thecartpress/admin/ShortCodeGenerator.php:253
+#: thecartpress/admin/ShortCodeGenerator.php:257
 msgid "Save to load the list of terms"
 msgstr ""
 
-#: thecartpress/admin/ShortCodeGenerator.php:309
+#: thecartpress/admin/ShortCodeGenerator.php:313
 msgid "Set -1 to show all possible items."
 msgstr ""
 
-#: thecartpress/admin/ShortCodeGenerator.php:314
+#: thecartpress/admin/ShortCodeGenerator.php:318
 msgid "Pagination"
 msgstr ""
 
-#: thecartpress/admin/ShortCodeGenerator.php:318
+#: thecartpress/admin/ShortCodeGenerator.php:322
 msgid "Allows to set pagination in the shortcode."
 msgstr ""
 
-#: thecartpress/admin/ShortCodeGenerator.php:323
+#: thecartpress/admin/ShortCodeGenerator.php:327
 #, fuzzy
 msgid "See Order Panel"
 msgstr "Kosár link látszik"
 
-#: thecartpress/admin/ShortCodeGenerator.php:327
+#: thecartpress/admin/ShortCodeGenerator.php:331
 msgid "Allows to display an order panel in the shortcode."
 msgstr ""
 
-#: thecartpress/admin/ShortCodeGenerator.php:362
+#: thecartpress/admin/ShortCodeGenerator.php:366
 #, php-format
 msgid "\"%s\" is missing"
 msgstr ""
 
-#: thecartpress/admin/ShortCodeGenerator.php:384
+#: thecartpress/admin/ShortCodeGenerator.php:388
 #, fuzzy
 msgid "Order desc."
 msgstr "Rendelés azonosító"
 
-#: thecartpress/admin/ShortCodeGenerator.php:398
+#: thecartpress/admin/ShortCodeGenerator.php:402
 msgid "N<sup>o</sup> columns for Extra Small Devices (Phones)"
 msgstr ""
 
-#: thecartpress/admin/ShortCodeGenerator.php:454
+#: thecartpress/admin/ShortCodeGenerator.php:458
 #, fuzzy
 msgid "Excerpt length"
 msgstr "Kivonat látszik:"
 
-#: thecartpress/admin/ShortCodeGenerator.php:459
+#: thecartpress/admin/ShortCodeGenerator.php:463
 #, fuzzy
 msgid "Show about author"
 msgstr "Kosár gomb mutatása"
 
-#: thecartpress/admin/ShortCodeGenerator.php:463
+#: thecartpress/admin/ShortCodeGenerator.php:467
 #, fuzzy
 msgid "Show posted on"
 msgstr "Termékek száma látszik"
 
-#: thecartpress/admin/ShortCodeGenerator.php:467
+#: thecartpress/admin/ShortCodeGenerator.php:471
 #, fuzzy
 msgid "Show taxonomies"
 msgstr "Taxonómia"
 
-#: thecartpress/admin/ShortCodeGenerator.php:495
+#: thecartpress/admin/ShortCodeGenerator.php:499
 msgid "save"
 msgstr "ment"
 
@@ -4019,94 +4063,6 @@ msgstr ""
 msgid "Order from %s, Order ID: %s"
 msgstr ""
 
-#: thecartpress/checkout/TCPBillingBox.class.php:47
-msgid "Billing options"
-msgstr "Számlázási lehetőségek"
-
-#: thecartpress/checkout/TCPBillingBox.class.php:62
-#: thecartpress/checkout/BillingBox.class.php:379
-msgid "The billing First name field must be completed"
-msgstr "A számlázási név kitöltendő!"
-
-#: thecartpress/checkout/TCPBillingBox.class.php:64
-#: thecartpress/checkout/BillingBox.class.php:389
-msgid "The billing Last name field must be completed"
-msgstr "A számlázási családnév kitöltendő!"
-
-#: thecartpress/checkout/TCPBillingBox.class.php:66
-#: thecartpress/checkout/BillingBox.class.php:432
-msgid "The billing Street field must be completed"
-msgstr "A számlázási cím kitöltendő!"
-
-#: thecartpress/checkout/TCPBillingBox.class.php:68
-#: thecartpress/checkout/BillingBox.class.php:426
-msgid "The billing City field must be completed"
-msgstr "A számlázási település kitöltendő!"
-
-#: thecartpress/checkout/TCPBillingBox.class.php:70
-msgid "The billing Region field must be completed"
-msgstr "The billing State field must be completed"
-
-#: thecartpress/checkout/TCPBillingBox.class.php:75
-#: thecartpress/checkout/TCPBillingBox.class.php:91
-#: thecartpress/checkout/BillingBox.class.php:81
-#: thecartpress/checkout/BillingBox.class.php:99
-#: thecartpress/checkout/BillingBox.class.php:417
-msgid "The billing Country is not allowed"
-msgstr "A számlázási oszág kitöltendő!"
-
-#: thecartpress/checkout/TCPBillingBox.class.php:79
-#: thecartpress/checkout/BillingBox.class.php:451
-msgid "The billing Postcode field must be completed"
-msgstr "A számlázási irányítószám kitöltendő!"
-
-#: thecartpress/checkout/TCPBillingBox.class.php:81
-msgid "The billing eMail field must be completed"
-msgstr "A számlázási e-mail kitöltendő!"
-
-#: thecartpress/checkout/TCPBillingBox.class.php:83
-#: thecartpress/checkout/BillingBox.class.php:85
-msgid "The billing eMail field must be a valid email"
-msgstr "A számlázási e-mailcím nem valós e-mailcím!"
-
-#: thecartpress/checkout/TCPBillingBox.class.php:155
-#: thecartpress/checkout/BillingBox.class.php:172
-msgid "Select billing address:"
-msgstr "Válassza ki a számlázási címet:"
-
-#: thecartpress/checkout/TCPBillingBox.class.php:166
-#: thecartpress/checkout/BillingBox.class.php:183
-msgid "Billing to the address selected"
-msgstr "Számlázás a kijelölt címre"
-
-#: thecartpress/checkout/TCPBillingBox.class.php:172
-#: thecartpress/checkout/BillingBox.class.php:189
-msgid "New billing address"
-msgstr "Új cím"
-
-#: thecartpress/checkout/TCPBillingBox.class.php:298
-#: thecartpress/checkout/BillingBox.class.php:377
-#, fuzzy
-msgid "First name"
-msgstr "Név"
-
-#: thecartpress/checkout/TCPBillingBox.class.php:303
-#: thecartpress/checkout/BillingBox.class.php:387
-#, fuzzy
-msgid "Last name"
-msgstr "Családnév"
-
-#: thecartpress/checkout/TCPBillingBox.class.php:313
-#: thecartpress/checkout/BillingBox.class.php:407
-msgid "Tax ID number"
-msgstr "Adó azonosító:"
-
-#: thecartpress/checkout/TCPBillingBox.class.php:388
-#: thecartpress/checkout/BillingBox.class.php:486
-#, fuzzy
-msgid "Email"
-msgstr "Felhasználói e-mail"
-
 #: thecartpress/checkout/TCPNoticeBox.class.php:39
 msgid "You must accept the conditions!!"
 msgstr "Kérem jelölje be, hogy elolvasta és elfogadja a feltételeket!"
@@ -4124,71 +4080,132 @@ msgstr ""
 msgid "Billing Info"
 msgstr "Számlázás"
 
+#: thecartpress/checkout/BillingBox.class.php:81
+#: thecartpress/checkout/BillingBox.class.php:99
+#: thecartpress/checkout/BillingBox.class.php:419
+msgid "The billing Country is not allowed"
+msgstr "A számlázási oszág kitöltendő!"
+
+#: thecartpress/checkout/BillingBox.class.php:85
+msgid "The billing eMail field must be a valid email"
+msgstr "A számlázási e-mailcím nem valós e-mailcím!"
+
 #: thecartpress/checkout/BillingBox.class.php:155
 msgid "This data will be used, also, as Shipping."
 msgstr ""
 
-#: thecartpress/checkout/BillingBox.class.php:399
+#: thecartpress/checkout/BillingBox.class.php:172
+msgid "Select billing address:"
+msgstr "Válassza ki a számlázási címet:"
+
+#: thecartpress/checkout/BillingBox.class.php:183
+msgid "Billing to the address selected"
+msgstr "Számlázás a kijelölt címre"
+
+#: thecartpress/checkout/BillingBox.class.php:189
+msgid "New billing address"
+msgstr "Új cím"
+
+#: thecartpress/checkout/BillingBox.class.php:379
+#, fuzzy
+msgid "First name"
+msgstr "Név"
+
+#: thecartpress/checkout/BillingBox.class.php:381
+msgid "The billing First name field must be completed"
+msgstr "A számlázási név kitöltendő!"
+
+#: thecartpress/checkout/BillingBox.class.php:389
+#, fuzzy
+msgid "Last name"
+msgstr "Családnév"
+
+#: thecartpress/checkout/BillingBox.class.php:391
+msgid "The billing Last name field must be completed"
+msgstr "A számlázási családnév kitöltendő!"
+
+#: thecartpress/checkout/BillingBox.class.php:401
 #, fuzzy
 msgid "The billing Company name must be completed"
 msgstr "A számlázási ország kitöltendő!"
 
 #: thecartpress/checkout/BillingBox.class.php:409
+msgid "Tax ID number"
+msgstr "Adó azonosító:"
+
+#: thecartpress/checkout/BillingBox.class.php:411
 #, fuzzy
 msgid "The billing Tax Id field must be completed"
 msgstr "A számlázási e-mail kitöltendő!"
 
-#: thecartpress/checkout/BillingBox.class.php:421
+#: thecartpress/checkout/BillingBox.class.php:423
 #, fuzzy
 msgid "The billing State field must be completed"
 msgstr "A számlázási cím kitöltendő!"
 
-#: thecartpress/checkout/BillingBox.class.php:439
+#: thecartpress/checkout/BillingBox.class.php:428
+msgid "The billing City field must be completed"
+msgstr "A számlázási település kitöltendő!"
+
+#: thecartpress/checkout/BillingBox.class.php:434
+msgid "The billing Street field must be completed"
+msgstr "A számlázási cím kitöltendő!"
+
+#: thecartpress/checkout/BillingBox.class.php:441
 #, fuzzy
 msgid "Address 2"
 msgstr "Cím"
 
-#: thecartpress/checkout/BillingBox.class.php:442
+#: thecartpress/checkout/BillingBox.class.php:444
 #, fuzzy
 msgid "The billing Street 2 field must be completed"
 msgstr "A számlázási cím kitöltendő!"
 
-#: thecartpress/checkout/BillingBox.class.php:461
+#: thecartpress/checkout/BillingBox.class.php:453
+msgid "The billing Postcode field must be completed"
+msgstr "A számlázási irányítószám kitöltendő!"
+
+#: thecartpress/checkout/BillingBox.class.php:463
 #, fuzzy
 msgid "The billing Telephone field must be completed"
 msgstr "A számlázási cím kitöltendő!"
 
-#: thecartpress/checkout/BillingBox.class.php:470
+#: thecartpress/checkout/BillingBox.class.php:472
 #, fuzzy
 msgid "The billing Second Telephone field must be completed"
 msgstr "A számlázási cím kitöltendő!"
 
-#: thecartpress/checkout/BillingBox.class.php:479
+#: thecartpress/checkout/BillingBox.class.php:481
 #, fuzzy
 msgid "The billing Fax field must be completed"
 msgstr "A számlázási e-mail kitöltendő!"
 
 #: thecartpress/checkout/BillingBox.class.php:488
 #, fuzzy
+msgid "Email"
+msgstr "Felhasználói e-mail"
+
+#: thecartpress/checkout/BillingBox.class.php:490
+#, fuzzy
 msgid "The billing eMail field must be completed and valid"
 msgstr "A számlázási e-mail kitöltendő!"
 
-#: thecartpress/checkout/BillingBox.class.php:620
+#: thecartpress/checkout/BillingBox.class.php:622
 msgid "Drag and Drop fields to sort them"
 msgstr ""
 
-#: thecartpress/checkout/BillingBox.class.php:643
-#: thecartpress/checkout/BillingBox.class.php:657
+#: thecartpress/checkout/BillingBox.class.php:650
+#: thecartpress/checkout/BillingBox.class.php:672
 #, fuzzy
 msgid "Required"
 msgstr "Árak frissítése"
 
-#: thecartpress/checkout/BillingBox.class.php:667
+#: thecartpress/checkout/BillingBox.class.php:685
 #, fuzzy
 msgid "Use as shipping"
 msgstr "Alap szállítás"
 
-#: thecartpress/checkout/BillingBox.class.php:671
+#: thecartpress/checkout/BillingBox.class.php:689
 msgid "This option only must be activated if the Shipping Box is not used"
 msgstr ""
 
@@ -4309,89 +4326,6 @@ msgstr "jelszó"
 msgid "Invalid email"
 msgstr ""
 
-#: thecartpress/checkout/TCPBillingExBox.class.php:83
-#, fuzzy
-msgid "The billing company field must be completed"
-msgstr "A számlázási ország kitöltendő!"
-
-#: thecartpress/checkout/TCPBillingExBox.class.php:87
-#, fuzzy
-msgid "The billing tax id number field must be completed"
-msgstr "A számlázási családnév kitöltendő!"
-
-#: thecartpress/checkout/TCPBillingExBox.class.php:111
-#, fuzzy
-msgid "The billing telephone 1 field must be completed"
-msgstr "A számlázási cím kitöltendő!"
-
-#: thecartpress/checkout/TCPBillingExBox.class.php:115
-#, fuzzy
-msgid "The billing telephone 2 field must be completed"
-msgstr "A számlázási cím kitöltendő!"
-
-#: thecartpress/checkout/TCPBillingExBox.class.php:119
-#, fuzzy
-msgid "The billing fax field must be completed"
-msgstr "A számlázási e-mail kitöltendő!"
-
-#: thecartpress/checkout/TCPBillingExBox.class.php:194
-msgid "Display billing company"
-msgstr ""
-
-#: thecartpress/checkout/TCPBillingExBox.class.php:198
-msgid "Required billing company"
-msgstr ""
-
-#: thecartpress/checkout/TCPBillingExBox.class.php:202
-#, fuzzy
-msgid "Display billing tax id number"
-msgstr "Teljes adó részletezés"
-
-#: thecartpress/checkout/TCPBillingExBox.class.php:206
-msgid "Required billing tax id number"
-msgstr ""
-
-#: thecartpress/checkout/TCPBillingExBox.class.php:210
-msgid "Display billing region"
-msgstr ""
-
-#: thecartpress/checkout/TCPBillingExBox.class.php:214
-msgid "Required billing region"
-msgstr ""
-
-#: thecartpress/checkout/TCPBillingExBox.class.php:218
-msgid "Display billing telephone 1"
-msgstr ""
-
-#: thecartpress/checkout/TCPBillingExBox.class.php:222
-msgid "Required billing telephone 1"
-msgstr ""
-
-#: thecartpress/checkout/TCPBillingExBox.class.php:226
-msgid "Display billing telephone 2"
-msgstr ""
-
-#: thecartpress/checkout/TCPBillingExBox.class.php:230
-msgid "Required billing telephone 2"
-msgstr ""
-
-#: thecartpress/checkout/TCPBillingExBox.class.php:234
-#, fuzzy
-msgid "Display billing fax"
-msgstr "Teljes adó részletezés"
-
-#: thecartpress/checkout/TCPBillingExBox.class.php:238
-msgid "Required billing fax"
-msgstr ""
-
-#: thecartpress/checkout/TCPBillingExBox.class.php:244
-msgid "This option only must be activated if the shipping box is not used"
-msgstr ""
-
-#: thecartpress/checkout/TCPBillingExBox.class.php:301
-msgid "This data will be used also as Shipping."
-msgstr ""
-
 #: thecartpress/checkout/TCPSigninBox.class.php:26
 msgid "Checkout method"
 msgstr "Regisztráció"
@@ -4484,95 +4418,83 @@ msgstr "Szállítási költség"
 
 #: thecartpress/checkout/ShippingBox.class.php:77
 #: thecartpress/checkout/ShippingBox.class.php:94
-#: thecartpress/checkout/ShippingBox.class.php:401
-#: thecartpress/checkout/TCPShippingBox.class.php:85
-#: thecartpress/checkout/TCPShippingBox.class.php:100
+#: thecartpress/checkout/ShippingBox.class.php:400
 msgid "The shipping Country is not allowed"
 msgstr "A szállítási ország kitöltendő!"
 
 #: thecartpress/checkout/ShippingBox.class.php:81
-#: thecartpress/checkout/TCPShippingBox.class.php:93
 #, fuzzy
 msgid "The shipping eMail field must be a valid email"
 msgstr "The shipping State field must be completed"
 
 #: thecartpress/checkout/ShippingBox.class.php:163
-#: thecartpress/checkout/TCPShippingBox.class.php:169
 msgid "Select shipping address:"
 msgstr "Válassza ki a szállítási címet:"
 
 #: thecartpress/checkout/ShippingBox.class.php:174
-#: thecartpress/checkout/TCPShippingBox.class.php:180
 #, fuzzy
 msgid "Shipping to the address selected"
 msgstr "Szállítási cím kiválasztva"
 
 #: thecartpress/checkout/ShippingBox.class.php:181
-#: thecartpress/checkout/TCPShippingBox.class.php:187
 msgid "Use billing address"
 msgstr "A számlázási címmel megegyezik"
 
 #: thecartpress/checkout/ShippingBox.class.php:189
-#: thecartpress/checkout/TCPShippingBox.class.php:194
 msgid "New shipping address"
 msgstr "Új cím"
 
 #: thecartpress/checkout/ShippingBox.class.php:372
-#: thecartpress/checkout/TCPShippingBox.class.php:72
 msgid "The shipping First name field must be completed"
 msgstr "A szállítási név kitöltendő!"
 
 #: thecartpress/checkout/ShippingBox.class.php:382
-#: thecartpress/checkout/TCPShippingBox.class.php:74
 msgid "The shipping Last name field must be completed"
 msgstr "A szállítási családnév kitöltendő!"
 
-#: thecartpress/checkout/ShippingBox.class.php:392
+#: thecartpress/checkout/ShippingBox.class.php:391
 #, fuzzy
 msgid "The shipping Company name must be completed"
 msgstr "település"
 
-#: thecartpress/checkout/ShippingBox.class.php:405
+#: thecartpress/checkout/ShippingBox.class.php:404
 #, fuzzy
 msgid "The shipping State field must be completed"
 msgstr "A szállítási cím kitöltendő!"
 
-#: thecartpress/checkout/ShippingBox.class.php:409
-#: thecartpress/checkout/TCPShippingBox.class.php:78
+#: thecartpress/checkout/ShippingBox.class.php:408
 msgid "The shipping City field must be completed"
 msgstr "település"
 
-#: thecartpress/checkout/ShippingBox.class.php:415
-#: thecartpress/checkout/TCPShippingBox.class.php:76
+#: thecartpress/checkout/ShippingBox.class.php:414
 msgid "The shipping Street field must be completed"
 msgstr "A szállítási cím kitöltendő!"
 
-#: thecartpress/checkout/ShippingBox.class.php:425
+#: thecartpress/checkout/ShippingBox.class.php:424
 #, fuzzy
 msgid "The shipping Street 2 field must be completed"
 msgstr "A szállítási cím kitöltendő!"
 
-#: thecartpress/checkout/ShippingBox.class.php:434
-#: thecartpress/checkout/TCPShippingBox.class.php:89
+#: thecartpress/checkout/ShippingBox.class.php:433
 msgid "The shipping Postcode field must be completed"
 msgstr "A szállítási irányítószám kitöltendő!"
 
-#: thecartpress/checkout/ShippingBox.class.php:444
+#: thecartpress/checkout/ShippingBox.class.php:443
 #, fuzzy
 msgid "The shipping Telephone field must be completed"
 msgstr "The shipping State field must be completed"
 
-#: thecartpress/checkout/ShippingBox.class.php:453
+#: thecartpress/checkout/ShippingBox.class.php:452
 #, fuzzy
 msgid "The shipping Second Telephone field must be completed"
 msgstr "A szállítási irányítószám kitöltendő!"
 
-#: thecartpress/checkout/ShippingBox.class.php:462
+#: thecartpress/checkout/ShippingBox.class.php:461
 #, fuzzy
 msgid "The shipping Fax field must be completed"
 msgstr "The shipping State field must be completed"
 
-#: thecartpress/checkout/ShippingBox.class.php:471
+#: thecartpress/checkout/ShippingBox.class.php:470
 #, fuzzy
 msgid "The shipping eMail field must be completed and valid"
 msgstr "The shipping State field must be completed"
@@ -4674,19 +4596,6 @@ msgstr "Ez a azsöveg jelenik meg a megrendelés végrehajtásakor."
 msgid "If this messages is blank, the Checkout page will try to use the Notice class called \"tcp_checkout_end\""
 msgstr "Ha nincs üzleti szabályzat akkor nem működik az annak elfogadása gomb"
 
-#: thecartpress/checkout/TCPShippingBox.class.php:47
-msgid "Shipping options"
-msgstr "Szállítási lehetőségek"
-
-#: thecartpress/checkout/TCPShippingBox.class.php:80
-msgid "The shipping Region field must be completed"
-msgstr "The shipping State field must be completed"
-
-#: thecartpress/checkout/TCPShippingBox.class.php:91
-#, fuzzy
-msgid "The shipping eMail field must be completed"
-msgstr "The shipping State field must be completed"
-
 #: thecartpress/checkout/CheckoutEditor.class.php:46
 #: thecartpress/checkout/CheckoutEditor.class.php:87
 #, fuzzy
@@ -4735,21 +4644,25 @@ msgstr ""
 msgid "If you drag and drop in the deactivated area, the step will be deleted from the checkout."
 msgstr ""
 
-#: thecartpress/modules/Extend.class.php:37
-#: thecartpress/modules/Extend.class.php:39
-#: thecartpress/modules/Extend.class.php:63
+#: thecartpress/modules/Extend.class.php:38
+#: thecartpress/modules/Extend.class.php:40
 msgid "Extend"
 msgstr ""
 
-#: thecartpress/modules/Extend.class.php:39
+#: thecartpress/modules/Extend.class.php:40
 msgid "Extend Store"
 msgstr ""
 
-#: thecartpress/modules/Extend.class.php:49
+#: thecartpress/modules/Extend.class.php:50
 msgid "Extended modules."
 msgstr ""
 
-#: thecartpress/modules/Extend.class.php:91
+#: thecartpress/modules/Extend.class.php:65
+#, fuzzy
+msgid "Loading..."
+msgstr "függőben"
+
+#: thecartpress/modules/Extend.class.php:93
 msgid "Learn more"
 msgstr ""
 
@@ -4961,22 +4874,22 @@ msgstr "Letöltő Zóna"
 msgid "Child of TheCartPress"
 msgstr "Webshop üzenet"
 
-#: thecartpress/modules/WishList.class.php:114
+#: thecartpress/modules/WishList.class.php:116
 #, fuzzy
 msgid "WishList"
 msgstr "Kívásnáglista"
 
-#: thecartpress/modules/WishList.class.php:121
+#: thecartpress/modules/WishList.class.php:123
 #, fuzzy
 msgid "Enabled Wish List"
 msgstr "Kívánságlista engedélyezése"
 
-#: thecartpress/modules/WishList.class.php:141
+#: thecartpress/modules/WishList.class.php:142
 #, fuzzy
 msgid "My Wish List"
 msgstr "Kívásnáglista"
 
-#: thecartpress/modules/WishList.class.php:154
+#: thecartpress/modules/WishList.class.php:155
 msgid "Add to Wish list"
 msgstr "Kívánságlistához ad"
 
@@ -5010,160 +4923,160 @@ msgstr ""
 msgid "parent theme"
 msgstr "Szülő kategória"
 
-#: thecartpress/modules/StockManagement.class.php:132
-#: thecartpress/modules/StockManagement.class.php:144
-#: thecartpress/modules/StockManagement.class.php:154
-#: thecartpress/modules/StockManagement.class.php:279
-#: thecartpress/modules/StockManagement.class.php:397
-#: thecartpress/modules/StockManagement.class.php:437
-#: thecartpress/modules/StockManagement.class.php:465
-#: thecartpress/modules/StockManagement.class.php:676
+#: thecartpress/modules/StockManagement.class.php:131
+#: thecartpress/modules/StockManagement.class.php:143
+#: thecartpress/modules/StockManagement.class.php:153
+#: thecartpress/modules/StockManagement.class.php:278
+#: thecartpress/modules/StockManagement.class.php:396
+#: thecartpress/modules/StockManagement.class.php:436
+#: thecartpress/modules/StockManagement.class.php:464
+#: thecartpress/modules/StockManagement.class.php:675
 msgid "Stock"
 msgstr "Készlet"
 
-#: thecartpress/modules/StockManagement.class.php:267
+#: thecartpress/modules/StockManagement.class.php:266
 msgid "Update Stock"
 msgstr "Készletfrissítés"
 
-#: thecartpress/modules/StockManagement.class.php:286
+#: thecartpress/modules/StockManagement.class.php:285
 msgid "Stock management"
 msgstr "Készlet nyilvántartás"
 
-#: thecartpress/modules/StockManagement.class.php:290
+#: thecartpress/modules/StockManagement.class.php:289
 msgid "Activates the stock management tools"
 msgstr ""
 
-#: thecartpress/modules/StockManagement.class.php:295
+#: thecartpress/modules/StockManagement.class.php:294
 msgid "When is stock adjusted"
 msgstr ""
 
-#: thecartpress/modules/StockManagement.class.php:299
+#: thecartpress/modules/StockManagement.class.php:298
 msgid "Never automatically adjusted"
 msgstr ""
 
-#: thecartpress/modules/StockManagement.class.php:301
+#: thecartpress/modules/StockManagement.class.php:300
 msgid "On checkout (default)"
 msgstr ""
 
-#: thecartpress/modules/StockManagement.class.php:303
+#: thecartpress/modules/StockManagement.class.php:302
 msgid "On OK from payment gateway"
 msgstr ""
 
-#: thecartpress/modules/StockManagement.class.php:305
+#: thecartpress/modules/StockManagement.class.php:304
 #, fuzzy
 msgid "Order status set to "
 msgstr "Új állapot"
 
-#: thecartpress/modules/StockManagement.class.php:317
+#: thecartpress/modules/StockManagement.class.php:316
 #, fuzzy
 msgid "Stock limit"
 msgstr "Készlet"
 
-#: thecartpress/modules/StockManagement.class.php:321
+#: thecartpress/modules/StockManagement.class.php:320
 msgid "Sets the upper limit to send emails for low stock"
 msgstr ""
 
-#: thecartpress/modules/StockManagement.class.php:326
+#: thecartpress/modules/StockManagement.class.php:325
 #, fuzzy
 msgid "Hide out of stock products"
 msgstr "Hozzárendelt termékek listája"
 
-#: thecartpress/modules/StockManagement.class.php:330
+#: thecartpress/modules/StockManagement.class.php:329
 #, fuzzy
 msgid "Allows to hide out of Stock products"
 msgstr "Nincs raktáron"
 
-#: thecartpress/modules/StockManagement.class.php:391
+#: thecartpress/modules/StockManagement.class.php:390
 #, fuzzy
 msgid " Low Stock"
 msgstr "Készlet"
 
-#: thecartpress/modules/StockManagement.class.php:418
+#: thecartpress/modules/StockManagement.class.php:417
 #, fuzzy
 msgid "Low Stock Notice"
 msgstr "Készlet üzelet"
 
-#: thecartpress/modules/StockManagement.class.php:429
+#: thecartpress/modules/StockManagement.class.php:428
 msgid "This notice will be showed when the client is going to pay and there is no stock of any product in the cart."
 msgstr ""
 
-#: thecartpress/modules/StockManagement.class.php:440
-#: thecartpress/modules/StockManagement.class.php:455
+#: thecartpress/modules/StockManagement.class.php:439
+#: thecartpress/modules/StockManagement.class.php:454
 #, php-format
 msgid "Stock management is disabled. See the <a href=\"%s\">settings</a> page to change this value."
 msgstr "Készlet nyilvántartás tiltása. Tekintse meg a <a href=\"%s\">beállítások</a> oldalt a megváltoztatáshoz."
 
-#: thecartpress/modules/StockManagement.class.php:447
+#: thecartpress/modules/StockManagement.class.php:446
 msgid "Use value -1 (or left blank) for stores/products with no stock management."
 msgstr ""
 
-#: thecartpress/modules/StockManagement.class.php:452
+#: thecartpress/modules/StockManagement.class.php:451
 #, fuzzy
 msgid "Initial Stock"
 msgstr "Aktuális készlet"
 
-#: thecartpress/modules/StockManagement.class.php:499
+#: thecartpress/modules/StockManagement.class.php:498
 msgid "See stock notices"
 msgstr "Készlet üzenet látszik"
 
-#: thecartpress/modules/StockManagement.class.php:519
+#: thecartpress/modules/StockManagement.class.php:518
 #, fuzzy, php-format
 msgid "No enough stock for this product. Only %s available items."
 msgstr "Nincs elegendeő a kért termékből.Mindössze %s elérhető."
 
-#: thecartpress/modules/StockManagement.class.php:521
-#: thecartpress/modules/StockManagement.class.php:537
-#: thecartpress/modules/StockManagement.class.php:750
+#: thecartpress/modules/StockManagement.class.php:520
+#: thecartpress/modules/StockManagement.class.php:536
+#: thecartpress/modules/StockManagement.class.php:749
 msgid "Out of stock"
 msgstr "Nincs készleten"
 
-#: thecartpress/modules/StockManagement.class.php:540
+#: thecartpress/modules/StockManagement.class.php:539
 #, fuzzy, php-format
 msgid "No enough stock. Only %s available items."
 msgstr "Nincs elegendő készlet. Mindössze %s db elérhető."
 
-#: thecartpress/modules/StockManagement.class.php:550
+#: thecartpress/modules/StockManagement.class.php:549
 #, fuzzy
 msgid "You are trying to check out your order but, at this moment, there are not enough stock of some products. Please, review the list of products."
 msgstr "Néhány termékből nem áll rendelkezésre elegendő. Kérem ellenőrizze a terméklistát!"
 
-#: thecartpress/modules/StockManagement.class.php:578
+#: thecartpress/modules/StockManagement.class.php:577
 msgid "Not enough stock in order at check-out"
 msgstr "Nem elegendő mennyiség a megrendelés végrehajtásához!"
 
-#: thecartpress/modules/StockManagement.class.php:581
+#: thecartpress/modules/StockManagement.class.php:580
 msgid "There was an error when creating the order. Please contact with the seller."
 msgstr "Hiba történt a rendelés folyamán. Kérem lépjen kapcsolatba a webshop üzemeltetőjével."
 
-#: thecartpress/modules/StockManagement.class.php:603
+#: thecartpress/modules/StockManagement.class.php:602
 msgid "No stock after payment for:"
 msgstr ""
 
-#: thecartpress/modules/StockManagement.class.php:633
+#: thecartpress/modules/StockManagement.class.php:632
 #, fuzzy
 msgid "There was an error when creating the order. Seller will contact you regarding your order."
 msgstr "Hiba történt a rendelés folyamán. Kérem lépjen kapcsolatba a webshop üzemeltetőjével."
 
-#: thecartpress/modules/StockManagement.class.php:664
+#: thecartpress/modules/StockManagement.class.php:663
 #, fuzzy
 msgid "Units in stock"
 msgstr "Nincs készleten"
 
-#: thecartpress/modules/StockManagement.class.php:668
+#: thecartpress/modules/StockManagement.class.php:667
 #, fuzzy
 msgid "Initial stock"
 msgstr "Aktuális készlet"
 
-#: thecartpress/modules/StockManagement.class.php:705
-#: thecartpress/modules/StockManagement.class.php:708
+#: thecartpress/modules/StockManagement.class.php:704
+#: thecartpress/modules/StockManagement.class.php:707
 msgid "N/A"
 msgstr ""
 
-#: thecartpress/modules/StockManagement.class.php:728
+#: thecartpress/modules/StockManagement.class.php:727
 msgid "See stock notice"
 msgstr "Készlet üzelet"
 
-#: thecartpress/modules/StockManagement.class.php:739
+#: thecartpress/modules/StockManagement.class.php:738
 #, php-format
 msgid "No enough stock for some products. Visit the <a href=\"%s\">Shopping Cart</a> to see more details."
 msgstr "Nincs elegendő termék raktáron. Tekintse meg <a href=\"%s\">a Kosarat </a> a részletekért."
@@ -5227,30 +5140,35 @@ msgid "Product Units"
 msgstr "Termékek"
 
 #: thecartpress/modules/UnitsInBuyButton.class.php:146
+#, fuzzy
+msgid "unit"
+msgstr "mennyiség"
+
+#: thecartpress/modules/UnitsInBuyButton.class.php:147
 msgid "piece"
 msgstr ""
 
-#: thecartpress/modules/UnitsInBuyButton.class.php:147
+#: thecartpress/modules/UnitsInBuyButton.class.php:148
 msgid "roll"
 msgstr ""
 
-#: thecartpress/modules/UnitsInBuyButton.class.php:148
+#: thecartpress/modules/UnitsInBuyButton.class.php:149
 msgid "meter"
 msgstr ""
 
-#: thecartpress/modules/UnitsInBuyButton.class.php:149
+#: thecartpress/modules/UnitsInBuyButton.class.php:150
 msgid "kg"
 msgstr ""
 
-#: thecartpress/modules/UnitsInBuyButton.class.php:150
+#: thecartpress/modules/UnitsInBuyButton.class.php:151
 msgid "gr"
 msgstr ""
 
-#: thecartpress/modules/UnitsInBuyButton.class.php:151
+#: thecartpress/modules/UnitsInBuyButton.class.php:152
 msgid "pack"
 msgstr ""
 
-#: thecartpress/modules/UnitsInBuyButton.class.php:153
+#: thecartpress/modules/UnitsInBuyButton.class.php:154
 #, fuzzy
 msgid "By default"
 msgstr "Alap"
@@ -5385,91 +5303,91 @@ msgstr "Regisztráció nélkül."
 msgid "Activate next Javascript"
 msgstr ""
 
-#: thecartpress/modules/BuyButton.class.php:127
+#: thecartpress/modules/BuyButton.class.php:114
 #, fuzzy
 msgid "Buy Buttons"
 msgstr "Kosár gomb mutatása"
 
-#: thecartpress/modules/BuyButton.class.php:135
+#: thecartpress/modules/BuyButton.class.php:122
 msgid "Theme"
 msgstr ""
 
-#: thecartpress/modules/BuyButton.class.php:139
+#: thecartpress/modules/BuyButton.class.php:126
 #, fuzzy
 msgid "Parent theme"
 msgstr "Szülő kategória"
 
-#: thecartpress/modules/BuyButton.class.php:171
+#: thecartpress/modules/BuyButton.class.php:158
 #, fuzzy
 msgid "Buy button"
 msgstr "Kosár gomb mutatása"
 
-#: thecartpress/modules/BuyButton.class.php:206
-#: thecartpress/modules/BuyButton.class.php:217
+#: thecartpress/modules/BuyButton.class.php:193
+#: thecartpress/modules/BuyButton.class.php:204
 #, fuzzy
 msgid "Theme default"
 msgstr "Beszállítók frissítése"
 
-#: thecartpress/modules/BuyButton.class.php:208
+#: thecartpress/modules/BuyButton.class.php:195
 msgid "Blue"
 msgstr ""
 
-#: thecartpress/modules/BuyButton.class.php:209
+#: thecartpress/modules/BuyButton.class.php:196
 msgid "Green"
 msgstr ""
 
-#: thecartpress/modules/BuyButton.class.php:210
+#: thecartpress/modules/BuyButton.class.php:197
 msgid "Cyan"
 msgstr ""
 
-#: thecartpress/modules/BuyButton.class.php:211
+#: thecartpress/modules/BuyButton.class.php:198
 msgid "Orange"
 msgstr ""
 
-#: thecartpress/modules/BuyButton.class.php:212
+#: thecartpress/modules/BuyButton.class.php:199
 msgid "Red"
 msgstr ""
 
-#: thecartpress/modules/BuyButton.class.php:213
+#: thecartpress/modules/BuyButton.class.php:200
 msgid "Link"
 msgstr ""
 
-#: thecartpress/modules/BuyButton.class.php:218
+#: thecartpress/modules/BuyButton.class.php:205
 msgid "Extra Small"
 msgstr ""
 
-#: thecartpress/modules/BuyButton.class.php:219
+#: thecartpress/modules/BuyButton.class.php:206
 msgid "Small"
 msgstr ""
 
-#: thecartpress/modules/BuyButton.class.php:220
+#: thecartpress/modules/BuyButton.class.php:207
 msgid "Large"
 msgstr ""
 
-#: thecartpress/modules/BuyButton.class.php:228
+#: thecartpress/modules/BuyButton.class.php:215
 #, fuzzy
 msgid "Button Styles"
 msgstr "Ügyfél"
 
-#: thecartpress/modules/BuyButton.class.php:237
+#: thecartpress/modules/BuyButton.class.php:224
 msgid "Colors"
 msgstr ""
 
-#: thecartpress/modules/BuyButton.class.php:253
+#: thecartpress/modules/BuyButton.class.php:240
 msgid "Example "
 msgstr ""
 
-#: thecartpress/modules/BuyButton.class.php:254
+#: thecartpress/modules/BuyButton.class.php:241
 #, fuzzy
 msgid "Add to Cart"
 msgstr "Kosárba helyezés után"
 
-#: thecartpress/modules/BuyButton.class.php:261
+#: thecartpress/modules/BuyButton.class.php:248
 #, fuzzy
 msgid "Sizes"
 msgstr "Méter egysége"
 
-#: thecartpress/modules/BuyButton.class.php:281
+#: thecartpress/modules/BuyButton.class.php:268
 #, fuzzy
 msgid "Grouped buttons"
 msgstr "Csoportosított"
@@ -5597,6 +5515,7 @@ msgid "Calculate the shipping cost using a table of weights ranges and zones.<br
 msgstr ""
 
 #: thecartpress/plugins/ShippingCost.class.php:52
+#: thecartpress/plugins/FlatRate.class.php:56
 #, php-format
 msgid "%s. Cost: %s"
 msgstr "%s. Nettó ár: %s"
@@ -5710,7 +5629,8 @@ msgid "If checked, Checkout page will completed the order. Customers will not ne
 msgstr ""
 
 #: thecartpress/plugins/NoCostPayment.class.php:89
-#: thecartpress/plugins/Transference.class.php:224
+#: thecartpress/plugins/Transference.class.php:225
+#: thecartpress/plugins/Remboursement.class.php:123
 msgid "Finish"
 msgstr "Elküld"
 
@@ -5867,6 +5787,7 @@ msgid "Authorization Only"
 msgstr ""
 
 #: thecartpress/plugins/authorize.net/TCPAuthorizeNet.class.php:92
+#: thecartpress/plugins/PayPal/TCPPayPal.php:95
 msgid "Indicates whether the payment is a final sale or an authorization for a final sale, to be captured later"
 msgstr ""
 
@@ -6039,116 +5960,116 @@ msgstr ""
 msgid "PayPal - The safer, easier way to pay online"
 msgstr "PayPal - The safer, easier way to pay online"
 
-#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:42
+#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:44
 msgid "Store part of the number"
 msgstr ""
 
-#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:45
+#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:48
 msgid "The credit card will be stored as 9999 xxxx xxxx 9999"
 msgstr ""
 
-#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:67
+#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:71
 msgid "Off line payment:"
 msgstr "Off line fizetés:"
 
-#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:77
+#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:80
 msgid "Credit card holder"
 msgstr "A bankkártya tulajdonosa:"
 
-#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:86
-#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:219
+#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:89
+#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:226
 msgid "Card number"
 msgstr "Kárytaszám"
 
-#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:102
-#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:226
+#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:106
+#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:233
 msgid "cvc"
 msgstr "cvc"
 
-#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:111
-#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:231
+#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:115
+#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:238
 msgid "Expiration date"
 msgstr "Lejárati idő"
 
-#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:114
+#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:118
 msgid "Month"
 msgstr "Hónap"
 
-#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:121
+#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:125
 msgid "Year"
 msgstr "Év"
 
-#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:132
+#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:136
 msgid "Card type"
 msgstr "Kártya típus"
 
-#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:175
+#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:179
 msgid "Wrong Card number"
 msgstr "Hibás kárytaszám"
 
-#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:181
+#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:185
 msgid "The field Card Holder must be completed"
 msgstr "A kártya tulajdost meg kell adni!"
 
-#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:190
+#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:196
 msgid "Send"
 msgstr "Elküld"
 
-#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:202
+#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:209
 msgid "The data from the customer's credit card has been permanently removed"
 msgstr ""
 
-#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:211
+#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:218
 msgid "Credit Card Holder"
 msgstr "Kártya tulajdonos"
 
-#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:241
+#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:248
 msgid "Credit Card Type"
 msgstr "Káryta típus"
 
-#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:245
+#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:252
 msgid "Delete card data"
 msgstr "Kártya adatok törlése"
 
-#: thecartpress/metaboxes/AttachmentsMetabox.class.php:76
+#: thecartpress/metaboxes/AttachmentsMetabox.class.php:45
 #, fuzzy
 msgid "Attachments"
 msgstr "fizetési"
 
-#: thecartpress/metaboxes/AttachmentsMetabox.class.php:95
-#: thecartpress/metaboxes/AttachmentsMetabox.class.php:112
-#: thecartpress/metaboxes/AttachmentsMetabox.class.php:121
-#: thecartpress/metaboxes/AttachmentsMetabox.class.php:126
-#: thecartpress/metaboxes/AttachmentsMetabox.class.php:131
+#: thecartpress/metaboxes/AttachmentsMetabox.class.php:127
+#: thecartpress/metaboxes/AttachmentsMetabox.class.php:144
+#: thecartpress/metaboxes/AttachmentsMetabox.class.php:153
+#: thecartpress/metaboxes/AttachmentsMetabox.class.php:158
+#: thecartpress/metaboxes/AttachmentsMetabox.class.php:163
 #, fuzzy
 msgid "Saving..."
 msgstr "függőben"
 
-#: thecartpress/metaboxes/AttachmentsMetabox.class.php:113
+#: thecartpress/metaboxes/AttachmentsMetabox.class.php:145
 #, fuzzy
 msgid "Details"
 msgstr "Felhasználói e-mail"
 
-#: thecartpress/metaboxes/AttachmentsMetabox.class.php:114
+#: thecartpress/metaboxes/AttachmentsMetabox.class.php:146
 #, fuzzy
 msgid "Delete from post"
 msgstr "Kártya adatok törlése"
 
-#: thecartpress/metaboxes/AttachmentsMetabox.class.php:115
+#: thecartpress/metaboxes/AttachmentsMetabox.class.php:147
 #, fuzzy
 msgid "Delete image"
 msgstr "Tétel törlése"
 
-#: thecartpress/metaboxes/AttachmentsMetabox.class.php:119
+#: thecartpress/metaboxes/AttachmentsMetabox.class.php:151
 msgid "Caption"
 msgstr ""
 
-#: thecartpress/metaboxes/AttachmentsMetabox.class.php:124
+#: thecartpress/metaboxes/AttachmentsMetabox.class.php:156
 #, fuzzy
 msgid "Alternate text"
 msgstr "Ingyenes kiszállítás"
 
-#: thecartpress/metaboxes/AttachmentsMetabox.class.php:267
+#: thecartpress/metaboxes/AttachmentsMetabox.class.php:360
 msgid "No attachments"
 msgstr ""
 
@@ -6190,7 +6111,7 @@ msgid "Notices, eMails"
 msgstr "Megjegyzés"
 
 #: thecartpress/metaboxes/TemplateMetabox.class.php:51
-#: thecartpress/metaboxes/PostMetabox.class.php:41
+#: thecartpress/metaboxes/PostMetabox.class.php:55
 msgid "After saving the title and content, you will be able to edit these relations."
 msgstr ""
 
@@ -6207,7 +6128,7 @@ msgid "For crossing sell, adds products to the current product"
 msgstr ""
 
 #: thecartpress/metaboxes/ProductCustomFieldsMetabox.class.php:81
-#: thecartpress/metaboxes/PostMetabox.class.php:49
+#: thecartpress/metaboxes/PostMetabox.class.php:63
 #, fuzzy
 msgid "Related Products"
 msgstr "Hozzárendelt termékek"
@@ -6218,7 +6139,7 @@ msgid "For crossing sell, adds Post to the current product"
 msgstr ""
 
 #: thecartpress/metaboxes/ProductCustomFieldsMetabox.class.php:90
-#: thecartpress/metaboxes/PostMetabox.class.php:54
+#: thecartpress/metaboxes/PostMetabox.class.php:68
 #, fuzzy
 msgid "Related Posts"
 msgstr "Kártya adatok törlése"
@@ -6233,7 +6154,7 @@ msgid "Related Cat. of Posts"
 msgstr "Hozzárendelt termékek"
 
 #: thecartpress/metaboxes/ProductCustomFieldsMetabox.class.php:108
-#: thecartpress/metaboxes/PostMetabox.class.php:59
+#: thecartpress/metaboxes/PostMetabox.class.php:73
 #, fuzzy
 msgid "Related Cat. of Products"
 msgstr "Hozzárendelt termékek"
@@ -6290,15 +6211,15 @@ msgstr "Ár tartományon kívül esik"
 msgid "If the product is assigned to a Grouped product, this option excludes the product from the range price of the parent product."
 msgstr ""
 
-#: thecartpress/metaboxes/PostMetabox.class.php:28
+#: thecartpress/metaboxes/PostMetabox.class.php:42
 msgid "Related content"
 msgstr "Kapcsolódó tartalom"
 
-#: thecartpress/metaboxes/PostMetabox.class.php:59
+#: thecartpress/metaboxes/PostMetabox.class.php:73
 msgid "For crossing sell, adds post to the current product"
 msgstr ""
 
-#: thecartpress/shortcodes/Shortcode.class.php:48
+#: thecartpress/shortcodes/Shortcode.class.php:62
 #, php-format
 msgid "Mal formed shortcode: %s"
 msgstr ""
@@ -6308,7 +6229,7 @@ msgstr ""
 msgid "Continue Shopping"
 msgstr "Vásárlás folytatása"
 
-#: thecartpress/shortcodes/ShoppingCartPage.class.php:98
+#: thecartpress/shortcodes/ShoppingCartPage.class.php:100
 #, fuzzy
 msgid "See Your Shopping Cart"
 msgstr "Kosár mutatása"
@@ -6344,7 +6265,7 @@ msgid "TheCartPress search engine property is deactivate"
 msgstr "A TheCartPress kereső motor kikapcsolva"
 
 #: thecartpress/classes/TCP_Plugin.class.php:160
-#: thecartpress/classes/TCP_Plugin.class.php:171
+#: thecartpress/classes/TCP_Plugin.class.php:172
 #, fuzzy, php-format
 msgid "This notice will be displayed in the checkout process and added in the email to the customer with the info related to %s"
 msgstr "Ez a azsöveg jelenik meg a megrendelés végrehajtásakor."
@@ -6565,15 +6486,15 @@ msgstr "Adó"
 msgid "Price - Type"
 msgstr "Árak frissítése"
 
-#: thecartpress/customposttypes/ProductCustomPostType.class.php:249
+#: thecartpress/customposttypes/ProductCustomPostType.class.php:251
 msgid "View all categories"
 msgstr ""
 
-#: thecartpress/customposttypes/ProductCustomPostType.class.php:259
+#: thecartpress/customposttypes/ProductCustomPostType.class.php:261
 msgid "type:"
 msgstr ""
 
-#: thecartpress/customposttypes/ProductCustomPostType.class.php:267
+#: thecartpress/customposttypes/ProductCustomPostType.class.php:269
 msgid "SKU:"
 msgstr ""
 
@@ -6583,40 +6504,41 @@ msgstr ""
 msgid "%1$s%2$s (%3$s)"
 msgstr ""
 
-#: thecartpress/templates/tcp_template.php:575
-msgid "(Inc. Tax)"
+#: thecartpress/templates/tcp_template.php:571
+msgid "(Inc. tax)"
 msgstr ""
 
-#: thecartpress/templates/tcp_template.php:576
-msgid "(No inc. Tax)"
-msgstr ""
+#: thecartpress/templates/tcp_template.php:572
+#, fuzzy
+msgid "(No inc. tax)"
+msgstr "Adómentes"
 
-#: thecartpress/templates/tcp_template.php:1003
+#: thecartpress/templates/tcp_template.php:972
 #, fuzzy
 msgid "Completed"
 msgstr "végrehajtva"
 
-#: thecartpress/templates/tcp_template.php:1010
+#: thecartpress/templates/tcp_template.php:979
 #, fuzzy
 msgid "Processing"
 msgstr "végrehajtás alatt"
 
-#: thecartpress/templates/tcp_template.php:1016
+#: thecartpress/templates/tcp_template.php:985
 #, fuzzy
 msgid "Pending"
 msgstr "függőben"
 
-#: thecartpress/templates/tcp_template.php:1022
+#: thecartpress/templates/tcp_template.php:991
 #, fuzzy
 msgid "Cancelled"
 msgstr "törölve"
 
-#: thecartpress/templates/tcp_template.php:1029
+#: thecartpress/templates/tcp_template.php:998
 #, fuzzy
 msgid "Suspended"
 msgstr "felfüggesztve"
 
-#: thecartpress/templates/tcp_template.php:1109
+#: thecartpress/templates/tcp_template.php:1078
 msgid "Simple"
 msgstr "Egyszerű"
 
@@ -6637,9 +6559,9 @@ msgstr ""
 msgid "Add to cart"
 msgstr "Kosárba helyezés után"
 
-#: thecartpress/templates/tcp_buybutton_template.php:74
+#: thecartpress/templates/tcp_buybutton_template.php:76
 #, fuzzy, php-format
-msgid "<span class=\"tcp_units\">%s</span> unit(s) <a href=\"%s\">in your cart</a>"
+msgid "<span class=\"tcp_units\">%s</span> unit(s) <a href=\"%s\" class=\"alert-link\">in your cart</a>"
 msgstr "%s db <a href=\"%s\">a kosarában</a>"
 
 #: thecartpress/templates/tcp_general_template.php:136
@@ -6801,133 +6723,118 @@ msgstr "Sablon kompatibilitási beállítás"
 msgid "Customize Theme Compatibility. Thanks to this feature, TheCartPress supports all themes."
 msgstr ""
 
-#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:103
+#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:95
 #, fuzzy
 msgid "TheCartPress Styles"
 msgstr "Webshop beállításai"
 
-#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:105
+#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:97
 msgid "Allows to load default styles provided by TheCartPress. To create your own styles, deactivate these settings. You could, also, customise by copying these CSS files to your theme."
 msgstr ""
 
-#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:114
+#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:106
 #, fuzzy
 msgid "Load default Buy Button styles"
 msgstr "Kosár ürítése"
 
-#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:123
+#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:115
 #, fuzzy
 msgid "Load default Shopping Cart & Checkout styles"
 msgstr "Kosár ürítése"
 
-#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:132
+#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:124
 #, fuzzy
 msgid "Load default Catalogue styles"
 msgstr "Kosár ürítése"
 
-#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:141
+#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:133
+#, fuzzy
+msgid "Load Bootstrap JavaScript"
+msgstr "Irányítószám"
+
+#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:142
 msgid "Product pages show at most"
 msgstr ""
 
-#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:145
+#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:146
 #, fuzzy
 msgid "products"
 msgstr "Termékek"
 
-#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:155
+#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:156
 #, fuzzy
 msgid "How to display Product Details"
 msgstr "Kívánságlista engedélyezése"
 
-#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:182
-#: thecartpress/appearance/LoopSettings.class.php:123
+#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:183
+#: thecartpress/appearance/LoopSettings.class.php:126
 #, fuzzy
 msgid "Load post type settings"
 msgstr "Beállítások"
 
-#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:183
-#: thecartpress/appearance/LoopSettings.class.php:124
+#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:184
+#: thecartpress/appearance/LoopSettings.class.php:127
 #, fuzzy
 msgid "Delete post type settings"
 msgstr "Webshop üzenet"
 
-#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:184
+#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:185
 msgid "Allows to create different configuration for each Post Type."
 msgstr ""
 
-#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:185
-#: thecartpress/appearance/LoopSettings.class.php:126
+#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:186
+#: thecartpress/appearance/LoopSettings.class.php:129
 msgid "Options in bold have a specific configuration."
 msgstr ""
 
-#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:186
+#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:187
 #, fuzzy
 msgid "Remember to save the changes before to load new post type settings."
 msgstr "Ne felejtsen minden értéket menteni új súlyhatár létrehozása előtt"
 
-#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:194
-#, fuzzy
-msgid "See buy button"
-msgstr "Kosár gomb látszik:"
-
-#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:198
-msgid "Allows to show the buy button in the product description."
-msgstr ""
-
-#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:204
-#, fuzzy
-msgid "See price"
-msgstr "Ár látszik"
-
-#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:208
-msgid "This value will be available if buy button is hidden"
-msgstr ""
-
-#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:214
+#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:195
 msgid "Image size grouped buy button"
 msgstr ""
 
-#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:218
+#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:199
 #, fuzzy
 msgid "No image"
 msgstr "Kép mutatása"
 
-#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:224
+#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:205
 msgid "allows to select the size of the image to show in grouped products."
 msgstr ""
 
+#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:211
+msgid "Image size in content"
+msgstr "Kép méret a tartalomban"
+
+#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:225
+#, fuzzy
+msgid "Image align in content"
+msgstr "Kép link a tartalomban"
+
 #: thecartpress/appearance/ThemeCompatibilitySettings.class.php:230
-#, fuzzy
-msgid "See image"
-msgstr "Kép látszik"
-
-#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:253
-#, fuzzy
-msgid "Image align"
-msgstr "Kép elrendezése a tartalomban"
-
-#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:258
 msgid "Align Left"
 msgstr "balra rendez"
 
-#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:259
+#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:231
 msgid "Align Center"
 msgstr "középre rendez"
 
-#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:260
+#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:232
 msgid "Align Right"
 msgstr "jobbra rendez"
 
-#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:267
-#, fuzzy
-msgid "Image link"
-msgstr "Kép méret"
+#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:239
+msgid "Image link in content"
+msgstr "Kép link a tartalomban"
 
-#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:272
+#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:244
 msgid "File url"
 msgstr "Fájl url"
 
-#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:273
+#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:245
 msgid "Post url"
 msgstr "Cikk url"
 
@@ -6975,179 +6882,184 @@ msgstr ""
 msgid "Allows to configure how to display products in your Catalogue"
 msgstr ""
 
-#: thecartpress/appearance/LoopSettings.class.php:125
+#: thecartpress/appearance/LoopSettings.class.php:128
 msgid "Allows to create different configuration for each Post Type. Products, posts or pages are custom post types."
 msgstr ""
 
-#: thecartpress/appearance/LoopSettings.class.php:127
+#: thecartpress/appearance/LoopSettings.class.php:130
 #, fuzzy
 msgid "Remember to save changes before to load another post type settings, or you'll loose the current values."
 msgstr "Ne felejtsen minden értéket menteni új súlyhatár létrehozása előtt"
 
-#: thecartpress/appearance/LoopSettings.class.php:135
+#: thecartpress/appearance/LoopSettings.class.php:138
 msgid "Layout"
 msgstr ""
 
-#: thecartpress/appearance/LoopSettings.class.php:142
+#: thecartpress/appearance/LoopSettings.class.php:145
 msgid "Columns for Extra Small devices (Phones)"
 msgstr ""
 
-#: thecartpress/appearance/LoopSettings.class.php:150
+#: thecartpress/appearance/LoopSettings.class.php:153
 msgid "Columns for Small Devices (Tablets)"
 msgstr ""
 
-#: thecartpress/appearance/LoopSettings.class.php:158
+#: thecartpress/appearance/LoopSettings.class.php:161
 msgid "Columns for Medium Devices (Desktop)"
 msgstr ""
 
-#: thecartpress/appearance/LoopSettings.class.php:166
+#: thecartpress/appearance/LoopSettings.class.php:169
 msgid "Columns for Large Devices (Large Desktops)"
 msgstr ""
 
-#: thecartpress/appearance/LoopSettings.class.php:177
+#: thecartpress/appearance/LoopSettings.class.php:180
 msgid "Visibility"
 msgstr ""
 
-#: thecartpress/appearance/LoopSettings.class.php:184
+#: thecartpress/appearance/LoopSettings.class.php:187
 #, fuzzy
 msgid "Featured Image"
 msgstr "Kép látszik"
 
-#: thecartpress/appearance/LoopSettings.class.php:188
+#: thecartpress/appearance/LoopSettings.class.php:191
 #, fuzzy
 msgid "Display Image"
 msgstr "1 megjegyzés"
 
-#: thecartpress/appearance/LoopSettings.class.php:190
+#: thecartpress/appearance/LoopSettings.class.php:193
 #, fuzzy
 msgid "using size"
 msgstr "Minimális méret"
 
-#: thecartpress/appearance/LoopSettings.class.php:201
+#: thecartpress/appearance/LoopSettings.class.php:204
 #, fuzzy
 msgid "Product Title"
 msgstr "Termék beállítások"
 
-#: thecartpress/appearance/LoopSettings.class.php:205
+#: thecartpress/appearance/LoopSettings.class.php:208
 #, fuzzy
 msgid "Display Title"
 msgstr "A nulla adó is mutat"
 
-#: thecartpress/appearance/LoopSettings.class.php:207
+#: thecartpress/appearance/LoopSettings.class.php:210
 msgid "using tag"
 msgstr ""
 
-#: thecartpress/appearance/LoopSettings.class.php:219
+#: thecartpress/appearance/LoopSettings.class.php:222
 msgid "Allows to show or hide product titles in the loops, using custom html tag"
 msgstr ""
 
-#: thecartpress/appearance/LoopSettings.class.php:225
+#: thecartpress/appearance/LoopSettings.class.php:228
 #, fuzzy
 msgid "Display Price"
 msgstr "1 megjegyzés"
 
-#: thecartpress/appearance/LoopSettings.class.php:229
+#: thecartpress/appearance/LoopSettings.class.php:232
 msgid "Configure Price format"
 msgstr ""
 
-#: thecartpress/appearance/LoopSettings.class.php:234
+#: thecartpress/appearance/LoopSettings.class.php:237
 #, fuzzy
 msgid "Display Buy Button"
 msgstr "Kosár gomb látszik:"
 
-#: thecartpress/appearance/LoopSettings.class.php:238
+#: thecartpress/appearance/LoopSettings.class.php:241
 #, fuzzy
 msgid "Configure Buy buttons"
 msgstr "Kosár gomb mutatása"
 
-#: thecartpress/appearance/LoopSettings.class.php:247
+#: thecartpress/appearance/LoopSettings.class.php:250
 msgid "Advanced Visibility"
 msgstr ""
 
-#: thecartpress/appearance/LoopSettings.class.php:254
+#: thecartpress/appearance/LoopSettings.class.php:257
 #, fuzzy
 msgid "Display Discount"
 msgstr "1 megjegyzés"
 
-#: thecartpress/appearance/LoopSettings.class.php:262
+#: thecartpress/appearance/LoopSettings.class.php:265
 #, fuzzy
 msgid "Display Stock"
 msgstr "1 megjegyzés"
 
-#: thecartpress/appearance/LoopSettings.class.php:271
+#: thecartpress/appearance/LoopSettings.class.php:274
 #, fuzzy
 msgid "Display Excerpt"
 msgstr "A nulla adó is mutat"
 
-#: thecartpress/appearance/LoopSettings.class.php:279
+#: thecartpress/appearance/LoopSettings.class.php:283
+#, fuzzy
+msgid "Excerpt Length"
+msgstr "Kivonat látszik:"
+
+#: thecartpress/appearance/LoopSettings.class.php:292
 #, fuzzy
 msgid "Display Content"
 msgstr "1 megjegyzés"
 
-#: thecartpress/appearance/LoopSettings.class.php:287
+#: thecartpress/appearance/LoopSettings.class.php:300
 #, fuzzy
 msgid "Display Author"
 msgstr "1 megjegyzés"
 
-#: thecartpress/appearance/LoopSettings.class.php:296
+#: thecartpress/appearance/LoopSettings.class.php:309
 #, fuzzy
 msgid "Display Posted On"
 msgstr "1 megjegyzés"
 
-#: thecartpress/appearance/LoopSettings.class.php:304
+#: thecartpress/appearance/LoopSettings.class.php:317
 #, fuzzy
 msgid "Display Taxonomies"
 msgstr "Teljes adó részletezés"
 
-#: thecartpress/appearance/LoopSettings.class.php:312
+#: thecartpress/appearance/LoopSettings.class.php:325
 #, fuzzy
 msgid "Display Meta Utilities"
 msgstr "A nulla adó is mutat"
 
-#: thecartpress/appearance/LoopSettings.class.php:320
+#: thecartpress/appearance/LoopSettings.class.php:333
 #, fuzzy
 msgid "Display First Custom Area"
 msgstr "A nulla adó is mutat"
 
-#: thecartpress/appearance/LoopSettings.class.php:328
+#: thecartpress/appearance/LoopSettings.class.php:341
 msgid "Display Second Custom Area"
 msgstr ""
 
-#: thecartpress/appearance/LoopSettings.class.php:336
+#: thecartpress/appearance/LoopSettings.class.php:349
 #, fuzzy
 msgid "Display Third Custom Area"
 msgstr "1 megjegyzés"
 
-#: thecartpress/appearance/LoopSettings.class.php:346
+#: thecartpress/appearance/LoopSettings.class.php:359
 msgid "Display JetPack Sharing Area"
 msgstr ""
 
-#: thecartpress/appearance/LoopSettings.class.php:360
+#: thecartpress/appearance/LoopSettings.class.php:373
 #, fuzzy
 msgid "Sorting & Pagination"
 msgstr "Kosár link látszik"
 
-#: thecartpress/appearance/LoopSettings.class.php:367
+#: thecartpress/appearance/LoopSettings.class.php:380
 #, fuzzy
 msgid "Display Sorting Panel"
 msgstr "Kosár link látszik"
 
-#: thecartpress/appearance/LoopSettings.class.php:375
+#: thecartpress/appearance/LoopSettings.class.php:388
 #, fuzzy
 msgid "Disabled order types"
 msgstr "Kártya típus"
 
-#: thecartpress/appearance/LoopSettings.class.php:386
+#: thecartpress/appearance/LoopSettings.class.php:399
 #, fuzzy
 msgid "Order Type"
 msgstr "Kártya típus"
 
-#: thecartpress/appearance/LoopSettings.class.php:401
+#: thecartpress/appearance/LoopSettings.class.php:414
 #, fuzzy
 msgid "Order Desc"
 msgstr "Rendelésk"
 
-#: thecartpress/appearance/LoopSettings.class.php:409
+#: thecartpress/appearance/LoopSettings.class.php:422
 #, fuzzy
 msgid "Display Pagination"
 msgstr "Kosár link látszik"
@@ -7190,20 +7102,20 @@ msgstr "Nem találtam"
 msgid "Apologies, but no results were found for the requested archive. Perhaps searching will help find a related post."
 msgstr ""
 
-#: thecartpress/themes-templates/loop-tcp-grid.php:205
+#: thecartpress/themes-templates/loop-tcp-grid.php:203
 msgid "More <span class=\"meta-nav\">&rarr;</span>"
 msgstr ""
 
-#: thecartpress/themes-templates/loop-tcp-grid.php:234
+#: thecartpress/themes-templates/loop-tcp-grid.php:232
 #, fuzzy
 msgid "Leave a review"
 msgstr "Írjon megjegyzést"
 
-#: thecartpress/themes-templates/loop-tcp-grid.php:234
+#: thecartpress/themes-templates/loop-tcp-grid.php:232
 msgid "<b>1</b> Review"
 msgstr ""
 
-#: thecartpress/themes-templates/loop-tcp-grid.php:234
+#: thecartpress/themes-templates/loop-tcp-grid.php:232
 msgid "<b>%</b> Reviews"
 msgstr ""
 
@@ -7233,6 +7145,91 @@ msgstr "Bejelentkezés"
 #: thecartpress/themes-templates/tcp_author_profile.php:50
 msgid "blog admin"
 msgstr ""
+
+#, fuzzy
+#~ msgctxt "column name"
+
+#~ msgid "ID"
+#~ msgstr "Azonosító"
+
+#, fuzzy
+#~ msgctxt "column name"
+
+#~ msgid "User"
+#~ msgstr "Felhasználó"
+
+#, fuzzy
+#~ msgctxt "column name"
+
+#~ msgid "Payment"
+#~ msgstr "fizetési"
+
+#~ msgid "Billing options"
+#~ msgstr "Számlázási lehetőségek"
+
+#~ msgid "The billing Region field must be completed"
+#~ msgstr "The billing State field must be completed"
+
+#~ msgid "The billing eMail field must be completed"
+#~ msgstr "A számlázási e-mail kitöltendő!"
+
+#, fuzzy
+#~ msgid "The billing company field must be completed"
+#~ msgstr "A számlázási ország kitöltendő!"
+
+#, fuzzy
+#~ msgid "The billing tax id number field must be completed"
+#~ msgstr "A számlázási családnév kitöltendő!"
+
+#, fuzzy
+#~ msgid "The billing telephone 1 field must be completed"
+#~ msgstr "A számlázási cím kitöltendő!"
+
+#, fuzzy
+#~ msgid "The billing telephone 2 field must be completed"
+#~ msgstr "A számlázási cím kitöltendő!"
+
+#, fuzzy
+#~ msgid "The billing fax field must be completed"
+#~ msgstr "A számlázási e-mail kitöltendő!"
+
+#, fuzzy
+#~ msgid "Display billing tax id number"
+#~ msgstr "Teljes adó részletezés"
+
+#, fuzzy
+#~ msgid "Display billing fax"
+#~ msgstr "Teljes adó részletezés"
+
+#~ msgid "Shipping options"
+#~ msgstr "Szállítási lehetőségek"
+
+#~ msgid "The shipping Region field must be completed"
+#~ msgstr "The shipping State field must be completed"
+
+#, fuzzy
+#~ msgid "The shipping eMail field must be completed"
+#~ msgstr "The shipping State field must be completed"
+
+#, fuzzy
+#~ msgid "See buy button"
+#~ msgstr "Kosár gomb látszik:"
+
+#, fuzzy
+#~ msgid "See price"
+#~ msgstr "Ár látszik"
+
+#, fuzzy
+#~ msgid "See image"
+#~ msgstr "Kép látszik"
+
+#, fuzzy
+#~ msgid "Image align"
+#~ msgstr "Kép elrendezése a tartalomban"
+
+#, fuzzy
+#~ msgid "Image link"
+#~ msgstr "Kép méret"
 
 #, fuzzy
 #~ msgid "TCP Settings"
@@ -7274,12 +7271,6 @@ msgstr ""
 
 #~ msgid "See image in content"
 #~ msgstr "Kép a tartalomban"
-
-#~ msgid "Image size in content"
-#~ msgstr "Kép méret a tartalomban"
-
-#~ msgid "Image link in content"
-#~ msgstr "Kép link a tartalomban"
 
 #~ msgid "See buy button in excerpt"
 #~ msgstr "Kosár gomb látszik a kivonatban"

@@ -3,7 +3,7 @@
 Plugin Name: TheCartPress
 Plugin URI: http://thecartpress.com
 Description: Professional WordPress eCommerce Plugin. Use it as Shopping Cart, Catalog or Framework.
-Version: 1.3.2.1
+Version: 1.3.3
 Author: TheCartPress team
 Author URI: http://thecartpress.com
 Text Domain: tcp
@@ -154,6 +154,8 @@ class TheCartPress {
 		require_once( TCP_APPEARANCE_FOLDER			. 'manage_appearance.php' );
 		require_once( TCP_METABOXES_FOLDER			. 'manage_metaboxes.php' );
 		require_once( TCP_MODULES_FOLDER			. 'manage_modules.php' );
+
+		require_once( TCP_ADMIN_FOLDER				. 'NewVersionDetails.class.php' );
 	}
 
 	/**
@@ -190,22 +192,24 @@ class TheCartPress {
 		$this->load_custom_post_types_and_custom_taxonomies();
 
 		//Load javascript libraries
-		// if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
-		// 	wp_register_script( 'tcp_bootstrap'	, plugins_url( 'js/bootstrap.prefixed.js', __FILE__ ) );
-		// } else {
-			wp_register_script( 'tcp_bootstrap'	, plugins_url( 'js/bootstrap.min.prefixed.js', __FILE__ ) );
-		//}
+		if ( $this->get_setting( 'load_bootstrap_js', true ) ) {
+			// if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+			// 	wp_register_script( 'bootstrap'	, plugins_url( 'js/bootstrap.js', __FILE__ ) );
+			// } else {
+				wp_register_script( 'bootstrap'	, plugins_url( 'js/bootstrap.min.js', __FILE__ ) );
+			//}
+		}
 
 		//Load jquery ui modules
 		wp_enqueue_script( 'jquery-ui-core' );
 		wp_enqueue_script( 'jquery-ui-sortable' );
 
 		//Load TheCartPress javascript
-		wp_enqueue_script( 'tcp_bootstrap' );
+		wp_enqueue_script( 'bootstrap' );
 
 		//Load TheCartPress css styles
 		wp_enqueue_style( 'tcp_default_style'	, plugins_url( 'css/tcp_default.css', __FILE__ ) );
-		wp_enqueue_style( 'tcp_front_style'		, plugins_url( 'css/tcpfront.min.prefixed.css', __FILE__ ) );
+		wp_enqueue_style( 'tcp-bootstrap'		, plugins_url( 'css/bootstrap.min.css', __FILE__ ) );
 		wp_enqueue_style( 'tcp_buttons'			, plugins_url( 'css/tcp_buttons.css', __FILE__ ) );
 
 		//TheCartPress can be used as a catalogue, disabling all ecommerces features
@@ -852,34 +856,40 @@ class TheCartPress {
 	}
 
 	function activate_plugin() {
+		//resetting session
 		tcp_session_start();
 		unset( $_SESSION['tcp_session'] );
+
 		update_option( 'tcp_rewrite_rules', true );
+
 		global $wp_version;
 		if ( version_compare( $wp_version, '3.0', '<' ) )
 			exit( __( 'TheCartPress requires WordPress version 3.0 or newer.', 'tcp' ) );
+		//Creating nee roles
 		require_once( TCP_CLASSES_FOLDER 	. 'Roles.class.php' );
+		//Creating database
 		require_once( TCP_DAOS_FOLDER		. 'manage_daos.php' );
-		//Shopping Cart page
+
+		//Check for Shopping Cart page
 		$shopping_cart_page_id = get_option( 'tcp_shopping_cart_page_id' );
 		if ( ! $shopping_cart_page_id || ! get_page( $shopping_cart_page_id ) ) $shopping_cart_page_id = TheCartPress::createShoppingCartPage();
 		else wp_publish_post( (int)$shopping_cart_page_id );
 
-		//Checkout page
+		//Check for Checkout page
 		$page_id = get_option( 'tcp_checkout_page_id' );
 		if ( ! $page_id || ! get_page( $page_id ) ) TheCartPress::createCheckoutPage( $shopping_cart_page_id );
 		else wp_publish_post( (int)$page_id );
 
-		//Catalogue page
+		//Check for Catalogue page
 		$page_id = get_option( 'tcp_catalogue_page_id' );
 		if ( ! $page_id || ! get_page( $page_id ) ) TheCartPress::createCataloguePage();
 		else wp_publish_post( (int)$page_id );
 
-		//Page My Account
+		//Check for Page My Account
 		$page_id = get_option( 'tcp_my_account_page_id' );
 		if ( ! $page_id || ! get_page( $page_id ) ) TheCartPress::create_my_account_page();
 		else wp_publish_post( (int)$page_id );
-
+		//Adding tcp_product, and its taxonomies, to custom post types engine
 		ProductCustomPostType::create_default_custom_post_type_and_taxonomies();
 		$this->load_custom_post_types_and_custom_taxonomies();
 		//initial shipping and payment method
@@ -960,6 +970,8 @@ class TheCartPress {
 			add_option( 'tcp_settings', $this->settings );
 		}
 		TheCartPress::createExampleData();
+		//Activating new version details screen (to display new version help screen)
+		set_transient( '_tcp_new_version_activated', true, 60 * 60 );
 	}
 
 	static function createShoppingCartPage() {

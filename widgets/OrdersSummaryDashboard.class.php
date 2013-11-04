@@ -60,9 +60,9 @@ class OrdersSummaryDashboard {
 		<thead>
 		<tr>
 		<th><?php _e( 'Id', 'tcp' ); ?></th>
+		<th><?php _e( 'Status', 'tcp' ); ?></th>
 		<th><?php _e( 'Date', 'tcp' ); ?></th>
 		<th><?php _e( 'Customer', 'tcp' ); ?></th>
-		<th><?php _e( 'Status', 'tcp' ); ?></th>
 		<th><?php _e( 'Total', 'tcp' ); ?></th>
 		</tr>
 		</thead>
@@ -70,11 +70,11 @@ class OrdersSummaryDashboard {
 		<?php 
 		$alternate = true;
 		foreach( $orders as $order ) : ?>
-			<tr class="tcp_status_<?php echo $order->status; ?><?php if ( $alternate ) : ?> tcp_alternate<?php endif; $alternate = ! $alternate;?>">
+			<tr class="<?php if ( $alternate ) : ?> tcp_alternate<?php endif; $alternate = ! $alternate;?>">
 			<td class="tcp_id"><a href="<?php echo TCP_ADMIN_PATH;?>OrderEdit.php&order_id=<?php echo $order->order_id;?>"><?php echo $order->order_id; ?></a></td>
+			<td class="tcp_status tcp_status_<?php echo $all_status[$order->status]['name']; ?>"><a href="<?php echo TCP_ADMIN_PATH;?>OrderEdit.php&order_id=<?php echo $order->order_id;?>"><?php echo isset( $all_status[$order->status]['label'] ) ? $all_status[$order->status]['label'] : '&nbsp;'; ?></a></td>
 			<td class="tcp_date"><?php echo date( 'M d' , strtotime( $order->created_at) ); ?></td>
 			<td class="tcp_email"><?php echo $order->billing_email; ?></td>
-			<td class="tcp_status tcp_status_<?php echo $all_status[$order->status]['name']; ?>"><a href="<?php echo TCP_ADMIN_PATH;?>OrderEdit.php&order_id=<?php echo $order->order_id;?>"><?php echo isset( $all_status[$order->status]['label'] ) ? $all_status[$order->status]['label'] : '&nbsp;'; ?></a></td>
 			<td class="tcp_price"><?php echo tcp_format_the_price( Orders::getTotal( $order->order_id ) ); ?></td>
 			</tr>
 		<?php endforeach; ?>

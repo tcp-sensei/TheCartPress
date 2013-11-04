@@ -86,14 +86,15 @@ class TCPCustomJavascript {
 <div class="clear"></div>
 
 <form method="post">
-	<?php $tcp_custom_style_activate = get_option( 'tcp_custom_javascript_activate', false ); ?>
-	<label for="tcp_custom_javascript_activate"><input type="checkbox" name="tcp_custom_javascript_activate" id="tcp_custom_javascript_activate" value="yes" <?php checked( $tcp_custom_style_activate ); ?>/>&nbsp;<?php _e( 'Activate next Javascript', 'tcp' ); ?></label>
+	<?php $tcp_custom_javascript_activate = get_option( 'tcp_custom_javascript_activate', false ); ?>
+	<label for="tcp_custom_javascript_activate"><input type="checkbox" name="tcp_custom_javascript_activate" id="tcp_custom_javascript_activate" value="yes" <?php checked( $tcp_custom_javascript_activate ); ?>/>&nbsp;<?php _e( 'Activate next Javascript', 'tcp' ); ?></label>
 	<br/>
-	<textarea name="tcp_custom_javascript" id="tcp_custom_javascript" cols="60" rows="30">
-	<?php echo stripslashes( get_option( 'tcp_custom_javascript', '' ) ); ?>
-	</textarea>
 
-	<?php $templates = tcp_get_custom_templates(); ?>
+<textarea name="tcp_custom_javascript" id="tcp_custom_javascript" cols="60" rows="30">
+<?php echo stripslashes( get_option( 'tcp_custom_javascript', '' ) ); ?>
+</textarea>
+
+	<?php do_action( 'tcp_custom_javascript_editor' ); ?>
 
 	<?php wp_nonce_field( 'tcp_custom_javascript_settings' ); ?>
 

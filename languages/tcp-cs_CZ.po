@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TheCartPress v1.3.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-21 15:25+0100\n"
-"PO-Revision-Date: 2013-10-21 15:25+0100\n"
+"POT-Creation-Date: 2013-11-04 17:16+0100\n"
+"PO-Revision-Date: 2013-11-04 17:16+0100\n"
 "Last-Translator: sensei <sensei@thecartpress.com>\n"
 "Language-Team: Jakub Kadečka <jakub.ka@seznam.cz>\n"
 "Language: \n"
@@ -21,73 +21,73 @@ msgstr ""
 "X-Poedit-SearchPath-0: thecartpress\n"
 
 # @ tcp
-#: thecartpress/TheCartPress.class.php:297
+#: thecartpress/TheCartPress.class.php:314
 msgid "This notice will be added in the email to the customer when the Checkout process ends"
 msgstr "Tato poznámka bude přidána do e-mailu pro zákazníka při dokončení nákupu"
 
 # @ tcp
-#: thecartpress/TheCartPress.class.php:298
+#: thecartpress/TheCartPress.class.php:315
 msgid "This notice will be showed in the Checkout Notice Box into the checkout process"
 msgstr "Tato poznámka se zobrazí během procesu nákupu"
 
 # @ tcp
-#: thecartpress/TheCartPress.class.php:299
+#: thecartpress/TheCartPress.class.php:316
 msgid "This notice will be showed if the checkout process ends right"
 msgstr "Tato poznámka se zobrazí, pokud nákup proběhne v pořádku"
 
 # @ tcp
-#: thecartpress/TheCartPress.class.php:300
+#: thecartpress/TheCartPress.class.php:317
 msgid "This notice will be showed if the checkout process ends wrong: Declined payments, etc."
 msgstr "Tato poznámka se zobrazí pokud nákup neproběhne v pořádku: Odmítnutá platba, apod."
 
 # @ tcp
-#: thecartpress/TheCartPress.class.php:301
+#: thecartpress/TheCartPress.class.php:318
 msgid "This notice will be showed at the Shopping Cart or Checkout page, if the Shopping Cart is empty"
 msgstr "Tato poznámka se zobrazí pokud je košík prázdný"
 
 # @ tcp
-#: thecartpress/TheCartPress.class.php:302
+#: thecartpress/TheCartPress.class.php:319
 msgid "This notice will be showed at the Checkout Resume Cart"
 msgstr "Tato poznámka se zobrazí při shrnutí objednávky před jejím potvrzením"
 
 # @ tcp
-#: thecartpress/TheCartPress.class.php:303
+#: thecartpress/TheCartPress.class.php:320
 msgid "This notice will be showed at Billing address in Checkout"
 msgstr "Tato poznámka se zobrazí na fakturační adrese u pokladny."
 
 # @ tcp
-#: thecartpress/TheCartPress.class.php:518
+#: thecartpress/TheCartPress.class.php:538
 msgid "The <strong>Shopping Cart page</strong> has been deleted."
 msgstr "<strong>Shopping Cart stránka</strong> byla smazána."
 
 # @ tcp
-#: thecartpress/TheCartPress.class.php:521
+#: thecartpress/TheCartPress.class.php:541
 msgid "The <strong>Checkout page</strong> has been deleted."
 msgstr "<strong>Platební stránka</strong>byla odstraněna."
 
 # @ tcp
-#: thecartpress/TheCartPress.class.php:524
+#: thecartpress/TheCartPress.class.php:544
 msgid "My Account page has been deleted"
 msgstr "Stránka Můj účet byla smazána"
 
 # @ tcp
-#: thecartpress/TheCartPress.class.php:527
+#: thecartpress/TheCartPress.class.php:547
 msgid "Catalogue page has been deleted"
 msgstr "Stránka Katalog byla smazána"
 
 # @ tcp
-#: thecartpress/TheCartPress.class.php:532
+#: thecartpress/TheCartPress.class.php:552
 msgid "Notice:"
 msgstr "Poznámka:"
 
 # @ tcp
-#: thecartpress/TheCartPress.class.php:536
+#: thecartpress/TheCartPress.class.php:556
 #, php-format
 msgid "Visit the <a href=\"%s\">Checking page</a> to fix those warnings."
 msgstr "Navštivte <a href=\"%s\">Kontrolní stránku</a> pro opravení těchto varování.."
 
 # @ tcp
-#: thecartpress/TheCartPress.class.php:670
+#: thecartpress/TheCartPress.class.php:690
 #: thecartpress/widgets/SalesChartDashboard.class.php:87
 #: thecartpress/widgets/SalesChartDashboard.class.php:132
 #: thecartpress/widgets/SalesChartDashboard.class.php:246
@@ -95,169 +95,169 @@ msgid "Orders"
 msgstr "Objednávky"
 
 # @ tcp
-#: thecartpress/TheCartPress.class.php:671
+#: thecartpress/TheCartPress.class.php:691
 msgid "My Downloads"
 msgstr "Mé downloady"
 
 # @ tcp
-#: thecartpress/TheCartPress.class.php:672
+#: thecartpress/TheCartPress.class.php:692
 msgid "Addresses"
 msgstr "Adresy"
 
 # @ tcp
-#: thecartpress/TheCartPress.class.php:673
+#: thecartpress/TheCartPress.class.php:693
 msgid "Taxes"
 msgstr "Daně"
 
 # @ tcp
-#: thecartpress/TheCartPress.class.php:674
+#: thecartpress/TheCartPress.class.php:694
 msgid "Related Categories"
 msgstr "Související kategorie"
 
 # @ tcp
-#: thecartpress/TheCartPress.class.php:675
+#: thecartpress/TheCartPress.class.php:695
 msgid "Update Prices"
 msgstr "Aktualizace cen"
 
 # @ tcp
-#: thecartpress/TheCartPress.class.php:676
+#: thecartpress/TheCartPress.class.php:696
 msgid "Order"
 msgstr "Objednávka"
 
 # @ tcp
-#: thecartpress/TheCartPress.class.php:677
+#: thecartpress/TheCartPress.class.php:697
 msgid "list of Assigned products"
 msgstr "seznam připojených produktů"
 
 # @ tcp
-#: thecartpress/TheCartPress.class.php:678
+#: thecartpress/TheCartPress.class.php:698
 msgid "list of Assigned categories"
 msgstr "seznam připojených kategorií"
 
 # @ tcp
-#: thecartpress/TheCartPress.class.php:679
+#: thecartpress/TheCartPress.class.php:699
 msgid "Plugin editor"
 msgstr "Editor pluginu"
 
 # @ tcp
-#: thecartpress/TheCartPress.class.php:680
+#: thecartpress/TheCartPress.class.php:700
 msgid "Address editor"
 msgstr "Editor adres"
 
 # @ tcp
-#: thecartpress/TheCartPress.class.php:681
+#: thecartpress/TheCartPress.class.php:701
 msgid "Upload files"
 msgstr "Nahrát soubory"
 
 # @ tcp
-#: thecartpress/TheCartPress.class.php:682
+#: thecartpress/TheCartPress.class.php:702
 msgid "Files"
 msgstr "Soubory"
 
 # @ tcp
-#: thecartpress/TheCartPress.class.php:683
+#: thecartpress/TheCartPress.class.php:703
 msgid "Downloadable products"
 msgstr "Stahovatelné produkty"
 
 # @ tcp
-#: thecartpress/TheCartPress.class.php:684
+#: thecartpress/TheCartPress.class.php:704
 msgid "TheCartPress checking"
 msgstr "Kontrola TheCartPress"
 
 # @ tcp
-#: thecartpress/TheCartPress.class.php:687
+#: thecartpress/TheCartPress.class.php:707
 msgid "Settings"
 msgstr "Nastavení"
 
 # @ tcp
-#: thecartpress/TheCartPress.class.php:690
+#: thecartpress/TheCartPress.class.php:710
 msgid "Tools"
 msgstr "Nástroje"
 
 # @ tcp
-#: thecartpress/TheCartPress.class.php:691
+#: thecartpress/TheCartPress.class.php:711
 msgid "Shortcodes Generator"
 msgstr "Generátor zkrácených kódů"
 
 # @ tcp
-#: thecartpress/TheCartPress.class.php:691
+#: thecartpress/TheCartPress.class.php:711
 msgid "Shortcodes"
 msgstr "Zkrácené kódy"
 
 # @ tcp
-#: thecartpress/TheCartPress.class.php:692
+#: thecartpress/TheCartPress.class.php:712
 msgid "Manage post types"
 msgstr "Správa typů doručení"
 
 # @ tcp
-#: thecartpress/TheCartPress.class.php:693
+#: thecartpress/TheCartPress.class.php:713
 msgid "Manage taxonomies"
 msgstr "Správa uspořádání"
 
 # @ tcp
-#: thecartpress/TheCartPress.class.php:694
+#: thecartpress/TheCartPress.class.php:714
 msgid "Post Type Editor"
 msgstr "Editor typů příspěvků"
 
 # @ tcp
-#: thecartpress/TheCartPress.class.php:695
+#: thecartpress/TheCartPress.class.php:715
 msgid "Taxonomy Editor"
 msgstr "Editor uspořádání"
 
 # @ tcp
-#: thecartpress/TheCartPress.class.php:844
+#: thecartpress/TheCartPress.class.php:867
 msgid "TheCartPress requires WordPress version 3.0 or newer."
 msgstr "TheCartPress vyžaduje WordPress verze 3.0 nebo novější"
 
 # @ tcp
-#: thecartpress/TheCartPress.class.php:871
+#: thecartpress/TheCartPress.class.php:898
 msgid "Free transport"
 msgstr "Doprava zdarma"
 
 # @ tcp
-#: thecartpress/TheCartPress.class.php:882
+#: thecartpress/TheCartPress.class.php:909
 msgid "Cash on delivery"
 msgstr "Platba při doručení"
 
 # @ tcp
-#: thecartpress/TheCartPress.class.php:922
+#: thecartpress/TheCartPress.class.php:949
 msgid "Checkout notice"
 msgstr "Souhlas s obchodními podmínkami"
 
 # @ tcp
-#: thecartpress/TheCartPress.class.php:957
+#: thecartpress/TheCartPress.class.php:982
 #: thecartpress/widgets/ShoppingCartWidget.class.php:71
 msgid "Shopping Cart"
 msgstr "Nákupní košík"
 
 # @ tcp
-#: thecartpress/TheCartPress.class.php:970
+#: thecartpress/TheCartPress.class.php:995
 msgid "Checkout"
 msgstr "Platby"
 
 # @ tcp-fe
-#: thecartpress/TheCartPress.class.php:985
+#: thecartpress/TheCartPress.class.php:1010
 msgid "My Account"
 msgstr ""
 
 # @ tcp
-#: thecartpress/TheCartPress.class.php:998
+#: thecartpress/TheCartPress.class.php:1023
 msgid "Catalogue"
 msgstr "Katalog"
 
 # @ tcp
-#: thecartpress/TheCartPress.class.php:1011
-#: thecartpress/TheCartPress.class.php:1035
+#: thecartpress/TheCartPress.class.php:1036
+#: thecartpress/TheCartPress.class.php:1060
 msgid "Category One"
 msgstr "Kategorie jedna"
 
 # @ tcp
-#: thecartpress/TheCartPress.class.php:1012
+#: thecartpress/TheCartPress.class.php:1037
 msgid "Category One for Product One"
 msgstr "Kategorie jedna pro produkt jedna"
 
 # @ tcp
-#: thecartpress/TheCartPress.class.php:1019
+#: thecartpress/TheCartPress.class.php:1044
 msgid "Product One"
 msgstr "Produkt jedna"
 
@@ -1134,14 +1134,14 @@ msgid "Id"
 msgstr "Id"
 
 # @ tcp
-#: thecartpress/widgets/OrdersSummaryDashboard.class.php:64
-msgid "Customer"
-msgstr "Zákazník"
+#: thecartpress/widgets/OrdersSummaryDashboard.class.php:63
+msgid "Status"
+msgstr "Status"
 
 # @ tcp
 #: thecartpress/widgets/OrdersSummaryDashboard.class.php:65
-msgid "Status"
-msgstr "Status"
+msgid "Customer"
+msgstr "Zákazník"
 
 # @ tcp
 #: thecartpress/widgets/OrdersSummaryDashboard.class.php:66
@@ -1510,7 +1510,7 @@ msgstr "Přidat nový"
 #: thecartpress/admin/PostTypeEdit.php:45
 #: thecartpress/admin/PostTypeEdit.php:87
 #: thecartpress/admin/PostTypeEdit.php:121
-#: thecartpress/admin/OrdersListTable.class.php:120
+#: thecartpress/admin/OrdersListTable.class.php:141
 msgid "View"
 msgstr "Prohlédnout"
 
@@ -1519,7 +1519,6 @@ msgstr "Prohlédnout"
 #: thecartpress/admin/PostTypeEdit.php:46
 #: thecartpress/admin/PostTypeEdit.php:88
 #: thecartpress/admin/PostTypeEdit.php:122
-#: thecartpress/admin/StockUpdate.php:102
 msgid "Search"
 msgstr "Hledat"
 
@@ -1861,6 +1860,52 @@ msgstr "Má archiv"
 #: thecartpress/admin/PostTypeEdit.php:448
 msgid "Is saleable"
 msgstr "Je prodejný"
+
+# @ tcp
+#: thecartpress/admin/NewVersionDetails.class.php:42
+#, fuzzy
+msgid "Enjoy TheCartPress"
+msgstr "Děti CartPressu"
+
+# @ tcp
+#: thecartpress/admin/NewVersionDetails.class.php:71
+#, fuzzy, php-format
+msgid "Welcome to TheCartPress %s"
+msgstr "odkaz na TheCartPress stránku"
+
+#: thecartpress/admin/NewVersionDetails.class.php:73
+msgid "Thank you for updating to the latest version!"
+msgstr ""
+
+#: thecartpress/admin/NewVersionDetails.class.php:76
+msgid "What's new?"
+msgstr ""
+
+#: thecartpress/admin/NewVersionDetails.class.php:77
+msgid "New User interface improvements to make your day a day more easy."
+msgstr ""
+
+# @ tcp
+#: thecartpress/admin/NewVersionDetails.class.php:81
+#, fuzzy
+msgid "Orders list"
+msgstr "List sourozenců"
+
+#: thecartpress/admin/NewVersionDetails.class.php:82
+msgid "New orders list, to see your orders faster. Take a quick look using \"view\", localize addresses in map, etc."
+msgstr ""
+
+# @ tcp
+#: thecartpress/admin/NewVersionDetails.class.php:85
+#, fuzzy
+msgid "Products list"
+msgstr "Jednotka zboží"
+
+# @ tcp
+#: thecartpress/admin/NewVersionDetails.class.php:89
+#, fuzzy
+msgid "Product Settings"
+msgstr "Nastavení platby"
 
 # @ tcp
 #: thecartpress/admin/PluginEdit.php:63
@@ -2287,72 +2332,79 @@ msgid "No Orders found."
 msgstr "Žádné objednávky nebyly nalezeny."
 
 # @ tcp
-#: thecartpress/admin/OrdersListTable.class.php:78
-msgctxt "column name"
-msgid "ID"
-msgstr "ID"
-
-# @ tcp
-#: thecartpress/admin/OrdersListTable.class.php:79
-msgctxt "column name"
-msgid "Date"
-msgstr "Datum"
-
-# @ tcp
-#: thecartpress/admin/OrdersListTable.class.php:80
-msgctxt "column name"
-msgid "User"
-msgstr "Uživatel"
-
-# @ tcp
-#: thecartpress/admin/OrdersListTable.class.php:81
+#: thecartpress/admin/OrdersListTable.class.php:83
 msgctxt "column name"
 msgid "Status"
 msgstr "Status"
 
 # @ tcp
-#: thecartpress/admin/OrdersListTable.class.php:82
+#: thecartpress/admin/OrdersListTable.class.php:84
 msgctxt "column name"
-msgid "Payment"
-msgstr "Platba"
+msgid "Date"
+msgstr "Datum"
 
 # @ tcp
-#: thecartpress/admin/OrdersListTable.class.php:83
+#: thecartpress/admin/OrdersListTable.class.php:85
+#, fuzzy
+msgctxt "column name"
+msgid "Order"
+msgstr "Objednávka"
+
+# @ tcp
+#: thecartpress/admin/OrdersListTable.class.php:87
+#, fuzzy
+msgctxt "column name"
+msgid "Billing"
+msgstr "Fakturace"
+
+# @ tcp
+#: thecartpress/admin/OrdersListTable.class.php:88
 msgctxt "column name"
 msgid "Shipping"
 msgstr "Přeprava"
 
 # @ tcp
-#: thecartpress/admin/OrdersListTable.class.php:84
+#: thecartpress/admin/OrdersListTable.class.php:89
 msgctxt "column name"
 msgid "Total"
 msgstr "Celkem"
 
 # @ tcp
-#: thecartpress/admin/OrdersListTable.class.php:119
+#: thecartpress/admin/OrdersListTable.class.php:117
+#, fuzzy
+msgid "Order #"
+msgstr "Objednávka"
+
+# @ tcp
+#: thecartpress/admin/OrdersListTable.class.php:122
+#: thecartpress/admin/OrdersListTable.class.php:139
 msgid "Edit this order"
 msgstr "Editovat tuto objednávku"
 
+#: thecartpress/admin/OrdersListTable.class.php:127
+msgid ", by "
+msgstr ""
+
 # @ default
-#: thecartpress/admin/OrdersListTable.class.php:120
+#: thecartpress/admin/OrdersListTable.class.php:141
 msgid "View this item inline"
 msgstr "Zobrazit tuto položku inline"
 
 # @ tcp
-#: thecartpress/admin/OrdersListTable.class.php:151
+#: thecartpress/admin/OrdersListTable.class.php:193
 #: thecartpress/admin/AddressesListTable.class.php:149
 msgid "Search by"
 msgstr "Hledat pomocí"
 
 # @ default
 # @ tcp
-#: thecartpress/admin/OrdersListTable.class.php:153
+#: thecartpress/admin/OrdersListTable.class.php:195
 #: thecartpress/admin/AddressesListTable.class.php:151
 msgid "Filter"
 msgstr "Filtr"
 
 # @ tcp
-#: thecartpress/admin/OrdersListTable.class.php:174
+#: thecartpress/admin/OrdersListTable.class.php:216
 msgid "Search Orders"
 msgstr "Pořadí hledání"
 
@@ -2427,8 +2479,6 @@ msgstr "vytvořit nový přiřazený produkt"
 #: thecartpress/admin/AssignedProductsList.php:303
 #: thecartpress/admin/BuyButtonList.class.php:46
 #: thecartpress/admin/BuyButtonList.class.php:53
-#: thecartpress/admin/StockUpdate.php:119
-#: thecartpress/admin/StockUpdate.php:127
 msgid "Name"
 msgstr "Jméno"
 
@@ -2480,13 +2530,11 @@ msgstr "Opravdu chcete smazat vztah?"
 
 # @ tcp
 #: thecartpress/admin/AssignedProductsList.php:259
-#: thecartpress/admin/StockUpdate.php:81
 msgid "Category"
 msgstr "Kategorie"
 
 # @ tcp
 #: thecartpress/admin/AssignedProductsList.php:262
-#: thecartpress/admin/StockUpdate.php:84
 msgid "no one selected"
 msgstr "žádná nevybrána"
 
@@ -2779,11 +2827,13 @@ msgstr "Update skladu"
 
 # @ tcp
 #: thecartpress/admin/StockUpdate.php:66
+#: thecartpress/admin/PriceUpdate.php:89
 msgid "Load taxonomies"
 msgstr "Nahrát struktury"
 
 # @ tcp
 #: thecartpress/admin/StockUpdate.php:77
+#: thecartpress/admin/PriceUpdate.php:100
 msgid "Load categories"
 msgstr "Nahrát struktury"
 
@@ -2828,6 +2878,8 @@ msgstr "žádný sklad"
 # @ tcp
 # @ default
 #: thecartpress/admin/StockUpdate.php:165
+#: thecartpress/admin/PriceUpdate.php:159
+#: thecartpress/admin/PriceUpdate.php:199
 msgid "Update"
 msgstr "Update"
 
@@ -3571,129 +3623,129 @@ msgid "close"
 msgstr "zavřít"
 
 # @ tcp
-#: thecartpress/admin/ShortCodeGenerator.php:42
+#: thecartpress/admin/ShortCodeGenerator.php:46
 msgid "The field Identifier must be filled"
 msgstr "Pole identifikátor musí být vyplněno"
 
 # @ tcp
-#: thecartpress/admin/ShortCodeGenerator.php:46
+#: thecartpress/admin/ShortCodeGenerator.php:50
 msgid "The field Identifier is repeated"
 msgstr "Pole identifikátor se opakuje"
 
 # @ tcp
-#: thecartpress/admin/ShortCodeGenerator.php:91
-#: thecartpress/admin/ShortCodeGenerator.php:99
+#: thecartpress/admin/ShortCodeGenerator.php:95
+#: thecartpress/admin/ShortCodeGenerator.php:103
 msgid "Shortcode saved"
 msgstr "Zkrácený kód uložen"
 
 # @ tcp
-#: thecartpress/admin/ShortCodeGenerator.php:119
+#: thecartpress/admin/ShortCodeGenerator.php:123
 msgid "ShortCode Generator"
 msgstr "Generátor zkrácených kódů"
 
 # @ tcp
-#: thecartpress/admin/ShortCodeGenerator.php:135
+#: thecartpress/admin/ShortCodeGenerator.php:139
 msgid "new shortcode"
 msgstr "nový zkrácený kód"
 
 # @ tcp
-#: thecartpress/admin/ShortCodeGenerator.php:138
+#: thecartpress/admin/ShortCodeGenerator.php:142
 msgid "No shortcodes, create one now:"
 msgstr "Žádné zkrácené kódy, vytvořte nyní jeden:"
 
 # @ tcp
-#: thecartpress/admin/ShortCodeGenerator.php:202
+#: thecartpress/admin/ShortCodeGenerator.php:206
 msgid "Identifier"
 msgstr "Identifikátor"
 
 # @ tcp
-#: thecartpress/admin/ShortCodeGenerator.php:203
+#: thecartpress/admin/ShortCodeGenerator.php:207
 msgid "Don't use whitespace. For example use the_identifier"
 msgstr "Nepoužívejte prázdné místo a diakritická znaménka. Použijte např.: nejaky_identifikator"
 
 # @ tcp
-#: thecartpress/admin/ShortCodeGenerator.php:207
+#: thecartpress/admin/ShortCodeGenerator.php:211
 #, php-format
 msgid "Usage: [tcp_list id=\"%s\"]"
 msgstr "Použití: [tcp_list id=\"%s\"]"
 
 # @ tcp
-#: thecartpress/admin/ShortCodeGenerator.php:228
+#: thecartpress/admin/ShortCodeGenerator.php:232
 msgid "Save to load the list of taxonomies"
 msgstr "Uložte pro načtení seznamu struktur"
 
 # @ tcp
-#: thecartpress/admin/ShortCodeGenerator.php:237
+#: thecartpress/admin/ShortCodeGenerator.php:241
 msgid "If checked, you can select which Taxonomy (category) you want to display. If not checked you can select as many product as you want to show."
 msgstr "Pokud je zatrženo, můžete si vybrat, které taxonomie (kategorie) chcete zobrazit. Pokud není zaškrtnuto, můžete vybrat tolik produktů, kolik chcete zobrazovat."
 
 # @ tcp
-#: thecartpress/admin/ShortCodeGenerator.php:253
+#: thecartpress/admin/ShortCodeGenerator.php:257
 msgid "Save to load the list of terms"
 msgstr "Uložte pro načtení seznamu termínů"
 
 # @ tcp
-#: thecartpress/admin/ShortCodeGenerator.php:309
+#: thecartpress/admin/ShortCodeGenerator.php:313
 msgid "Set -1 to show all possible items."
 msgstr "Nastavte -1 pro zobrazení všech možných položek."
 
 # @ tcp
-#: thecartpress/admin/ShortCodeGenerator.php:314
+#: thecartpress/admin/ShortCodeGenerator.php:318
 msgid "Pagination"
 msgstr "Stránkování"
 
 # @ tcp
-#: thecartpress/admin/ShortCodeGenerator.php:318
+#: thecartpress/admin/ShortCodeGenerator.php:322
 msgid "Allows to set pagination in the shortcode."
 msgstr "Povolit nastavení stránkování ve zkráceném kódu."
 
 # @ tcp
-#: thecartpress/admin/ShortCodeGenerator.php:323
+#: thecartpress/admin/ShortCodeGenerator.php:327
 msgid "See Order Panel"
 msgstr "Zobrazit objednávkový panel"
 
 # @ tcp
-#: thecartpress/admin/ShortCodeGenerator.php:327
+#: thecartpress/admin/ShortCodeGenerator.php:331
 msgid "Allows to display an order panel in the shortcode."
 msgstr "Umožňuje zobrazit objednávkový panel v shortcode."
 
 # @ tcp
-#: thecartpress/admin/ShortCodeGenerator.php:362
+#: thecartpress/admin/ShortCodeGenerator.php:366
 #, php-format
 msgid "\"%s\" is missing"
 msgstr "\"%s\" chybí"
 
 # @ tcp
-#: thecartpress/admin/ShortCodeGenerator.php:384
+#: thecartpress/admin/ShortCodeGenerator.php:388
 msgid "Order desc."
 msgstr "Pořadí sest."
 
-#: thecartpress/admin/ShortCodeGenerator.php:398
+#: thecartpress/admin/ShortCodeGenerator.php:402
 msgid "N<sup>o</sup> columns for Extra Small Devices (Phones)"
 msgstr ""
 
 # @ tcp
-#: thecartpress/admin/ShortCodeGenerator.php:454
+#: thecartpress/admin/ShortCodeGenerator.php:458
 msgid "Excerpt length"
 msgstr "Délka výňatku"
 
 # @ tcp
-#: thecartpress/admin/ShortCodeGenerator.php:459
+#: thecartpress/admin/ShortCodeGenerator.php:463
 msgid "Show about author"
 msgstr "Zobrazit informace o autorovi"
 
 # @ tcp
-#: thecartpress/admin/ShortCodeGenerator.php:463
+#: thecartpress/admin/ShortCodeGenerator.php:467
 msgid "Show posted on"
 msgstr "Zobrazit datum zveřejnění"
 
 # @ tcp
-#: thecartpress/admin/ShortCodeGenerator.php:467
+#: thecartpress/admin/ShortCodeGenerator.php:471
 msgid "Show taxonomies"
 msgstr "Zobrazit struktury"
 
 # @ tcp
-#: thecartpress/admin/ShortCodeGenerator.php:495
+#: thecartpress/admin/ShortCodeGenerator.php:499
 msgid "save"
 msgstr "uložit"
 
@@ -4620,108 +4672,6 @@ msgid "Order from %s, Order ID: %s"
 msgstr "Objednávka od %s, ID objednávky: %s"
 
 # @ tcp
-#: thecartpress/checkout/TCPBillingBox.class.php:47
-msgid "Billing options"
-msgstr "Fakturační adresa"
-
-# @ tcp
-#: thecartpress/checkout/TCPBillingBox.class.php:62
-#: thecartpress/checkout/BillingBox.class.php:379
-msgid "The billing First name field must be completed"
-msgstr "Fakturační jméno musí být vyplněno."
-
-# @ tcp
-#: thecartpress/checkout/TCPBillingBox.class.php:64
-#: thecartpress/checkout/BillingBox.class.php:389
-msgid "The billing Last name field must be completed"
-msgstr "Fakturační příjmení musí být vyplněno."
-
-# @ tcp
-#: thecartpress/checkout/TCPBillingBox.class.php:66
-#: thecartpress/checkout/BillingBox.class.php:432
-msgid "The billing Street field must be completed"
-msgstr "Fakturační ulice musí být vyplněna"
-
-# @ tcp
-#: thecartpress/checkout/TCPBillingBox.class.php:68
-#: thecartpress/checkout/BillingBox.class.php:426
-msgid "The billing City field must be completed"
-msgstr "Fakturační město musí být vyplněno"
-
-# @ tcp
-#: thecartpress/checkout/TCPBillingBox.class.php:70
-msgid "The billing Region field must be completed"
-msgstr "Fakturační region musí být vyplněn"
-
-# @ tcp
-#: thecartpress/checkout/TCPBillingBox.class.php:75
-#: thecartpress/checkout/TCPBillingBox.class.php:91
-#: thecartpress/checkout/BillingBox.class.php:81
-#: thecartpress/checkout/BillingBox.class.php:99
-#: thecartpress/checkout/BillingBox.class.php:417
-msgid "The billing Country is not allowed"
-msgstr "Fakturační stát musí být vyplněn"
-
-# @ tcp
-#: thecartpress/checkout/TCPBillingBox.class.php:79
-#: thecartpress/checkout/BillingBox.class.php:451
-msgid "The billing Postcode field must be completed"
-msgstr "Fakturační PSČ musí být vyplněno"
-
-# @ tcp
-#: thecartpress/checkout/TCPBillingBox.class.php:81
-msgid "The billing eMail field must be completed"
-msgstr "Fakturační e-mail musí být vyplněn"
-
-# @ tcp
-#: thecartpress/checkout/TCPBillingBox.class.php:83
-#: thecartpress/checkout/BillingBox.class.php:85
-msgid "The billing eMail field must be a valid email"
-msgstr "Ve fakturačním políčku e-mail musí být existující e-mailová adresa"
-
-# @ tcp
-#: thecartpress/checkout/TCPBillingBox.class.php:155
-#: thecartpress/checkout/BillingBox.class.php:172
-msgid "Select billing address:"
-msgstr "Vybrat fakturační adresu:"
-
-# @ tcp
-#: thecartpress/checkout/TCPBillingBox.class.php:166
-#: thecartpress/checkout/BillingBox.class.php:183
-msgid "Billing to the address selected"
-msgstr "Fakturace na adresu v databázi"
-
-# @ tcp
-#: thecartpress/checkout/TCPBillingBox.class.php:172
-#: thecartpress/checkout/BillingBox.class.php:189
-msgid "New billing address"
-msgstr "Nová fakturační adresa"
-
-# @ tcp
-#: thecartpress/checkout/TCPBillingBox.class.php:298
-#: thecartpress/checkout/BillingBox.class.php:377
-msgid "First name"
-msgstr "Křestní jméno"
-
-# @ tcp
-#: thecartpress/checkout/TCPBillingBox.class.php:303
-#: thecartpress/checkout/BillingBox.class.php:387
-msgid "Last name"
-msgstr "Příjmení"
-
-# @ tcp
-#: thecartpress/checkout/TCPBillingBox.class.php:313
-#: thecartpress/checkout/BillingBox.class.php:407
-msgid "Tax ID number"
-msgstr "IČO"
-
-# @ tcp
-#: thecartpress/checkout/TCPBillingBox.class.php:388
-#: thecartpress/checkout/BillingBox.class.php:486
-msgid "Email"
-msgstr "E-mail"
-
-# @ tcp
 #: thecartpress/checkout/TCPNoticeBox.class.php:39
 msgid "You must accept the conditions!!"
 msgstr "Musíte akceptovat obchodní podmínky!"
@@ -4743,83 +4693,155 @@ msgid "Billing Info"
 msgstr "Fakturace"
 
 # @ tcp
+#: thecartpress/checkout/BillingBox.class.php:81
+#: thecartpress/checkout/BillingBox.class.php:99
+#: thecartpress/checkout/BillingBox.class.php:419
+msgid "The billing Country is not allowed"
+msgstr "Fakturační stát musí být vyplněn"
+
+# @ tcp
+#: thecartpress/checkout/BillingBox.class.php:85
+msgid "The billing eMail field must be a valid email"
+msgstr "Ve fakturačním políčku e-mail musí být existující e-mailová adresa"
+
+# @ tcp
 #: thecartpress/checkout/BillingBox.class.php:155
 #, fuzzy
 msgid "This data will be used, also, as Shipping."
 msgstr "Tato data budou použita také jako doprava"
 
 # @ tcp
-#: thecartpress/checkout/BillingBox.class.php:399
+#: thecartpress/checkout/BillingBox.class.php:172
+msgid "Select billing address:"
+msgstr "Vybrat fakturační adresu:"
+
+# @ tcp
+#: thecartpress/checkout/BillingBox.class.php:183
+msgid "Billing to the address selected"
+msgstr "Fakturace na adresu v databázi"
+
+# @ tcp
+#: thecartpress/checkout/BillingBox.class.php:189
+msgid "New billing address"
+msgstr "Nová fakturační adresa"
+
+# @ tcp
+#: thecartpress/checkout/BillingBox.class.php:379
+msgid "First name"
+msgstr "Křestní jméno"
+
+# @ tcp
+#: thecartpress/checkout/BillingBox.class.php:381
+msgid "The billing First name field must be completed"
+msgstr "Fakturační jméno musí být vyplněno."
+
+# @ tcp
+#: thecartpress/checkout/BillingBox.class.php:389
+msgid "Last name"
+msgstr "Příjmení"
+
+# @ tcp
+#: thecartpress/checkout/BillingBox.class.php:391
+msgid "The billing Last name field must be completed"
+msgstr "Fakturační příjmení musí být vyplněno."
+
+# @ tcp
+#: thecartpress/checkout/BillingBox.class.php:401
 #, fuzzy
 msgid "The billing Company name must be completed"
 msgstr "Fakturační společnost musí být vyplněna"
 
 # @ tcp
 #: thecartpress/checkout/BillingBox.class.php:409
+msgid "Tax ID number"
+msgstr "IČO"
+
+# @ tcp
+#: thecartpress/checkout/BillingBox.class.php:411
 #, fuzzy
 msgid "The billing Tax Id field must be completed"
 msgstr "Fakturační fax musí být vyplněno"
 
 # @ tcp
-#: thecartpress/checkout/BillingBox.class.php:421
+#: thecartpress/checkout/BillingBox.class.php:423
 #, fuzzy
 msgid "The billing State field must be completed"
 msgstr "Fakturační ulice musí být vyplněna"
 
 # @ tcp
-#: thecartpress/checkout/BillingBox.class.php:439
+#: thecartpress/checkout/BillingBox.class.php:428
+msgid "The billing City field must be completed"
+msgstr "Fakturační město musí být vyplněno"
+
+# @ tcp
+#: thecartpress/checkout/BillingBox.class.php:434
+msgid "The billing Street field must be completed"
+msgstr "Fakturační ulice musí být vyplněna"
+
+# @ tcp
+#: thecartpress/checkout/BillingBox.class.php:441
 #, fuzzy
 msgid "Address 2"
 msgstr "Ulice"
 
 # @ tcp
-#: thecartpress/checkout/BillingBox.class.php:442
+#: thecartpress/checkout/BillingBox.class.php:444
 #, fuzzy
 msgid "The billing Street 2 field must be completed"
 msgstr "Fakturační ulice musí být vyplněna"
 
 # @ tcp
-#: thecartpress/checkout/BillingBox.class.php:461
+#: thecartpress/checkout/BillingBox.class.php:453
+msgid "The billing Postcode field must be completed"
+msgstr "Fakturační PSČ musí být vyplněno"
+
+# @ tcp
+#: thecartpress/checkout/BillingBox.class.php:463
 #, fuzzy
 msgid "The billing Telephone field must be completed"
 msgstr "Fakturační telefon 1 musí být vyplněn"
 
 # @ tcp
-#: thecartpress/checkout/BillingBox.class.php:470
+#: thecartpress/checkout/BillingBox.class.php:472
 #, fuzzy
 msgid "The billing Second Telephone field must be completed"
 msgstr "Fakturační telefon 1 musí být vyplněn"
 
 # @ tcp
-#: thecartpress/checkout/BillingBox.class.php:479
+#: thecartpress/checkout/BillingBox.class.php:481
 #, fuzzy
 msgid "The billing Fax field must be completed"
 msgstr "Fakturační fax musí být vyplněno"
 
 # @ tcp
 #: thecartpress/checkout/BillingBox.class.php:488
+msgid "Email"
+msgstr "E-mail"
+
+# @ tcp
+#: thecartpress/checkout/BillingBox.class.php:490
 #, fuzzy
 msgid "The billing eMail field must be completed and valid"
 msgstr "Fakturační e-mail musí být vyplněn"
 
 # @ tcp
-#: thecartpress/checkout/BillingBox.class.php:620
+#: thecartpress/checkout/BillingBox.class.php:622
 #, fuzzy
 msgid "Drag and Drop fields to sort them"
 msgstr "Přetáhněte platební pluginy pro jejich seřazení"
 
-#: thecartpress/checkout/BillingBox.class.php:643
-#: thecartpress/checkout/BillingBox.class.php:657
+#: thecartpress/checkout/BillingBox.class.php:650
+#: thecartpress/checkout/BillingBox.class.php:672
 msgid "Required"
 msgstr ""
 
 # @ tcp
-#: thecartpress/checkout/BillingBox.class.php:667
+#: thecartpress/checkout/BillingBox.class.php:685
 msgid "Use as shipping"
 msgstr "Použít jako přepravu"
 
 # @ tcp
-#: thecartpress/checkout/BillingBox.class.php:671
+#: thecartpress/checkout/BillingBox.class.php:689
 #, fuzzy
 msgid "This option only must be activated if the Shipping Box is not used"
 msgstr "Tato volba musí být aktivována v případě, že není zboží pro přepravu zabalené"
@@ -4962,101 +4984,6 @@ msgid "Invalid email"
 msgstr "Nesprávný e-mail"
 
 # @ tcp
-#: thecartpress/checkout/TCPBillingExBox.class.php:83
-msgid "The billing company field must be completed"
-msgstr "Fakturační společnost musí být vyplněna"
-
-# @ tcp
-#: thecartpress/checkout/TCPBillingExBox.class.php:87
-msgid "The billing tax id number field must be completed"
-msgstr "Fakturační Identifikační číslo musí být vyplněno"
-
-# @ tcp
-#: thecartpress/checkout/TCPBillingExBox.class.php:111
-msgid "The billing telephone 1 field must be completed"
-msgstr "Fakturační telefon 1 musí být vyplněn"
-
-# @ tcp
-#: thecartpress/checkout/TCPBillingExBox.class.php:115
-msgid "The billing telephone 2 field must be completed"
-msgstr "Fakturační telefon 2 musí být vyplněn"
-
-# @ tcp
-#: thecartpress/checkout/TCPBillingExBox.class.php:119
-msgid "The billing fax field must be completed"
-msgstr "Fakturační fax musí být vyplněno"
-
-# @ tcp
-#: thecartpress/checkout/TCPBillingExBox.class.php:194
-msgid "Display billing company"
-msgstr "Zobrazit fakturační firmu"
-
-# @ tcp
-#: thecartpress/checkout/TCPBillingExBox.class.php:198
-msgid "Required billing company"
-msgstr "Vyžadována fakturace na firmu"
-
-# @ tcp
-#: thecartpress/checkout/TCPBillingExBox.class.php:202
-msgid "Display billing tax id number"
-msgstr "Zobrazit fakturační IČO"
-
-# @ tcp
-#: thecartpress/checkout/TCPBillingExBox.class.php:206
-msgid "Required billing tax id number"
-msgstr "Vyžadováno fakturační IČO"
-
-# @ tcp
-#: thecartpress/checkout/TCPBillingExBox.class.php:210
-msgid "Display billing region"
-msgstr "Zobrazit fakturační region"
-
-# @ tcp
-#: thecartpress/checkout/TCPBillingExBox.class.php:214
-msgid "Required billing region"
-msgstr "Vyžadován fakturační region"
-
-# @ tcp
-#: thecartpress/checkout/TCPBillingExBox.class.php:218
-msgid "Display billing telephone 1"
-msgstr "Zobrazit fakturační telefon 1"
-
-# @ tcp
-#: thecartpress/checkout/TCPBillingExBox.class.php:222
-msgid "Required billing telephone 1"
-msgstr "Vyžadován fakturační telefon 1"
-
-# @ tcp
-#: thecartpress/checkout/TCPBillingExBox.class.php:226
-msgid "Display billing telephone 2"
-msgstr "Zobrazit fakturační telefon 2"
-
-# @ tcp
-#: thecartpress/checkout/TCPBillingExBox.class.php:230
-msgid "Required billing telephone 2"
-msgstr "Vyžadován fakturační telefon 2"
-
-# @ tcp
-#: thecartpress/checkout/TCPBillingExBox.class.php:234
-msgid "Display billing fax"
-msgstr "Zobrazit fakturační fax"
-
-# @ tcp
-#: thecartpress/checkout/TCPBillingExBox.class.php:238
-msgid "Required billing fax"
-msgstr "Vyžadován fakturační fax"
-
-# @ tcp
-#: thecartpress/checkout/TCPBillingExBox.class.php:244
-msgid "This option only must be activated if the shipping box is not used"
-msgstr "Tato volba musí být aktivována v případě, že není zboží pro přepravu zabalené"
-
-# @ tcp
-#: thecartpress/checkout/TCPBillingExBox.class.php:301
-msgid "This data will be used also as Shipping."
-msgstr "Tato data budou použita také jako doprava"
-
-# @ tcp
 #: thecartpress/checkout/TCPSigninBox.class.php:26
 msgid "Checkout method"
 msgstr "Způsob platby"
@@ -5172,110 +5099,98 @@ msgstr "Přepravní poznámka"
 # @ tcp
 #: thecartpress/checkout/ShippingBox.class.php:77
 #: thecartpress/checkout/ShippingBox.class.php:94
-#: thecartpress/checkout/ShippingBox.class.php:401
-#: thecartpress/checkout/TCPShippingBox.class.php:85
-#: thecartpress/checkout/TCPShippingBox.class.php:100
+#: thecartpress/checkout/ShippingBox.class.php:400
 msgid "The shipping Country is not allowed"
 msgstr "Doručovací země není povolena"
 
 # @ tcp
 #: thecartpress/checkout/ShippingBox.class.php:81
-#: thecartpress/checkout/TCPShippingBox.class.php:93
 msgid "The shipping eMail field must be a valid email"
 msgstr "Doručovací e-mail musí být platný"
 
 # @ tcp
 #: thecartpress/checkout/ShippingBox.class.php:163
-#: thecartpress/checkout/TCPShippingBox.class.php:169
 msgid "Select shipping address:"
 msgstr "Vybrat adresu pro doručení"
 
 # @ tcp
 #: thecartpress/checkout/ShippingBox.class.php:174
-#: thecartpress/checkout/TCPShippingBox.class.php:180
 msgid "Shipping to the address selected"
 msgstr "Vybráno doručení na adresu"
 
 # @ tcp
 #: thecartpress/checkout/ShippingBox.class.php:181
-#: thecartpress/checkout/TCPShippingBox.class.php:187
 msgid "Use billing address"
 msgstr "Použít fakturační adresu"
 
 # @ tcp
 #: thecartpress/checkout/ShippingBox.class.php:189
-#: thecartpress/checkout/TCPShippingBox.class.php:194
 msgid "New shipping address"
 msgstr "Jiná adresa pro doručení"
 
 # @ tcp
 #: thecartpress/checkout/ShippingBox.class.php:372
-#: thecartpress/checkout/TCPShippingBox.class.php:72
 msgid "The shipping First name field must be completed"
 msgstr "Doručovací jméno musí být vyplněno"
 
 # @ tcp
 #: thecartpress/checkout/ShippingBox.class.php:382
-#: thecartpress/checkout/TCPShippingBox.class.php:74
 msgid "The shipping Last name field must be completed"
 msgstr "Doručovací příjmení musí být vyplněno"
 
 # @ tcp
-#: thecartpress/checkout/ShippingBox.class.php:392
+#: thecartpress/checkout/ShippingBox.class.php:391
 #, fuzzy
 msgid "The shipping Company name must be completed"
 msgstr "Doručovací  město musí být vyplněno"
 
 # @ tcp
-#: thecartpress/checkout/ShippingBox.class.php:405
+#: thecartpress/checkout/ShippingBox.class.php:404
 #, fuzzy
 msgid "The shipping State field must be completed"
 msgstr "Doručovací  ulice musí být vyplněna"
 
 # @ tcp
-#: thecartpress/checkout/ShippingBox.class.php:409
-#: thecartpress/checkout/TCPShippingBox.class.php:78
+#: thecartpress/checkout/ShippingBox.class.php:408
 msgid "The shipping City field must be completed"
 msgstr "Doručovací  město musí být vyplněno"
 
 # @ tcp
-#: thecartpress/checkout/ShippingBox.class.php:415
-#: thecartpress/checkout/TCPShippingBox.class.php:76
+#: thecartpress/checkout/ShippingBox.class.php:414
 msgid "The shipping Street field must be completed"
 msgstr "Doručovací  ulice musí být vyplněna"
 
 # @ tcp
-#: thecartpress/checkout/ShippingBox.class.php:425
+#: thecartpress/checkout/ShippingBox.class.php:424
 #, fuzzy
 msgid "The shipping Street 2 field must be completed"
 msgstr "Doručovací  ulice musí být vyplněna"
 
 # @ tcp
-#: thecartpress/checkout/ShippingBox.class.php:434
-#: thecartpress/checkout/TCPShippingBox.class.php:89
+#: thecartpress/checkout/ShippingBox.class.php:433
 msgid "The shipping Postcode field must be completed"
 msgstr "Doručovací  PSČ musí být vyplněno"
 
 # @ tcp
-#: thecartpress/checkout/ShippingBox.class.php:444
+#: thecartpress/checkout/ShippingBox.class.php:443
 #, fuzzy
 msgid "The shipping Telephone field must be completed"
 msgstr "Políčko dodací Region musí být vyplněno"
 
 # @ tcp
-#: thecartpress/checkout/ShippingBox.class.php:453
+#: thecartpress/checkout/ShippingBox.class.php:452
 #, fuzzy
 msgid "The shipping Second Telephone field must be completed"
 msgstr "Doručovací  PSČ musí být vyplněno"
 
 # @ tcp
-#: thecartpress/checkout/ShippingBox.class.php:462
+#: thecartpress/checkout/ShippingBox.class.php:461
 #, fuzzy
 msgid "The shipping Fax field must be completed"
 msgstr "Doručovací  e-mail musí být doplněn"
 
 # @ tcp
-#: thecartpress/checkout/ShippingBox.class.php:471
+#: thecartpress/checkout/ShippingBox.class.php:470
 #, fuzzy
 msgid "The shipping eMail field must be completed and valid"
 msgstr "Doručovací  e-mail musí být doplněn"
@@ -5394,21 +5309,6 @@ msgid "If this messages is blank, the Checkout page will try to use the Notice c
 msgstr "Pokud je tato zpráva prázdná, zkusí stránka Pokladna použít k Upozornění třídu s názvem \"tcp_checkout_end\""
 
 # @ tcp
-#: thecartpress/checkout/TCPShippingBox.class.php:47
-msgid "Shipping options"
-msgstr "Místo doručení"
-
-# @ tcp
-#: thecartpress/checkout/TCPShippingBox.class.php:80
-msgid "The shipping Region field must be completed"
-msgstr "Políčko dodací Region musí být vyplněno"
-
-# @ tcp
-#: thecartpress/checkout/TCPShippingBox.class.php:91
-msgid "The shipping eMail field must be completed"
-msgstr "Doručovací  e-mail musí být doplněn"
-
-# @ tcp
 #: thecartpress/checkout/CheckoutEditor.class.php:46
 #: thecartpress/checkout/CheckoutEditor.class.php:87
 msgid "Checkout Editor"
@@ -5466,23 +5366,28 @@ msgid "If you drag and drop in the deactivated area, the step will be deleted fr
 msgstr ""
 
 # @ tcp
-#: thecartpress/modules/Extend.class.php:37
-#: thecartpress/modules/Extend.class.php:39
-#: thecartpress/modules/Extend.class.php:63
+#: thecartpress/modules/Extend.class.php:38
+#: thecartpress/modules/Extend.class.php:40
 msgid "Extend"
 msgstr "Rozšířit"
 
 # @ tcp
-#: thecartpress/modules/Extend.class.php:39
+#: thecartpress/modules/Extend.class.php:40
 #, fuzzy
 msgid "Extend Store"
 msgstr "Rozšířit"
 
-#: thecartpress/modules/Extend.class.php:49
+#: thecartpress/modules/Extend.class.php:50
 msgid "Extended modules."
 msgstr ""
 
-#: thecartpress/modules/Extend.class.php:91
+# @ tcp
+#: thecartpress/modules/Extend.class.php:65
+#, fuzzy
+msgid "Loading..."
+msgstr "Odesílání..."
+
+#: thecartpress/modules/Extend.class.php:93
 msgid "Learn more"
 msgstr ""
 
@@ -5718,23 +5623,23 @@ msgid "Child of TheCartPress"
 msgstr "Děti CartPressu"
 
 # @ tcp
-#: thecartpress/modules/WishList.class.php:114
+#: thecartpress/modules/WishList.class.php:116
 msgid "WishList"
 msgstr "Seznam přání"
 
 # @ tcp
-#: thecartpress/modules/WishList.class.php:121
+#: thecartpress/modules/WishList.class.php:123
 msgid "Enabled Wish List"
 msgstr "Povolit seznam přání"
 
 # @ tcp
-#: thecartpress/modules/WishList.class.php:141
+#: thecartpress/modules/WishList.class.php:142
 #, fuzzy
 msgid "My Wish List"
 msgstr "Můj seznam přání"
 
 # @ tcp
-#: thecartpress/modules/WishList.class.php:154
+#: thecartpress/modules/WishList.class.php:155
 msgid "Add to Wish list"
 msgstr "Přidat do seznamu přání"
 
@@ -5771,182 +5676,182 @@ msgid "parent theme"
 msgstr "rodičovské téma"
 
 # @ tcp
-#: thecartpress/modules/StockManagement.class.php:132
-#: thecartpress/modules/StockManagement.class.php:144
-#: thecartpress/modules/StockManagement.class.php:154
-#: thecartpress/modules/StockManagement.class.php:279
-#: thecartpress/modules/StockManagement.class.php:397
-#: thecartpress/modules/StockManagement.class.php:437
-#: thecartpress/modules/StockManagement.class.php:465
-#: thecartpress/modules/StockManagement.class.php:676
+#: thecartpress/modules/StockManagement.class.php:131
+#: thecartpress/modules/StockManagement.class.php:143
+#: thecartpress/modules/StockManagement.class.php:153
+#: thecartpress/modules/StockManagement.class.php:278
+#: thecartpress/modules/StockManagement.class.php:396
+#: thecartpress/modules/StockManagement.class.php:436
+#: thecartpress/modules/StockManagement.class.php:464
+#: thecartpress/modules/StockManagement.class.php:675
 msgid "Stock"
 msgstr "Skladem"
 
 # @ tcp
-#: thecartpress/modules/StockManagement.class.php:267
+#: thecartpress/modules/StockManagement.class.php:266
 msgid "Update Stock"
 msgstr "Aktualizovat skladové položky"
 
 # @ tcp
-#: thecartpress/modules/StockManagement.class.php:286
+#: thecartpress/modules/StockManagement.class.php:285
 msgid "Stock management"
 msgstr "Správa skladu"
 
 # @ tcp
-#: thecartpress/modules/StockManagement.class.php:290
+#: thecartpress/modules/StockManagement.class.php:289
 msgid "Activates the stock management tools"
 msgstr "Aktivuje nástroj řízení skladových zásob"
 
 # @ tcp
-#: thecartpress/modules/StockManagement.class.php:295
+#: thecartpress/modules/StockManagement.class.php:294
 msgid "When is stock adjusted"
 msgstr "Pokud je nastaven sklad "
 
 # @ tcp
-#: thecartpress/modules/StockManagement.class.php:299
+#: thecartpress/modules/StockManagement.class.php:298
 msgid "Never automatically adjusted"
 msgstr "Nikdy nenastavovat automaticky"
 
 # @ tcp
-#: thecartpress/modules/StockManagement.class.php:301
+#: thecartpress/modules/StockManagement.class.php:300
 msgid "On checkout (default)"
 msgstr "Na pokladně (výchozí)"
 
 # @ tcp
-#: thecartpress/modules/StockManagement.class.php:303
+#: thecartpress/modules/StockManagement.class.php:302
 msgid "On OK from payment gateway"
 msgstr "Na OK z platební brány"
 
 # @ tcp
-#: thecartpress/modules/StockManagement.class.php:305
+#: thecartpress/modules/StockManagement.class.php:304
 msgid "Order status set to "
 msgstr "Stav objednávky nastaven"
 
 # @ tcp
-#: thecartpress/modules/StockManagement.class.php:317
+#: thecartpress/modules/StockManagement.class.php:316
 msgid "Stock limit"
 msgstr "Limit skladu"
 
 # @ tcp
-#: thecartpress/modules/StockManagement.class.php:321
+#: thecartpress/modules/StockManagement.class.php:320
 msgid "Sets the upper limit to send emails for low stock"
 msgstr "Nastavuje horní limit pro odeslání e-mailů pro nízký stav skladu"
 
 # @ tcp
-#: thecartpress/modules/StockManagement.class.php:326
+#: thecartpress/modules/StockManagement.class.php:325
 msgid "Hide out of stock products"
 msgstr "Skrýt ze skladových produktů"
 
 # @ tcp
-#: thecartpress/modules/StockManagement.class.php:330
+#: thecartpress/modules/StockManagement.class.php:329
 msgid "Allows to hide out of Stock products"
 msgstr "Umožňuje skrýt ze skladových produktů"
 
 # @ tcp
-#: thecartpress/modules/StockManagement.class.php:391
+#: thecartpress/modules/StockManagement.class.php:390
 msgid " Low Stock"
 msgstr "Málo skladem"
 
 # @ tcp
-#: thecartpress/modules/StockManagement.class.php:418
+#: thecartpress/modules/StockManagement.class.php:417
 msgid "Low Stock Notice"
 msgstr "Oznámení o nedostatku na skladu"
 
 # @ tcp
-#: thecartpress/modules/StockManagement.class.php:429
+#: thecartpress/modules/StockManagement.class.php:428
 msgid "This notice will be showed when the client is going to pay and there is no stock of any product in the cart."
 msgstr "Toto oznámení se ukáže, když se klient rozhodne platit a v košíku není žádné zboží, které je skladem."
 
 # @ tcp
-#: thecartpress/modules/StockManagement.class.php:440
-#: thecartpress/modules/StockManagement.class.php:455
+#: thecartpress/modules/StockManagement.class.php:439
+#: thecartpress/modules/StockManagement.class.php:454
 #, php-format
 msgid "Stock management is disabled. See the <a href=\"%s\">settings</a> page to change this value."
 msgstr "Řízení zásob je zakázáno. Podívejte se na <a href=\"%s\">nastavení</ a>, abyste tuto hodnotu změnili."
 
 # @ tcp
-#: thecartpress/modules/StockManagement.class.php:447
+#: thecartpress/modules/StockManagement.class.php:446
 msgid "Use value -1 (or left blank) for stores/products with no stock management."
 msgstr "Použijte hodnotu -1 (nebo nechte prázdné) pro produkt, u kterého není sledováno skladové množství."
 
 # @ tcp
-#: thecartpress/modules/StockManagement.class.php:452
+#: thecartpress/modules/StockManagement.class.php:451
 msgid "Initial Stock"
 msgstr "Počáteční sklad"
 
 # @ tcp
-#: thecartpress/modules/StockManagement.class.php:499
+#: thecartpress/modules/StockManagement.class.php:498
 msgid "See stock notices"
 msgstr "Viz skladové poznámky"
 
 # @ tcp
-#: thecartpress/modules/StockManagement.class.php:519
+#: thecartpress/modules/StockManagement.class.php:518
 #, php-format
 msgid "No enough stock for this product. Only %s available items."
 msgstr "Nedostatek skladových zásob pro tento produkt. Je k dispozici pouze %s kusů."
 
 # @ tcp
 # @ tcp-bootstrap-ecommerce
-#: thecartpress/modules/StockManagement.class.php:521
-#: thecartpress/modules/StockManagement.class.php:537
-#: thecartpress/modules/StockManagement.class.php:750
+#: thecartpress/modules/StockManagement.class.php:520
+#: thecartpress/modules/StockManagement.class.php:536
+#: thecartpress/modules/StockManagement.class.php:749
 msgid "Out of stock"
 msgstr "Skladem."
 
 # @ tcp
-#: thecartpress/modules/StockManagement.class.php:540
+#: thecartpress/modules/StockManagement.class.php:539
 #, php-format
 msgid "No enough stock. Only %s available items."
 msgstr "Nedostatek na skladě. Pouze %s kusů k dispozici."
 
 # @ tcp
-#: thecartpress/modules/StockManagement.class.php:550
+#: thecartpress/modules/StockManagement.class.php:549
 msgid "You are trying to check out your order but, at this moment, there are not enough stock of some products. Please, review the list of products."
 msgstr "Snažíte se podívat na vaši objednávku, ale v tuto chvíli není dostatečná zásoba některých produktů. Prosím, prohlédněte si seznam produktů."
 
 # @ tcp
-#: thecartpress/modules/StockManagement.class.php:578
+#: thecartpress/modules/StockManagement.class.php:577
 msgid "Not enough stock in order at check-out"
 msgstr "Nedostatek zásob v objednávce k dokončení"
 
 # @ tcp
-#: thecartpress/modules/StockManagement.class.php:581
+#: thecartpress/modules/StockManagement.class.php:580
 msgid "There was an error when creating the order. Please contact with the seller."
 msgstr "Vyskytla se chyba při vytváření objednávky. Kontaktujte prosím prodejce."
 
 # @ tcp
-#: thecartpress/modules/StockManagement.class.php:603
+#: thecartpress/modules/StockManagement.class.php:602
 msgid "No stock after payment for:"
 msgstr "Po zaplacení není skladem pro:"
 
 # @ tcp
-#: thecartpress/modules/StockManagement.class.php:633
+#: thecartpress/modules/StockManagement.class.php:632
 msgid "There was an error when creating the order. Seller will contact you regarding your order."
 msgstr "Vyskytla se chyba při vytváření objednávky. Pro dokončení Vás bude kontaktovat prodejce."
 
 # @ tcp
-#: thecartpress/modules/StockManagement.class.php:664
+#: thecartpress/modules/StockManagement.class.php:663
 msgid "Units in stock"
 msgstr "Jednotky na skladě"
 
 # @ tcp
-#: thecartpress/modules/StockManagement.class.php:668
+#: thecartpress/modules/StockManagement.class.php:667
 msgid "Initial stock"
 msgstr "Počáteční sklad"
 
 # @ tcp
-#: thecartpress/modules/StockManagement.class.php:705
-#: thecartpress/modules/StockManagement.class.php:708
+#: thecartpress/modules/StockManagement.class.php:704
+#: thecartpress/modules/StockManagement.class.php:707
 msgid "N/A"
 msgstr "N/A"
 
 # @ tcp
-#: thecartpress/modules/StockManagement.class.php:728
+#: thecartpress/modules/StockManagement.class.php:727
 msgid "See stock notice"
 msgstr "Prohlédněte si oznámení"
 
 # @ tcp
-#: thecartpress/modules/StockManagement.class.php:739
+#: thecartpress/modules/StockManagement.class.php:738
 #, php-format
 msgid "No enough stock for some products. Visit the <a href=\"%s\">Shopping Cart</a> to see more details."
 msgstr "Nedostatek zboží u některých produktů. Navštivte <a href=\"%s\">Nákupní košíkt</a> pro více detailů."
@@ -6019,36 +5924,42 @@ msgstr "Jednotky zboží"
 
 # @ tcp
 #: thecartpress/modules/UnitsInBuyButton.class.php:146
+#, fuzzy
+msgid "unit"
+msgstr "jednotky"
+
+# @ tcp
+#: thecartpress/modules/UnitsInBuyButton.class.php:147
 msgid "piece"
 msgstr "kus"
 
 # @ tcp
-#: thecartpress/modules/UnitsInBuyButton.class.php:147
+#: thecartpress/modules/UnitsInBuyButton.class.php:148
 msgid "roll"
 msgstr "role"
 
 # @ tcp
-#: thecartpress/modules/UnitsInBuyButton.class.php:148
+#: thecartpress/modules/UnitsInBuyButton.class.php:149
 msgid "meter"
 msgstr "metr"
 
 # @ tcp
-#: thecartpress/modules/UnitsInBuyButton.class.php:149
+#: thecartpress/modules/UnitsInBuyButton.class.php:150
 msgid "kg"
 msgstr "kg"
 
 # @ tcp
-#: thecartpress/modules/UnitsInBuyButton.class.php:150
+#: thecartpress/modules/UnitsInBuyButton.class.php:151
 msgid "gr"
 msgstr "gr"
 
 # @ tcp
-#: thecartpress/modules/UnitsInBuyButton.class.php:151
+#: thecartpress/modules/UnitsInBuyButton.class.php:152
 msgid "pack"
 msgstr "balení"
 
 # @ tcp
-#: thecartpress/modules/UnitsInBuyButton.class.php:153
+#: thecartpress/modules/UnitsInBuyButton.class.php:154
 msgid "By default"
 msgstr "Ve výchozím nastavení"
 
@@ -6194,96 +6105,96 @@ msgid "Activate next Javascript"
 msgstr "Aktivovat další javascript"
 
 # @ tcp
-#: thecartpress/modules/BuyButton.class.php:127
+#: thecartpress/modules/BuyButton.class.php:114
 msgid "Buy Buttons"
 msgstr "Tlačítka Koupit"
 
 # @ default
-#: thecartpress/modules/BuyButton.class.php:135
+#: thecartpress/modules/BuyButton.class.php:122
 msgid "Theme"
 msgstr ""
 
 # @ tcp
-#: thecartpress/modules/BuyButton.class.php:139
+#: thecartpress/modules/BuyButton.class.php:126
 msgid "Parent theme"
 msgstr "Mateřské téma"
 
 # @ tcp
-#: thecartpress/modules/BuyButton.class.php:171
+#: thecartpress/modules/BuyButton.class.php:158
 msgid "Buy button"
 msgstr "Tlačítko koupit"
 
 # @ tcp
-#: thecartpress/modules/BuyButton.class.php:206
-#: thecartpress/modules/BuyButton.class.php:217
+#: thecartpress/modules/BuyButton.class.php:193
+#: thecartpress/modules/BuyButton.class.php:204
 #, fuzzy
 msgid "Theme default"
 msgstr "základní"
 
-#: thecartpress/modules/BuyButton.class.php:208
+#: thecartpress/modules/BuyButton.class.php:195
 msgid "Blue"
 msgstr ""
 
-#: thecartpress/modules/BuyButton.class.php:209
+#: thecartpress/modules/BuyButton.class.php:196
 msgid "Green"
 msgstr ""
 
-#: thecartpress/modules/BuyButton.class.php:210
+#: thecartpress/modules/BuyButton.class.php:197
 msgid "Cyan"
 msgstr ""
 
-#: thecartpress/modules/BuyButton.class.php:211
+#: thecartpress/modules/BuyButton.class.php:198
 msgid "Orange"
 msgstr ""
 
-#: thecartpress/modules/BuyButton.class.php:212
+#: thecartpress/modules/BuyButton.class.php:199
 msgid "Red"
 msgstr ""
 
-#: thecartpress/modules/BuyButton.class.php:213
+#: thecartpress/modules/BuyButton.class.php:200
 msgid "Link"
 msgstr ""
 
-#: thecartpress/modules/BuyButton.class.php:218
+#: thecartpress/modules/BuyButton.class.php:205
 msgid "Extra Small"
 msgstr ""
 
-#: thecartpress/modules/BuyButton.class.php:219
+#: thecartpress/modules/BuyButton.class.php:206
 msgid "Small"
 msgstr ""
 
-#: thecartpress/modules/BuyButton.class.php:220
+#: thecartpress/modules/BuyButton.class.php:207
 msgid "Large"
 msgstr ""
 
 # @ tcp
-#: thecartpress/modules/BuyButton.class.php:228
+#: thecartpress/modules/BuyButton.class.php:215
 #, fuzzy
 msgid "Button Styles"
 msgstr "Volitelné styly"
 
-#: thecartpress/modules/BuyButton.class.php:237
+#: thecartpress/modules/BuyButton.class.php:224
 msgid "Colors"
 msgstr ""
 
-#: thecartpress/modules/BuyButton.class.php:253
+#: thecartpress/modules/BuyButton.class.php:240
 msgid "Example "
 msgstr ""
 
 # @ tcp
-#: thecartpress/modules/BuyButton.class.php:254
+#: thecartpress/modules/BuyButton.class.php:241
 #, fuzzy
 msgid "Add to Cart"
 msgstr "Přidat do košíku"
 
 # @ tcp
-#: thecartpress/modules/BuyButton.class.php:261
+#: thecartpress/modules/BuyButton.class.php:248
 #, fuzzy
 msgid "Sizes"
 msgstr "Jednotky velikosti"
 
 # @ tcp
-#: thecartpress/modules/BuyButton.class.php:281
+#: thecartpress/modules/BuyButton.class.php:268
 #, fuzzy
 msgid "Grouped buttons"
 msgstr "Seskupeno v"
@@ -6420,6 +6331,7 @@ msgstr "Vypočítá přepravní náklady pomocí tabulky vah a oblastí.<br > Au
 
 # @ tcp
 #: thecartpress/plugins/ShippingCost.class.php:52
+#: thecartpress/plugins/FlatRate.class.php:56
 #, php-format
 msgid "%s. Cost: %s"
 msgstr "%s. Cena: %s"
@@ -6552,7 +6464,8 @@ msgstr "Pokud vybráno, stránka Pokladna dokončí objednávku. Zákazníci nem
 
 # @ tcp
 #: thecartpress/plugins/NoCostPayment.class.php:89
-#: thecartpress/plugins/Transference.class.php:224
+#: thecartpress/plugins/Transference.class.php:225
+#: thecartpress/plugins/Remboursement.class.php:123
 msgid "Finish"
 msgstr "Dokončit"
 
@@ -6735,6 +6648,7 @@ msgstr "Pouze autorizace"
 
 # @ tcp
 #: thecartpress/plugins/authorize.net/TCPAuthorizeNet.class.php:92
+#: thecartpress/plugins/PayPal/TCPPayPal.php:95
 msgid "Indicates whether the payment is a final sale or an authorization for a final sale, to be captured later"
 msgstr "Označuje, zda je platba konečný prodej nebo autorizace pro konečný prodej, který se uskuteční později"
 
@@ -6937,139 +6851,139 @@ msgid "PayPal - The safer, easier way to pay online"
 msgstr "PayPal - bezpečnější, jednodušší způsob, jak zaplatit on-line"
 
 # @ tcp
-#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:42
+#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:44
 msgid "Store part of the number"
 msgstr "Uchovat část čísla"
 
 # @ tcp
-#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:45
+#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:48
 msgid "The credit card will be stored as 9999 xxxx xxxx 9999"
 msgstr "Kreditní karta bude uložena jako 9999 xxxx xxxx 9999"
 
 # @ tcp
-#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:67
+#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:71
 msgid "Off line payment:"
 msgstr "Off-line platba:"
 
 # @ tcp
-#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:77
+#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:80
 msgid "Credit card holder"
 msgstr "Držitel ktreditní karty"
 
 # @ tcp
-#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:86
-#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:219
+#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:89
+#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:226
 msgid "Card number"
 msgstr "Číslo karty"
 
 # @ tcp
-#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:102
-#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:226
+#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:106
+#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:233
 msgid "cvc"
 msgstr "cvc"
 
 # @ tcp
-#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:111
-#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:231
+#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:115
+#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:238
 msgid "Expiration date"
 msgstr "Datum expirace"
 
 # @ tcp
-#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:114
+#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:118
 msgid "Month"
 msgstr "Měsíc"
 
 # @ tcp
-#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:121
+#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:125
 msgid "Year"
 msgstr "Rok"
 
 # @ tcp
-#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:132
+#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:136
 msgid "Card type"
 msgstr "Typ karty"
 
 # @ tcp
-#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:175
+#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:179
 msgid "Wrong Card number"
 msgstr "Chybné číslo karty"
 
 # @ tcp
-#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:181
+#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:185
 msgid "The field Card Holder must be completed"
 msgstr "Pole Držitel karty musí být vyplněno"
 
 # @ tcp
-#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:190
+#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:196
 msgid "Send"
 msgstr "Posláno"
 
 # @ tcp
-#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:202
+#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:209
 msgid "The data from the customer's credit card has been permanently removed"
 msgstr "Údaje ze zákazníkovy kreditní karty budou trvale odstraněny"
 
 # @ tcp
-#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:211
+#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:218
 msgid "Credit Card Holder"
 msgstr "Držitel kreditní karty"
 
 # @ tcp
-#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:241
+#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:248
 msgid "Credit Card Type"
 msgstr "Typ kreditní karty"
 
 # @ tcp
-#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:245
+#: thecartpress/plugins/CardOffLine/CardOffLine.class.php:252
 msgid "Delete card data"
 msgstr "Smazat data karty"
 
 # @ tcp
-#: thecartpress/metaboxes/AttachmentsMetabox.class.php:76
+#: thecartpress/metaboxes/AttachmentsMetabox.class.php:45
 #, fuzzy
 msgid "Attachments"
 msgstr "Platby"
 
 # @ tcp
-#: thecartpress/metaboxes/AttachmentsMetabox.class.php:95
-#: thecartpress/metaboxes/AttachmentsMetabox.class.php:112
-#: thecartpress/metaboxes/AttachmentsMetabox.class.php:121
-#: thecartpress/metaboxes/AttachmentsMetabox.class.php:126
-#: thecartpress/metaboxes/AttachmentsMetabox.class.php:131
+#: thecartpress/metaboxes/AttachmentsMetabox.class.php:127
+#: thecartpress/metaboxes/AttachmentsMetabox.class.php:144
+#: thecartpress/metaboxes/AttachmentsMetabox.class.php:153
+#: thecartpress/metaboxes/AttachmentsMetabox.class.php:158
+#: thecartpress/metaboxes/AttachmentsMetabox.class.php:163
 #, fuzzy
 msgid "Saving..."
 msgstr "Odesílání..."
 
 # @ tcp
-#: thecartpress/metaboxes/AttachmentsMetabox.class.php:113
+#: thecartpress/metaboxes/AttachmentsMetabox.class.php:145
 #, fuzzy
 msgid "Details"
 msgstr "E-maily"
 
 # @ tcp
-#: thecartpress/metaboxes/AttachmentsMetabox.class.php:114
+#: thecartpress/metaboxes/AttachmentsMetabox.class.php:146
 #, fuzzy
 msgid "Delete from post"
 msgstr "Smazat data karty"
 
 # @ tcp
-#: thecartpress/metaboxes/AttachmentsMetabox.class.php:115
+#: thecartpress/metaboxes/AttachmentsMetabox.class.php:147
 #, fuzzy
 msgid "Delete image"
 msgstr "Smazat položku"
 
 # @ tcp
-#: thecartpress/metaboxes/AttachmentsMetabox.class.php:119
+#: thecartpress/metaboxes/AttachmentsMetabox.class.php:151
 #, fuzzy
 msgid "Caption"
 msgstr "Nastavení"
 
-#: thecartpress/metaboxes/AttachmentsMetabox.class.php:124
+#: thecartpress/metaboxes/AttachmentsMetabox.class.php:156
 msgid "Alternate text"
 msgstr ""
 
 # @ tcp
-#: thecartpress/metaboxes/AttachmentsMetabox.class.php:267
+#: thecartpress/metaboxes/AttachmentsMetabox.class.php:360
 #, fuzzy
 msgid "No attachments"
 msgstr "Žádná platba"
@@ -7114,7 +7028,7 @@ msgstr "Poznámky, e-maily"
 
 # @ tcp
 #: thecartpress/metaboxes/TemplateMetabox.class.php:51
-#: thecartpress/metaboxes/PostMetabox.class.php:41
+#: thecartpress/metaboxes/PostMetabox.class.php:55
 msgid "After saving the title and content, you will be able to edit these relations."
 msgstr "Po uložení názvu a obsahu, budete moci upravit tyto vztahy."
 
@@ -7135,7 +7049,7 @@ msgstr "Pro křížený prodej, přidejte produkty k aktuálnímu produktu"
 
 # @ tcp
 #: thecartpress/metaboxes/ProductCustomFieldsMetabox.class.php:81
-#: thecartpress/metaboxes/PostMetabox.class.php:49
+#: thecartpress/metaboxes/PostMetabox.class.php:63
 msgid "Related Products"
 msgstr "Související produkty"
 
@@ -7148,7 +7062,7 @@ msgstr "Pro křížový prodej, přidejte příspěvky k aktuálnímu produktu"
 
 # @ tcp
 #: thecartpress/metaboxes/ProductCustomFieldsMetabox.class.php:90
-#: thecartpress/metaboxes/PostMetabox.class.php:54
+#: thecartpress/metaboxes/PostMetabox.class.php:68
 msgid "Related Posts"
 msgstr "Související příspěvky"
 
@@ -7166,7 +7080,7 @@ msgstr "Související kategorie produktů"
 
 # @ tcp
 #: thecartpress/metaboxes/ProductCustomFieldsMetabox.class.php:108
-#: thecartpress/metaboxes/PostMetabox.class.php:59
+#: thecartpress/metaboxes/PostMetabox.class.php:73
 msgid "Related Cat. of Products"
 msgstr "Související kategorie produktů"
 
@@ -7234,17 +7148,17 @@ msgid "If the product is assigned to a Grouped product, this option excludes the
 msgstr "Pokud je produkt přiřazen seskupenému produktu, tyto možnosti vyloučí tento výrobek z ceny mateřského produktu."
 
 # @ tcp
-#: thecartpress/metaboxes/PostMetabox.class.php:28
+#: thecartpress/metaboxes/PostMetabox.class.php:42
 msgid "Related content"
 msgstr "Související obsah"
 
 # @ tcp
-#: thecartpress/metaboxes/PostMetabox.class.php:59
+#: thecartpress/metaboxes/PostMetabox.class.php:73
 msgid "For crossing sell, adds post to the current product"
 msgstr "Pro křížový prodej, přidejte příspěvky k aktuálnímu produktu"
 
 # @ tcp
-#: thecartpress/shortcodes/Shortcode.class.php:48
+#: thecartpress/shortcodes/Shortcode.class.php:62
 #, php-format
 msgid "Mal formed shortcode: %s"
 msgstr "Poškozené zkrácené kódy: %s"
@@ -7256,7 +7170,7 @@ msgid "Continue Shopping"
 msgstr "Pokračovat v nákupu"
 
 # @ tcp
-#: thecartpress/shortcodes/ShoppingCartPage.class.php:98
+#: thecartpress/shortcodes/ShoppingCartPage.class.php:100
 #, fuzzy
 msgid "See Your Shopping Cart"
 msgstr "Nahrát do nákupního košíku"
@@ -7299,7 +7213,7 @@ msgstr "TheCartPress vyhledávač je vypnutý"
 
 # @ tcp
 #: thecartpress/classes/TCP_Plugin.class.php:160
-#: thecartpress/classes/TCP_Plugin.class.php:171
+#: thecartpress/classes/TCP_Plugin.class.php:172
 #, php-format
 msgid "This notice will be displayed in the checkout process and added in the email to the customer with the info related to %s"
 msgstr "Toto oznámení se zobrazí během procesu nákupu zboží a přidá se do e-mailu pro zákazníka s informacemi v souvislosti s %s"
@@ -7544,17 +7458,17 @@ msgid "Price - Type"
 msgstr "Cena - typ"
 
 # @ tcp
-#: thecartpress/customposttypes/ProductCustomPostType.class.php:249
+#: thecartpress/customposttypes/ProductCustomPostType.class.php:251
 msgid "View all categories"
 msgstr "Zobrazit všechny kategorie"
 
 # @ tcp
-#: thecartpress/customposttypes/ProductCustomPostType.class.php:259
+#: thecartpress/customposttypes/ProductCustomPostType.class.php:261
 msgid "type:"
 msgstr "typ:"
 
 # @ tcp
-#: thecartpress/customposttypes/ProductCustomPostType.class.php:267
+#: thecartpress/customposttypes/ProductCustomPostType.class.php:269
 msgid "SKU:"
 msgstr "SKU:"
 
@@ -7566,42 +7480,44 @@ msgid "%1$s%2$s (%3$s)"
 msgstr "%1$s%2$s (%3$s)"
 
 # @ tcp
-#: thecartpress/templates/tcp_template.php:575
-msgid "(Inc. Tax)"
+#: thecartpress/templates/tcp_template.php:571
+#, fuzzy
+msgid "(Inc. tax)"
 msgstr "(Včetně DPH)"
 
 # @ tcp
-#: thecartpress/templates/tcp_template.php:576
-msgid "(No inc. Tax)"
+#: thecartpress/templates/tcp_template.php:572
+#, fuzzy
+msgid "(No inc. tax)"
 msgstr "(Bez DPH)"
 
 # @ tcp
-#: thecartpress/templates/tcp_template.php:1003
+#: thecartpress/templates/tcp_template.php:972
 msgid "Completed"
 msgstr "Hotovo"
 
 # @ tcp
-#: thecartpress/templates/tcp_template.php:1010
+#: thecartpress/templates/tcp_template.php:979
 msgid "Processing"
 msgstr "Zpracování"
 
 # @ tcp
-#: thecartpress/templates/tcp_template.php:1016
+#: thecartpress/templates/tcp_template.php:985
 msgid "Pending"
 msgstr "Nevyřízené"
 
 # @ tcp
-#: thecartpress/templates/tcp_template.php:1022
+#: thecartpress/templates/tcp_template.php:991
 msgid "Cancelled"
 msgstr "Zrušeno"
 
 # @ tcp
-#: thecartpress/templates/tcp_template.php:1029
+#: thecartpress/templates/tcp_template.php:998
 msgid "Suspended"
 msgstr "Pozastaveno"
 
 # @ tcp
-#: thecartpress/templates/tcp_template.php:1109
+#: thecartpress/templates/tcp_template.php:1078
 msgid "Simple"
 msgstr "Jednoduchý"
 
@@ -7625,9 +7541,9 @@ msgid "Add to cart"
 msgstr "Přidat do košíku"
 
 # @ tcp
-#: thecartpress/templates/tcp_buybutton_template.php:74
-#, php-format
-msgid "<span class=\"tcp_units\">%s</span> unit(s) <a href=\"%s\">in your cart</a>"
+#: thecartpress/templates/tcp_buybutton_template.php:76
+#, fuzzy, php-format
+msgid "<span class=\"tcp_units\">%s</span> unit(s) <a href=\"%s\" class=\"alert-link\">in your cart</a>"
 msgstr "<span class=\"tcp_units\">%s</span> jednotka(jednotky)) <a href=\"%s\">ve Vašem košíku</a>"
 
 # @ tcp
@@ -7816,154 +7732,139 @@ msgid "Customize Theme Compatibility. Thanks to this feature, TheCartPress suppo
 msgstr ""
 
 # @ tcp
-#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:103
+#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:95
 msgid "TheCartPress Styles"
 msgstr "Styly TheCartPressu"
 
 # @ tcp
-#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:105
+#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:97
 msgid "Allows to load default styles provided by TheCartPress. To create your own styles, deactivate these settings. You could, also, customise by copying these CSS files to your theme."
 msgstr "Umožňuje načíst výchozí styly poskytované TheCartPress. Chcete-li vytvořit vlastní styly, vypněte toto nastavení. Můžete též přizpůsobovat překopírováním těchto souborů do tématu CSS."
 
 # @ tcp
-#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:114
+#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:106
 #, fuzzy
 msgid "Load default Buy Button styles"
 msgstr "Nahrát základní styl tlačítka koupit"
 
 # @ tcp
-#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:123
+#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:115
 #, fuzzy
 msgid "Load default Shopping Cart & Checkout styles"
 msgstr "Nahrát základní styl nákupního košíku a pokladny"
 
 # @ tcp
-#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:132
+#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:124
 #, fuzzy
 msgid "Load default Catalogue styles"
 msgstr "Nahrát základní styl smyčky"
 
 # @ tcp
-#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:141
+#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:133
+#, fuzzy
+msgid "Load Bootstrap JavaScript"
+msgstr "Volitelný Javascript"
+
+# @ tcp
+#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:142
 msgid "Product pages show at most"
 msgstr "Nejčastěji zobrazované stránky produktů"
 
 # @ tcp
-#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:145
+#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:146
 msgid "products"
 msgstr "produkty"
 
 # @ tcp
-#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:155
+#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:156
 #, fuzzy
 msgid "How to display Product Details"
 msgstr "Jak zobrazit obsah smyčky"
 
 # @ tcp
-#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:182
-#: thecartpress/appearance/LoopSettings.class.php:123
+#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:183
+#: thecartpress/appearance/LoopSettings.class.php:126
 msgid "Load post type settings"
 msgstr "Nahrát nastavení typu příspěvku"
 
 # @ tcp
-#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:183
-#: thecartpress/appearance/LoopSettings.class.php:124
+#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:184
+#: thecartpress/appearance/LoopSettings.class.php:127
 msgid "Delete post type settings"
 msgstr "Smazat nastavení typu příspěvku"
 
 # @ tcp
-#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:184
+#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:185
 msgid "Allows to create different configuration for each Post Type."
 msgstr "Povolit vytvoření různé konfigurace pro každý typ příspěvku"
 
 # @ tcp
-#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:185
-#: thecartpress/appearance/LoopSettings.class.php:126
+#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:186
+#: thecartpress/appearance/LoopSettings.class.php:129
 msgid "Options in bold have a specific configuration."
 msgstr "Tučné nastavení má specifickou konfiguraci."
 
 # @ tcp
-#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:186
+#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:187
 msgid "Remember to save the changes before to load new post type settings."
 msgstr "Nezapomeňte uložit změny před tím, než načtete nové nastavení typů příspěvků."
 
 # @ tcp
-#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:194
-#, fuzzy
-msgid "See buy button"
-msgstr "Zobrazit tlačítko Koupit"
-
-# @ tcp
-#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:198
-msgid "Allows to show the buy button in the product description."
-msgstr "Povolit zobrazení tlačítka koupit v popisu produktu."
-
-# @ tcp
-#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:204
-#, fuzzy
-msgid "See price"
-msgstr "Zobrazit Cenu"
-
-#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:208
-msgid "This value will be available if buy button is hidden"
-msgstr ""
-
-# @ tcp
-#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:214
+#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:195
 msgid "Image size grouped buy button"
 msgstr "Velikost obrázku seskupena tlačítko koupit"
 
 # @ tcp
-#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:218
+#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:199
 msgid "No image"
 msgstr "Bez obrázku"
 
 # @ tcp
-#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:224
+#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:205
 #, fuzzy
 msgid "allows to select the size of the image to show in grouped products."
 msgstr "umožňuje vybrat velikost obrázku pro zobrazení v seskupených produktech."
 
 # @ tcp
-#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:230
+#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:211
 #, fuzzy
-msgid "See image"
-msgstr "Zobrazit obrázek"
+msgid "Image size in content"
+msgstr "Velikost obrázku"
 
 # @ tcp
-#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:253
+#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:225
 #, fuzzy
-msgid "Image align"
+msgid "Image align in content"
 msgstr "Zarovnání obrázku v obsahu"
 
 # @ tcp
-#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:258
+#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:230
 msgid "Align Left"
 msgstr "Zarovnat vlevo"
 
 # @ tcp
-#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:259
+#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:231
 msgid "Align Center"
 msgstr "Zarovnat na střed"
 
 # @ tcp
-#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:260
+#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:232
 msgid "Align Right"
 msgstr "Zarovnat vpravo"
 
 # @ tcp
-#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:267
+#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:239
 #, fuzzy
-msgid "Image link"
+msgid "Image link in content"
 msgstr "Velikost obrázku"
 
 # @ tcp
-#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:272
+#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:244
 msgid "File url"
 msgstr "URL souboru"
 
 # @ tcp
-#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:273
+#: thecartpress/appearance/ThemeCompatibilitySettings.class.php:245
 msgid "Post url"
 msgstr "URL příspěvku"
 
@@ -8019,206 +7920,212 @@ msgid "Allows to configure how to display products in your Catalogue"
 msgstr "Umožňuje nastavit, jak zobrazit produkty ve WordPress smyčce"
 
 # @ tcp
-#: thecartpress/appearance/LoopSettings.class.php:125
+#: thecartpress/appearance/LoopSettings.class.php:128
 #, fuzzy
 msgid "Allows to create different configuration for each Post Type. Products, posts or pages are custom post types."
 msgstr "Povolit vytvoření různé konfigurace pro každý typ příspěvku"
 
 # @ tcp
-#: thecartpress/appearance/LoopSettings.class.php:127
+#: thecartpress/appearance/LoopSettings.class.php:130
 #, fuzzy
 msgid "Remember to save changes before to load another post type settings, or you'll loose the current values."
 msgstr "Nezapomeňte uložit změny před načtením nastavení nového typu příspěvku."
 
-#: thecartpress/appearance/LoopSettings.class.php:135
+#: thecartpress/appearance/LoopSettings.class.php:138
 msgid "Layout"
 msgstr ""
 
-#: thecartpress/appearance/LoopSettings.class.php:142
+#: thecartpress/appearance/LoopSettings.class.php:145
 msgid "Columns for Extra Small devices (Phones)"
 msgstr ""
 
-#: thecartpress/appearance/LoopSettings.class.php:150
+#: thecartpress/appearance/LoopSettings.class.php:153
 msgid "Columns for Small Devices (Tablets)"
 msgstr ""
 
-#: thecartpress/appearance/LoopSettings.class.php:158
+#: thecartpress/appearance/LoopSettings.class.php:161
 msgid "Columns for Medium Devices (Desktop)"
 msgstr ""
 
-#: thecartpress/appearance/LoopSettings.class.php:166
+#: thecartpress/appearance/LoopSettings.class.php:169
 msgid "Columns for Large Devices (Large Desktops)"
 msgstr ""
 
-#: thecartpress/appearance/LoopSettings.class.php:177
+#: thecartpress/appearance/LoopSettings.class.php:180
 msgid "Visibility"
 msgstr ""
 
 # @ tcp
-#: thecartpress/appearance/LoopSettings.class.php:184
+#: thecartpress/appearance/LoopSettings.class.php:187
 #, fuzzy
 msgid "Featured Image"
 msgstr "Zobrazit obrázek"
 
 # @ tcp
-#: thecartpress/appearance/LoopSettings.class.php:188
+#: thecartpress/appearance/LoopSettings.class.php:191
 #, fuzzy
 msgid "Display Image"
 msgstr "Zobrazit formát"
 
 # @ tcp
-#: thecartpress/appearance/LoopSettings.class.php:190
+#: thecartpress/appearance/LoopSettings.class.php:193
 #, fuzzy
 msgid "using size"
 msgstr "Minimální velikost"
 
 # @ tcp
-#: thecartpress/appearance/LoopSettings.class.php:201
+#: thecartpress/appearance/LoopSettings.class.php:204
 #, fuzzy
 msgid "Product Title"
 msgstr "Jednotka zboží"
 
 # @ tcp
-#: thecartpress/appearance/LoopSettings.class.php:205
+#: thecartpress/appearance/LoopSettings.class.php:208
 #, fuzzy
 msgid "Display Title"
 msgstr "Zobrazit detail daně"
 
-#: thecartpress/appearance/LoopSettings.class.php:207
+#: thecartpress/appearance/LoopSettings.class.php:210
 msgid "using tag"
 msgstr ""
 
 # @ tcp
-#: thecartpress/appearance/LoopSettings.class.php:219
+#: thecartpress/appearance/LoopSettings.class.php:222
 #, fuzzy
 msgid "Allows to show or hide product titles in the loops, using custom html tag"
 msgstr "Umožní zobrazit nebo skrýt titulky produktů (nebo jakýkoli jiný typ příspěvku) ve smyčkách"
 
 # @ tcp
-#: thecartpress/appearance/LoopSettings.class.php:225
+#: thecartpress/appearance/LoopSettings.class.php:228
 #, fuzzy
 msgid "Display Price"
 msgstr "Zobrazit kolonku Cena"
 
-#: thecartpress/appearance/LoopSettings.class.php:229
+#: thecartpress/appearance/LoopSettings.class.php:232
 msgid "Configure Price format"
 msgstr ""
 
 # @ tcp
-#: thecartpress/appearance/LoopSettings.class.php:234
+#: thecartpress/appearance/LoopSettings.class.php:237
 #, fuzzy
 msgid "Display Buy Button"
 msgstr "Tlačítka Koupit"
 
 # @ tcp
-#: thecartpress/appearance/LoopSettings.class.php:238
+#: thecartpress/appearance/LoopSettings.class.php:241
 #, fuzzy
 msgid "Configure Buy buttons"
 msgstr "Schovat tlačítko koupit"
 
-#: thecartpress/appearance/LoopSettings.class.php:247
+#: thecartpress/appearance/LoopSettings.class.php:250
 msgid "Advanced Visibility"
 msgstr ""
 
 # @ tcp
-#: thecartpress/appearance/LoopSettings.class.php:254
+#: thecartpress/appearance/LoopSettings.class.php:257
 #, fuzzy
 msgid "Display Discount"
 msgstr "Zobrazit kolonku Jednotky"
 
 # @ tcp
-#: thecartpress/appearance/LoopSettings.class.php:262
+#: thecartpress/appearance/LoopSettings.class.php:265
 #, fuzzy
 msgid "Display Stock"
 msgstr "Zobrazit formát"
 
 # @ tcp
-#: thecartpress/appearance/LoopSettings.class.php:271
+#: thecartpress/appearance/LoopSettings.class.php:274
 #, fuzzy
 msgid "Display Excerpt"
 msgstr "Zobrazit formát"
 
 # @ tcp
-#: thecartpress/appearance/LoopSettings.class.php:279
+#: thecartpress/appearance/LoopSettings.class.php:283
+#, fuzzy
+msgid "Excerpt Length"
+msgstr "Délka výňatku"
+
+# @ tcp
+#: thecartpress/appearance/LoopSettings.class.php:292
 #, fuzzy
 msgid "Display Content"
 msgstr "Zobrazit komentář"
 
 # @ tcp
-#: thecartpress/appearance/LoopSettings.class.php:287
+#: thecartpress/appearance/LoopSettings.class.php:300
 #, fuzzy
 msgid "Display Author"
 msgstr "Zobrazit formát"
 
 # @ tcp
-#: thecartpress/appearance/LoopSettings.class.php:296
+#: thecartpress/appearance/LoopSettings.class.php:309
 #, fuzzy
 msgid "Display Posted On"
 msgstr "Zobrazit komentář"
 
 # @ tcp
-#: thecartpress/appearance/LoopSettings.class.php:304
+#: thecartpress/appearance/LoopSettings.class.php:317
 #, fuzzy
 msgid "Display Taxonomies"
 msgstr "Zobrazit sloupec daň"
 
 # @ tcp
-#: thecartpress/appearance/LoopSettings.class.php:312
+#: thecartpress/appearance/LoopSettings.class.php:325
 #, fuzzy
 msgid "Display Meta Utilities"
 msgstr "Zobrazit Meta Utility"
 
 # @ tcp
-#: thecartpress/appearance/LoopSettings.class.php:320
+#: thecartpress/appearance/LoopSettings.class.php:333
 #, fuzzy
 msgid "Display First Custom Area"
 msgstr "Zobrazit první uživatelskou oblast"
 
 # @ tcp
-#: thecartpress/appearance/LoopSettings.class.php:328
+#: thecartpress/appearance/LoopSettings.class.php:341
 #, fuzzy
 msgid "Display Second Custom Area"
 msgstr "Zobrazit druhou uživatelskou oblast"
 
 # @ tcp
-#: thecartpress/appearance/LoopSettings.class.php:336
+#: thecartpress/appearance/LoopSettings.class.php:349
 #, fuzzy
 msgid "Display Third Custom Area"
 msgstr "Zobrazit třetí uživatelskou oblast"
 
-#: thecartpress/appearance/LoopSettings.class.php:346
+#: thecartpress/appearance/LoopSettings.class.php:359
 msgid "Display JetPack Sharing Area"
 msgstr ""
 
 # @ tcp
-#: thecartpress/appearance/LoopSettings.class.php:360
+#: thecartpress/appearance/LoopSettings.class.php:373
 #, fuzzy
 msgid "Sorting & Pagination"
 msgstr "Zobrazit stránkování"
 
 # @ tcp
-#: thecartpress/appearance/LoopSettings.class.php:367
+#: thecartpress/appearance/LoopSettings.class.php:380
 #, fuzzy
 msgid "Display Sorting Panel"
 msgstr "Zobrazit sortovací panel"
 
 # @ tcp
-#: thecartpress/appearance/LoopSettings.class.php:375
+#: thecartpress/appearance/LoopSettings.class.php:388
 msgid "Disabled order types"
 msgstr "Vyloučit typy třídění"
 
 # @ tcp
-#: thecartpress/appearance/LoopSettings.class.php:386
+#: thecartpress/appearance/LoopSettings.class.php:399
 msgid "Order Type"
 msgstr "Typ třídění"
 
 # @ tcp
-#: thecartpress/appearance/LoopSettings.class.php:401
+#: thecartpress/appearance/LoopSettings.class.php:414
 msgid "Order Desc"
 msgstr "Třídit sestupně"
 
 # @ tcp
-#: thecartpress/appearance/LoopSettings.class.php:409
+#: thecartpress/appearance/LoopSettings.class.php:422
 #, fuzzy
 msgid "Display Pagination"
 msgstr "Stránkování"
@@ -8270,27 +8177,27 @@ msgid "Apologies, but no results were found for the requested archive. Perhaps s
 msgstr "Omlouváme se, ale žádné výsledky nebyly v požadovaném archivu nalezeny. Snad hledání pomůže najít související příspěvek."
 
 # @ tcp
-#: thecartpress/themes-templates/loop-tcp-grid.php:205
+#: thecartpress/themes-templates/loop-tcp-grid.php:203
 msgid "More <span class=\"meta-nav\">&rarr;</span>"
 msgstr "Více <span class=\"meta-nav\">&rarr;</span>"
 
 # @ ecommerce-twentyeleven
 # @ tcp-bootstrap-ecommerce
-#: thecartpress/themes-templates/loop-tcp-grid.php:234
+#: thecartpress/themes-templates/loop-tcp-grid.php:232
 msgid "Leave a review"
 msgstr "Nechat recenzi"
 
 # @ twentyeleven
 # @ tcp
 # @ tcp-bootstrap-ecommerce
-#: thecartpress/themes-templates/loop-tcp-grid.php:234
+#: thecartpress/themes-templates/loop-tcp-grid.php:232
 msgid "<b>1</b> Review"
 msgstr "<b>1</b> recenze"
 
 # @ ecommerce-twentyeleven
 # @ tcp
 # @ tcp-bootstrap-ecommerce
-#: thecartpress/themes-templates/loop-tcp-grid.php:234
+#: thecartpress/themes-templates/loop-tcp-grid.php:232
 msgid "<b>%</b> Reviews"
 msgstr "<b>%</b> recenzí"
 
@@ -8326,3 +8233,109 @@ msgstr ""
 msgid "blog admin"
 msgstr "blog admin"
 
+# @ tcp
+#~ msgctxt "column name"
+#~ msgid "ID"
+#~ msgstr "ID"
+# @ tcp
+#~ msgctxt "column name"
+#~ msgid "User"
+#~ msgstr "Uživatel"
+# @ tcp
+#~ msgctxt "column name"
+#~ msgid "Payment"
+#~ msgstr "Platba"
+# @ tcp
+#~ msgid "Billing options"
+#~ msgstr "Fakturační adresa"
+# @ tcp
+#~ msgid "The billing Region field must be completed"
+#~ msgstr "Fakturační region musí být vyplněn"
+# @ tcp
+#~ msgid "The billing eMail field must be completed"
+#~ msgstr "Fakturační e-mail musí být vyplněn"
+# @ tcp
+#~ msgid "The billing company field must be completed"
+#~ msgstr "Fakturační společnost musí být vyplněna"
+# @ tcp
+#~ msgid "The billing tax id number field must be completed"
+#~ msgstr "Fakturační Identifikační číslo musí být vyplněno"
+# @ tcp
+#~ msgid "The billing telephone 1 field must be completed"
+#~ msgstr "Fakturační telefon 1 musí být vyplněn"
+# @ tcp
+#~ msgid "The billing telephone 2 field must be completed"
+#~ msgstr "Fakturační telefon 2 musí být vyplněn"
+# @ tcp
+#~ msgid "The billing fax field must be completed"
+#~ msgstr "Fakturační fax musí být vyplněno"
+# @ tcp
+#~ msgid "Display billing company"
+#~ msgstr "Zobrazit fakturační firmu"
+# @ tcp
+#~ msgid "Required billing company"
+#~ msgstr "Vyžadována fakturace na firmu"
+# @ tcp
+#~ msgid "Display billing tax id number"
+#~ msgstr "Zobrazit fakturační IČO"
+# @ tcp
+#~ msgid "Required billing tax id number"
+#~ msgstr "Vyžadováno fakturační IČO"
+# @ tcp
+#~ msgid "Display billing region"
+#~ msgstr "Zobrazit fakturační region"
+# @ tcp
+#~ msgid "Required billing region"
+#~ msgstr "Vyžadován fakturační region"
+# @ tcp
+#~ msgid "Display billing telephone 1"
+#~ msgstr "Zobrazit fakturační telefon 1"
+# @ tcp
+#~ msgid "Required billing telephone 1"
+#~ msgstr "Vyžadován fakturační telefon 1"
+# @ tcp
+#~ msgid "Display billing telephone 2"
+#~ msgstr "Zobrazit fakturační telefon 2"
+# @ tcp
+#~ msgid "Required billing telephone 2"
+#~ msgstr "Vyžadován fakturační telefon 2"
+# @ tcp
+#~ msgid "Display billing fax"
+#~ msgstr "Zobrazit fakturační fax"
+# @ tcp
+#~ msgid "Required billing fax"
+#~ msgstr "Vyžadován fakturační fax"
+# @ tcp
+#~ msgid "This option only must be activated if the shipping box is not used"
+#~ msgstr ""
+#~ "Tato volba musí být aktivována v případě, že není zboží pro přepravu "
+#~ "zabalené"
+# @ tcp
+#~ msgid "This data will be used also as Shipping."
+#~ msgstr "Tato data budou použita také jako doprava"
+# @ tcp
+#~ msgid "Shipping options"
+#~ msgstr "Místo doručení"
+# @ tcp
+#~ msgid "The shipping Region field must be completed"
+#~ msgstr "Políčko dodací Region musí být vyplněno"
+# @ tcp
+#~ msgid "The shipping eMail field must be completed"
+#~ msgstr "Doručovací  e-mail musí být doplněn"
+# @ tcp
+#, fuzzy
+#~ msgid "See buy button"
+#~ msgstr "Zobrazit tlačítko Koupit"
+
+# @ tcp
+#~ msgid "Allows to show the buy button in the product description."
+#~ msgstr "Povolit zobrazení tlačítka koupit v popisu produktu."
+# @ tcp
+#, fuzzy
+#~ msgid "See price"
+#~ msgstr "Zobrazit Cenu"
+
+# @ tcp
+#, fuzzy
+#~ msgid "See image"
+#~ msgstr "Zobrazit obrázek"

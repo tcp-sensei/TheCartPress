@@ -121,8 +121,7 @@ class TCPRemboursement extends TCP_Plugin {
 		$additional = $this->getNotice( $instance, $shippingCountry, $shoppingCart, $order_id ); ?>
 		<p><?php echo $additional; ?></p>
 		<p><input type="button" class="tcp_pay_button" id="tcp_remboursement" value="<?php _e( 'Finish', 'tcp' );?>" onclick="window.location.href='<?php echo $url; ?>';"/></p>
-		<?php require_once( TCP_DAOS_FOLDER . 'Orders.class.php' );
-		$new_status = isset( $data['new_status'] ) ? $data['new_status'] : Orders::$ORDER_PROCESSING;
+		<?php $new_status = isset( $data['new_status'] ) ? $data['new_status'] : Orders::$ORDER_PROCESSING;
 		Orders::editStatus( $order_id, $new_status, 'no-id' );
 		require_once( TCP_CHECKOUT_FOLDER . 'ActiveCheckout.class.php' );
 		ActiveCheckout::sendMails( $order_id, $additional );

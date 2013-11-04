@@ -14,8 +14,7 @@ global $post, $thecartpress;
 $suffix = '-' . $post->post_type;
 $image_size_content = $thecartpress->get_setting( 'image_size_content' . $suffix, 'tcp-none' );
 if ( $image_size_content ==  'tcp-none' ) {
-	$suffix = '';
-	$image_size_content = $thecartpress->get_setting( 'image_size_content' . $suffix, 'large' );
+	$image_size_content = $thecartpress->get_setting( 'image_size_content', 'large' );
 }
 $attachments = get_children( array(
 	'post_type' => 'attachment',
@@ -24,29 +23,29 @@ $attachments = get_children( array(
 ) );
 ?>
 
-<div class="single-product-container tcp-tcpf">
-<div class="tcp-row">
+<div class="single-product-container tcpf">
+<div class="row">
 
-	<div class="single-product-imagen tcp-col-md-7">
+	<div class="single-product-imagen col-md-7">
 		<div class="tcp-single-imagen">
 			<?php if ( has_post_thumbnail() ) {
 				// $image_title = $attachment->post_title;
 				$imageFull = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
 				if ( function_exists( 'magictoolbox_WordPress_MagicZoomPlus_init' ) ) { ?>
 					<a class="MagicZoomPlus" id="MagicZoom-single-product" href="<?php echo $imageFull[0]; ?>">
-						<?php the_post_thumbnail( 'large' ); ?>
+						<?php the_post_thumbnail( $image_size_content ); ?>
 					</a>
 				<?php } else {
 					if ( count( $attachments ) != 1 ) {
-						the_post_thumbnail( 'large' );
+						the_post_thumbnail( $image_size_content );
 					} else {
-						echo do_shortcode( '[gallery columns="1" link="file" size="large"]' );
+						echo do_shortcode( '[gallery columns="1" link="file" size="' . $image_size_content . '"]' );
 					}
 				}
 			} else { ?>
 
 				<div class="slide-post-thumbnail tcp-no-image">
-					<a class="tcp_size-<?php echo $image_size;?>" href="<?php the_permalink(); ?>"><img src="<?php echo get_stylesheet_directory_uri() ?>/images/tcp-no-image.jpg" alt="No image" title="" width="" height="" /></a>
+					<a class="tcp_size-<?php echo $image_size_content;?>" href="<?php the_permalink(); ?>"><img src="<?php echo get_stylesheet_directory_uri() ?>/images/tcp-no-image.jpg" alt="No image" title="" width="" height="" /></a>
 				</div><!-- .entry-post-thumbnail -->
 
 			<?php } ?>
@@ -60,7 +59,7 @@ $attachments = get_children( array(
 
 	</div><!-- .single-product-imagen -->
 
-	<div class="single-product-options tcp-col-md-5">
+	<div class="single-product-options col-md-5">
 
 		<?php if ( function_exists( 'tcp_has_discounts' ) && tcp_has_discounts() ) : ?>
 			<span class="single-discount">-<?php tcp_the_discount_value(); ?></span>
@@ -76,6 +75,6 @@ $attachments = get_children( array(
 
 	</div><!-- .single-product-options -->
 
-</div><!-- .tcp-row -->
+</div><!-- .row -->
 <?php the_content(); ?>
 </div><!-- .single-product-container -->

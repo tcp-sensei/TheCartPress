@@ -388,7 +388,6 @@ class TCPShippingBox extends TCPCheckoutBox {
 			),
 			'shipping_company'		=> array(
 				'label'		=> __( 'Company', 'tcp' ),
-				'required'	=> true,
 				'error'		=>__( 'The shipping Company name must be completed', 'tcp' ),
 				'input'		=> 'text',
 				'attrs'		=> array(
@@ -602,22 +601,27 @@ class TCPShippingBox extends TCPCheckoutBox {
 		</script>
 		<p><?php _e( 'Drag and Drop fields to sort them', 'tcp' ); ?></p>
 		<?php //Get the settings related with this box
-		$settings = get_option( 'tcp_' . get_class( $this ), array() );
+		$settings		= get_option( 'tcp_' . get_class( $this ), array() );
 		//Get the Ordering field
-		$field_sorting = isset( $settings['sorting'] ) ? $settings['sorting'] : array();
+		$field_sorting	= isset( $settings['sorting'] ) ? $settings['sorting'] : array();
 		?>
 		<input type="hidden" name="tcp_shipping_field_sorting" id="tcp_shipping_field_sorting" value="" />
 		<ul id="tcp_shipping_field_list">
 		<?php //Gel all the fields. At the moment, only the default ones
 		$tcp_fields = $this->getDefaultFields();
-		if ( is_array( $field_sorting ) && count( $field_sorting ) > 0)
-			foreach( $field_sorting as $id ) 
+		if ( is_array( $field_sorting ) && count( $field_sorting ) > 0 ) {
+			foreach( $field_sorting as $id ) {
 				if ( isset( $tcp_fields[$id] ) ) {
-					$tcp_field		= $tcp_fields[$id];
-					$label			= isset( $tcp_field['label'] ) ? $tcp_field['label'] : $id;
+					$tcp_field	= $tcp_fields[$id];
+					$label		= isset( $tcp_field['label'] ) ? $tcp_field['label'] : $id;
 					//Each field can be actived and required
-					$tcp_active		= isset( $settings['active-' . $id] ) ? $settings['active-' . $id] : true;
-					$tcp_required	= isset( $settings['required-' . $id] ) ? $settings['required-' . $id] : false; ?>
+					$tcp_active	= isset( $settings['active-' . $id] ) ? $settings['active-' . $id] : true;
+					if ( isset( $settings['required-' . $id] ) ) {
+						$tcp_required = $settings['required-' . $id];
+					} else {
+						$tcp_required = isset( $tcp_field['required'] ) ? $tcp_field['required'] : false;
+					}
+					?>
 			<li class="tcp_shipping_field_item" id="<?php echo $id; ?>">
 				<strong><?php echo $label; ?></strong>
 				<div class="tcp-field-properties">
@@ -627,11 +631,19 @@ class TCPShippingBox extends TCPCheckoutBox {
 				</div>
 			</li>
 			<?php }
-		foreach( $tcp_fields as $id => $tcp_field )
+			}
+		}
+			
+		foreach( $tcp_fields as $id => $tcp_field ) {
 			if ( ! in_array( $id, $field_sorting ) ) {
-				$label			= isset( $tcp_field['label'] ) ? $tcp_field['label'] : $id;
-				$tcp_active		= isset( $settings['active-' . $id] ) ? $settings['active-' . $id] : true;
-				$tcp_required	= isset( $settings['required-' . $id] ) ? $settings['required-' . $id] : false; ?>
+				$label		= isset( $tcp_field['label'] ) ? $tcp_field['label'] : $id;
+				$tcp_active	= isset( $settings['active-' . $id] ) ? $settings['active-' . $id] : true;
+				if ( isset( $settings['required-' . $id] ) ) {
+					$tcp_required = $settings['required-' . $id];
+				} else {
+					$tcp_required = isset( $tcp_field['required'] ) ? $tcp_field['required'] : false;
+				}
+				?>
 			<li class="tcp_shipping_field_item" id="<?php echo $id; ?>">
 				<strong><?php echo $label; ?></strong>
 				<div class="tcp-field-properties">
@@ -640,7 +652,9 @@ class TCPShippingBox extends TCPCheckoutBox {
 					<label><input type="checkbox" value="yes" name="tcp_required-<?php echo $id; ?>" <?php checked( $tcp_required ); ?>/> <?php _e( 'Required', 'tcp' ); ?></label>
 				</div>
 			</li>
-			<?php } ?>
+			<?php }
+		}
+		?>
 		</ul><!-- #tcp_field_list -->
 		<?php
 		return true;

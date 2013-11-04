@@ -40,7 +40,7 @@ remove_filter( 'tcp_the_add_to_cart_button', array( $wish_list, 'tcp_the_add_to_
 
 <?php /**** Start editing to customise your buy buttons! */ ?>
 
-<div class="tcp_buy_button_area tcp_buy_button_grouped tcp_buy_button_<?php echo get_post_type(); ?> tcp-tcpf <?php echo implode( ' ' , apply_filters( 'tcp_buy_button_get_product_classes', array(), $post_id ) ); ?>">
+<div class="tcp_buy_button_area tcp_buy_button_grouped tcp_buy_button_<?php echo get_post_type(); ?> tcpf <?php echo implode( ' ' , apply_filters( 'tcp_buy_button_get_product_classes', array(), $post_id ) ); ?>">
 
 <form method="post" id="tcp_frm_<?php echo $post_id; ?>" action="<?php echo $action; ?>">
 
@@ -53,7 +53,7 @@ remove_filter( 'tcp_the_add_to_cart_button', array( $wish_list, 'tcp_the_add_to_
 	$product_id	= tcp_get_current_id( $product->id_to, get_post_type( $product->id_to ) ); 
 	if ( get_post_status( $product_id ) == 'publish' ) : ?>
 
-	<div class="tcp_buy_button_simple_item tcp_buy_button_simple_item_<?php echo $post_id; ?>_<?php echo $product_id; ?> tcp-cf">
+	<div class="tcp_buy_button_simple_item tcp_buy_button_simple_item_<?php echo $post_id; ?>_<?php echo $product_id; ?> tcpf">
 
 		<div class="tcp_buy_button_name">
 			<?php if ( tcp_is_visible( $product_id ) ) : ?>
@@ -74,7 +74,7 @@ remove_filter( 'tcp_the_add_to_cart_button', array( $wish_list, 'tcp_the_add_to_
 			echo apply_filters( 'tcp_get_image_in_grouped_buy_button', $image, $product_id ); ?>
 		</div>
 
-		<div class="tcp_buy_button_main tcp-cf">
+		<div class="tcp_buy_button_main tcpf">
 			<?php if ( function_exists( 'tcp_the_buy_button_options' ) ) : ?>
 				<?php echo tcp_the_buy_button_options( $product_id, $post_id ); ?>
 			<?php endif; ?>
