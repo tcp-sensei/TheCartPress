@@ -4012,7 +4012,7 @@ msgstr "Descuentos"
 
 #: checkout/TCPCartBox.class.php:284
 msgid "Shipping cost"
-msgstr "Coste de envío"
+msgstr "Gastos de envío"
 
 #: checkout/TCPCartBox.class.php:296
 msgid "Payment cost"

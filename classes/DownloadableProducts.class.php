@@ -76,8 +76,9 @@ class TCPDownloadableProducts {
 			$shopingCart = TheCartPress::getShoppingCart();
 			if ( $shopingCart->exists( $post_id ) ) {
 				ob_start(); ?>
-				<div class="tcp_already_in_cart">
-				<?php printf( __( 'The product is in your <a href="%s">cart</a>' ,'tcp' ) , tcp_get_the_shopping_cart_url() ); ?>
+				<div class="tcp_already_in_cart alert alert-success alert-dismissable">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					<?php printf( __( 'The product is in your <a href="%s">cart</a>' ,'tcp' ) , tcp_get_the_shopping_cart_url() ); ?>
 				</div><?php
 				$out = ob_get_clean();
 			}

@@ -129,7 +129,7 @@ class TCPFirstTimeSetup {
 				</th>
 				<td>
 					<select id="country" name="country">
-					<?php $countries = Countries::getAll();
+					<?php $countries = TCPCountries::getAll();
 					foreach( $countries as $item ) : ?>
 						<option value="<?php echo $item->iso; ?>" <?php selected( $item->iso, $country ); ?>><?php echo $item->name; ?></option>
 					<?php endforeach; ?>

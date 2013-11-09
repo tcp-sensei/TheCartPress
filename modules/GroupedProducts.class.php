@@ -137,7 +137,7 @@ class TCPGroupedProducts {
 		if ( 'GROUPED' == tcp_get_the_product_type( $post_id ) ) {
 			ob_start(); ?>
 			<!--<input type="hidden" name="tcp_post_id[]" id="tcp_post_id_<?php echo $post_id; ?>" value="<?php echo $post_id; ?>" />-->
-			<input type="submit" name="tcp_add_to_shopping_cart" class="tcp_add_to_shopping_cart tcp_add_to_shopping_cart_<?php echo tcp_get_the_product_type( $post_id ); ?>" id="tcp_add_product_<?php echo $post_id; ?>" value="<?php _e( 'Add selected to cart', 'tcp' ); ?>"/>
+			<button type="submit" name="tcp_add_to_shopping_cart" class="tcp_add_to_shopping_cart tcp_add_to_shopping_cart_<?php echo tcp_get_the_product_type( $post_id ); ?>" id="tcp_add_product_<?php echo $post_id; ?>"><?php _e( 'Add selected to cart', 'tcp' ); ?></button>
 			<?php return ob_get_clean();
 		} else {
 			return $out;

@@ -1068,9 +1068,12 @@ function tcp_get_status_label( $status ) {
 // End Order status functions templates
 //
 
-//
-//Product types
-//
+/**
+ * Returns product types
+ *
+ * @since 1.1
+ * @uses apply_filters (tcp_get_product_types)
+ */
 function tcp_get_product_types( $no_one = false, $no_one_desc = '' ) {
 	$types = array();
 	if ( $no_one ) $types[''] = array( 'label' => $no_one_desc != '' ? $no_one_desc : __( 'No one', 'tcp' ) );
@@ -1321,12 +1324,15 @@ function tcp_get_template_part( $path, $slug = '', $name = '' ) {
  * @since 1.3.3
  * @uses locate_template, tcp_get_template_part, plugin_dir_path, apply_filters (called using 'tcp_the_loop')
  */
-function tcp_the_loop( $loop = 'tcp-grid' ) {
-	if ( ! locate_template( "loop-$loop.php", true ) ) {
+function tcp_the_loop( $loop = 'tcp-grid', $include = true ) {
+	$path = locate_template( "loop-$loop.php" );
+	if ( strlen( $path ) == 0 ) {
 		$path = plugin_dir_path( dirname( __FILE__ ) ) . "themes-templates/loop-$loop.php";
 		if ( !file_exists( $path ) ) $path = plugin_dir_path( dirname( __FILE__ ) ) . "themes-templates/loop-tcp-grid.php";
-		require( apply_filters( 'tcp_the_loop', $path, $loop ) );
 	}
+	$path = apply_filters( 'tcp_the_loop', $path, $loop );
+	if ( $include ) include( $path );
+	else return $path;
 }
 
 /**

@@ -511,9 +511,9 @@ class TCPBillingBox extends TCPCheckoutBox {
 		$billing_isos	= $thecartpress->get_setting( 'billing_isos', false );
 		//Getting allowed countries info
 		if ( $billing_isos ) {
-			$countries	= Countries::getSome( $billing_isos, tcp_get_current_language_iso() );
+			$countries	= TCPCountries::getSome( $billing_isos, tcp_get_current_language_iso() );
 		} else {
-			$countries	= Countries::getAll( tcp_get_current_language_iso() );
+			$countries	= TCPCountries::getAll( tcp_get_current_language_iso() );
 		}
 		//Get current selected country (if available)
 		$country_bill	= $country_id;

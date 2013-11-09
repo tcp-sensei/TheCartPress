@@ -155,9 +155,9 @@ class TCPAddressEdit {
 				$shipping_isos = isset( $thecartpress->settings['shipping_isos'] ) ? $thecartpress->settings['shipping_isos'] : array();
 				$billing_isos = array_merge( $billing_isos, $shipping_isos );
 				if ( count( $billing_isos ) > 0 )
-					$countries = Countries::getSome( $billing_isos, tcp_get_admin_language_iso() );
+					$countries = TCPCountries::getSome( $billing_isos, tcp_get_admin_language_iso() );
 				else
-					$countries = Countries::getAll( tcp_get_admin_language_iso() );
+					$countries = TCPCountries::getAll( tcp_get_admin_language_iso() );
 				$country_id = $this->tcp_get_value( 'country_id', false );
 				if ( $country_id == '' ) {
 					global $thecartpress;

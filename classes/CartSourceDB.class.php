@@ -452,7 +452,7 @@ class TCP_CostSourceDB {
 	}
 
 	public function get_description() {
-		if ( $this->cost) return htmlentities( $this->cost->description );
+		if ( $this->cost) return $this->cost->description;
 		else return false;
 	}
 
@@ -466,4 +466,3 @@ class TCP_CostSourceDB {
 		else return false;
 	}
 }
-?>

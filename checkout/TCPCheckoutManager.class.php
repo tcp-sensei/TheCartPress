@@ -432,22 +432,22 @@ class TCPCheckoutManager {
 			$order['shipping_email']		= $_SESSION['tcp_checkout']['shipping']['shipping_email'];
 			$create_shipping_address = true;
 		} else {
-			$order['shipping_firstname'] = '';
-			$order['shipping_lastname'] = '';
-			$order['shipping_company'] = '';
-			$order['shipping_street'] = '';
-			$order['shipping_street_2'] = '';
-			$order['shipping_city'] = '';
-			$order['shipping_city_id'] = '';
-			$order['shipping_region'] = '';
-			$order['shipping_region_id'] = '';
-			$order['shipping_postcode'] = '';
-			$order['shipping_country'] = '';
-			$order['shipping_country_id'] = '';
-			$order['shipping_telephone_1'] = '';
-			$order['shipping_telephone_2'] = '';
-			$order['shipping_fax'] = '';
-			$order['shipping_email'] = '';
+			$order['shipping_firstname']	= '';
+			$order['shipping_lastname']		= '';
+			$order['shipping_company']		= '';
+			$order['shipping_street']		= '';
+			$order['shipping_street_2']		= '';
+			$order['shipping_city']			= '';
+			$order['shipping_city_id']		= '';
+			$order['shipping_region']		= '';
+			$order['shipping_region_id']	= '';
+			$order['shipping_postcode']		= '';
+			$order['shipping_country']		= '';
+			$order['shipping_country_id']	= '';
+			$order['shipping_telephone_1']	= '';
+			$order['shipping_telephone_2']	= '';
+			$order['shipping_fax']			= '';
+			$order['shipping_email']		= '';
 			$create_shipping_address = false;
 		}
 		if ( is_user_logged_in() ) {
@@ -460,12 +460,12 @@ class TCPCheckoutManager {
 		$shoppingCart = apply_filters( 'tcp_checkout_create_order_get_shopping_cart', TheCartPress::getShoppingCart() );
 		$shipping_country = $this->get_shipping_country();
 		if ( isset( $_SESSION['tcp_checkout']['shipping_methods']['shipping_method_id'] ) ) { //sending
-			$smi		= $_SESSION['tcp_checkout']['shipping_methods']['shipping_method_id'];
-			$smi		= explode( '#', $smi );
-			$class		= $smi[0];
-			$instance	= $smi[1];
-			$shipping_method = new $class();
-			$shipping_amount = $shipping_method->getCost( $instance, $shipping_country, $shoppingCart );
+			$smi				= $_SESSION['tcp_checkout']['shipping_methods']['shipping_method_id'];
+			$smi				= explode( '#', $smi );
+			$class				= $smi[0];
+			$instance			= $smi[1];
+			$shipping_method 	= new $class();
+			$shipping_amount 	= $shipping_method->getCost( $instance, $shipping_country, $shoppingCart );
 			$shoppingCart->addOtherCost( ShoppingCart::$OTHER_COST_SHIPPING_ID, $shipping_amount, __( 'Shipping cost', 'tcp' ) );
 			$order['shipping_amount']	= 0;
 			$order['shipping_method']	= strip_tags( $shipping_method->getCheckoutMethodLabel( $instance, $shipping_country, $shoppingCart ) );// . ' [' . $class . ']';
@@ -490,31 +490,31 @@ class TCPCheckoutManager {
 			$shoppingCart->addOtherCost( ShoppingCart::$OTHER_COST_PAYMENT_ID, $payment_amount, __( 'Payment cost', 'tcp' ) );
 			$order['payment_method'] = $class;
 			$order['payment_notice'] = $payment_method->getNotice( $instance, $shipping_country, $shoppingCart );
-			//$order['payment_name']   = $payment_method->getName();
-			$order['payment_name'] = $payment_method->getCheckoutMethodLabel( $instance, $shipping_country, $shoppingCart );// . ' [' . $payment_method->getName() . ']';
+			//$order['payment_name'] = $payment_method->getName();
+			$order['payment_name']	 = $payment_method->getCheckoutMethodLabel( $instance, $shipping_country, $shoppingCart );// . ' [' . $payment_method->getName() . ']';
 		} else {
 			$order['payment_amount'] = 0;
 			$order['payment_method'] = '';
 			$order['payment_notice'] = '';
-			$order['payment_name'] = '';
+			$order['payment_name']	 = '';
 		}
 		do_action( 'tcp_checkout_calculate_other_costs', $order );
 		if ( tcp_is_display_prices_with_taxes() ) $order['discount_amount'] = $shoppingCart->getAllDiscounts();
 		else $order['discount_amount'] = $shoppingCart->getCartDiscountsTotal();
 		$order['weight'] = $shoppingCart->getWeight();
-		$order['comment_internal'] = '';
-		$order['code_tracking'] = '';
-		$order['transaction_id'] = '';
+		$order['comment_internal']	= '';
+		$order['code_tracking']		= '';
+		$order['transaction_id']	= '';
 		//TODO more values???
 		if ( isset( $order['billing_country'] ) && strlen( $order['billing_country'] ) == 0 ) {
-			$country_bill = Countries::get( $order['billing_country_id'] );
+			$country_bill = TCPCountries::get( $order['billing_country_id'] );
 			if ( $country_bill ) $order['billing_country'] = $country_bill->name;
 			else $order['billing_country'] = '';
 		}
 		if ( $order['shipping_country_id'] == $order['billing_country_id'] ) {
 			$order['shipping_country'] = $order['billing_country'];
 		} elseif ( isset( $order['shipping_country'] ) && strlen( $order['shipping_country'] ) == 0 ) {
-			$country_ship = Countries::get( $order['shipping_country_id'] );
+			$country_ship = TCPCountries::get( $order['shipping_country_id'] );
 			if ( $country_ship ) $order['shipping_country'] = $country_ship->name;
 			else $order['shipping_country'] = '';
 		}

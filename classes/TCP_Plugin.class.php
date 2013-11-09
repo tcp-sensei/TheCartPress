@@ -28,23 +28,19 @@
 // Exit if accessed directly
 if ( !defined( 'ABSPATH' ) ) exit;
 
-if ( ! class_exists( 'TCP_Plugin' ) ) {
-
-require_once( TCP_TEMPLATES_FOLDER . 'tcp_template_template.php' );
+if ( !class_exists( 'TCP_Plugin' ) ) {
 
 /**
  * All the checkout plugins must implement this class
  */
 class TCP_Plugin {
 
-	function isForOtherPayments() {
-		return false;
-	}
-
 	/**
 	 * Returns the title of the plugin.
 	 * It's used to display the name of the plugin in the admin pages
 	 * Must be implemented
+	 *
+	 * @since 1.0
 	 */
 	function getTitle() {
 	}
@@ -52,6 +48,7 @@ class TCP_Plugin {
 	/**
 	 * Returns the url to the icon, false if not icon
 	 * It's used to display the icon of the plugin in the admin pages
+	 *
 	 * @since 1.2
 	 */
 	function getIcon() {
@@ -61,6 +58,8 @@ class TCP_Plugin {
 	/**
 	 * Returns the name of the plugin.
 	 * It's used by the orders
+	 *
+	 * @since 1.0
 	 */
 	function getName() {
 		return $this->getTitle();
@@ -97,7 +96,8 @@ class TCP_Plugin {
 
 	/**
 	 * Returns if the plugin allows instances
-	 * @sincve 1.1.8
+	 *
+	 * @since 1.1.8
 	 */
 	function isInstanceable() {
 		return true;
@@ -105,6 +105,7 @@ class TCP_Plugin {
 
 	/**
 	 * Returns if the plugin allows to send the "purchase" email
+	 *
 	 * @since 1.2.3
 	 */
 	function sendPurchaseMail() {
@@ -116,6 +117,7 @@ class TCP_Plugin {
 	 * Must be implemented
 	 */
 	function getCheckoutMethodLabel( $instance, $shippingCountry = '', $shoppingCart = false ) {
+		return $this->getTitle();
 	}
 
 	/**
@@ -128,6 +130,7 @@ class TCP_Plugin {
 
 	/**
 	 * Returns a notice to store in orders
+	 *
 	 * @since 1.2.5.3
 	 */
 	function getNotice( $instance, $shippingCountry, $shoppingCart, $order_id = 0  ) {
@@ -146,8 +149,8 @@ class TCP_Plugin {
 	}
 }
 
-$tcp_shipping_plugins = array();
-$tcp_payment_plugins = array();
+$tcp_shipping_plugins	= array();
+$tcp_payment_plugins	= array();
 
 /**
  * Registers a shipping plugin

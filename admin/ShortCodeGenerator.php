@@ -72,22 +72,24 @@ if ( isset( $_REQUEST['tcp_shortcode_save'] ) ) {
 			'columns_sm'			=> isset( $_REQUEST['columns_sm'] ) ? (int)$_REQUEST['columns_sm'] : 4,
 			'columns_lg'			=> isset( $_REQUEST['columns_lg'] ) ? (int)$_REQUEST['columns_lg'] : 6,
 
-			'see_title'				=> isset( $_REQUEST['see_title'] ),// ? $_REQUEST['see_title'] == 'yes' : false,
+			'see_title'				=> isset( $_REQUEST['see_title'] ),
 			'title_tag'				=> isset( $_REQUEST['title_tag'] ) ? $_REQUEST['title_tag'] : '',
-			'see_image'				=> isset( $_REQUEST['see_image'] ),// ? $_REQUEST['see_image'] == 'yes' : false,
+			'see_image'				=> isset( $_REQUEST['see_image'] ),
 			'image_size'			=> isset( $_REQUEST['image_size'] ) ? $_REQUEST['image_size'] : 'thumbnail',
-			'see_content'			=> isset( $_REQUEST['see_content'] ),// ? $_REQUEST['see_content'] == 'yes' : false,
-			'see_excerpt'			=> isset( $_REQUEST['see_excerpt'] ),// ? $_REQUEST['see_excerpt'] == 'yes' : false,
+			'see_content'			=> isset( $_REQUEST['see_content'] ),
+			'see_stock'				=> isset( $_REQUEST['see_stock'] ),
+			'see_discount'			=> isset( $_REQUEST['see_discount'] ),
+			'see_excerpt'			=> isset( $_REQUEST['see_excerpt'] ),
 			'excerpt_length'		=> isset( $_REQUEST['excerpt_length'] ) ? (int)$_REQUEST['excerpt_length'] : false,
-			'see_author'			=> isset( $_REQUEST['see_author'] ),// ? $_REQUEST['see_author'] == 'yes' : false,
-			'see_posted_on'			=> isset( $_REQUEST['see_posted_on'] ),// ? $_REQUEST['see_posted_on'] == 'yes' : false,
-			'see_taxonomies'		=> isset( $_REQUEST['see_taxonomies'] ),// ? $_REQUEST['see_taxonomies'] == 'yes' : false,
-			'see_meta_utilities'	=> isset( $_REQUEST['see_meta_utilities'] ),// ? $_REQUEST['see_meta_utilities'] == 'yes' : false,
-			'see_price'				=> isset( $_REQUEST['see_price'] ),// ? $_REQUEST['see_price'] == 'yes' : false,
-			'see_buy_button'		=> isset( $_REQUEST['see_buy_button'] ),// ? $_REQUEST['see_buy_button'] == 'yes' : false,
-			'see_first_custom_area' => isset( $_REQUEST['see_first_custom_area'] ),// ? $_REQUEST['see_first_custom_area'] == 'yes' : false,
-			'see_second_custom_area'=> isset( $_REQUEST['see_second_custom_area'] ),// ? $_REQUEST['see_second_custom_area'] == 'yes' : false,
-			'see_third_custom_area' => isset( $_REQUEST['see_third_custom_area'] ),// ? $_REQUEST['see_third_custom_area'] == 'yes' : false,
+			'see_author'			=> isset( $_REQUEST['see_author'] ),
+			'see_posted_on'			=> isset( $_REQUEST['see_posted_on'] ),
+			'see_taxonomies'		=> isset( $_REQUEST['see_taxonomies'] ),
+			'see_meta_utilities'	=> isset( $_REQUEST['see_meta_utilities'] ),
+			'see_price'				=> isset( $_REQUEST['see_price'] ),
+			'see_buy_button'		=> isset( $_REQUEST['see_buy_button'] ),
+			'see_first_custom_area' => isset( $_REQUEST['see_first_custom_area'] ),
+			'see_second_custom_area'=> isset( $_REQUEST['see_second_custom_area'] ),
+			'see_third_custom_area' => isset( $_REQUEST['see_third_custom_area'] ),
 		);
 		$shortcodes_data = apply_filters( 'tcp_shortcode_generator_settings_action', $shortcodes_data, $shortcode_id );
 		update_option( 'tcp_shortcodes_data', $shortcodes_data ); ?>
@@ -166,6 +168,8 @@ $shortcode_href = TCP_ADMIN_PATH . 'ShortCodeGenerator.php&shortcode_id='; ?>
 	$see_image				= isset( $shortcode_data['see_image'] ) ? $shortcode_data['see_image'] == 'yes' : false;
 	$image_size				= isset( $shortcode_data['image_size'] ) ? $shortcode_data['image_size'] : 'thumbnail';
 	$see_content			= isset( $shortcode_data['see_content'] ) ? $shortcode_data['see_content'] == 'yes' : false;
+	$see_stock				= isset( $shortcode_data['see_stock'] ) ? $shortcode_data['see_stock'] == 'yes' : false;
+	$see_discount			= isset( $shortcode_data['see_discount'] ) ? $shortcode_data['see_discount'] == 'yes' : false;
 	$see_excerpt			= isset( $shortcode_data['see_excerpt'] ) ? $shortcode_data['see_excerpt'] == 'yes' : false;
 	$excerpt_length			= isset( $shortcode_data['excerpt_length'] ) ? $shortcode_data['excerpt_length'] : false;
 	$see_author				= isset( $shortcode_data['see_author'] ) ? $shortcode_data['see_author'] == 'yes' : false;
@@ -449,6 +453,14 @@ $shortcode_href = TCP_ADMIN_PATH . 'ShortCodeGenerator.php&shortcode_id='; ?>
 		<p>
 			<input type="checkbox" class="checkbox" id="see_content" name="see_content" value="yes" <?php checked( $see_content ); ?> />
 			<label for="see_content"><?php _e( 'Show content', 'tcp' ); ?></label>
+		</p>
+		<p>
+			<input type="checkbox" class="checkbox" id="see_stock" name="see_stock" value="yes" <?php checked( $see_stock ); ?> />
+			<label for="see_stock"><?php _e( 'Show Stock', 'tcp' ); ?></label>
+		</p>
+		<p>
+			<input type="checkbox" class="checkbox" id="see_discount" name="see_discount" value="yes" <?php checked( $see_discount ); ?> />
+			<label for="see_discount"><?php _e( 'Show Discount', 'tcp' ); ?></label>
 		</p>
 		<p>
 			<input type="checkbox" class="checkbox" id="see_excerpt" name="see_excerpt" value="yes" <?php checked( $see_excerpt ); ?> />

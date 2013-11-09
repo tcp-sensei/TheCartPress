@@ -104,6 +104,20 @@ class CustomListWidget extends TCPParentWidget {
 					<a class="size-<?php echo $image_size;?>" href="<?php the_permalink(); ?>"><?php if ( function_exists( 'the_post_thumbnail' ) ) the_post_thumbnail( isset( $instance['image_size'] ) ? $instance['image_size'] : 'thumbnail' ); ?></a>
 				</div><!-- .entry-post-thumbnail -->
 				<?php endif; ?>
+
+				<?php if ( isset( $instance['see_discount'] ) && $instance['see_discount'] && tcp_has_discounts() ) : ?>
+				<div class="tcp-product-discount">
+					<?php tcp_the_discount_value(); ?>
+				</div>
+				<?php endif;?>
+
+				<?php $stock = tcp_get_the_stock( get_the_ID() );
+				if ( isset( $instance['see_stock'] ) && $instance['see_stock'] && $stock == 0 ) : ?>
+				<div class="tcp-product-outstock">
+					<span class="label label-danger"><?php _e( 'Out of stock', 'tcp' ); ?></span>
+				</div>
+				<?php endif;?>
+
 				<?php if ( isset( $instance['see_excerpt'] ) && $instance['see_excerpt'] ) : ?>
 				<div class="entry-summary">
 					<?php the_excerpt(); ?>
@@ -151,8 +165,10 @@ class CustomListWidget extends TCPParentWidget {
 
 	function show_grid( $instance, $args ) {
 		if ( isset( $instance['pagination'] ) && $instance['pagination'] ) $instance['see_pagination'] = $instance['pagination'];
-		$loop = locate_template( 'loop-tcp-grid.php' );
-		if ( strlen( $loop ) == 0 ) $loop = TCP_THEMES_TEMPLATES_FOLDER . 'loop-tcp-grid.php';
+		// $loop = locate_template( 'loop-tcp-grid.php' );
+		// if ( strlen( $loop ) == 0 ) $loop = TCP_THEMES_TEMPLATES_FOLDER . 'loop-tcp-grid.php';
+		// include( $loop );
+		$loop = tcp_the_loop( 'tcp-grid', false );
 		include( $loop );
 	}
 
@@ -169,6 +185,8 @@ class CustomListWidget extends TCPParentWidget {
 		$instance['see_image']				= $new_instance['see_image'] == 'yes';
 		$instance['image_size']				= $new_instance['image_size'];
 		$instance['see_content']			= $new_instance['see_content'] == 'yes';
+		$instance['see_discount']			= $new_instance['see_discount'] == 'yes';
+		$instance['see_stock']				= $new_instance['see_stock'] == 'yes';
 		$instance['see_excerpt']			= $new_instance['see_excerpt'] == 'yes';
 		$instance['see_author']				= $new_instance['see_author'] == 'yes';
 		$instance['see_posted_on']			= $new_instance['see_posted_on'] == 'yes';
@@ -188,26 +206,28 @@ class CustomListWidget extends TCPParentWidget {
 
 	protected function show_post_type_form( $instance ) {
 		$instance = wp_parse_args( (array)$instance, array(
-			'limit' =>  5,
-			'loop' => '',
-			'columns_xs' => 2,
-			'columns_sm' => 2,
-			'columns' => 2,
-			'columns_lg' => 2,
-			'see_title' => true,
-			'title_tag' => '',
-			'see_image' => false,
-			'image_size' => 'thumbnail',
-			'see_content' => false,
-			'see_excerpt' => false,
-			'see_author' => false,
-			'see_posted_on' => false,
-			'see_price' => true,
-			'see_buy_button' => false,
-			'see_meta_utilities' => false,
-			'see_first_custom_area' => false,
-			'see_second_custom_area' => false,
-			'see_third_custom_area' => false,
+			'limit'					=>  5,
+			'loop'					=> '',
+			'columns_xs'			=> 2,
+			'columns_sm'			=> 2,
+			'columns'				=> 2,
+			'columns_lg'			=> 2,
+			'see_title'				=> true,
+			'title_tag'				=> '',
+			'see_image'				=> false,
+			'image_size'			=> 'thumbnail',
+			'see_content'			=> false,
+			'see_discount'			=> false,
+			'see_stock'				=> false,
+			'see_excerpt'			=> false,
+			'see_author'			=> false,
+			'see_posted_on'			=> false,
+			'see_price'				=> true,
+			'see_buy_button'		=> false,
+			'see_meta_utilities'	=> false,
+			'see_first_custom_area'	=> false,
+			'see_second_custom_area'=> false,
+			'see_third_custom_area'	=> false,
 		) ); ?>
 		<p>
 			<label for="<?php echo $this->get_field_id( 'limit' ); ?>"><?php _e( 'Limit', 'tcp' ); ?>:</label>
@@ -299,6 +319,16 @@ class CustomListWidget extends TCPParentWidget {
 				<input type="checkbox" class="checkbox" id="<?php echo $this->get_field_id( 'see_content' ); ?>" name="<?php echo $this->get_field_name( 'see_content' ); ?>" value="yes" <?php checked( $instance['see_content'] ); ?> />
 				<label for="<?php echo $this->get_field_id( 'see_content' ); ?>"><?php _e( 'Show content', 'tcp' ); ?></label>
 			</p>
+
+			<p>
+				<input type="checkbox" class="checkbox" id="<?php echo $this->get_field_id( 'see_discount' ); ?>" name="<?php echo $this->get_field_name( 'see_discount' ); ?>" value="yes" <?php checked( $instance['see_discount'] ); ?> />
+				<label for="<?php echo $this->get_field_id( 'see_discount' ); ?>"><?php _e( 'Show discount', 'tcp' ); ?></label>
+			</p>
+			<p>
+				<input type="checkbox" class="checkbox" id="<?php echo $this->get_field_id( 'see_stock' ); ?>" name="<?php echo $this->get_field_name( 'see_stock' ); ?>" value="yes" <?php checked( $instance['see_stock'] ); ?> />
+				<label for="<?php echo $this->get_field_id( 'see_stock' ); ?>"><?php _e( 'Show Stock', 'tcp' ); ?></label>
+			</p>
+
 			<p>
 				<input type="checkbox" class="checkbox" id="<?php echo $this->get_field_id( 'see_excerpt' ); ?>" name="<?php echo $this->get_field_name( 'see_excerpt' ); ?>" value="yes" <?php checked( $instance['see_excerpt'] ); ?> />
 				<label for="<?php echo $this->get_field_id( 'see_excerpt' ); ?>"><?php _e( 'Show excerpt', 'tcp' ); ?></label>

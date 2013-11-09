@@ -29,24 +29,26 @@ function tcp_get_current_language_iso() {
 
 //Given a post_id this function returns the post_id in the default language
 function tcp_get_default_id( $post_id, $post_type = false ) {
-	if ( $post_type === false ) $post_type = get_post_type( $post_id );
 	global $sitepress;
 	if ( $sitepress ) {
+		if ( $post_type === false ) $post_type = get_post_type( $post_id );
 		$default_language = $sitepress->get_default_language();
 		return icl_object_id( $post_id, $post_type, true, $default_language );
-	} else
+	} else {
 		return $post_id;
+	}
 }
 
 //Given a post_id this function returns the equivalent post_id in the current language
 function tcp_get_current_id( $post_id, $post_type = false ) {
-	if ( $post_type === false ) $post_type = get_post_type( $post_id );
 	global $sitepress;
 	if ( $sitepress ) {
 		$default_language = $sitepress->get_current_language();
+		if ( $post_type === false ) $post_type = get_post_type( $post_id );
 		return icl_object_id( $post_id, $post_type, true, $default_language );
-	} else
+	} else {
 		return $post_id;
+	}
 }
 
 /**
@@ -56,13 +58,14 @@ function tcp_get_current_id( $post_id, $post_type = false ) {
  * 				["es"]=> object(stdClass)#44 (6) { ["translation_id"]=> string(2) "12" ["language_code"]=> string(2) "es" ["element_id"]=> string(2) "10" ["original"]=> string(1) "0" ["post_title"]=> string(27) "Las Aventuras de Tom Sawyer" ["post_status"]=> string(7) "publish" } }
  */
 function tcp_get_all_translations( $post_id, $post_type = false ) {
-	if ( $post_type == false ) $post_type = get_post_type( $post_id );
 	global $sitepress;
 	if ( $sitepress ) {
+		if ( $post_type == false ) $post_type = get_post_type( $post_id );
 		$trid = $sitepress->get_element_trid( $post_id, 'post_' . $post_type );
 		return $sitepress->get_element_translations( $trid, 'post_'. $post_type );
-	} else
+	} else {
 		return false;
+	}
 }
 
 function tcp_get_default_language() {
@@ -118,9 +121,9 @@ function tcp_unregister_string( $context, $name ) {
 
 /**
  * Returns the translation of a string identified by $context and $name
+ *
  */
 function tcp_string( $context, $name, $value ) {
 	if ( function_exists( 'icl_t' ) ) return nl2br( icl_t( $context, $name, $value ) );
 	else return $value;
 }
-?>

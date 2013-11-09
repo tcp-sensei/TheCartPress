@@ -245,7 +245,7 @@ $shipping_isos			= $thecartpress->get_setting( 'shipping_isos', array() ); ?>
 	</th>
 	<td>
 		<select id="country" name="country">
-		<?php $countries = Countries::getAll();
+		<?php $countries = TCPCountries::getAll();
 		foreach( $countries as $item ) : ?>
 			<option value="<?php echo $item->iso; ?>" <?php selected( $item->iso, $country ); ?>><?php echo $item->name; ?></option>
 		<?php endforeach; ?>
@@ -261,7 +261,7 @@ $shipping_isos			= $thecartpress->get_setting( 'shipping_isos', array() ); ?>
 		onclick="if (this.checked) { jQuery('.sel_billing_isos').hide(); tcp_select_none('billing_isos'); } else { jQuery('.sel_billing_isos').show(); }"/></p>
 		<div class="sel_billing_isos" <?php if ( count( $billing_isos ) == 0 ) echo 'style="display:none;"'; ?> >
 			<select id="billing_isos" name="billing_isos[]" style="height:auto" size="8" multiple>
-			<?php $countries = Countries::getAll();
+			<?php $countries = TCPCountries::getAll();
 			foreach( $countries as $item ) :?>
 				<option value="<?php echo $item->iso; ?>" <?php tcp_selected_multiple( $billing_isos, $item->iso ); ?>><?php echo $item->name; ?></option>
 			<?php endforeach; ?>
@@ -294,7 +294,7 @@ $shipping_isos			= $thecartpress->get_setting( 'shipping_isos', array() ); ?>
 		</p>
 		<div class="sel_shipping_isos" <?php if ( ! $shipping_isos ) echo 'style="display:none;"'; ?>>
 			<select id="shipping_isos" name="shipping_isos[]" style="height:auto" size="8" multiple>
-			<?php $countries = Countries::getAll();
+			<?php $countries = TCPCountries::getAll();
 			foreach( $countries as $item ) :?>
 				<option value="<?php echo $item->iso; ?>" <?php tcp_selected_multiple( $shipping_isos, $item->iso ); ?>><?php echo $item->name; ?></option>
 			<?php endforeach; ?>

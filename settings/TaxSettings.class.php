@@ -90,9 +90,9 @@ $display_shipping_cost_with_taxes	= $thecartpress->get_setting( 'display_shippin
 		<select id="default_tax_country" name="default_tax_country">
 		<?php require_once( TCP_DAOS_FOLDER . 'Countries.class.php' );
 		if ( is_array( $isos ) && count( $isos ) > 0 ) {
-			$countries = Countries::getSome( $isos );
+			$countries = TCPCountries::getSome( $isos );
 		} else {
-			$countries = Countries::getAll();
+			$countries = TCPCountries::getAll();
 		}
 		foreach( $countries as $item ) : ?>
 			<option value="<?php echo $item->iso; ?>" <?php selected( $item->iso, $default_tax_country ); ?>><?php echo $item->name; ?></option>
