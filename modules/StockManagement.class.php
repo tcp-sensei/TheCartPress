@@ -751,7 +751,7 @@ function show_hide_stock_management() {
 	}
 
 	function tcp_the_add_to_cart_button( $out, $post_id ) {
-		if ( tcp_get_the_stock( $post_id ) == 0 ) return '';
+		if ( tcp_get_the_stock( $post_id ) == 0 ) return '<input type="hidden" name="tcp_post_id[]" id="tcp_post_id_' . $post_id . '" value="' . $post_id . '" />';
 		return $out;
 	}
 

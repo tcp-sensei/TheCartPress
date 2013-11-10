@@ -259,9 +259,9 @@ class ShippingCost extends TCP_Plugin {
 					global $thecartpress;
 					$shipping_isos = isset( $thecartpress->settings['shipping_isos'] ) ? $thecartpress->settings['shipping_isos'] : false;
 					if ( $shipping_isos ) {
-						$countries = Countries::getSome( $shipping_isos );
+						$countries = TCPCountries::getSome( $shipping_isos );
 					} else {
-						$countries = Countries::getAll();
+						$countries = TCPCountries::getAll();
 					}
 					foreach( $countries as $country ) :?>
 					<option value="<?php echo $country->iso; ?>" <?php tcp_selected_multiple( $isos, $country->iso ); ?>><?php echo $country->name; ?></option>

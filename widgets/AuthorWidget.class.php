@@ -16,6 +16,11 @@
  * along with TheCartPress.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// Exit if accessed directly
+if ( !defined( 'ABSPATH' ) ) exit;
+
+if ( !class_exists( 'TCPAuthorWidget' ) ) :
+
 require_once( TCP_WIDGETS_FOLDER . 'TCPParentWidget.class.php' );
 
 class TCPAuthorWidget extends TCPParentWidget {
@@ -40,4 +45,4 @@ class TCPAuthorWidget extends TCPParentWidget {
 		<?php echo $after_widget;
 	}
 }
-?>
+endif;

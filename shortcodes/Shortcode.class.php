@@ -43,18 +43,16 @@ class TCPShortcode {
 			if ( $shortcode_data['id'] == $id ) {
 				$customPostTypeListWidget = new CustomPostTypeListWidget();
 				$args = array(
-					'before_widget' => '<div id="tcp_shortcode_' . $id . '" class="tcp_shortcode tcp_' . $id . '">',
-					'after_widget' => '</div>',
-					'before_title' => '',
-					'after_title' => '',
-					'widget_id' => $id,
+					'before_widget'	=> '<div id="tcp_shortcode_' . $id . '" class="tcp_shortcode tcp_' . $id . '">',
+					'after_widget'	=> '</div>',
+					'before_title'	=> '',
+					'after_title'	=> '',
+					'widget_id'		=> $id,
 				);
 				ob_start();
-				//if ( isset( $shortcode_data['see_order_panel'] ) && $shortcode_data['see_order_panel'] ) {
-					$filter = new TCPFilterNavigation();
-					$shortcode_data['order_type'] = $filter->get_order_type();
-					$shortcode_data['order_desc'] = $filter->get_order_desc();
-				//}
+				$filter = new TCPFilterNavigation();
+				$shortcode_data['order_type'] = $filter->get_order_type();
+				$shortcode_data['order_desc'] = $filter->get_order_desc();
 				$shortcode_data['see_sorting_panel'] = isset( $shortcode_data['see_order_panel'] ) ? $shortcode_data['see_order_panel'] : false;
 				$customPostTypeListWidget->widget( $args, $shortcode_data );
 				return ob_get_clean();

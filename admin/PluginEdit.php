@@ -197,9 +197,9 @@ $new_status = isset( $data['new_status'] ) ? $data['new_status'] : Orders::$ORDE
 						$isos = isset( $thecartpress->settings['billing_isos'] ) ? $thecartpress->settings['billing_isos'] : false;
 					}
 					if ( $isos ) {
-						$countries = Countries::getSome( $isos );
+						$countries = TCPCountries::getSome( $isos );
 					} else {
-						$countries = Countries::getAll();
+						$countries = TCPCountries::getAll();
 					}
 					foreach( $countries as $country ) :?>
 					<option value="<?php echo $country->iso;?>" <?php tcp_selected_multiple( $selected_countries, $country->iso ); ?>><?php echo $country->name;?></option>

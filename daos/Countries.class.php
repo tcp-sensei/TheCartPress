@@ -1,5 +1,14 @@
 <?php
 /**
+ * Countries
+ *
+ * Connects TheCartPress with the Countries table into database
+ *
+ * @package TheCartPress
+ * @subpackage Daos
+ */
+
+/**
  * This file is part of TheCartPress.
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -16,7 +25,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class Countries {
+// Exit if accessed directly
+if ( !defined( 'ABSPATH' ) ) exit;
+
+if ( !class_exists( 'TCPCountries' ) ) :
+
+class TCPCountries {
 
 	static function createTable() {
 		global $wpdb;
@@ -39,7 +53,7 @@ class Countries {
 	
 	static function getAll( $language = 'en' ) {
 		global $wpdb;
-		$language = Countries::getIso( $language );
+		$language = TCPCountries::getIso( $language );
 		return $wpdb->get_results( 'select iso, ' . $language . ' as name from ' . $wpdb->prefix . 'tcp_countries order by name' );
 	}
 	
@@ -48,7 +62,7 @@ class Countries {
 		if ( $language == '' ) {
 			return $wpdb->get_row( $wpdb->prepare( 'select * from ' . $wpdb->prefix . 'tcp_countries where iso = %s', $iso ) );
 		} else {
-			$language = Countries::getIso( $language );
+			$language = TCPCountries::getIso( $language );
 			return $wpdb->get_row( $wpdb->prepare( 'select iso, ' . $language . ' as name from ' . $wpdb->prefix . 'tcp_countries where iso = %s', $iso ) );
 		}
 	}
@@ -59,7 +73,7 @@ class Countries {
 		foreach ( $isos as $iso )
 			$selected_isos .= $iso . '\', \'';
 		$selected_isos = substr( $selected_isos, 0, -3 );
-		$language = Countries::getIso( $language );
+		$language = TCPCountries::getIso( $language );
 		$res = $wpdb->get_results( 'select iso, ' . $language . ' as name from ' . $wpdb->prefix . 'tcp_countries where iso in ( ' . $selected_isos . ')' );
 		return $res;
 	}
@@ -345,4 +359,10 @@ class Countries {
 		}
 	}
 }
-?>
+if ( ! class_exists( 'Countries' ) ) :
+
+//Deprecated
+class Countries extends TCPCountries {
+}
+endif; // class_exists check
+endif; // class_exists check

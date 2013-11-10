@@ -1,5 +1,14 @@
 <?php
 /**
+ * General templates
+ *
+ * TheCartPress template functions
+ *
+ * @package TheCartPress
+ * @subpackage Template-functions
+ */
+
+/**
  * This file is part of TheCartPress.
  * 
  * This program is free software: you can redistribute it and/or modify

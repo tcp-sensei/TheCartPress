@@ -68,14 +68,15 @@ if ( isset( $instance['title_tag'] ) && $instance['title_tag'] != '' ) {
 }
 ?>
 
-<div class="tcpf tcp-cf">
+<div class="tcp-product-list tcpf">
 
-	<div class="tcp-product-list tcp-product-grid">
 	<?php if ( $see_sorting_panel ) tcp_the_sort_panel(); ?>
 	<?php if ( function_exists( 'tcp_the_az_panel' ) && $see_az ) {
 		$see_az_name = isset( $args['widget_id']) ? 'tcp_az_' . $args['widget_id'] : 'tcp_az';
 		tcp_the_az_panel( $see_az_name );
 	} ?>
+
+	<div class="tcp-product-grid row">
 	<?php /* Start the Loop.*/
 	$class = array(
 		'tcp_' . $number_columns . '_cols',
@@ -129,7 +130,7 @@ if ( isset( $instance['title_tag'] ) && $instance['title_tag'] != '' ) {
 				<?php else : ?>
 					<?php if ( $see_image ) : ?>
 						<div class="tcp-product-thumbnail tcp-no-image">
-							<a class="tcp_size-<?php echo $image_size;?>" href="<?php the_permalink(); ?>"><img src="<?php echo get_template_directory_uri() ?>/images/tcp-no-image.jpg" alt="No image" title="" width="" height="" /></a>
+							<a class="tcp_size-<?php echo $image_size;?>" href="<?php the_permalink(); ?>"><img class="img-responsive" src="<?php echo get_template_directory_uri() ?>/images/tcp-no-image.jpg" alt="No image" title="<?php the_title(); ?>" /></a>
 						</div><!-- .tcp-product-thumbnail -->
 					<?php endif; ?>
 				<?php endif; ?>	 

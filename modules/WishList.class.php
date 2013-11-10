@@ -64,7 +64,7 @@ class TCPWishList {
 			$shoppingCart = TheCartPress::getShoppingCart();
 			if ( ! is_array( $_REQUEST['tcp_post_id'] ) ) $_REQUEST['tcp_post_id'] = (array)$_REQUEST['tcp_post_id'];
 			if ( ! is_array( $_REQUEST['tcp_count'] ) ) $_REQUEST['tcp_count'] = (array)$_REQUEST['tcp_count'];
-			do_action( 'tcp_before_add_shopping_cart', $_REQUEST['tcp_post_id'] );
+			do_action( 'tcp_before_add_wish_list', $_REQUEST['tcp_post_id'] );
 			for( $i = 0; $i < count( $_REQUEST['tcp_post_id'] ); $i++ ) {
 				$count = isset( $_REQUEST['tcp_count'][$i] ) ? (int)$_REQUEST['tcp_count'][$i] : 0;
 				if ( $count > 0 ) {

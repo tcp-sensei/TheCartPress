@@ -59,20 +59,21 @@ class TCPUnitsInBuyButton {
 	}
 
 	static function tcp_product_metabox_custom_fields( $post_id ) { ?>
-		<tr valign="top">
-		<th scope="row"><label for="tcp_product_current_unit"><?php _e( 'Product unit', 'tcp' ); ?>:</label></th>
-		<td>
-		<?php $current_unit = tcp_get_product_unit_by_product( $post_id );
-		if ( $current_unit == '' ) $current_unit = 'by-default';
-		$units = tcp_get_product_units_list( true ); ?>
-		<select id="tcp_product_current_unit" name="tcp_product_current_unit">
-			<?php foreach( $units as $id => $unit ) { ?>
-			<option value="<?php echo $id; ?>" <?php selected( $current_unit, $id ); ?>><?php echo $unit == '' ? __( 'Empty', 'tcp' ) : $unit; ?></option>
-			<?php  } ?>
-		</select>
-		<?php //$current_unit = $thecartpress->get_setting( 'tcp_product_current_unit', '' ); ?>
-		</td>
-	</tr>
+<tr valign="top" id="tcp_product_current_unit-row">
+	<th scope="row">
+		<label for="tcp_product_current_unit"><?php _e( 'Product unit', 'tcp' ); ?>:</label></th>
+	<td>
+	<?php $current_unit = tcp_get_product_unit_by_product( $post_id );
+	if ( $current_unit == '' ) $current_unit = 'by-default';
+	$units = tcp_get_product_units_list( true ); ?>
+	<select id="tcp_product_current_unit" name="tcp_product_current_unit">
+		<?php foreach( $units as $id => $unit ) { ?>
+		<option value="<?php echo $id; ?>" <?php selected( $current_unit, $id ); ?>><?php echo $unit == '' ? __( 'Empty', 'tcp' ) : $unit; ?></option>
+		<?php  } ?>
+	</select>
+	<?php //$current_unit = $thecartpress->get_setting( 'tcp_product_current_unit', '' ); ?>
+	</td>
+</tr>
 	<?php }
 
 	static function tcp_product_metabox_save_custom_fields( $post_id ) {

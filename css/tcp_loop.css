@@ -35,6 +35,11 @@ div.tcp_order_panel select {
 	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
 	overflow: hidden;
 }
+.tcp-product-thumbnail img {
+	display: block;
+	height: auto;
+	max-width: 100%;
+}
 .tcp-grid-item .tcp-product-content,
 .tcp-grid-item .tcp-product-summary {
 	text-align: justify;
@@ -70,9 +75,41 @@ div.tcp_order_panel select {
 .tcp_col {
 	margin-bottom: 20px;
 }
-.tcp-product-list .tcpf .tcp-product-title h1, .tcpf .tcp-product-title h2, .tcpf .tcp-product-title h3 {
-    margin-bottom: 10px;
-    margin-top: 10px;
+.tcp-product-list.tcpf .tcp-product-title p,
+.tcp-product-list.tcpf .tcp-product-title div,
+.tcp-product-list.tcpf .tcp-product-title span,
+.tcp-product-list.tcpf .tcp-product-title h1,
+.tcp-product-list.tcpf  .tcp-product-title h2,
+.tcp-product-list.tcpf  .tcp-product-title h3,
+.tcp-product-list.tcpf .tcp-product-title h4,
+.tcp-product-list.tcpf  .tcp-product-title h5,
+.tcp-product-list.tcpf  .tcp-product-title h6 {
+	font-size: 14px;
+	margin: 0;
+	line-height: 14px;
+	padding: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.tcp-product-list.tcpf .tcp-product-title a,
+.tcp-product-list.tcpf .tcp-product-title p a,
+.tcp-product-list.tcpf .tcp-product-title div a,
+.tcp-product-list.tcpf .tcp-product-title span a,
+.tcp-product-list.tcpf .tcp-product-title h1 a,
+.tcp-product-list.tcpf  .tcp-product-title h2 a,
+.tcp-product-list.tcpf  .tcp-product-title h3 a,
+.tcp-product-list.tcpf .tcp-product-title h4 a,
+.tcp-product-list.tcpf  .tcp-product-title h5 a,
+.tcp-product-list.tcpf  .tcp-product-title h6 a  {
+	margin-bottom: 0;
+	margin-top: 0;
+	line-height: 30px;
+	padding: 0;
+}
+.tcp-product-list.tcpf  .tcp-product-title a {
+	padding-bottom: 0;
+	padding-top: 0;
 }
 .tcp-product-list .tcp-product-meta div,
 .tcp-product-list .tcp-product-discount,
@@ -85,8 +122,16 @@ div.tcp_order_panel select {
 	font-size: 14px;
 }
 
-
-
+.tcpf .col-xs-1, .tcpf .col-xs-2, .tcpf .col-xs-3, .tcpf .col-xs-4, .tcpf .col-xs-5, .tcpf .col-xs-6, .tcpf .col-xs-7, .tcpf .col-xs-8, .tcpf .col-xs-9, .tcpf .col-xs-10, .tcpf .col-xs-11, .tcpf .col-xs-12,
+.tcpf .col-sm-1, .tcpf .col-sm-2, .tcpf .col-sm-3, .tcpf .col-sm-4, .tcpf .col-sm-5, .tcpf .col-sm-6, .tcpf .col-sm-7, .tcpf .col-sm-8, .tcpf .col-sm-9, .tcpf .col-sm-10, .tcpf .col-sm-11, .tcpf .col-sm-12,
+.tcpf .col-md-1, .tcpf .col-md-2, .tcpf .col-md-3, .tcpf .col-md-4, .tcpf .col-md-5, .tcpf .col-md-6, .tcpf .col-md-7, .tcpf .col-md-8, .tcpf .col-md-9, .tcpf .col-md-10, .tcpf .col-md-11, .tcpf .col-md-12,
+.tcpf .col-lg-1, .tcpf .col-lg-2, .tcpf .col-lg-3, .tcpf .col-lg-4, .tcpf .col-lg-5, .tcpf .col-lg-6, .tcpf .col-lg-7, .tcpf .col-lg-8, .tcpf .col-lg-9, .tcpf .col-lg-10, .tcpf .col-lg-11, .tcpf .col-lg-12 {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+.tcp-product-list .tcp-product-thumbnail img {
+	box-shadow: none;
+}
 
 /* SINGLE PRODUCT DETAIL */
 .tcp-single-imagen {
@@ -109,6 +154,3 @@ div.tcp_order_panel select {
 .tcp-single-imagen .gallery-columns-1 .gallery-item {
 	float: none;
 }
-
-
-

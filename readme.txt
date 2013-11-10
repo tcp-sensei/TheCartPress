@@ -300,9 +300,10 @@ This plugin is released under a GPL license.
 2. Take a look to Catalogue and product detail in your store. Those pages are now displayed using new Theme Compatibility featured.
 
 == Changelog ==
-= 1.3.4 =
-* Reports
-* Media Loader Improvement
+= 1.3.3.1 =
+* Shortcodes/Widgets loops: see discount & see stock settings
+* Product type: External Affiliate products
+* CSS Styles: New buy button styles
 
 = 1.3.3 =
 * Product detail: fix hidden content is some themes

@@ -30,8 +30,8 @@ TaxRates::createTable();
 TaxRates::initData();
 
 require_once( TCP_DAOS_FOLDER . 'Countries.class.php' );
-Countries::createTable();
-Countries::initData();
+TCPCountries::createTable();
+TCPCountries::initData();
 
 require_once( TCP_DAOS_FOLDER . 'Orders.class.php' );
 Orders::createTable();

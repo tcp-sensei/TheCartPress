@@ -19,7 +19,7 @@
 // Exit if accessed directly
 if ( !defined( 'ABSPATH' ) ) exit;
 
-if ( ! class_exists( 'WishListWidget' ) ) {
+if ( ! class_exists( 'WishListWidget' ) ) :
 
 require_once( dirname( __FILE__) . '/CustomListWidget.class.php' );
 
@@ -47,10 +47,16 @@ class WishListWidget extends CustomListWidget {
 		remove_action( 'tcp_after_loop_tcp_grid_item', array( $this, 'tcp_after_loop_tcp_grid_item' ) );
 	}
 
-	function tcp_after_loop_tcp_grid_item( $post_id ) { ?>
+	function tcp_after_loop_tcp_grid_item( $post_id ) {
+		global $thecartpress;
+		$buy_button_color	= $thecartpress->get_setting( 'buy_button_color' );
+		$buy_button_size	= $thecartpress->get_setting( 'buy_button_size' ); ?>
 <form method="post">
 	<input type="hidden" name="tcp_wish_list_post_id" value="<?php echo $post_id;?>" />
-	<input type="submit" name="tcp_remove_from_wish_list" id="tcp_remove_from_wish_list" class="btn tcp_remove_from_item_wish_list" value="<?php _e( 'Remove', 'tcp' );?>" title="<?php _e( 'Remove this item', 'tcp' );?>"/>
+	<input type="submit" name="tcp_remove_from_wish_list" id="tcp_remove_from_wish_list"
+	 class="tcp_remove_from_item_wish_list <?php echo $buy_button_color, ' ', $buy_button_size; ?>"
+	 value="<?php _e( 'Remove', 'tcp' );?>"
+	 title="<?php _e( 'Remove this item', 'tcp' );?>"/>
 	<script>
 	jQuery( '#tcp_remove_from_wish_list' ).click( function() {
 		return confirm( '<?php _e( 'Do you really want to remove this item? ', 'tcp' ); ?>' );
@@ -59,11 +65,19 @@ class WishListWidget extends CustomListWidget {
 </form><?php
 	}
 
-	function tcp_after_loop_wishlist() { ?>
-
+	function tcp_after_loop_wishlist() {
+		global $thecartpress;
+		$buy_button_color	= $thecartpress->get_setting( 'buy_button_color' );
+		$buy_button_size	= $thecartpress->get_setting( 'buy_button_size' ); ?>
 <form method="post">
-	<input type="submit" name="tcp_remove_wish_list" id="tcp_remove_wish_list" class="btn tcp_remove_all_wish_list" value="<?php _e( 'Remove all', 'tcp' );?>" title="<?php _e( 'Remove all items', 'tcp' );?>"/>
-	<input type="submit" name="tcp_copy_wish_list_to_shopping_cart" class="btn tcp_add_all_to_shopping_cart" value="<?php _e( 'Add all', 'tcp' );?>" title="<?php _e( 'Add all items into cart', 'tcp' );?>" />
+	<input type="submit" name="tcp_remove_wish_list" id="tcp_remove_wish_list"
+	 class="tcp_remove_all_wish_list <?php echo $buy_button_color, ' ', $buy_button_size; ?>"
+	 value="<?php _e( 'Remove all', 'tcp' );?>"
+	 title="<?php _e( 'Remove all items', 'tcp' );?>"/>
+	<input type="submit" name="tcp_copy_wish_list_to_shopping_cart"
+	 class="tcp_add_all_to_shopping_cart <?php echo $buy_button_color, ' ', $buy_button_size; ?>"
+	 value="<?php _e( 'Add all', 'tcp' );?>"
+	 title="<?php _e( 'Add all items into cart', 'tcp' );?>" />
 	<script>
 	jQuery( '#tcp_remove_wish_list' ).click( function() {
 		return confirm( '<?php _e( 'Do you really want to remove all items? ', 'tcp' ); ?>' );
@@ -73,9 +87,9 @@ class WishListWidget extends CustomListWidget {
 	}
 
 	function form( $instance ) {
-		if ( ! isset( $instance['title'] ) ) $instance['title'] = __( 'Wish List', 'tcp');
+		if ( !isset( $instance['title'] ) ) $instance['title'] = __( 'Wish List', 'tcp');
 		parent::form( $instance );
 		parent::show_post_type_form( $instance );
 	}
 }
-} // class_exists check
+endif; // class_exists check

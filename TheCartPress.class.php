@@ -390,11 +390,11 @@ class TheCartPress {
 								$weight_2	= 0;
 							}
 						} else {
-							$price_1	= 0;
-							$weight_1	= 0;
+							$price_1	 = 0;
+							$weight_1	 = 0;
 							$option_2_id = 0;
-							$price_2	= 0;
-							$weight_2	= 0;
+							$price_2	 = 0;
+							$weight_2	 = 0;
 						}
 					}
 					$unit_price	= tcp_get_the_price( $post_id );
@@ -1252,6 +1252,11 @@ if ( defined( 'THECARTPRESS_LATE_LOAD' ) ) {
 	add_action( 'plugins_loaded', 'thecartpress', (int)THECARTPRESS_LATE_LOAD );
 } else {
 	$GLOBALS['thecartpress'] = &thecartpress();
+}
+
+add_action('activated_plugin','save_error');
+function save_error(){
+	update_option( 'tcp-error', ob_get_contents() );
 }
 
 } // class_exists check
