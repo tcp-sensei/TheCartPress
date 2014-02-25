@@ -1,197 +1,65 @@
-/* ////// OLD OPTIONS ///////////////*/
-
-/*///////  BUY BUTTON  ///////////////////////////////*/
-
-/*tcp-buy_button
----------------------------*/
-#content table.tcp_buy_button,
-#content table.tcp_buy_button tr,
-#content table.tcp_buy_button tr td,
-#content table.tcp_buy_button tr th,
-table.tcp_buy_button,
-table.tcp_buy_button tr,
-table.tcp_buy_button tr td,
-table.tcp_buy_button tr th {
-	border: 0;
-	padding: 0;
-	margin: 0;
-	line-height: 1.2em;
-}
-#content table.tcp_buy_button ,
-table.tcp_buy_button {
-	font-family: Arial, Helvetica, sans-serif;
-	border-collapse: separate;
-	border-spacing: 0 1px;
-	margin: 1em 0 1em;
-	clear: both;
-	width: auto !important;
-	font-size:12px;
-}
-table.tcp_buy_button tr th {
-	display: none;
-}
-#content table.tcp_buy_button tr td,
-table.tcp_buy_button tr td {
-	vertical-align: top;
-	padding: 6px;
-	background-image: url();
-}
-table.tcp_buy_button .tcp_buy_button_price .tcp_unit_price,
-table.tcp_buy_button .tcp_buy_button .tcp_price {
-	font-weight: bold;
-	margin-left: 2px;
-	margin-top: 6px;
-}
-
-table.tcp_buy_button tr td.tcp_buy_button_thumbnail {
-	vertical-align:top;
-}
-.single table.tcp_buy_button tr td {
-/*	background-color:#F1F4FB;
-	color:#373737;
-*/}
-
-/*buy button in loop
----------------------------------------------*/
-#content table.tcp_products_list table.tcp_buy_button,
-table.tcp_products_list table.tcp_buy_button {
-    margin: 0;
-}
-#content table.tcp_products_list table.tcp_buy_button tr td,
-table.tcp_products_list table.tcp_buy_button tr td {
-	border:0;
-	padding:6px 4px !important;
-	background-image:url();
-}
-/* end buy butoon in loop */
-
-input.tcp_count {
-	text-align: center;
-	max-width: 60px;
-}
-.tcp_add_row {
-}
-.tcp_buy_button_wrapper {
-	margin-bottom: 1.325em;
-	
-}
-/*.tcp_buy_button_price {
-	white-space:nowrap;
-}
-*/
-.tcp_already_in_cart {
-	white-space:normal;
-	font-size:11px;
-}
-.tcp_buy_button_count {
-	white-space:nowrap;
-}
-
-
-
-/* =TCP buy button extras
--------------------------------------------------------------*/
-table.tcp_buy_button  img {
-    height: auto;
-    max-width: 45px;
-    vertical-align: top;
-	margin:0;
-	padding:0;
-}
-.tcp_add_selected_to_shopping_cart{
-	/*display: none;*/
-}
-
-
-/* /////////////// OPTIONS ///////////
-*/
-.tcp_buy_button_area {
-	padding:0;
-}
-.tcp_buy_button_simple_item {
-	margin-bottom:10px;
-	padding:6px;
-}
-.tcp_buy_button .tcp_buy_button_name {
-}
-.tcp_buy_button .tcp-buy-options,
-.tcp_buy_button .tcp_unit_price,
-.tcp_buy_button .tcp-buy-dynamic-options,
-.tcp_buy_button .tcp-add-to-cart,
-.tcp_buy_button .tcp-add-to-cart-items {
-	padding:6px 0;
-}
-.tcp_buy_button .tcp-buy-options,
-.tcp_buy_button .tcp-buy-dynamic-options {
-	clear: both;
-}
-.tcp_buy_button .tcp-buy-options,
-.tcp_buy_button .tcp-buy-dynamic-options,
-.tcp_buy_button .tcp-add-to-cart {
-	/*width:100%;*/
-}
-div.tcp_buy_button_thumbnail {
-	margin:0;
-	padding:0;
-	float:left;
-}
-div.tcp_buy_button_thumbnail  img {
-    vertical-align: top;
-	margin:0 6px 3px 0;
-	padding:0;
-}
-.tcp_buy_button_main  {
-	width:100%;
-}
-.tcp_buy_button_name {
-	line-height: 30px;
-}
-.tcp_buy_button .tcp-buy-dynamic-options .tcp_dynamic_option_panel {
-	line-height:24px;
-}
-.tcp_buy_button .tcp-buy-dynamic-options .tcp_dynamic_option_panel label {
-}
-
-table.tcp_products_list .tcp_buy_button .tcp-buy-dynamic-options .tcp_dynamic_option_panel {
-}
-.tcp_buy_button {
-	width:auto;
-	line-height:18px;
-	font-size:14px;
-}
-.tcp_buy_button select {
-	max-width: 100%;
-	margin: 0 0 8px 0;
-	display: block;
-}
-.tcp_buy_button .tcp_unit_price {
-	font-weight:bold;
-	font-size:12px;
-	display:block;
-}
-.tcp_buy_button_area .tcp_unit_price,
 .tcp_buy_button_area .tcp_unit_price {
-	font-size:1.625em;
+	font-size:18px;
+	font-weight: bold;
 	padding-top:8px;
 	padding-bottom:8px;
 }
-.tcp_products_list .tcp_buy_button_area .tcp_unit_price,
-.tcp_products_list .tcp_buy_button_area .tcp_unit_price {
-	font-size:inherit;
-	padding-top:8px;
-	padding-bottom:0;
+.tcp-product-list .tcp_buy_button_area .tcp_unit_price {
+	font-size:16px;
 }
-.tcp_dynamic_option_panel {
-/*	display:inline;
-*/
+.tcp-wishlist-buttons button,
+.tcp_buy_button_area.tcpf input,
+.tcp_buy_button_area.tcpf select,
+.tcp_buy_button_area.tcpf button,
+.tcp_buy_button_area.tcpf .form-inline select {
+	margin: 2px 1px;
 }
-.tcp_buy_button .tcp_added_product_title {
-	line-height: 24px;
+.tcpf .tcp_dynamic_option_panel .form-group {
+	margin: 6px 0 0;
+}
+.tcpf .tcp_dynamic_option_panel label {
+	margin-bottom: 6px;
+}
+.tcp-add-to-cart {
+	margin: 10px 0 20px;
+}
+
+input[type="number"].tcp_count {
+	text-align: center;
+	max-width: 60px;
+}
+
+/* dynamic options */
+.tcpf .form-inline .tcp-buy-dynamic-options .form-group {
 	display: block;
-	margin-top: 4px;
 }
-.tcp-add-to-wishlist {
-	display:inline;
+.tcpf .form-inline .tcp_dynamic_option_panel .form-group {
+	max-width: 260px;
+}
+
+
+/* buy button in loop --------*/
+.tcp-product-list .tcp_dynamic_option_panel .form-group label {
+	font-weight: normal;
+}
+
+.tcp-product-list .form-control {
+	max-width: 99%;
+}
+
+.tcp-product-list .tcp_dynamic_options_select.form-control {
+	border-radius: 3px;
+	font-size: 12px;
+	height: 30px;
+	line-height: 1.5;
+	padding: 5px 10px;
+}
+
+.tcp-grid-item button.tcp-btn[type="submit"],
+.tcp-grid-item input[type="button"],
+.tcp-grid-item input[type="reset"],
+.tcp-grid-item input[type="submit"]  {
+	white-space: normal;
 }
 
 
@@ -213,23 +81,4 @@ div.tcp_tier_price ul {
 }
 div.tcp_tier_price ul li {
 	margin: 0;
-}
-
-
-/* Fix floats container "Clearfix" */
-
-/* For modern browsers */
-.cf:before,
-.cf:after {
-    content:"";
-    display:table;
-}
-
-.cf:after {
-    clear:both;
-}
-
-/* For IE 6/7 (trigger hasLayout) */
-.cf {
-    zoom:1;
 }

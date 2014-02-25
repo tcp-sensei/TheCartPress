@@ -93,6 +93,7 @@ class TCPAjax {
 <h3><?php _e( 'Ajax', 'tcp' ); ?></h3>
 
 <div class="postbox">
+<div class="inside">
 <table class="form-table">
 <tbody>
 <tr valign="top">
@@ -106,6 +107,7 @@ class TCPAjax {
 </tr>
 </tbody>
 </table>
+</div>
 </div><!-- .postbox --> <?php
 	}
 
@@ -536,12 +538,17 @@ function tcp_items_in_the_cart_<?php echo $post_id; ?>() {
 			to_do : 'get_items_in_the_cart',
 			post_id : <?php echo $post_id; ?>,
 		} ).done( function( response ) {
-			jQuery( '.tcp_added_product_title_<?php echo $post_id; ?>' ).replaceWith( response );
+			var tcp_added_product_title = jQuery( '.tcp_added_product_title_<?php echo $post_id; ?>' );
+			tcp_added_product_title.replaceWith( response );
+			tcp_added_product_title.show();
+			<?php if ( tcp_is_downloadable( $post_id ) ) : ?>
+			jQuery( '#tcp_add_to_shopping_cart_<?php echo $post_id; ?>' ).hide();
+			<?php endif; ?>
 		} ).fail( function( error ) {
 			//alert( error.responseText );
 		} );
 }
-</script><!-- HOLA -->
+</script>
 		<?php $out = $out . ob_get_clean();
 		return $out;
 	}

@@ -69,7 +69,7 @@ class TCPParentWidget extends WP_Widget {
 	}
 
 	function form( $instance ) {
-		$title = isset( $instance['title'] ) ? esc_attr( $instance['title'] ) : $title;
+		$title = isset( $instance['title'] ) ? esc_attr( $instance['title'] ) : '';
 		$private = isset( $instance['private'] ) ? $instance['private'] : false;
 		$roles = isset( $instance['roles'] ) ? $instance['roles'] : array(); ?>
 		<p>

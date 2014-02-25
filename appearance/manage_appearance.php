@@ -1,5 +1,14 @@
 <?php
 /**
+ * Manage Appearance
+ *
+ * Loads all appearance configure pages
+ *
+ * @package TheCartPress
+ * @subpackage Appearance
+ */
+
+/**
  * This file is part of TheCartPress.
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -19,4 +28,3 @@
 require_once( 'ThemeCompatibilitySettings.class.php' );
 require_once( 'LoopSettings.class.php' );
 require_once( 'CustomTemplatesList.class.php' );
-?>

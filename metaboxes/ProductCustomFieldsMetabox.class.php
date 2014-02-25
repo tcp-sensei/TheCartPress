@@ -26,9 +26,9 @@
  */
 
 // Exit if accessed directly
-if ( !defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) exit;
 
-if ( ! class_exists( 'ProductCustomFieldsMetabox' ) ) {
+if ( ! class_exists( 'ProductCustomFieldsMetabox' ) ) :
 
 require_once( TCP_DAOS_FOLDER . 'RelEntities.class.php' );
 require_once( TCP_DAOS_FOLDER . 'Taxes.class.php' );
@@ -41,9 +41,11 @@ class ProductCustomFieldsMetabox {
 
 	function register_metabox() {
 		$saleable_post_types = tcp_get_saleable_post_types();
-		if ( is_array( $saleable_post_types ) && count( $saleable_post_types ) )
-			foreach( $saleable_post_types as $post_type )
-				add_meta_box( 'tcp-product-custom-fields', __( 'Product setup', 'tcp' ), array( &$this, 'show' ), $post_type, 'normal', 'high' );
+		if ( is_array( $saleable_post_types ) && count( $saleable_post_types ) ) {
+			foreach( $saleable_post_types as $post_type ) {
+				add_meta_box( 'tcp-product-custom-fields', __( 'Product setup', 'tcp' ), array( $this, 'show' ), $post_type, 'normal', 'high' );
+			}
+		}
 		add_action( 'save_post'		, array( $this, 'save' ), 10, 2 );
 		add_action( 'delete_post'	, array( $this, 'delete' ) );
 	}
@@ -51,15 +53,18 @@ class ProductCustomFieldsMetabox {
 	function show() {
 		global $post;
 		if ( ! tcp_is_saleable_post_type( $post->post_type ) ) return;
+		//get the default post id (for translations)
 		$post_id = tcp_get_default_id( $post->ID, $post->post_type );
+		//check for roles
 		if ( ! current_user_can( 'edit_post', $post_id ) ) return;
-		$lang = isset( $_REQUEST['lang'] ) ? $_REQUEST['lang'] : '';
-		$source_lang = isset( $_REQUEST['source_lang'] ) ? $_REQUEST['source_lang'] : '';//isset( $_REQUEST['lang'] ) ? $_REQUEST['lang'] : '';
-		$is_translation = $lang != $source_lang;
+		$lang		 	= isset( $_REQUEST['lang'] ) ? $_REQUEST['lang'] : '';
+		$source_lang	= isset( $_REQUEST['source_lang'] ) ? $_REQUEST['source_lang'] : '';//isset( $_REQUEST['lang'] ) ? $_REQUEST['lang'] : '';
+		$is_translation	= $lang != $source_lang;
 		if ( $is_translation && $post_id == $post->ID ) {
 			_e( 'After saving the title and content, you will be able to edit the specific fields of the product.', 'tcp' );
 			return;
 		}
+		//for grouped products
 		$tcp_product_parent_id = isset( $_REQUEST['tcp_product_parent_id'] ) ? $_REQUEST['tcp_product_parent_id'] : 0;
 		if ( $tcp_product_parent_id > 0 ) {
 			$create_grouped_relation = true;
@@ -108,23 +113,19 @@ class ProductCustomFieldsMetabox {
 				'label'	=> __( 'Related Cat. of Products', 'tcp' ) . $count
 			);
 			$links = apply_filters( 'tcp_product_custom_fields_links', $links, $post_id, $post );
-			?>
+?>
 <ul class="subsubsub">
 <?php $separator = '';
-foreach( $links as $link ) {
-	echo $separator; ?>
-	<li><a href="<?php echo $link['url']; ?>" title="<?php echo $link['title']; ?>"><?php echo $link['label']; ?></a></li>
-	<?php if ( $separator == '' ) $separator = '<li>|</li>';
+if ( is_array( $links ) && count( $links ) > 0 ) {
+	foreach( $links as $link ) {
+		echo $separator; ?>
+		<li><a href="<?php echo $link['url']; ?>" title="<?php echo $link['title']; ?>"><?php echo $link['label']; ?></a></li>
+		<?php if ( $separator == '' ) $separator = '<li>|</li>';
+	}
 } ?>
 </ul>
 <div class="clear"></div>
-
-<?php } ?>
-
-<!--<ul class="subsubsub">
-<?php //do_action( 'tcp_product_metabox_toolbar', $post_id ); ?>
-</ul>
-<div class="clear"></div>-->
+		<?php } ?>
 
 <?php if ( $create_grouped_relation ): ?>
 	<input type="hidden" name="tcp_product_parent_id" value="<?php echo $tcp_product_parent_id; ?>" />
@@ -176,7 +177,7 @@ foreach( $tabs  as $tab_id => $tab ) { ?>
 
 	<?php do_action( 'tcp_product_metabox_custom_fields_after_price', $post_id ); ?>
 
-	<tr valign="top">
+	<tr valign="top" id="tcp_tax_id-row">
 		<th scope="row"><label for="tcp_tax_id"><?php _e( 'Tax', 'tcp' ); ?>:</label></th>
 		<td>
 			<select name="tcp_tax_id" id="tcp_tax_id">
@@ -203,22 +204,34 @@ foreach( $tabs  as $tab_id => $tab ) { ?>
 		<td><input name="tcp_sku" id="tcp_sku" value="<?php echo htmlspecialchars( get_post_meta( $post_id, 'tcp_sku', true ) ); ?>" class="regular-text" type="text" style="width:12em"></td>
 	</tr>
 
-	<tr valign="top">
-		<th scope="row"><label for="tcp_weight"><?php _e( 'Weight', 'tcp' ); ?>:</label></th>
-		<td><input type="text" min="0" step="0.01" placeholder="<?php tcp_number_format_example(); ?>" name="tcp_weight" id="tcp_weight" value="<?php echo tcp_number_format( (float)tcp_get_the_weight( $post_id ) ); ?>" class="regular-text" style="width:12em" />&nbsp;<?php tcp_the_unit_weight(); ?>
-		<span class="description"><?php printf( __( 'Current number format is %s', 'tcp'), tcp_get_number_format_example( 9999.99, false ) ); ?></span></td>
+	<tr valign="top" id="tcp_weight-row">
+		<th scope="row"><label for="tcp_weight">
+			<?php _e( 'Weight', 'tcp' ); ?>:</label>
+		</th>
+		<td>
+			<input type="text" min="0" step="0.01" placeholder="<?php tcp_number_format_example(); ?>" name="tcp_weight" id="tcp_weight" value="<?php echo tcp_number_format( (float)tcp_get_the_weight( $post_id ) ); ?>" class="regular-text" style="width:12em" />&nbsp;<?php tcp_the_unit_weight(); ?>
+			<span class="description"><?php printf( __( 'Current number format is %s', 'tcp'), tcp_get_number_format_example( 9999.99, false ) ); ?></span>
+		</td>
 	</tr>
 
 	<tr valign="top">
-		<th scope="row"><label for="tcp_order"><?php _e( 'Order (in loops/catalogue)', 'tcp' ); ?>:</label></th>
-		<td><input name="tcp_order" id="tcp_order" value="<?php echo htmlspecialchars( get_post_meta( $post_id, 'tcp_order', true ) ); ?>" class="regular-text" type="text" style="width:4em">
-		<span class="description"><?php _e( 'Numerical position to sort the product in lists of products.', 'tcp' ); ?></span></td>
+		<th scope="row">
+			<label for="tcp_order"><?php _e( 'Order (in loops/catalogue)', 'tcp' ); ?>:</label>
+		</th>
+		<td>
+			<input name="tcp_order" id="tcp_order" value="<?php echo htmlspecialchars( get_post_meta( $post_id, 'tcp_order', true ) ); ?>" class="regular-text" type="text" style="width:4em">
+			<span class="description"><?php _e( 'Numerical position to sort the product in lists of products.', 'tcp' ); ?></span>
+		</td>
 	</tr>
 
-	<tr valign="top">
-		<th scope="row"><label for="tcp_initial_units"><?php _e( 'Initial Quantity', 'tcp' ); ?>:</label></th>
-		<td><input type="text" min="0" placeholder="1" name="tcp_initial_units" id="tcp_initial_units" value="<?php tcp_the_initial_units(); ?>" class="regular-text" style="width:12em" />
-		<span class="description"><?php _e( 'Initial number of units to display in the buy button. If the product is displayed inside a grouped product this value will be omitted, using the unit field defined in the grouped list.', 'tcp'); ?></span></td>
+	<tr valign="top" id="tcp_initial_units-row">
+		<th scope="row">
+			<label for="tcp_initial_units"><?php _e( 'Initial Quantity', 'tcp' ); ?>:</label>
+		</th>
+		<td>
+			<input type="text" min="0" placeholder="1" name="tcp_initial_units" id="tcp_initial_units" value="<?php tcp_the_initial_units(); ?>" class="regular-text" style="width:12em" />
+			<span class="description"><?php _e( 'Initial number of units to display in the buy button. If the product is displayed inside a grouped product this value will be omitted, using the unit field defined in the grouped list.', 'tcp'); ?></span>
+		</td>
 	</tr>
 
 	<tr valign="top">
@@ -331,11 +344,14 @@ foreach( $tabs  as $tab_id => $tab ) { ?>
 
 	function delete( $post_id ) {
 		$post = get_post( $post_id );
-		if ( ! tcp_is_saleable_post_type( $post->post_type ) ) return $post_id;
+		if ( !tcp_is_saleable_post_type( $post->post_type ) ) return $post_id;
 		if ( !current_user_can( 'edit_post', $post_id ) ) return $post_id;
+
 		$post_id = tcp_get_default_id( $post_id, $post->post_type );
+
 		RelEntities::deleteAll( $post_id );
 		RelEntities::deleteAllTo( $post_id );
+
 		delete_post_meta( $post_id, 'tcp_price' );
 		delete_post_meta( $post_id, 'tcp_initial_units' );
 		delete_post_meta( $post_id, 'tcp_tax_id' );
@@ -345,6 +361,7 @@ foreach( $tabs  as $tab_id => $tab ) { ?>
 		delete_post_meta( $post_id, 'tcp_weight' );
 		delete_post_meta( $post_id, 'tcp_sku' );
 		delete_post_meta( $post_id, 'tcp_order' );
+		
 		$translations = tcp_get_all_translations( $post_id, get_post_type( $post_id ) );
 		if ( is_array( $translations ) && count( $translations ) > 0 ) {
 			foreach( $translations as $translation ) {
@@ -376,4 +393,4 @@ foreach( $tabs  as $tab_id => $tab ) { ?>
 }
 
 new ProductCustomFieldsMetabox();
-} // class_exists check
+endif; // class_exists check

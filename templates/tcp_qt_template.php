@@ -16,13 +16,23 @@
  * along with TheCartPress.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-//qTranslate Multilanguage support
+/**
+ * qTranslate Multilanguage support
+ */
+
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) exit;
+
+if ( function_exists( 'qtrans_convertURL' ) ) {
+	add_filter( 'post_type_link', 'qtrans_convertURL' );
+}
 
 function tcp_get_current_language_iso() {
-	if ( function_exists( 'qtrans_getLanguage' ) )
+	if ( function_exists( 'qtrans_getLanguage' ) ) {
 		return qtrans_getLanguage();
-	else
+	} else {
 		return tcp_get_admin_language_iso();
+	}
 }
 
 //Given a post_id this function returns the post_id in the default language
@@ -84,5 +94,3 @@ function tcp_unregister_string( $context, $name ) {
 function tcp_string( $context, $name, $value ) {
 	return __( $value );
 }
-
-?>

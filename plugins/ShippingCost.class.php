@@ -1,5 +1,14 @@
 <?php
 /**
+ * Shipping cost
+ *
+ * Allows to calculates shipping costs using destination and weight
+ *
+ * @package TheCartPress
+ * @subpackage Plugins
+ */
+
+/**
  * This file is part of TheCartPress.
  * 
  * TheCartPress is free software: you can redistribute it and/or modify
@@ -17,9 +26,9 @@
  */
 
 // Exit if accessed directly
-if ( !defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) exit;
 
-if ( !class_exists( 'ShippingCost' ) ) {
+if ( ! class_exists( 'ShippingCost' ) ) :
 
 require_once( dirname( dirname( __FILE__ ) ) . '/daos/Countries.class.php' );
 
@@ -41,7 +50,6 @@ class ShippingCost extends TCP_Plugin {
 		$data = tcp_get_shipping_plugin_data( get_class( $this ), $instance );
 		//$title = isset( $data['title'] ) ? $data['title'] : $this->getTitle();
 		//$title = tcp_string( 'TheCartPress', 'shi_ShippingCost-title', $title );
-		
 		if ( isset( $data['title'] ) ) {
 			//$title = tcp_string( 'TheCartPress', 'shi_FlatRateShipping-title', $title );
 			$title = tcp_string( 'TheCartPress', apply_filters( 'tcp_plugin_data_get_option_translatable_key', 'shi_ShippingCost-title-' . $instance ), $data['title'] );
@@ -56,8 +64,8 @@ class ShippingCost extends TCP_Plugin {
 		add_action( 'admin_footer', 'tcp_states_footer_scripts' );
 
 		$stored_data = isset( $data['costs'] );
-		$ranges = isset( $data['ranges'] ) ? $data['ranges'] : array( 10, 20 );
-		$zones = isset( $data['zones'] ) ? $data['zones'] : array(
+		$ranges		 = isset( $data['ranges'] ) ? $data['ranges'] : array( 10, 20 );
+		$zones		 = isset( $data['zones'] ) ? $data['zones'] : array(
 			'0' => array( 'ES', 'FR', 'PT' ),
 			'1' => array( 'CA', 'MX', 'US' ),
 			'2' => array( 'CN', 'KR', 'JP' ),
@@ -89,8 +97,9 @@ class ShippingCost extends TCP_Plugin {
 			<?php $stored_data = false;
 		} elseif ( isset( $_REQUEST['tcp_insert_range'] ) && isset( $_REQUEST['tcp_insert_range_value'] ) ) {
 			$new_range = tcp_input_number( $_REQUEST['tcp_insert_range_value'] );
-			foreach( $zones as $z => $zone )
+			foreach( $zones as $z => $zone ) {
 				$new_cost[] = 0;
+			}
 			$new_ranges = array();
 			$new_costs = array();
 			$insert_new_range = false;
@@ -259,9 +268,9 @@ class ShippingCost extends TCP_Plugin {
 					global $thecartpress;
 					$shipping_isos = isset( $thecartpress->settings['shipping_isos'] ) ? $thecartpress->settings['shipping_isos'] : false;
 					if ( $shipping_isos ) {
-						$countries = Countries::getSome( $shipping_isos );
+						$countries = TCPCountries::getSome( $shipping_isos );
 					} else {
-						$countries = Countries::getAll();
+						$countries = TCPCountries::getAll();
 					}
 					foreach( $countries as $country ) :?>
 					<option value="<?php echo $country->iso; ?>" <?php tcp_selected_multiple( $isos, $country->iso ); ?>><?php echo $country->name; ?></option>
@@ -310,44 +319,58 @@ jQuery(document).ready(function() {
 			echo 'sel_states[', $i, '][', $j, '] = \'', $state, '\';', "\n";
 		}
 	}?>
-		var selects = jQuery('.tcp_zones');
-		if (selects) {
-			//var i = 0;
-			jQuery.each(selects, function(i, region_select) {
-				region_select = jQuery('#' + region_select.id);
-				var states = countries['<?php echo $data['countries'][0]; ?>'];
-				if (states) {
-					if (region_select) {
-						jQuery.each(states, function(key, title) {
-							region_select.append(jQuery('<option></option>').attr('value', key).text(title));
-						});
-						if (sel_states) region_select.val(sel_states[i++]);
+	var selects = jQuery( '.tcp_zones' );
+	if (selects) {
+		//var i = 0;
+		jQuery.each(selects, function( i, region_select ) {
+			region_select = jQuery('#' + region_select.id);
+			var states = countries['<?php echo $data['countries'][0]; ?>'];
+			if ( states ) {
+				if ( region_select) {
+					jQuery.each(states, function(key, title) {
+						region_select.append(jQuery('<option></option>').attr('value', key).text(title));
+					} );
+					if (sel_states) {
+						region_select.val(sel_states[i++]);
 					}
 				}
-			});
-		}
-});
+			}
+		} );
+	}
+} );
 <?php endif; ?>
 
 jQuery( '.tcp_select_countries' ).on( 'change', function() {
 	var org = jQuery( this ).val();
 	var zones_isos = 'zones_isos_' + jQuery( this ).attr( 'zone_isos' );
-	if ( org == 'eu' ) tcp_select_eu( zones_isos );
-	else if ( org == 'nafta' ) tcp_select_nafta( zones_isos );
-	else if ( org == 'caricom' ) tcp_select_caricom( zones_isos );
-	else if ( org == 'mercasur' ) tcp_select_mercasur( zones_isos );
-	else if ( org == 'can' ) tcp_select_can( zones_isos );
-	else if ( org == 'au' ) tcp_select_au( zones_isos );
-	else if ( org == 'apec' ) tcp_select_apec( zones_isos );
-	else if ( org == 'asean' ) tcp_select_asean( zones_isos );
-	else if ( org == 'toggle' ) tcp_select_toggle( zones_isos );
-	else if ( org == 'none' ) tcp_select_none( zones_isos );
-	else if ( org == 'all' ) tcp_select_all( zones_isos );
+	if ( org == 'eu' ) {
+		tcp_select_eu( zones_isos );
+	} else if ( org == 'nafta' ) {
+		tcp_select_nafta( zones_isos );
+	} else if ( org == 'caricom' ) {
+		tcp_select_caricom( zones_isos );
+	} else if ( org == 'mercasur' ) {
+		tcp_select_mercasur( zones_isos );
+	} else if ( org == 'can' ) {
+		tcp_select_can( zones_isos );
+	} else if ( org == 'au' ) {
+		tcp_select_au( zones_isos );
+	} else if ( org == 'apec' ) {
+		tcp_select_apec( zones_isos );
+	} else if ( org == 'asean' ) {
+		tcp_select_asean( zones_isos );
+	} else if ( org == 'toggle' ) {
+		tcp_select_toggle( zones_isos );
+	} else if ( org == 'none' ) {
+		tcp_select_none( zones_isos );
+	} else if ( org == 'all' ) {
+		tcp_select_all( zones_isos );
+	}
 } );
 
 jQuery(document).ready( function() {
 	<?php foreach( $zones as $z => $isos ) : ?>
-	jQuery( '#zones_isos_<?php echo $z; ?>' ).tcp_convert_multiselect();
+	//jQuery( '#zones_isos_<?php echo $z; ?>' ).tcp_convert_multiselect();
 	<?php endforeach; ?>
 } );
 </script>
@@ -358,18 +381,25 @@ jQuery(document).ready( function() {
 		$zones = isset( $_REQUEST['zones'] ) ? $_REQUEST['zones'] : array();
 		$ranges = isset( $_REQUEST['ranges'] ) ? $_REQUEST['ranges'] : array();
 		$ranges = array();
-		if ( isset( $_REQUEST['ranges'] ) ) foreach( $_REQUEST['ranges'] as $r => $range )
+		if ( isset( $_REQUEST['ranges'] ) ) foreach( $_REQUEST['ranges'] as $r => $range ) {
 			$ranges[$r] = tcp_input_number( $range );
+		}
 
 		$costs = array();
-		foreach( $zones as $z => $zone )
-			foreach( $ranges as $r => $range )
+		foreach( $zones as $z => $zone ) {
+			foreach( $ranges as $r => $range ) {
 				$costs[$r][] = isset( $_REQUEST['cost-' . $r][$z] ) ? tcp_input_number( $_REQUEST['cost-' . $r][$z] ) : 0;
+			}
+		}
 		$new_zones = array();
 		$z = 0;
-		foreach( $zones as $zone )
-			if ( isset( $_REQUEST['zones_isos_' . $zone] ) ) $new_zones[$z++] = $_REQUEST['zones_isos_' . $zone];
-			else $new_zones[$z++] = array();
+		foreach( $zones as $zone ) {
+			if ( isset( $_REQUEST['zones_isos_' . $zone] ) ) {
+				$new_zones[$z++] = $_REQUEST['zones_isos_' . $zone];
+			} else {
+				$new_zones[$z++] = array();
+			}
+		}
 		$data['zones']	= $new_zones;
 		$data['ranges']	= $ranges;
 		$data['costs']	= $costs;
@@ -377,13 +407,17 @@ jQuery(document).ready( function() {
 	}
 
 	function getCost( $instance, $shippingCountry, $shoppingCart = false ) {
-		if ( $shoppingCart === false ) $shoppingCart = TheCartPress::getShoppingCart();
+		if ( $shoppingCart === false ) {
+			$shoppingCart = TheCartPress::getShoppingCart();
+		}
 		$total_weight = $shoppingCart->getWeightForShipping();
 		$data	= tcp_get_shipping_plugin_data( get_class( $this ), $instance );
 		$zones	= $data['zones'];
 		$ranges	= $data['ranges'];
 		$costs	= $data['costs'];
-		if ( ! is_array( $ranges ) || count( $ranges ) == 0 ) return false;
+		if ( ! is_array( $ranges ) || count( $ranges ) == 0 ) {
+			return false;
+		}
 		foreach( $ranges as $r => $range ) {
 			if ( $range >= $total_weight ) {
 				$selected_range = $r;
@@ -428,21 +462,26 @@ jQuery(document).ready( function() {
 		if ( $selected_shipping_address == 'new' ) {
 			$shipping_region = $_SESSION['tcp_checkout']['shipping']['shipping_region_id'];
 		} elseif ( $selected_shipping_address == 'BIL' ) {
-			if ( isset( $_SESSION['tcp_checkout']['billing']['selected_billing_address'] ) && $_SESSION['tcp_checkout']['billing']['selected_billing_address'] == 'new' )
+			if ( isset( $_SESSION['tcp_checkout']['billing']['selected_billing_address'] )
+					&& $_SESSION['tcp_checkout']['billing']['selected_billing_address'] == 'new' ) {
 				$shipping_region = $_SESSION['tcp_checkout']['billing']['billing_region_id'];
-			else {
+			} else {
 				$address_id = $_SESSION['tcp_checkout']['billing']['selected_billing_id'];
 				$address = Addresses::get( $address_id );
-				$shipping_region = $address->region_id;
+				if ( $address ) {
+					$shipping_region = $address->region_id;
+				}
 			}
 		} elseif ( $selected_shipping_address == 'Y' ) {
 			if ( isset( $_SESSION['tcp_checkout']['shipping']['selected_shipping_id'] ) ) {
 				$address_id = $_SESSION['tcp_checkout']['shipping']['selected_shipping_id'];
 				$address = Addresses::get( $address_id );
-				$shipping_region = $address->region_id;
+				if ( $address ) {
+					$shipping_region = $address->region_id;
+				}
 			}
 		}
 		return $shipping_region;
 	}
 }
-} // class_exists check
+endif; // class_exists check

@@ -27,9 +27,9 @@
 */
 
 // Exit if accessed directly
-if ( !defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) exit;
 
-if ( ! class_exists( 'TCPShippingBox' ) ) {
+if ( ! class_exists( 'TCPShippingBox' ) ) :
 
 require_once( TCP_CHECKOUT_FOLDER . 'TCPCheckoutBox.class.php' );
 require_once( TCP_CLASSES_FOLDER . 'CustomForms.class.php' );
@@ -147,9 +147,12 @@ class TCPShippingBox extends TCPCheckoutBox {
 		<div class="checkout_info clearfix" id="shipping_layer_info">
 		<?php global $current_user;
 		get_currentuserinfo();
-		if ( $current_user->ID > 0 ) $addresses = Addresses::getCustomerAddresses( $current_user->ID );
-		else $addresses = false;
-		if ( is_array( $addresses ) && count( $addresses ) > 0 ) :
+		if ( $current_user->ID > 0 ) {
+			$addresses = Addresses::getCustomerAddresses( $current_user->ID );
+		} else {
+			$addresses = array();
+		}
+		if ( is_array( $addresses ) && count( $addresses ) > 0 ) {
 			if ( $selected_shipping_address === false ) $selected_shipping_address = 'Y';
 			if ( isset( $_REQUEST['selected_shipping_id'] ) ) {
 				$default_address_id = $_REQUEST['selected_shipping_id'];
@@ -159,7 +162,7 @@ class TCPShippingBox extends TCPCheckoutBox {
 				$this->default_address = Addresses::getCustomerDefaultShippingAddress( $current_user->ID );
 				$default_address_id = $this->default_address ? $this->default_address->address_id : 0;
 			} ?>
-			<div id="selected_shipping_area" <?php if ( $selected_shipping_address == 'new' ) : ?>style="display:none"<?php endif;?>>
+			<div id="selected_shipping_area" <?php if ( $selected_shipping_address == 'new' || $selected_shipping_address == 'BIL' ) : ?>style="display:none"<?php endif;?>>
 				<label for="selected_shipping_id"> <?php _e( 'Select shipping address:', 'tcp' ); ?></label>
 				<br />
 				<select id="selected_shipping_id" name="selected_shipping_id">
@@ -174,7 +177,7 @@ class TCPShippingBox extends TCPCheckoutBox {
 				<?php _e( 'Shipping to the address selected', 'tcp' ); ?>
 			</label>
 			<br />
-		<?php endif;?>
+		<?php } ?>
 			<span id="p_use_billing_address">
 				<label for="use_billing_address">
 					<input type="radio" id="use_billing_address" name="selected_shipping_address" value="BIL" <?php checked( $selected_shipping_address, 'BIL' ); ?> onChange="jQuery('#selected_shipping_area').hide();jQuery('#new_shipping_area').hide();" />
@@ -185,7 +188,7 @@ class TCPShippingBox extends TCPCheckoutBox {
 			</span>
 
 			<label for="new_shipping_address">
-				<input type="radio" id="new_shipping_address" name="selected_shipping_address" value="new" <?php if ( $selected_shipping_address == 'new' || count( $addresses ) == 0 ) : ?> checked="true"<?php endif;?> onChange="jQuery('#new_shipping_area').show();jQuery('#selected_shipping_area').hide();" />
+				<input type="radio" id="new_shipping_address" name="selected_shipping_address" value="new" <?php if ( $selected_shipping_address == 'new' || ( count( $addresses ) == 0 && $selected_shipping_address != 'BIL' ) ) : ?> checked="true"<?php endif;?> onChange="jQuery('#new_shipping_area').show();jQuery('#selected_shipping_area').hide();" />
 				<?php _e( 'New shipping address', 'tcp' ); ?>
 			</label>
 			<div id="new_shipping_area" class="clearfix" <?php if ( $selected_shipping_address != 'new' ) : ?>style="display:none"<?php endif;?><?php
@@ -374,6 +377,7 @@ class TCPShippingBox extends TCPCheckoutBox {
 				'attrs'		=> array(
 					'size'		=> 20,
 					'maxlength'	=> 255,
+					'class'		=> 'form-control',
 				),
 			),
 			'shipping_lastname'		=> array(
@@ -384,6 +388,7 @@ class TCPShippingBox extends TCPCheckoutBox {
 				'attrs'		=> array(
 					'size'		=> 40,
 					'maxlength'	=> 255,
+					'class'		=> 'form-control',
 				),
 			),
 			'shipping_company'		=> array(
@@ -393,6 +398,7 @@ class TCPShippingBox extends TCPCheckoutBox {
 				'attrs'		=> array(
 					'size'		=> 20,
 					'maxlength'	=> 255,
+					'class'		=> 'form-control',
 				),
 			),
 			'shipping_country_id'	=> array(
@@ -408,13 +414,14 @@ class TCPShippingBox extends TCPCheckoutBox {
 				'error'		=> __( 'The shipping City field must be completed', 'tcp' ),
 			),
 			'shipping_street'		=> array(
-				'label'		=> __( 'Address', 'tcp' ),
+				'label'		=> __( 'Address 1', 'tcp' ),
 				'required'	=> true,
 				'input'		=> 'text',
 				'error'		=> __( 'The shipping Street field must be completed', 'tcp' ),
 				'attrs'		=> array(
 					'size'		=> 20,
 					'maxlength'	=> 255,
+					'class'		=> 'form-control',
 				),
 			),
 			'shipping_street_2'		=> array(
@@ -425,6 +432,7 @@ class TCPShippingBox extends TCPCheckoutBox {
 				'attrs'		=> array(
 					'size'		=> 20,
 					'maxlength'	=> 255,
+					'class'		=> 'form-control',
 				),
 			),
 			'shipping_postcode'		=> array(
@@ -435,6 +443,7 @@ class TCPShippingBox extends TCPCheckoutBox {
 				'attrs'		=> array(
 					'size'		=> 10,
 					'maxlength'	=> 10,
+					'class'		=> 'form-control',
 				),
 			),
 			'shipping_telephone_1'	=> array(
@@ -442,8 +451,9 @@ class TCPShippingBox extends TCPCheckoutBox {
 				'input'		=> 'text',
 				'error'		=> __( 'The shipping Telephone field must be completed', 'tcp' ),
 				'attrs'		=> array(
-					'size'		=> 10,
-					'maxlength'	=> 10,
+					'size'		=> 15,
+					'maxlength'	=> 20,
+					'class'		=> 'form-control',
 				),
 			),
 			'shipping_telephone_2'	=> array(
@@ -451,8 +461,9 @@ class TCPShippingBox extends TCPCheckoutBox {
 				'input'		=> 'text',
 				'error'		=> __( 'The shipping Second Telephone field must be completed', 'tcp' ),
 				'attrs'		=> array(
-					'size'		=> 10,
-					'maxlength'	=> 10,
+					'size'		=> 15,
+					'maxlength'	=> 20,
+					'class'		=> 'form-control',
 				),
 			),
 			'shipping_fax'			=> array(
@@ -462,6 +473,7 @@ class TCPShippingBox extends TCPCheckoutBox {
 				'attrs'		=> array(
 					'size'		=> 15,
 					'maxlength'	=> 20,
+					'class'		=> 'form-control',
 				),
 			),
 			'shipping_email'			=> array(
@@ -472,6 +484,7 @@ class TCPShippingBox extends TCPCheckoutBox {
 				'attrs'		=> array(
 					'size'		=> 20,
 					'maxlength'	=> 255,
+					'class'		=> 'form-control',
 				),
 			),
 		);
@@ -491,15 +504,15 @@ class TCPShippingBox extends TCPCheckoutBox {
 		$shipping_isos	= $thecartpress->get_setting( 'shipping_isos', false );
 		//Getting allowed countries info
 		if ( $shipping_isos ) {
-			$countries	= Countries::getSome( $shipping_isos, tcp_get_current_language_iso() );
+			$countries	= TCPCountries::getSome( $shipping_isos, tcp_get_current_language_iso() );
 		} else {
-			$countries	= Countries::getAll( tcp_get_current_language_iso() );
+			$countries	= TCPCountries::getAll( tcp_get_current_language_iso() );
 		}
 		//Get current selected country (if available)
 		$country_bill	= $country_id;
 		//If no country selected, set the default country
 		if ( $country_bill == '' ) $country_bill = $country; ?>
-		<select id="shipping_country_id" name="shipping_country_id">
+		<select id="shipping_country_id" name="shipping_country_id" class="form-control">
 		<?php foreach( $countries as $item ) { ?>
 			<option value="<?php echo $item->iso;?>" <?php selected( $item->iso, $country_bill ); ?>><?php echo $item->name; ?></option>
 		<?php } ?>
@@ -520,7 +533,7 @@ class TCPShippingBox extends TCPCheckoutBox {
 		} ?>
 		<label for="shipping_region_id"><?php _e( 'Region', 'tcp' ); ?>:<?php if ( $required ) echo '<em>*</em>'; ?></label>
 		<?php $regions = apply_filters( 'tcp_load_regions_for_shipping', false ); //array( 'id' => array( 'name'), 'id' => array( 'name'), ... )	?>
-		<select id="shipping_region_id" name="shipping_region_id" <?php if ( is_array( $regions ) && count( $regions ) > 0 ) {} else { echo 'style="display:none;"'; }?>>
+		<select id="shipping_region_id" name="shipping_region_id" <?php if ( is_array( $regions ) && count( $regions ) > 0 ) {} else { echo 'style="display:none;"'; }?> class="form-control">
 			<option value=""><?php _e( 'No state selected', 'tcp' ); ?></option>
 		<?php if ( is_array( $regions ) && count( $regions ) > 0 ) foreach( $regions as $id => $region_item ) { ?>
 			<option value="<?php echo $id;?>" <?php selected( $id, $region_id ); ?>><?php echo $region_item['name']; ?></option>
@@ -549,14 +562,14 @@ class TCPShippingBox extends TCPCheckoutBox {
 		$cities		= array(); //array( 'id' => array( 'name'), 'id' => array( 'name'), ... )
 		$cities		= apply_filters( 'tcp_load_cities_for_shipping', $cities );
 		if ( is_array( $cities ) && count( $cities ) > 0 ) { ?>
-			<select id="shipping_city_id" name="shipping_city_id">
+			<select id="shipping_city_id" name="shipping_city_id" class="form-control">
 			<?php foreach( $cities as $id => $city ) { ?>
 				<option value="<?php echo $id;?>" <?php selected( $id, $city_id ); ?>><?php echo $city['name'];?></option>
 			<?php } ?>
 			</select>
 			<?php $this->showErrorMsg( 'shipping_city_id' ); ?>
 		<?php } else { ?>
-			<input type="text" id="shipping_city" name="shipping_city" value="<?php echo $city;?>" size="20" maxlength="255" />
+			<input type="text" id="shipping_city" name="shipping_city" value="<?php echo $city;?>" size="20" maxlength="255" class="form-control"/>
 			<?php $this->showErrorMsg( 'shipping_city' ); ?>
 		<?php }
 	}
@@ -688,4 +701,4 @@ class TCPShippingBox extends TCPCheckoutBox {
 }
 
 new TCPShippingBox();
-} // class_exists check
+endif; // class_exists check

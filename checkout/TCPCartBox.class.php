@@ -15,6 +15,10 @@
  * You should have received a copy of the GNU General Public License
  * along with This program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 require_once( TCP_CHECKOUT_FOLDER . 'TCPCheckoutBox.class.php' );
 
 class TCPCartBox extends TCPCheckoutBox {
@@ -201,6 +205,7 @@ class TCPCartBox extends TCPCheckoutBox {
 			$tax_amount_per_unit = round( $tax_amount_per_unit, $decimals );
 			$tax_amount = round( $tax_amount_per_unit * $item->getUnits(), $decimals );
 			$line_price_without_tax = round( $unit_price_without_tax * $item->getUnits(), $decimals );
+			$line_price_without_tax = apply_filters( 'tcp_checkout_cart_row_price', $line_price_without_tax, $item );
 
 			$line_price_with_tax = $line_price_without_tax + $tax_amount;
 

@@ -16,13 +16,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 // Exit if accessed directly
-if ( !defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) exit;
 
-if ( ! class_exists( 'TCPUpdateVersion' ) ) {
+if ( ! class_exists( 'TCPUpdateVersion' ) ) :
 
 class TCPUpdateVersion {
 
-	function tcp_update_admin_notices() { ?>
+	/*function tcp_update_admin_notices() { ?>
 <div id="message" class="updated">
 	<div class="squeezer">
 		<h4><?php _e( 'Congratulations, you have installed the new version of TheCartPress.', 'tcp' ); ?></h4>
@@ -31,19 +31,19 @@ class TCPUpdateVersion {
 		<p class="submit"><a class="skip button-primary" href="<?php echo add_query_arg( 'tcp_hide_installed_notice_1', 'true' ); ?>"><?php _e( 'Hide this notice', 'tcp' ); ?></a></p>
 	</div>
 </div><?php
-	}
+	}*/
 
 	function update( $thecartpress ) {
-		if ( isset( $_GET['tcp_hide_installed_notice_1'] ) ) {
+		global $wpdb;
+		/*if ( isset( $_GET['tcp_hide_installed_notice_1'] ) ) {
 			update_option( '_tcp_hide_installed_notice_1', true );
 		} else {
 			$tcp_hide_installed_notice = get_option( '_tcp_hide_installed_notice_1', false );
 			if ( ! $tcp_hide_installed_notice ) add_action( 'admin_notices', array( $this, 'tcp_update_admin_notices' ) );
-		}
+		}*/
 
 		$version = (float)get_option( 'tcp_version' );
 		if ( $version < 118 ) {
-			global $wpdb;
 			$sql = 'ALTER TABLE ' . $wpdb->prefix . 'tcp_orders_details MODIFY COLUMN `name` CHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;';
 			$wpdb->query( $sql );
 			$sql = 'ALTER TABLE ' . $wpdb->prefix . 'tcp_orders_details MODIFY COLUMN `option_1_name` CHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;';
@@ -69,7 +69,6 @@ class TCPUpdateVersion {
 			//
 		}
 		if ( $version < 120 ) {
-			global $wpdb;
 			$sql = 'ALTER TABLE ' . $wpdb->prefix . 'tcp_addresses MODIFY COLUMN `postcode` CHAR(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;';
 			$wpdb->query( $sql );
 
@@ -83,7 +82,6 @@ class TCPUpdateVersion {
 			//
 		}
 		if ( $version < 126 ) {
-			global $wpdb;
 			$sql = 'SHOW COLUMNS FROM ' . $wpdb->prefix . 'tcp_orders WHERE field = \'payment_notice\'';
 			$row = $wpdb->get_row( $sql );
 			if ( ! $row ) {
@@ -114,12 +112,10 @@ class TCPUpdateVersion {
 			if ( $administrator ) $administrator->add_cap( 'tcp_edit_address' );
 		}
 		if ( $version < 128 ) {
-			global $wpdb;
 			$sql = 'ALTER TABLE ' . $wpdb->prefix . 'tcp_orders_details MODIFY COLUMN `weight` double NOT NULL;';
 			$wpdb->query( $sql );
 		}
 		if ( $version < 129 ) {
-			global $wpdb;
 			$sql = 'ALTER TABLE ' . $wpdb->prefix . 'tcp_orders MODIFY COLUMN `shipping_firstname` varchar(255) NOT NULL;';
 			$wpdb->query( $sql );
 			$sql = 'ALTER TABLE ' . $wpdb->prefix . 'tcp_orders MODIFY COLUMN `shipping_lastname` varchar(255) NOT NULL;';
@@ -157,7 +153,6 @@ class TCPUpdateVersion {
 			update_option( 'tcp_version', 131 );
 		}
 		if ( $version < 132 ) {
-			global $wpdb;
 			$sql = 'SHOW COLUMNS FROM ' . $wpdb->prefix . 'tcp_orders WHERE field = \'shipping_class\'';
 			$row = $wpdb->get_row( $sql );
 			if ( ! $row ) {
@@ -190,9 +185,15 @@ class TCPUpdateVersion {
 			}
 			update_option( 'tcp_version', 132 );
 		}
-		if ( $version < 133 ) {
-			update_option( 'tcp_version', 133 );
+		if ( $version < 135 ) {
+			$sql = 'SHOW COLUMNS FROM ' . $wpdb->prefix . 'tcp_orders_details WHERE field = \'discount\'';
+			$row = $wpdb->get_row( $sql );
+			if ( ! $row ) {
+				$sql = 'ALTER TABLE ' . $wpdb->prefix . 'tcp_orders_details ADD COLUMN `discount` DECIMAL(13,2) NOT NULL AFTER `qty_ordered`;';
+				$wpdb->query( $sql );
+			}
+			update_option( 'tcp_version', 135 );
 		}
 	}
 }
-} // class_exists check
+endif; // class_exists check

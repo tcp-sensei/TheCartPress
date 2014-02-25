@@ -25,6 +25,11 @@
  * along with this program.	If not, see <http://www.gnu.org/licenses/>.
  */
 
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) exit;
+
+if ( ! class_exists( 'TCPUnitsInBuyButton' ) ) :
+
 class TCPUnitsInBuyButton {
 
 	static function initModule() {
@@ -33,14 +38,16 @@ class TCPUnitsInBuyButton {
 	}
 
 	static function admin_init() {
-		//Product metabox
+		// Product metabox
 		add_action( 'tcp_product_metabox_custom_fields'			, array( __CLASS__, 'tcp_product_metabox_custom_fields' ) );
 		add_action( 'tcp_product_metabox_save_custom_fields'	, array( __CLASS__, 'tcp_product_metabox_save_custom_fields' ) );
 		add_action( 'tcp_product_metabox_delete_custom_fields'	, array( __CLASS__, 'tcp_product_metabox_delete_custom_fields' ) );
-		//Localize settings
+
+		// Localize settings
 		add_action( 'tcp_localize_settings_page'				, array( __CLASS__, 'tcp_localize_settings_page' ) );
 		add_filter( 'tcp_localize_settings_action'				, array( __CLASS__, 'tcp_localize_settings_action' ) );
-		//CSV Loader
+
+		// CSV Loader
 		add_filter( 'tcp_csvl_option_columns'					, array( __CLASS__, 'tcp_csvl_option_columns' ), 10, 2 );
 		add_action( 'tcp_csv_loader_row'						, array( __CLASS__, 'tcp_csv_loader_row' ), 10, 2 );
 	}
@@ -52,27 +59,33 @@ class TCPUnitsInBuyButton {
 			$current_unit = $thecartpress->get_setting( 'tcp_product_current_unit', '' );
 		}
 		$units = tcp_get_product_units_list();
-		if ( isset( $units[$current_unit] ) ) $current_unit = $units[$current_unit];
-		else $current_unit = '';
-		if ( strlen( $current_unit ) > 0 ) return sprintf( __( '%s per %s', 'tcp' ), $label, $current_unit );
-		else return $label;
+		if ( isset( $units[$current_unit] ) ) {
+			$current_unit = $units[$current_unit];
+		} else {
+			$current_unit = '';
+		}
+		if ( strlen( $current_unit ) > 0 ) {
+			return sprintf( __( '%s per %s', 'tcp' ), $label, $current_unit );
+		} else {
+			return $label;
+		}
 	}
 
 	static function tcp_product_metabox_custom_fields( $post_id ) { ?>
-		<tr valign="top">
-		<th scope="row"><label for="tcp_product_current_unit"><?php _e( 'Product unit', 'tcp' ); ?>:</label></th>
-		<td>
-		<?php $current_unit = tcp_get_product_unit_by_product( $post_id );
-		if ( $current_unit == '' ) $current_unit = 'by-default';
-		$units = tcp_get_product_units_list( true ); ?>
-		<select id="tcp_product_current_unit" name="tcp_product_current_unit">
-			<?php foreach( $units as $id => $unit ) { ?>
-			<option value="<?php echo $id; ?>" <?php selected( $current_unit, $id ); ?>><?php echo $unit == '' ? __( 'Empty', 'tcp' ) : $unit; ?></option>
-			<?php  } ?>
-		</select>
-		<?php //$current_unit = $thecartpress->get_setting( 'tcp_product_current_unit', '' ); ?>
-		</td>
-	</tr>
+<tr valign="top" id="tcp_product_current_unit-row">
+	<th scope="row">
+		<label for="tcp_product_current_unit"><?php _e( 'Product unit', 'tcp' ); ?>:</label></th>
+	<td>
+	<?php $current_unit = tcp_get_product_unit_by_product( $post_id );
+	$units = tcp_get_product_units_list( true ); ?>
+	<select id="tcp_product_current_unit" name="tcp_product_current_unit">
+		<?php foreach( $units as $id => $unit ) { ?>
+		<option value="<?php echo $id; ?>" <?php selected( $current_unit, $id ); ?>><?php echo $unit == '' ? __( 'Empty', 'tcp' ) : $unit; ?></option>
+		<?php  } ?>
+	</select>
+	<?php //$current_unit = $thecartpress->get_setting( 'tcp_product_current_unit', '' ); ?>
+	</td>
+</tr>
 	<?php }
 
 	static function tcp_product_metabox_save_custom_fields( $post_id ) {
@@ -91,7 +104,7 @@ class TCPUnitsInBuyButton {
 <h3><?php _e( 'Product Units', 'tcp'); ?></h3>
 
 <div class="postbox">
-
+<div class="inside">
 <table class="form-table">
 <tbody>
 <tr valign="top">
@@ -111,6 +124,7 @@ class TCPUnitsInBuyButton {
 </tbody>
 </table>
 
+</div>
 </div><!-- .postbox -->
 	<?php }
 
@@ -130,7 +144,7 @@ class TCPUnitsInBuyButton {
 			if ( is_array( $col_names ) && count( $col_names ) > 0 ) {
 				foreach( $col_names as $col_name ) {
 					if ( 'tcp_product_unit' == $col_name ) {
-						update_post_meta( $post_id, 'tcp_product_unit', trim( $col ) );
+						update_post_meta( $post_id, 'tcp_product_unit', trim( strtolower( $col ) ) );
 					}
 				}
 			}
@@ -142,14 +156,16 @@ TCPUnitsInBuyButton::initModule();
 
 function tcp_get_product_units_list( $by_default = false ) {
 	$units = array(
-		'empty' => '',
-		'unit' => __( 'unit', 'tcp' ),
-		'piece' => __( 'piece', 'tcp' ),
-		'roll' => __( 'roll', 'tcp' ),
-		'meter' => __( 'meter', 'tcp' ),
-		'kg' => __( 'kg', 'tcp' ),
-		'gr' => __( 'gr', 'tcp' ),
-		'pack' => __( 'pack', 'tcp' ),
+		'empty'		 => '',
+		'unit'		 => __( 'unit', 'tcp' ),
+		'piece'		 => __( 'piece', 'tcp' ),
+		'roll'		 => __( 'roll', 'tcp' ),
+		'meter'		 => __( 'meter', 'tcp' ),
+		'kg'		 => __( 'kg', 'tcp' ),
+		'gr'		 => __( 'gr', 'tcp' ),
+		'pack'		 => __( 'pack', 'tcp' ),
+		'swatch'	 => __( 'swatch', 'tcp' ),
+		'cubic_metre'=> __( 'cubic metre', 'tcp' ),
 	);
 	if ( $by_default ) $units['by-default'] = __( 'By default', 'tcp' );
 	return apply_filters( 'tcp_product_units_list', $units );
@@ -157,6 +173,7 @@ function tcp_get_product_units_list( $by_default = false ) {
 
 function tcp_get_product_unit_by_product( $post_id ) {
 	$unit = get_post_meta( $post_id, 'tcp_product_unit', true );
+	if ( $unit == '' ) $unit = 'by-default';
 	return $unit;
 }
-?>
+endif; // class_exists check

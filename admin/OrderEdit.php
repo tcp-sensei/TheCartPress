@@ -70,8 +70,9 @@ th, td {
 <?php
 
 add_meta_box( 'tcp_order_id_metabox'			, __( 'Order ID', 'tcp' ), 'tcp_order_id_metabox' , 'tcp-order-edit', 'side', 'default' );
-if ( strlen( $order->shipping_firstname ) &&  strlen( $order->shipping_lastname ) )
+if ( strlen( $order->shipping_firstname ) &&  strlen( $order->shipping_lastname ) ) {
 	add_meta_box( 'tcp_order_shipping_metabox'	, __( 'Shipping Address', 'tcp' ), 'tcp_order_shipping_metabox' , 'tcp-order-edit', 'side', 'default' );
+}
 add_meta_box( 'tcp_order_billing_metabox'		, __( 'Billing Address', 'tcp' ), 'tcp_order_billing_metabox' , 'tcp-order-edit', 'side', 'default' );
 add_meta_box( 'tcp_order_details_metabox'		, __( 'Order details', 'tcp' ), 'tcp_order_details_metabox' , 'tcp-order-edit', 'normal', 'default' );
 add_meta_box( 'tcp_order_setup_metabox'			, __( 'Order Setup', 'tcp' ), 'tcp_order_setup_metabox' , 'tcp-order-edit', 'normal', 'default' );

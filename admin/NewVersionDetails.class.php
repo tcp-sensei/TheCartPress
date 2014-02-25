@@ -72,12 +72,23 @@ img.tcp-image {
 			<p class="lead">
 				<?php _e( 'Thank you for updating to the latest version!', 'tcp' ); ?>
 			</p>
+			<p class="lead">
+				<?php printf( __( 'Read more about what\'s new or go to <a href="%s">First time setup</a>', 'tcp' ), admin_url( 'admin.php?page=first_time_setup' ) );?></a>
+			</p>
 
 			<h2 class=""><?php _e( 'What\'s new?', 'tcp' ); ?></h2>
 			<p class="lead"><?php _e( 'New User interface improvements, to make your day easier.', 'tcp' ); ?></p>
-
-			<hr/>
 			
+			<hr/>
+
+			<h2><?php _e( 'My Account', 'tcp' ); ?></h2>
+			<p class=""><?php printf( __( 'New icons, to make it more usable. Use it with <a href="%s">FrontEnd Plugin</a>.', 'tcp' ), 'http://extend.thecartpress.com/products/frontend/' ); ?></p>
+			<img class="img-rounded tcp-image" src="<?php echo plugins_url( 'images/new_version/my-account.jpg', dirname( __FILE__ ) ); ?>" class="center" />
+
+			<h2><?php _e( 'Checkout improvements', 'tcp' ); ?></h2>
+			<p class=""><?php _e( 'Drag & Drop fields to sorting them.', 'tcp' ); ?></p>
+			<img class="img-rounded tcp-image" src="<?php echo plugins_url( 'images/new_version/checkout-billing-address.jpg', dirname( __FILE__ ) ); ?>" class="center" />
+
 			<h2><?php _e( 'Orders list', 'tcp' ); ?></h2>
 			<p class=""><?php _e( 'New orders list, to see your orders faster. Take a quick look using "view", localize addresses in map, etc.', 'tcp' ); ?></p>
 			<img class="img-rounded tcp-image" src="<?php echo plugins_url( 'images/new_version/orders-list.jpg', dirname( __FILE__ ) ); ?>" class="center" />

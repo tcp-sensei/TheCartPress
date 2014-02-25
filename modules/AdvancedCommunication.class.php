@@ -26,9 +26,9 @@
  */
 
 // Exit if accessed directly
-if ( !defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) exit;
 
-if ( ! class_exists( 'TCPAdvancedCommunication' ) ) {
+if ( ! class_exists( 'TCPAdvancedCommunication' ) ) :
 
 define( 'TCP_EMAIL_POST_TYPE', 'tcp_email' );
 
@@ -38,12 +38,15 @@ class TCPAdvancedCommunication {
 	static $order = false;
 	
 	static function init() {
-		add_action( 'init'						, array( __CLASS__, 'register_post_type' ) );
-		add_action( 'admin_init'				, array( __CLASS__, 'admin_init' ) );
-		add_action( 'tcp_order_edit_metaboxes'	, array( __CLASS__, 'tcp_order_edit_metaboxes' ), 10, 2 );
+		//add_action( 'init'						, array( __CLASS__, 'register_post_type' ) );
+
+		if ( is_admin() ) {
+			add_action( 'admin_init'				, array( __CLASS__, 'admin_init' ) );
+			add_action( 'tcp_order_edit_metaboxes'	, array( __CLASS__, 'tcp_order_edit_metaboxes' ), 10, 2 );
+		}
 	}
 
-	static function register_post_type() {
+	/*static function register_post_type() {
 		$labels = array(
 			'name'					=> __( 'Emails', 'tcp' ),
 			'singular_name' 		=> __( 'Email', 'tcp' ),
@@ -75,10 +78,15 @@ class TCPAdvancedCommunication {
 			'supports'				=> array( 'title', 'editor', 'author', 'thumbnail' ),
 		); 
 		register_post_type( TCP_EMAIL_POST_TYPE, $args );
-	}
+	}*/
 
 	static function admin_init() {
 		add_action( 'wp_ajax_tcp_advanced_comm', array( __CLASS__, 'tcp_advanced_comm' ) );
+
+		// Adds "Subject" field to tcp_templates
+		if ( ! tcp_exists_custom_field_def( 'tcp_template', 'tcp_subject' ) ) {
+			tcp_add_custom_field_def( 'tcp_template', 'tcp_subject', __( 'Subject', 'tcp' ), TCP_CUSTOM_FIELD_TYPE_TEXT, 0, __( 'This field will be used if the notice is used as email', 'tcp' ) );
+		}
 	}
 
 	static function tcp_advanced_comm() {
@@ -140,7 +148,9 @@ class TCPAdvancedCommunication {
 				success : function(response) {
 					feedback.hide();
 					if ( typeof( tinymce ) == 'object' ) {
-						tinyMCE.activeEditor.setContent( response );
+						data = JSON.parse( response );
+						jQuery( '#tcp_notice_subject' ).val( data.subject || '' );
+						tinyMCE.activeEditor.setContent( data.content || '');
 					}
 				},
 				error : function(response) {
@@ -173,21 +183,24 @@ class TCPAdvancedCommunication {
 			var tcp_copy_to_me = jQuery( '#tcp_copy_to_me' ).attr( 'checked' );
 			feedback.show();
 			jQuery.ajax( {
-				async : true,
-				type : "POST",
-				url : "<?php echo admin_url( 'admin-ajax.php' ); ?>",
-				data : {
-					action : 'tcp_advanced_comm',
-					to_do : 'tcp_send_email',
-					order_id : '<?php echo $order_id; ?>',
-					subject : jQuery( '#tcp_notice_subject' ).val(),
-					copy_to_me : tcp_copy_to_me,
-					text : tinymce.activeEditor.getContent(),
+				async	: true,
+				type	: "POST",
+				url		: "<?php echo admin_url( 'admin-ajax.php' ); ?>",
+				data	: {
+					action		: 'tcp_advanced_comm',
+					to_do		: 'tcp_send_email',
+					order_id	: '<?php echo $order_id; ?>',
+					subject		: jQuery( '#tcp_notice_subject' ).val(),
+					copy_to_me	: tcp_copy_to_me,
+					text		: tinymce.activeEditor.getContent(),
 				},
 				success : function( response ) {
 					feedback.hide();
-					if ( response == 'OK' ) jQuery( '#tcp-sending' ).show( 800).delay( 2000 ).hide( 800 );
-					else jQuery( '#tcp-error-sending' ).show( 400).delay( 1000 ).hide( 400 );
+					if ( response == 'OK' ) {
+						jQuery( '#tcp-sending' ).show( 800).delay( 2000 ).hide( 800 );
+					} else {
+						jQuery( '#tcp-error-sending' ).show( 400 ).delay( 1000 ).hide( 400 );
+					}
 					tcp_load_notices( <?php echo $order_id; ?> );
 				},
 				error : function( response ) {
@@ -201,15 +214,15 @@ class TCPAdvancedCommunication {
 			var feedback = jQuery( '.tcp-save-email-feedback' );
 			feedback.show();
 			jQuery.ajax( {
-				async : true,
-				type : "POST",
-				url : "<?php echo admin_url( 'admin-ajax.php' ); ?>",
-				data : {
-					action : 'tcp_advanced_comm',
-					to_do : 'tcp_save_email',
+				async	: true,
+				type	: "POST",
+				url		: "<?php echo admin_url( 'admin-ajax.php' ); ?>",
+				data	: {
+					action	 : 'tcp_advanced_comm',
+					to_do	 : 'tcp_save_email',
 					order_id : '<?php echo $order_id; ?>',
-					subject : jQuery( '#tcp_notice_subject' ).val(),
-					text : tinymce.activeEditor.getContent(),
+					subject	 : jQuery( '#tcp_notice_subject' ).val(),
+					text	 : tinymce.activeEditor.getContent(),
 				},
 				success : function( response ) {
 					feedback.hide();
@@ -231,9 +244,9 @@ class TCPAdvancedCommunication {
 	<?php }
 
 	static function tcp_send_email() {
-		$text		= isset( $_REQUEST['text'] ) ? $_REQUEST['text'] : false;
+		$text		= isset( $_REQUEST['text'] ) ? stripslashes( $_REQUEST['text'] ) : false;
 		$order_id	= isset( $_REQUEST['order_id'] ) ? $_REQUEST['order_id'] : false;
-		$subject	= isset( $_REQUEST['subject'] ) ? $_REQUEST['subject'] : sprintf( __( 'Order ID: %s', 'tcp' ), $order_id );
+		$subject	= isset( $_REQUEST['subject'] ) ? stripslashes( $_REQUEST['subject'] ) : sprintf( __( 'Order ID: %s', 'tcp' ), $order_id );
 		$copy_to_me = isset( $_REQUEST['copy_to_me'] ) ? $_REQUEST['copy_to_me'] : false;
 		require_once( TCP_DAOS_FOLDER . 'Orders.class.php' );
 		$order		= Orders::get( $order_id );
@@ -257,10 +270,10 @@ class TCPAdvancedCommunication {
 	}
 
 	static function tcp_save_email( $title = '' ) {
-		$text		= isset( $_REQUEST['text'] ) ? $_REQUEST['text'] : false;
+		$text		= isset( $_REQUEST['text'] ) ? stripslashes( $_REQUEST['text'] ) : false;
 		$order_id	= isset( $_REQUEST['order_id'] ) ? $_REQUEST['order_id'] : false;
 		$created_at	= current_time( 'mysql' );
-		$subject	= isset( $_REQUEST['subject'] ) ? $_REQUEST['subject'] : $title;
+		$subject	= isset( $_REQUEST['subject'] ) ? stripslashes( $_REQUEST['subject'] ) : $title;
 		$notice		= array(
 			'post_type'		=> TCP_EMAIL_POST_TYPE,
 			'post_title'	=> $subject,
@@ -280,15 +293,20 @@ class TCPAdvancedCommunication {
 	}
 
 	static function tcp_get_email_text() {
-		$post_id = isset( $_REQUEST['post_id'] ) ? $_REQUEST['post_id'] : false;
-		$order_id = isset( $_REQUEST['order_id'] ) ? $_REQUEST['order_id'] : false;
+		$post_id	= isset( $_REQUEST['post_id'] ) ? $_REQUEST['post_id'] : false;
+		$order_id	= isset( $_REQUEST['order_id'] ) ? $_REQUEST['order_id'] : false;
 		if ( $post_id !== false && $order_id !== false ) {
 			require_once( TCP_DAOS_FOLDER . 'Orders.class.php' );
 			TCPAdvancedCommunication::$order_id = $order_id;
 			TCPAdvancedCommunication::$order = Orders::get( $order_id );
 			$content = apply_filters( 'the_content', get_post_field( 'post_content', $post_id ) );
 			$content = preg_replace_callback( '/\{(.*?)\}/', array( __CLASS__, 'tcp_email_get_value' ), $content );
-			die( $content );
+			$subject = get_post_meta( $post_id, 'tcp_subject', true );
+			$subject = preg_replace_callback( '/\{(.*?)\}/', array( __CLASS__, 'tcp_email_get_value' ), $subject );
+			die( json_encode( array(
+				'subject' => $subject,
+				'content' => $content,
+			) ) );
 		} else {
 			die( 'error:' . $post_id . ',' . $order_id );
 		}
@@ -420,4 +438,4 @@ jQuery().ready( function () {
 }
 
 TCPAdvancedCommunication::init();
-} // class_exists check
+endif; // class_exists check

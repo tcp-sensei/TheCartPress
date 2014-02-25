@@ -31,8 +31,8 @@ class TCPCountrySelection {
 			if ( ! $country ) $country = tcp_get_billing_country();
 			//if ( ! $country ) $country = tcp_get_tax_country();
 			$billing_isos = $thecartpress->get_setting( 'billing_isos', false );
-			if ( $billing_isos ) $countries = Countries::getSome( $billing_isos,  $country );
-			else $countries = Countries::getAll( $country ); ?>
+			if ( $billing_isos ) $countries = TCPCountries::getSome( $billing_isos,  $country );
+			else $countries = TCPCountries::getAll( $country ); ?>
 			<select id="selected_country_id" name="tcp_selected_country_id">
 			<?php foreach( $countries as $item ) : ?>
 				<option value="<?php echo $item->iso; ?>" <?php selected( $item->iso, $country ); ?>><?php echo $item->name; ?></option>

@@ -23,7 +23,6 @@ if ( !defined( 'ABSPATH' ) ) exit;
 require_once( 'tcp_buybutton_template.php' );
 require_once( 'tcp_calendar_template.php' );
 require_once( 'tcp_custom_taxonomies.php' );
-
 require_once( 'tcp_general_template.php' );
 require_once( 'tcp_ordersmeta_template.php' );
 require_once( 'tcp_states_template.php' );

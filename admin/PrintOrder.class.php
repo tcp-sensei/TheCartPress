@@ -16,10 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// Exit if accessed directly
+if ( !defined( 'ABSPATH' ) ) exit;
+
+if ( ! class_exists( 'TCPPrintOrder' ) ) :
+
 class TCPPrintOrder {
 
 	function __construct() {
-		add_action( 'wp_ajax_tcp_print_order', array( __CLASS__, 'tcp_print_order' ) );
+		add_action( 'wp_ajax_tcp_print_order'		, array( __CLASS__, 'tcp_print_order' ) );
 		add_action( 'wp_ajax_nopriv_tcp_print_order', array( __CLASS__, 'tcp_print_order' ) );
 	}
 
@@ -35,7 +40,7 @@ class TCPPrintOrder {
 			if ( $order_id != $thecartpress->getShoppingCart()->getOrderId() ) return;
 		} elseif ( ! current_user_can( 'tcp_edit_orders' ) ) {
 			require_once( TCP_DAOS_FOLDER . 'Orders.class.php' );
-			if ( ! Orders::is_owner( $order_id, $current_user->ID ) ) return;
+			if ( !Orders::is_owner( $order_id, $current_user->ID ) ) return;
 		}
 		$template = locate_template( 'tcp_print_order.php' );
 		$template = apply_filters( 'tcp_get_print_order_template', $template, $order_id );
@@ -51,4 +56,4 @@ class TCPPrintOrder {
 }
 
 new TCPPrintOrder();
-?>
+endif; // class_exists check

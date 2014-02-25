@@ -27,9 +27,11 @@
 
 <?php
 $currency = tcp_the_currency( false ); 
-if ( ! isset( $instance ) ) $instance = get_option( 'ttc_settings' );
+if ( !isset( $instance ) ) $instance = get_option( 'ttc_settings' );
+
+//Test if there is a specific configuration by post type
 $suffix = '-' . get_post_type( get_the_ID() );
-if ( ! isset( $instance['title_tag' . $suffix] ) ) $suffix = '';
+if ( !isset( $instance['title_tag' . $suffix] ) ) $suffix = '';
 
 $see_title				= isset( $instance['see_title' . $suffix] ) ? $instance['see_title' . $suffix] : true;
 $title_tag				= isset( $instance['title_tag' . $suffix] ) ? $instance['title_tag' . $suffix] : 'h2';
@@ -37,8 +39,8 @@ $see_image				= isset( $instance['see_image' . $suffix] ) ? $instance['see_image
 $image_size				= isset( $instance['image_size' . $suffix] ) ? $instance['image_size' . $suffix] : 'thumbnail';
 $see_discount			= isset( $instance['see_discount' . $suffix ] ) ? $instance['see_discount' . $suffix ] : true;
 $see_stock				= isset( $instance['see_stock' . $suffix ] ) ? $instance['see_stock' . $suffix ] : false;
-$see_excerpt			= isset( $instance['see_excerpt' . $suffix] ) ? $instance['see_excerpt' . $suffix] : true;
-$excerpt_length			= isset( $instance['excerpt_length' . $suffix] ) ? $instance['excerpt_length' . $suffix] : false;
+$see_excerpt			= isset( $instance['see_excerpt' . $suffix] ) ? $instance['see_excerpt' . $suffix] : false;
+$excerpt_length			= isset( $instance['excerpt_length' . $suffix] ) ? $instance['excerpt_length' . $suffix] : 10;
 $see_content			= isset( $instance['see_content' . $suffix] ) ? $instance['see_content' . $suffix] : false;
 $see_price				= isset( $instance['see_price' . $suffix] ) ? $instance['see_price' . $suffix] : false;
 $see_buy_button			= isset( $instance['see_buy_button' . $suffix] ) ? $instance['see_buy_button' . $suffix] : true;
@@ -68,14 +70,15 @@ if ( isset( $instance['title_tag'] ) && $instance['title_tag'] != '' ) {
 }
 ?>
 
-<div class="tcpf tcp-cf">
+<div class="tcp-product-list tcpf">
 
-	<div class="tcp-product-list tcp-product-grid">
 	<?php if ( $see_sorting_panel ) tcp_the_sort_panel(); ?>
 	<?php if ( function_exists( 'tcp_the_az_panel' ) && $see_az ) {
 		$see_az_name = isset( $args['widget_id']) ? 'tcp_az_' . $args['widget_id'] : 'tcp_az';
 		tcp_the_az_panel( $see_az_name );
 	} ?>
+
+	<div class="tcp-product-grid row">
 	<?php /* Start the Loop.*/
 	$class = array(
 		'tcp_' . $number_columns . '_cols',
@@ -120,23 +123,24 @@ if ( isset( $instance['title_tag'] ) && $instance['title_tag'] != '' ) {
 
 			<div class="tcp-grid-item">
 
-				<?php if (has_post_thumbnail()) :  ?>
-					<?php if ( $see_image ) : ?>
+				<?php if ( $see_image ) : ?>
+					<?php if ( tcp_has_post_thumbnail() ) :  ?>
 						<div class="tcp-product-thumbnail">
-							<a class="tcp_size-<?php echo $image_size;?>" href="<?php the_permalink(); ?>"><?php if ( function_exists( 'the_post_thumbnail' ) ) the_post_thumbnail($image_size); ?></a>
+							<a class="tcp_size-<?php echo $image_size;?>" href="<?php tcp_the_permalink(); ?>">
+								<?php tcp_the_thumbnail( get_the_ID(), 0, 0, $image_size, array( 'alt' => get_the_title(), 'title' => get_the_title() ) ); ?>
+								<?php //if ( function_exists( 'the_post_thumbnail' ) ) the_post_thumbnail( $image_size, array( 'alt' => get_the_title(), 'title' => get_the_title() ) ); ?>
+							</a>
 						</div><!-- .tcp-product-thumbnail -->
-					<?php endif; ?>
-				<?php else : ?>
-					<?php if ( $see_image ) : ?>
+					<?php else : ?>
 						<div class="tcp-product-thumbnail tcp-no-image">
-							<a class="tcp_size-<?php echo $image_size;?>" href="<?php the_permalink(); ?>"><img src="<?php echo get_template_directory_uri() ?>/images/tcp-no-image.jpg" alt="No image" title="" width="" height="" /></a>
+							<a class="tcp_size-<?php echo $image_size;?>" href="<?php tcp_the_permalink(); ?>"><img class="img-responsive" src="<?php echo plugins_url( dirname( __FILE__) ); ?>/images/tcp-no-image.jpg" alt="No image" title="<?php the_title(); ?>" /></a>
 						</div><!-- .tcp-product-thumbnail -->
 					<?php endif; ?>
 				<?php endif; ?>	 
 
 				<?php if ( $see_title ) : ?>
 					<div class="tcp-product-title">
-					<?php echo $title_tag;?><a href="<?php the_permalink( );?>"><?php the_title(); ?></a>
+					<?php echo $title_tag;?><a href="<?php tcp_the_permalink( );?>"><?php the_title(); ?></a>
 					<?php echo $title_end_tag;?>
 					</div><!-- .tcp-product-title -->
 				<?php endif; ?>
@@ -266,4 +270,4 @@ if ( isset( $instance['title_tag'] ) && $instance['title_tag'] != '' ) {
 </div><!-- .tcp-product-list .tcp-product-grid -->
 
 <?php /* Display pagination */
-if ( $see_pagination ) tcp_get_the_pagination(); ?>
+if ( $see_pagination ) tcp_get_the_pagination();

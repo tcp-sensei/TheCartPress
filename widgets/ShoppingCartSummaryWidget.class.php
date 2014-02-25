@@ -1,5 +1,14 @@
 <?php
 /**
+ * ShoppingCart summary widget
+ *
+ * Allows to display the shopping cart sumary
+ *
+ * @package TheCartPress
+ * @subpackage Widgets
+ */
+
+/**
  * This file is part of TheCartPress.
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -97,4 +106,3 @@ class ShoppingCartSummaryWidget extends WP_Widget {
 		</p><?php
 	}
 }
-?>

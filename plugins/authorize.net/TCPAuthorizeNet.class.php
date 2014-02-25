@@ -127,8 +127,11 @@ class TCPAuthorizeNet extends TCP_Plugin {
 		$new_status		= $data['new_status'];
 		$test_mode		= isset( $data['test_mode'] ) ? $data['test_mode'] : true;
 		$redirect		= isset( $data['redirect'] ) ? $data['redirect'] : false;
-		if ( $test_mode ) $url = 'https://test.authorize.net/gateway/transact.dll';
-		else $url = 'https://secure.authorize.net/gateway/transact.dll';
+		if ( $test_mode ) {
+			$url = 'https://test.authorize.net/gateway/transact.dll';
+		} else {
+			$url = 'https://secure.authorize.net/gateway/transact.dll';
+		}
 		require_once( TCP_DAOS_FOLDER . 'Orders.class.php' );
 		$paymentAmount	= Orders::getTotal( $order_id );
 		$amount			= number_format( $paymentAmount, 2, '.', '' );
@@ -221,9 +224,11 @@ class TCPAuthorizeNet extends TCP_Plugin {
 			<input type="hidden" name="order_id" value="<?php echo $order_id;?>" />
 			<input type="hidden" name="new_status" value="<?php echo $new_status;?>" />
 			<input type="hidden" name="instance" value="<?php echo $instance;?>" />
-			<input type="submit" class="tcp_authorized_net tcp_pay_button" value="<?php _e( 'Secure Payment', 'tcp' ); ?>" />
+			
+			<button type="submit" name="tcp_authorized_net" class="tcp_authorized_net tcp_pay_button tcp-btn tcp-btn-lg <?php echo thecartpress()->get_setting( 'buy_button_color' ); ?>"><?php printf( __( 'Pay using %s', 'tcp_ceca' ), $this->getTitle() ); ?></button>
 		</form>
 		<?php if ( $redirect ) : ?>
+		<p class="tcp_redirect"><?php _e( 'Redirecting to Authorized.net, wait a moment', 'tcp_authorized_net' ); ?></p>
 		<script>
 		jQuery( document ).ready( function() {
 			jQuery( 'form[name=authorizednet_form]' ).submit();

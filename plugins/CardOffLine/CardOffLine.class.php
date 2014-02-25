@@ -31,23 +31,23 @@ class TCPCardOffLine extends TCP_Plugin {
 	}
 
 	function showEditFields( $data, $instance = 0 ) {?>
-		<tr valign="top">
-			<th scope="row">
-				<label for="notice"><?php _e( 'Notice', 'tcp' );?>:</label>
-			</th>
-			<td>
-				<textarea id="notice" name="notice" cols="40" rows="4" maxlength="500"><?php echo isset( $data['notice'] ) ? $data['notice'] : '';?></textarea>
-			</td>
-		</tr>
-		<tr valign="top">
-			<th scope="row">
-				<label for="store_part_number"><?php _e( 'Store part of the number', 'tcp' );?>:</label>
-			</th>
-			<td>
-				<input type="checkbox" id="store_part_number" name="store_part_number" <?php checked( isset( $data['store_part_number'] ) ? $data['store_part_number'] : false ); ?> value="yes" />
-				<span class="description"><?php _e( 'The credit card will be stored as 9999 xxxx xxxx 9999', 'tcp' ); ?></span>
-			</td>
-		</tr><?php
+<tr valign="top">
+	<th scope="row">
+		<label for="notice"><?php _e( 'Notice', 'tcp' );?>:</label>
+	</th>
+	<td>
+		<textarea id="notice" name="notice" cols="40" rows="4" maxlength="500"><?php echo isset( $data['notice'] ) ? $data['notice'] : '';?></textarea>
+	</td>
+</tr>
+<tr valign="top">
+	<th scope="row">
+		<label for="store_part_number"><?php _e( 'Store part of the number', 'tcp' );?>:</label>
+	</th>
+	<td>
+		<input type="checkbox" id="store_part_number" name="store_part_number" <?php checked( isset( $data['store_part_number'] ) ? $data['store_part_number'] : false ); ?> value="yes" />
+		<span class="description"><?php _e( 'The credit card will be stored as 9999 xxxx xxxx 9999', 'tcp' ); ?></span>
+	</td>
+</tr><?php
 	}
 
 	function saveEditFields( $data, $instance = 0 ) {
@@ -73,93 +73,96 @@ class TCPCardOffLine extends TCP_Plugin {
 <form name="tcp_offline_payment" id="tcp_offline_payment" action="<?php echo $notify_url;?>" method="post">
 <input type="hidden" name="order_id" value="<?php echo $order_id;?>" />
 <input type="hidden" name="instance" value="<?php echo $instance;?>" />
-<table class="tcp_card_offline_payment">
-<tbody>
-	<tr valign="top">
-		<th scope="row" class="tcp_card_holder">
-			<label for="card_holder"><?php _e( 'Credit card holder', 'tcp' );?>:</label>
-		</th>
-		<td class="tcp_card_holder">
-			<input type="text" id="card_holder" name="card_holder" size="40" maxlength="150" class="tcp-input-xlarge" value="<?php echo $order->billing_firstname, ' ', $order->billing_lastname; ?>"/>
-			<p class="error tcp_error tcp-alert tcp-alert-error" id="tcp_error_card_holder" style="display:none;"></p>
-		</td>
-	</tr>
-	<tr valign="top">
-		<th scope="row" class="tcp_card_number" >
-			<label for="card_number_1"><?php _e( 'Card number', 'tcp' );?>:</label>
-		</th>
-		<td class="tcp_card_number">
-			<input type="text" id="card_number_1" name="card_number_1" size="4" maxlength="4" class="input-small"/>
-		<?php if ( ! $store_part_number ) { ?>
-			<input type="text" id="card_number_2" name="card_number_2" size="4" maxlength="4" class="input-small"/>
-			<input type="text" id="card_number_3" name="card_number_3" size="4" maxlength="4" class="input-small"/>
-		<?php } else { ?>
-			<input type="text" id="card_number_2" name="card_number_2" size="4" value="xxxx" readonly class="input-small"/>
-			<input type="text" id="card_number_3" name="card_number_3" size="4" value="xxxx" readonly class="input-small"/>
-		<?php } ?>
-			<input type="text" id="card_number_4" name="card_number_4" size="4" maxlength="4" class="input-small"/>
-			<p class="error tcp_error alert alert-error" id="tcp_error_offline" style="display:none;"></p>
-		</td>
-	</tr>
-	<tr valign="top">
-		<th scope="row" class="tcp_cvc">
-			<label><?php _e( 'cvc', 'tcp' );?>:</label>
-		</th>
-		<td>
-			<input type="text" id="cvc" name="cvc" size="4" maxlength="4" class="input-small"/>
-			
-		</td>
-	</tr>
-	<tr valign="top">
-		<th scope="row" class="tcp_expiration_date">
-			<label for="expiration_month"><?php _e( 'Expiration date', 'tcp' ); ?>:</label>
-		</th>
-		<td class="tcp_expiration_date">
-			<label for="expiration_month"><?php _e( 'Month', 'tcp' ); ?>:
-			<select id="expiration_month" name="expiration_month" class="input-small">
-				<?php $current_month = (int)date( 'm' );
-				for($i = 1; $i < 13; $i++) : ?>
-				<option value="<?php echo $i; ?>" <?php selected( $current_month, $i ); ?>><?php echo $i; ?></option>
-				<?php endfor; ?>
-			</select></label>&nbsp;
-			<label for="expiration_year"><?php _e( 'Year', 'tcp' );?>:
-			<?php $current_year = date( 'Y' ); ?>
-			<select id="expiration_year" name="expiration_year" class="input-small">
-				<?php for( $i = $current_year - 1; $i <= $current_year + 10; $i++ ) { ?>
-				<option value="<?php echo $i; ?>" <?php selected( $current_year, $i ); ?>><?php echo $i; ?></option>
-				<?php } ?>
-			</select></label>
-		</td>
-	</tr>
-	<tr valign="top">
-		<th scope="row" class="tcp_card_type">
-			<label for="card_type"><?php _e( 'Card type', 'tcp' );?>:</label>
-		</th>
-		<td class="tcp_card_type">
-			<?php $types = array (
-				array(
-					'id'	=> 'maestro',
-					'title'	=> 'Maestro',
-				),
-				array(
-					'id'	=> 'mastercard',
-					'title'	=> 'Master Card',
-				),
-				array(
-					'id'	=> 'visa',
-					'title'	=> 'Visa',
-				),
-			);
-			$types = apply_filters( 'tcp_card_offline_cart_types', $types ); ?>
-			<select id="card_type" name="card_type" class="input-medium">
-			<?php foreach( $types as $type ) { ?>
-				<option value="<?php echo $type['id'];?>"><?php echo $type['title'];?></option>
-			<?php } ?>
-			</select>
-		</td>
-	</tr>
-</tbody>
-</table>
+
+
+<div class="tcpf">
+	<div class="form-horizontal">
+		<fieldset>
+			<legend><?php _e( 'Card Details', 'tcp' ); ?></legend>
+		
+			<div class="form-group">
+				<label for="card_holder" class="col-sm-2"><?php _e( 'Card holder', 'tcp' );?>:</label>
+				<div class="col-sm-6">
+					<input type="text" id="card_holder" name="card_holder" maxlength="150" value="<?php echo $order->billing_firstname, ' ', $order->billing_lastname; ?>" class="form-control"/>
+				</div>
+			</div><!-- .form-group -->
+			<p class="alert alert-warning" id="tcp_error_card_holder" style="display:none;"></p>
+		</div><!-- .form-inline -->
+		<div class="form-horizontal">
+			<div class="form-group">
+				<label for="card_number_1" class="col-sm-2"><?php _e( 'Card number', 'tcp' );?>:</label>
+				
+					<div class="col-sm-2">
+						<input type="text" id="card_number_1" name="card_number_1" maxlength="4" class="form-control"/>
+					</div>
+					<div class="col-sm-2">
+						<input type="text" id="card_number_2" name="card_number_2" maxlength="4" class="form-control"/>
+					</div>
+					<div class="col-sm-2">
+						<input type="text" id="card_number_3" name="card_number_3" maxlength="4" class="form-control"/>
+					</div>
+					<div class="col-sm-2">
+						<input type="text" id="card_number_4" name="card_number_4" maxlength="4" class="form-control"/>
+					</div>
+				
+			<!--<label><?php _e( 'cvc', 'tcp' );?>: <input type="text" id="cvc" name="cvc" size="4" maxlength="4" /></label>-->
+			</div><!-- .form-group -->
+			<p class="alert alert-warning" id="tcp_error_offline" style="display:none;"></p>
+		</div><!-- .form-inline -->
+
+		<div class="form-horizontal">
+			<div class="form-group">
+				<label for="expiration_month" class="col-sm-2"><?php _e( 'Expiration date: Month', 'tcp' );?>:</label>
+				<div class="col-sm-2">
+					<select id="expiration_month" name="expiration_month" class="col-sm-4 form-control">
+						<?php $current_month = (int)date( 'm' );
+						for( $i = 1; $i < 13; $i++ ) : ?>
+						<option value="<?php echo $i; ?>" <?php selected( $current_month, $i ); ?>><?php echo $i; ?></option>
+						<?php endfor; ?>
+					</select>
+				</div>
+
+				<label for="expiration_year" class="col-sm-1"><?php _e( 'Year', 'tcp' );?>:</label>
+				<div class="col-sm-2">
+					<?php $current_year = date( 'Y' ); ?>
+					<select id="expiration_year" name="expiration_year" class="form-control">
+						<?php for( $i = $current_year - 1; $i <= $current_year + 10; $i++ ) : ?>
+						<option value="<?php echo $i; ?>" <?php selected( $current_year, $i ); ?>><?php echo $i; ?></option>
+						<?php endfor; ?>
+					</select>
+				</div>
+			</div><!-- .form-group -->
+
+			<div class="form-group">
+				<label for="card_typer" class="col-sm-2"><?php _e( 'Card type', 'tcp' );?>:</label>
+				<div class="col-sm-6">
+					<?php $types = array (
+						array(
+							'id'	=> 'maestro',
+							'title'	=> 'Maestro',
+						),
+						array(
+							'id'	=> 'mastercard',
+							'title'	=> 'Master Card',
+						),
+						array(
+							'id'	=> 'visa',
+							'title'	=> 'Visa',
+						),
+					);
+					$types = apply_filters( 'tcp_card_offline_cart_types', $types ); ?>
+					<select id="card_type" name="card_type" class="input-medium">
+					<?php foreach( $types as $type ) { ?>
+						<option value="<?php echo $type['id'];?>"><?php echo $type['title'];?></option>
+					<?php } ?>
+					</select>
+				</div>
+			</div><!-- .form-group -->
+
+		</fieldset>
+	</div><!-- .form-inline -->
+</div><!-- .tcpf -->
+
 <script>
 //http://sites.google.com/site/abapexamples/javascript/luhn-validation
 String.prototype.luhnCheck = function() {
@@ -215,7 +218,7 @@ function tcp_checkCard() {
 			if ( $offline ) : ?>
 			<tr valign="top">
 			<th scope="row">
-				<label for="card_holder"><?php _e( 'Credit Card Holder', 'tcp' );?>:</label>
+				<label for="card_holder"><?php _e( 'Card Holder', 'tcp' );?>:</label>
 			</th>
 			<td>
 				<input type="text" name="card_holder" id="card_holder" size="40" maxlength="150" value="<?php echo $offline['card_holder'];?>" readonly />
@@ -230,7 +233,7 @@ function tcp_checkCard() {
 				<input type="text" name="card_number_2" id="card_number_2" size="4" maxlength="4" value="<?php echo substr( $offline['card_number'], 4, 4 );?>" readonly />
 				<input type="text" name="card_number_3" id="card_number_3" size="4" maxlength="4" value="<?php echo substr( $offline['card_number'], 8, 4 );?>" readonly />
 				<input type="text" name="card_number_4" id="card_number_4" size="4" maxlength="4" value="<?php echo substr( $offline['card_number'], 12 );?>" readonly />
-				<label><?php _e( 'cvc', 'tcp' );?>: </label><input type="text" id="cvc" name="cvc" size="4" maxlength="4" value="<?php echo $offline['cvc'];?>" readonly />
+				<!--<label><?php _e( 'cvc', 'tcp' );?>: </label><input type="text" id="cvc" name="cvc" size="4" maxlength="4" value="<?php echo $offline['cvc'];?>" readonly />-->
 			</td>
 			</tr>
 			<tr valign="top">
@@ -245,7 +248,7 @@ function tcp_checkCard() {
 			</tr>
 			<tr valign="top">
 			<th scope="row">
-				<label for="card_type"><?php _e( 'Credit Card Type', 'tcp' );?>:</label>
+				<label for="card_type"><?php _e( 'Card Type', 'tcp' );?>:</label>
 			</th>
 			<td>
 				<input type="text" name="card_type" id="card_type" size="20" maxlength="20" value="<?php echo $offline['card_type'];?>" readonly="true" />

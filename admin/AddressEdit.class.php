@@ -88,12 +88,11 @@ class TCPAddressEdit {
 		else $admin_path = get_permalink( get_option( 'tcp_addresses_list_page_id' ) ); ?>
 		<div class="wrap tcp_frontend_address">
 		<?php if ( is_admin() ) : ?><h2><?php _e( 'Address', 'tcp' ); ?></h2><?php endif; ?>
-		<ul class="subsubsub">
-			<li><a href="<?php echo $admin_path; ?>"><?php _e( 'Return to the list', 'tcp' ); ?></a></li>
-		</ul>
+
+		<button type="button" onclick="window.location='<?php echo $admin_path; ?>';" class="btn btn-primary"><?php _e( 'Return to the list', 'tcp' ); ?></button>
 		<div class="clear"></div>
 
-		<form method="post">
+		<form method="post" class="form">
 			<input type="hidden" name="address_id" value="<?php echo $address_id; ?>" />
 			<table class="form-table">
 			<tr valign="top">
@@ -155,9 +154,9 @@ class TCPAddressEdit {
 				$shipping_isos = isset( $thecartpress->settings['shipping_isos'] ) ? $thecartpress->settings['shipping_isos'] : array();
 				$billing_isos = array_merge( $billing_isos, $shipping_isos );
 				if ( count( $billing_isos ) > 0 )
-					$countries = Countries::getSome( $billing_isos, tcp_get_admin_language_iso() );
+					$countries = TCPCountries::getSome( $billing_isos, tcp_get_admin_language_iso() );
 				else
-					$countries = Countries::getAll( tcp_get_admin_language_iso() );
+					$countries = TCPCountries::getAll( tcp_get_admin_language_iso() );
 				$country_id = $this->tcp_get_value( 'country_id', false );
 				if ( $country_id == '' ) {
 					global $thecartpress;
@@ -274,4 +273,3 @@ class TCPAddressEdit {
 		else return $res;
 	}
 }
-?>

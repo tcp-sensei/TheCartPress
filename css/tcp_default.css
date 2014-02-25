@@ -15,3 +15,7 @@
 .tcp-cf {
 	zoom:1;
 }
+
+ul.tcp-profile-group {
+	list-style-type: none !important;
+}

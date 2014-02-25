@@ -44,7 +44,7 @@ class TaxonomyCloudsPostTypeWidget extends TCPParentWidget {
 		);
 		if ( !$instance['separator'] ) $args['separator'] = "\n";
 		if ( $instance['display_format'] == 'flat' )
-			tcp_get_taxonomies_cloud( $args, true, '<div>', '</div>' );
+			tcp_get_taxonomies_cloud( $args, true, '<div class="tcp-tag-links">', '</div>' );
 //			wp_tag_cloud( $args, true, '<div>', '</div>' );
 		else
 			tcp_get_taxonomies_cloud( $args );
@@ -67,7 +67,8 @@ class TaxonomyCloudsPostTypeWidget extends TCPParentWidget {
 	}
 
 	function form( $instance ) {
-		parent::form( $instance, __( 'Navigation clouds', 'tcp') );
+		if ( ! isset( $instance['title'] ) ) $instance['title'] = __( 'Navigation clouds', 'tcp');
+		parent::form( $instance );
 		$defaults = array(
 			'min_size'		=> 8,
 			'max_size'		=> 22,

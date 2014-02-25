@@ -19,7 +19,7 @@
 // Exit if accessed directly
 if ( !defined( 'ABSPATH' ) ) exit;
 
-if ( ! class_exists( 'FreeTrans' ) ) {
+if ( ! class_exists( 'FreeTrans' ) ) :
 
 class FreeTrans extends TCP_Plugin {
 
@@ -28,7 +28,7 @@ class FreeTrans extends TCP_Plugin {
 	}
 
 	function getDescription() {
-		return sprintf( __( 'Free transport for orders with cost greater than an editable minimun. <br>Author: <a href="%s" target="_blank">TheCartPress team</a>', 'tcp' ), 'http://thecartpress.com' );
+		return sprintf( __( 'Free transport for orders with cost greater than an editable minimum. <br>Author: <a href="%s" target="_blank">TheCartPress team</a>', 'tcp' ), 'http://thecartpress.com' );
 	}
 
 	function getIcon() {
@@ -38,23 +38,23 @@ class FreeTrans extends TCP_Plugin {
 	function showEditFields( $data, $instance = 0 ) {?>
 		<tr valign="top">
 			<th scope="row">
-				<label for="minimun"><?php _e( 'Minimun amount', 'tcp' ); ?>:</label>
+				<label for="minimum"><?php _e( 'Minimum amount', 'tcp' ); ?>:</label>
 			</th>
 			<td>
-				<input type="text" id="minimun" name="minimun" value="<?php echo isset( $data['minimun'] ) ? $data['minimun'] : 0; ?>" size="13" maxlength="13"/>
+				<input type="text" id="minimum" name="minimun" value="<?php echo isset( $data['minimun'] ) ? $data['minimun'] : 0; ?>" size="13" maxlength="13"/>
 			</td>
 		</tr>
 		<?php
 	}
 
 	function saveEditFields( $data, $instance = 0 ) {
-		$data['minimun'] = isset( $_REQUEST['minimun'] ) ? $_REQUEST['minimun'] : '0';
+		$data['minimum'] = isset( $_REQUEST['minimun'] ) ? $_REQUEST['minimun'] : '0';
 		return $data;
 	}
 
 	function isApplicable( $shippingCountry, $shoppingCart, $data ) {
-		$minimun_amount = $data['minimun'];
-		return $shoppingCart->getTotal() >= $minimun_amount;
+		$minimum_amount = isset( $data['minimun'] ) ? $data['minimun'] : 0;
+		return $shoppingCart->getTotal() >= $minimum_amount;
 	}
 
 	function getCheckoutMethodLabel( $instance, $shippingCountry = '', $shoppingCart = false ) {
@@ -67,4 +67,4 @@ class FreeTrans extends TCP_Plugin {
 		}
 	}
 }
-} // class_exists check
+endif; // class_exists check

@@ -16,20 +16,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-//$post_id -> current post id (or product id)
-//$field_ids -> custom fields to display
-//$other_values ->Other "custom fields" that are not custom fields, as 'price', 'sku', 'stock', etc...
+//$instance:	 array( 'post_type', 'see_label', 'hide_empty_fields', 'see_links', 'selected_custom_fields' )
+//$post_id:		 Current post id (or product id)
+//$field_ids:	 Custom fields to display
+//$other_values: Other "custom fields" that are not custom fields, as 'price', 'sku', 'stock', etc...
 
 ob_start();
 foreach( $field_ids as $id ) {
 	if ( $id == '' ) continue;
+	
 	if ( substr( $id, 0, 12 ) == 'custom_field' ) {
 		$field_id = substr( $id, 13 );
 		$value = get_post_meta( $post_id, $field_id, true );
 		if ( $value == '' && $instance['hide_empty_fields'] ) continue;
 		if ( $value == '' ) $value == '&nbsp;';
 		if ( $instance['see_label'] ) {
-			$field_def = tcp_get_custom_field_def( $field_id );
+			$field_def = tcp_get_custom_field_def( $field_id, $instance['post_type'] );
 			$label = tcp_string( 'TheCartPress', 'custom_field_' . $field_id . '-label', $field_def['label'] );
 		}
 	} elseif ( substr( $id, 0, 3 ) == 'tax' ) {
@@ -58,7 +60,7 @@ foreach( $field_ids as $id ) {
 			$label = isset( $other_values[$ov_id]['label'] ) ? $other_values[$ov_id]['label'] : false;
 		}
 	} ?>
-<?php if ( $instance['see_label'] ) : ?><dt><?php echo $label; ?></dt><?php endif; ?>
+<?php if ( $instance['see_label'] ) : ?><dt class="tcp-<?php echo $id; ?>"><?php echo $label; ?></dt><?php endif; ?>
 	<dd><?php echo $value; ?></dd>
 <?php }
 $html = ob_get_clean();
@@ -66,4 +68,4 @@ if ( strlen( $html ) > 0 ) { ?>
 <dl>
 	<?php echo $html; ?>
 </dl>
-<?php } ?>
+<?php }

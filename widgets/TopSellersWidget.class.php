@@ -34,17 +34,26 @@ class TopSellersWidget extends CustomListWidget {
 		global $wp_query;
 		$paged = isset( $wp_query->query_vars['paged'] ) ? $wp_query->query_vars['paged'] : 1;
 		$loop_args = array(
-			'post_type' => tcp_get_saleable_post_types(), //isset( $instance['post_type'] ) ? $instance['post_type'] : TCP_PRODUCT_POST_TYPE,
-			'posts_per_page' => isset( $instance['limit'] ) ? $instance['limit'] : -1,
-			'meta_key' => 'tcp_total_sales',
-			'orderby' => 'meta_value_num',
-			'order' => 'desc',
+			'post_type'			=> tcp_get_saleable_post_types(), //isset( $instance['post_type'] ) ? $instance['post_type'] : TCP_PRODUCT_POST_TYPE,
+			'posts_per_page'	=> isset( $instance['limit'] ) ? $instance['limit'] : -1,
+			'meta_key'			=> 'tcp_total_sales',
+			'orderby'			=> 'meta_value_num',
+			'order'				=> 'desc',
+			'meta_query'	=> array(
+				array (
+					'key'		=> 'tcp_price',
+					'value'		=> 0,
+					'type'		=> 'NUMERIC',
+					'compare'	=> '>'
+				)
+			)
 		);
 		$instance['loop_args'] = $loop_args;
 		$see_pagination = isset( $instance['pagination'] ) ? $instance['pagination'] : false;
 		if ( $see_pagination ) {
 			$loop_args['paged'] = $paged;
 		}
+		$instance['post_type'] = TCP_PRODUCT_POST_TYPE;
 		$loop_args = apply_filters( 'tcp_top_sellers_widget', $loop_args, $instance );
 		$instance['order_type'] = '';
 		$instance['order_desc'] = '';

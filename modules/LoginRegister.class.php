@@ -29,7 +29,7 @@
 // Exit if accessed directly
 if ( !defined( 'ABSPATH' ) ) exit;
 
-if ( ! class_exists( 'TCPLoginRegister' ) ) {
+if ( ! class_exists( 'TCPLoginRegister' ) ) :
 
 class TCPLoginRegister {
 
@@ -75,6 +75,7 @@ class TCPLoginRegister {
 <h3><?php _e( 'Custom Login', 'tcp' ); ?></h3>
 
 <div class="postbox">
+<div class="inside">
 <table class="form-table">
 <tbody>
 <tr valign="top">
@@ -96,6 +97,7 @@ class TCPLoginRegister {
 </tr>
 </tbody>
 </table>
+</div>
 </div><!-- .postbox --><?php
 	}
 
@@ -294,14 +296,14 @@ class TCPLoginRegister {
 		<?php if ( ! is_user_logged_in() ) : ?><h3><?php _e( 'Login', 'tcp' ); ?></h3><?php endif; ?>
 		<?php $args = array( 'see_register' => false );
 		if ( isset( $_REQUEST['redirect_to'] ) ) $args['redirect'] = $_REQUEST['redirect_to'];
-		tcp_login_form(); ?>
+		tcp_login_form( $args ); ?>
 	</div>
-<?php if ( ! is_user_logged_in() && get_option( 'users_can_register' ) ) : ?>
+	<?php if ( !is_user_logged_in() && get_option( 'users_can_register' ) ) : ?>
 	<div class="span6">
 		<h3><?php _e( 'Register', 'tcp' ); ?></h3>
 		<?php tcp_register_form( array( 'login' => true ) ); ?>
 	</div>
-<?php endif; ?>
+	<?php endif; ?>
 </div><!-- .row-fluid -->
 
 <!--<h2><?php //_e( 'My Adresses', 'tcp-fe' ); ?></h2>
@@ -317,4 +319,4 @@ class TCPLoginRegister {
 }
 
 new TCPLoginRegister();
-} // class_exists check
+endif; // class_exists check

@@ -28,13 +28,16 @@
 // Exit if accessed directly
 if ( !defined( 'ABSPATH' ) ) exit;
 
-if ( ! class_exists( 'TCPCustomStyles' ) ) {
+if ( ! class_exists( 'TCPCustomStyles' ) ) :
 
 class TCPCustomStyles {
 	function __construct() {
-		add_filter( 'body_class'		, array( $this, 'body_classes' ) );
-		add_action( 'tcp_admin_menu'	, array( $this, 'tcp_admin_menu' ), 40 );
-		add_action( 'wp_head'			, array( $this, 'wp_head' ) );
+		if ( is_admin() ) {
+			add_action( 'tcp_admin_menu'	, array( $this, 'tcp_admin_menu' ), 40 );
+		} else {
+			add_filter( 'body_class'		, array( $this, 'body_classes' ) );
+			add_action( 'wp_head'			, array( $this, 'wp_head' ) );
+		}
 		global $tcp_miranda;
 		if ( $tcp_miranda ) $tcp_miranda->add_item( 'settings', 'default_settings', __( 'Custom Styles', 'tcp' ), false, array( 'TCPCustomStyles', __FILE__ ), plugins_url( 'thecartpress/images/miranda/customstyles_settings_48.png' ) );
 	}
@@ -51,7 +54,7 @@ class TCPCustomStyles {
 			$classes[] = 'tcp-catalogue-page';
 		} elseif ( is_tax() && tcp_is_saleable_taxonomy( tcp_get_current_taxonomy() ) ) {
 			$classes[] = 'tcp-store';
-		} elseif ( tcp_is_saleable() ) {
+		} elseif ( is_single() && tcp_is_saleable() ) {
 			$classes[] = 'tcp-store';
 		}
 		return $classes;
@@ -105,13 +108,14 @@ class TCPCustomStyles {
 
 <form method="post">
 	<?php $tcp_custom_style_activate = get_option( 'tcp_custom_style_activate', false ); ?>
-	<label for="tcp_custom_style_activate"><input type="checkbox" name="tcp_custom_style_activate" id="tcp_custom_style_activate" value="yes" <?php checked( $tcp_custom_style_activate ); ?>/>&nbsp;<?php _e( 'Activate next Styles', 'tcp' ); ?></label>
+	<label for="tcp_custom_style_activate"><input type="checkbox" name="tcp_custom_style_activate" id="tcp_custom_style_activate" value="yes" <?php checked( $tcp_custom_style_activate ); ?>/>&nbsp;<?php _e( 'Activate Styles', 'tcp' ); ?></label>
 	<br/>
-	<textarea name="tcp_custom_style" id="tcp_custom_style" cols="60" rows="30">
-	<?php echo stripslashes( get_option( 'tcp_custom_style', '' ) ); ?>
-	</textarea>
+	<textarea name="tcp_custom_style" id="tcp_custom_style" cols="60" rows="30"><?php
+	echo stripslashes( get_option( 'tcp_custom_style', '' ) );
+	?></textarea>
 
-	<?php $templates = tcp_get_custom_templates(); ?>
+	<?php //$templates = tcp_get_custom_templates(); ?>
+	<?php do_action( 'tcp_custom_styles_editor' ); ?>
 	<?php wp_nonce_field( 'tcp_custom_style_settings' ); ?>
 	<?php submit_button( null, 'primary', 'save-custom_styles-settings' ); ?>
 </form>
@@ -129,4 +133,4 @@ class TCPCustomStyles {
 }
 
 new TCPCustomStyles();
-} // class_exists check
+endif; // class_exists check

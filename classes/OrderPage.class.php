@@ -26,9 +26,9 @@
  */
 
 // Exit if accessed directly
-if ( !defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) exit;
 
-if ( ! class_exists( 'OrderPage' ) ) {
+if ( ! class_exists( 'OrderPage' ) ) :
 /**
  * Shows an Order
  * It's used in the cart area (into checkout), in print pages and in email pages
@@ -66,7 +66,8 @@ class OrderPage {
 		require_once( TCP_CLASSES_FOLDER . 'CartTable.class.php' );
 		require_once( TCP_CLASSES_FOLDER . 'CartSourceDB.class.php' );
 		$cart_table = new TCPCartTable();
-		return $cart_table->show( new TCP_CartSourceDB( $order_id, $args ), $echo, $email );
+		$source = new TCP_CartSourceDB( $order_id, $args );
+		return $cart_table->show( $source, $echo, $email );
 	}
 }
-} // class_exists check
+endif; // class_exists check

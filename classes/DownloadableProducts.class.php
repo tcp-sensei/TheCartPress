@@ -26,9 +26,9 @@
  */
 
 // Exit if accessed directly
-if ( !defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) exit;
 
-if ( ! class_exists( 'TCPDownloadableProducts' ) ) {
+if ( ! class_exists( 'TCPDownloadableProducts' ) ) :
 
 class TCPDownloadableProducts {
 
@@ -38,16 +38,34 @@ class TCPDownloadableProducts {
 	}
 
 	function tcp_init() {
+		// Shopping cart
 		add_filter( 'tcp_the_add_to_cart_unit_field'			, array( $this, 'tcp_the_add_to_cart_unit_field' ), 1, 2 );
 		add_filter( 'tcp_the_add_to_cart_items_in_the_cart'		, array( $this, 'tcp_the_add_to_cart_items_in_the_cart' ), 1, 2 );
 		add_filter( 'tcp_the_add_to_cart_button'				, array( $this, 'tcp_the_add_to_cart_button' ), 1, 2 );
 		add_filter( 'tcp_add_to_shopping_cart'					, array( $this, 'tcp_add_to_shopping_cart' ) );
 		add_filter( 'tcp_modify_to_shopping_cart'				, array( $this, 'tcp_add_to_shopping_cart' ) );
 		add_filter( 'tcp_shopping_cart_page_units'				, array( $this, 'tcp_shopping_cart_page_units' ), 10, 2 );
+
+		// Checkout
 		add_action( 'tcp_checkout_end'							, array( $this, 'tcp_checkout_end' ), 10, 2 );
 		add_filter( 'tcp_send_order_mail_to_customer_message'	, array( $this, 'tcp_send_order_mail_to_customer_message' ), 10, 2 );
 		add_action( 'tcp_checkout_create_order_insert_detail'	, array( $this, 'tcp_checkout_create_order_insert_detail' ), 10, 4 );
 		add_action( 'tcp_checkout_ok_footer'					, array( $this, 'tcp_checkout_ok_footer' ) );
+
+		//Custom fields values
+		add_filter( 'tcp_custom_values_get_other_values'		, array( $this, 'tcp_custom_values_get_other_values' ) );
+	}
+
+	function tcp_custom_values_get_other_values( $other_values ) {
+		$other_values['tcp_max_downloads'] = array(
+			'label' => __( 'Max. downloads', 'tcp' ),
+			'callback' => 'tcp_get_the_max_downloads',
+		);
+		$other_values['tcp_days_to_expire'] = array(
+			'label' => __( 'Days to expire', 'tcp' ),
+			'callback' => 'tcp_get_the_days_to_expire',
+		);
+		return $other_values;
 	}
 
 	function admin_init() {
@@ -76,8 +94,8 @@ class TCPDownloadableProducts {
 			$shopingCart = TheCartPress::getShoppingCart();
 			if ( $shopingCart->exists( $post_id ) ) {
 				ob_start(); ?>
-				<div class="tcp_already_in_cart">
-				<?php printf( __( 'The product is in your <a href="%s">cart</a>' ,'tcp' ) , tcp_get_the_shopping_cart_url() ); ?>
+				<div class="tcp_already_in_cart alert alert-info">
+					<?php printf( __( 'The product is in your <a href="%s" class="alert-link">cart</a>' ,'tcp' ) , tcp_get_the_shopping_cart_url() ); ?>
 				</div><?php
 				$out = ob_get_clean();
 			}
@@ -88,7 +106,9 @@ class TCPDownloadableProducts {
 	function tcp_the_add_to_cart_button( $out, $post_id ) {
 		if ( tcp_is_downloadable( $post_id ) ) {
 			$shopingCart = TheCartPress::getShoppingCart();
-			if ( $shopingCart->exists( $post_id ) ) return '';
+			if ( $shopingCart->exists( $post_id ) ) {
+				return '';//'<input type="hidden" name="tcp_post_id[]" id="tcp_post_id_' . $post_id . '" value="' . $post_id . '" />';
+			}
 		}
 		return $out;
 	}
@@ -251,4 +271,36 @@ function tcp_get_download_area_url() {
 	$url = home_url( 'wp-admin/admin.php?page=thecartpress/admin/DownloadableList.php' );
 	return apply_filters( 'tcp_get_download_area_url', $url );
 }
-} // class_exists check
+
+/**
+ * Returns the max number of dowloads
+ *
+ * @since 1.3.5
+ *
+ * @param int $post_id, if 0 get the current post id
+ * @return int max downloads allowed
+ */
+function tcp_get_the_max_downloads( $post_id = 0 ) {
+	if ( $post_id == 0 ) $post_id = get_the_ID();
+	$post_id = tcp_get_default_id( $post_id );
+
+	$max_downloads = (int)get_post_meta( $post_id, 'tcp_max_downloads', true );
+	return apply_filters( 'tcp_get_the_max_downloads', $max_downloads, $post_id );
+}
+
+/**
+ * Returns the days to expire
+ *
+ * @since 1.3.5
+ *
+ * @param int $post_id, if 0 get the current post id
+ * @return int days to expire
+ */
+function tcp_get_the_days_to_expire( $post_id = 0 ) {
+	if ( $post_id == 0 ) $post_id = get_the_ID();
+	$post_id = tcp_get_default_id( $post_id );
+
+	$days_to_expire = (int)get_post_meta( $post_id, 'tcp_days_to_expire', true );
+	return apply_filters( 'tcp_get_the_days_to_expire', $days_to_expire, $post_id );
+}
+endif; // class_exists check

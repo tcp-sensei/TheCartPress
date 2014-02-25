@@ -33,14 +33,16 @@ $attachments = get_children( array(
 				$imageFull = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
 				if ( function_exists( 'magictoolbox_WordPress_MagicZoomPlus_init' ) ) { ?>
 					<a class="MagicZoomPlus" id="MagicZoom-single-product" href="<?php echo $imageFull[0]; ?>">
-						<?php the_post_thumbnail( $image_size_content ); ?>
+						<?php $image = the_post_thumbnail( null, $image_size_content );
+						echo apply_filters( 'tcp_get_image_in_content', $image, $post->ID, array( 'size' => $image_size_content ) ); ?>
 					</a>
 				<?php } else {
 					if ( count( $attachments ) != 1 ) {
-						the_post_thumbnail( $image_size_content );
+						$image = get_the_post_thumbnail( null, $image_size_content );
 					} else {
-						echo do_shortcode( '[gallery columns="1" link="file" size="' . $image_size_content . '"]' );
+						$image = do_shortcode( '[gallery columns="1" link="file" size="' . $image_size_content . '"]' );
 					}
+					echo apply_filters( 'tcp_get_image_in_content', $image, $post->ID, array( 'size' => $image_size_content ) );
 				}
 			} else { ?>
 

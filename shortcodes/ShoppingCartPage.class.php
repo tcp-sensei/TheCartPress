@@ -28,8 +28,14 @@
 // Exit if accessed directly
 if ( !defined( 'ABSPATH' ) ) exit;
 
-if ( ! class_exists( 'TCPShoppingCartPage' ) ) {
+if ( !class_exists( 'TCPShoppingCartPage' ) ) :
 
+	/**
+	 * Shortcode tcp_shopping_cart
+	 * Displays the Shopping Cart
+	 *
+	 * @since 1.2.6
+	 */
 class TCPShoppingCartPage {
 
 	static function show( $notice = '' ) {
@@ -37,27 +43,41 @@ class TCPShoppingCartPage {
 		require_once( TCP_CLASSES_FOLDER . 'CartTable.class.php' );
 		require_once( TCP_CLASSES_FOLDER . 'CartSourceSession.class.php' );
 		ob_start(); ?>
-<div class="tcp_shopping_cart_page "><!-- .tcpf -->
-	<?php if ( $shoppingCart->isEmpty() ) { ?>
-	<span class="tcp_shopping_cart_empty"><?php echo __( 'The cart is empty', 'tcp' );?></span>
-	<?php tcp_do_template( 'tcp_shopping_cart_empty' ); ?>
-	<?php do_action( 'tcp_shopping_cart_empty' ); ?>
-	<?php } else { ?>
+<div class="tcp_shopping_cart_page tcpf">
+
+<?php // Display Empty Shopping Cart messages
+if ( $shoppingCart->isEmpty() ) {
+	echo '<span class="tcp_shopping_cart_empty">', __( 'The cart is empty', 'tcp' ), '</span>';
+
+	// If exists one, or more, templates associated
+	tcp_do_template( 'tcp_shopping_cart_empty' );
+
+	do_action( 'tcp_shopping_cart_empty' );
+
+// Displaying messages before Shopping Cart
+} else { ?>
 	<div id="shopping_cart">
-		<?php if ( is_array( $notice ) && count( $notice ) > 0 ) { ?>
 		<p class="tcp_shopping_cart_notice">
-			<?php foreach( $notice as $not ) echo $not, '<br/>'; ?>
+		<?php if ( is_array( $notice ) && count( $notice ) > 0 ) {
+			foreach( $notice as $not ) {
+				echo $not, '<br/>';
+			}
+		} elseif ( strlen( $notice ) > 0 ) {
+			echo $notice;
+		} ?>
 		</p>
-		<?php } elseif ( strlen( $notice ) > 0 ) { ?>
-		<p class="tcp_shopping_cart_notice"><?php echo $notice; ?></p>
-		<?php }
-	do_action( 'tcp_shopping_cart_before_cart' );
+	<?php do_action( 'tcp_shopping_cart_before_cart' );
+
+	//Display Shopping cart
 	$cart_table = new TCPCartTable();
 	$cart_table->show( new TCPCartSourceSession() );
-	global $thecartpress;
-	$buy_button_color = $thecartpress->get_setting( 'buy_button_color' );
-	$buy_button_size = $thecartpress->get_setting( 'buy_button_size' );
+
 	do_action( 'tcp_shopping_cart_after_cart' );
+
+	//Display Continue and Checkout buttons
+	$buy_button_color = tcp_get_buy_button_color();
+	$buy_button_size = tcp_get_buy_button_size();
+	
 	//links at the bottom of the Shopping Cart
 	$links = array(
 		'tcp_checkout' => array(
@@ -68,36 +88,40 @@ class TCPShoppingCartPage {
 		),
 		'tcp_continue'	=> array(
 			'li_class'	=> 'tcp_sc_continue',
-			'a_class'	=> $buy_button_size,
+			'a_class'	=> 'tcp-btn tcp-btn-default ' . $buy_button_size,
 			'url'		=> tcp_get_the_continue_url(),
 			'label'		=> __( 'Continue Shopping', 'tcp' )
 		),
 	);
+
 	$links = apply_filters( 'tcp_shopping_cart_bottom_links', $links ); ?>
-	<div class="tcpf">
-		<ul class="tcp_sc_links">
-		<?php foreach( $links as $link ) { ?>
-			<li class="<?php echo $link['li_class']; ?>">
-				<a href="<?php echo $link['url']; ?>" class="<?php echo $link['a_class']; ?>"><?php echo $link['label']; ?></a>
-			</li>
-		<?php } ?>
-		</ul>
-	</div><!-- .tcpf -->
+		<div class="tcp_sc_links_area">
+			<ul class="tcp_sc_links">
+			<?php foreach( $links as $link ) { ?>
+				<li class="<?php echo $link['li_class']; ?>">
+					<button type="submit" onclick="window.location='<?php echo $link['url']; ?>'" class="<?php echo $link['a_class']; ?>"><?php echo $link['label']; ?></button>
+				</li>
+			<?php } ?>
+			</ul>
+		</div><!-- .tcp_sc_links_area -->
 	</div><!-- #shopping_cart -->
-	<?php } ?>
-	<?php do_action( 'tcp_shopping_cart_footer' ); ?>
+<?php }
+	do_action( 'tcp_shopping_cart_footer' ); ?>
 </div><!-- .tcp_shopping_cart_page.tcpf -->
 <?php do_action( 'tcp_shopping_cart_after' );
 		return ob_get_clean();
 	}
 
+	/**
+	 * Shortcode tcp_shopping_cart_button
+	 * Dsplays a button to go to the Shopping Cart
+	 *
+	 * @since 1.2.6
+	 */
 	static function show_button() {
-		global $thecartpress;
-		$buy_button_color	= $thecartpress->get_setting( 'buy_button_color' );
-		$buy_button_size	= $thecartpress->get_setting( 'buy_button_size' );
 		ob_start(); ?>
 <div class="tcp-shopping-cart-direct-link">
-	<a href="<?php tcp_the_shopping_cart_url(); ?>" class="tcp-btn <?php echo $buy_button_color, ' ', $buy_button_size; ?>"><?php echo apply_filters( 'tcp_shopping_cart_button_title', __( 'See Your Shopping Cart', 'tcp' ) ); ?></a>
+	<button onclick="window.location='<?php tcp_the_shopping_cart_url(); ?>'" class="tcp-btn <?php tcp_the_buy_button_color(); ?> <?php tcp_the_buy_button_size(); ?>"><?php echo apply_filters( 'tcp_shopping_cart_button_title', __( 'See Your Shopping Cart', 'tcp' ) ); ?></button>
 </div>
 		<?php return ob_get_clean();
 	}
@@ -105,4 +129,4 @@ class TCPShoppingCartPage {
 
 add_shortcode( 'tcp_shopping_cart'			, 'TCPShoppingCartPage::show' );
 add_shortcode( 'tcp_shopping_cart_button'	, 'TCPShoppingCartPage::show_button' );
-} // class_exists check
+endif; // class_exists check

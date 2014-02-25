@@ -25,9 +25,12 @@
  * along with This program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) exit;
+
+if ( ! class_exists( 'TCP_CartSourceDB' ) ) :
+
 require_once( TCP_DAOS_FOLDER . 'Orders.class.php' );
-require_once( TCP_DAOS_FOLDER . 'OrdersDetails.class.php' );
-require_once( TCP_DAOS_FOLDER . 'OrdersCosts.class.php' );
 
 require_once( TCP_CLASSES_FOLDER . 'ICartSource.interface.php' );
 
@@ -83,6 +86,10 @@ class TCP_CartSourceDB implements TCP_ICartSource {
 		return $this->order ? $this->order->order_id : false;
 	}
 
+	public function get_customer_id() {
+		return $this->order ? $this->order->customer_id : false;
+	}
+
 	public function get_created_at() {
 		return $this->order ? $this->order->created_at : false;
 	}
@@ -121,6 +128,10 @@ class TCP_CartSourceDB implements TCP_ICartSource {
 
 	public function see_thumbnail() {
 		return $this->see_thumbnail;
+	}
+
+	public function is_discount_applied() {
+		return true;
 	}
 
 	public function see_sku() {
@@ -412,8 +423,14 @@ class TCP_DetailSourceDB implements TCP_IDetailSource {
 		else return false;
 	}
 
+	public function get_original_price() {
+		if ( $this->detail ) return $this->detail->original_price;
+		else return false;
+	}
+
 	public function get_discount() {
-		return 0;
+		if ( $this->detail ) return $this->detail->discount;
+		else return false;
 	}
 
 	public function get_sku() {
@@ -452,7 +469,7 @@ class TCP_CostSourceDB {
 	}
 
 	public function get_description() {
-		if ( $this->cost) return htmlentities( $this->cost->description );
+		if ( $this->cost) return $this->cost->description;
 		else return false;
 	}
 
@@ -466,4 +483,4 @@ class TCP_CostSourceDB {
 		else return false;
 	}
 }
-?>
+endif; // class_exists check

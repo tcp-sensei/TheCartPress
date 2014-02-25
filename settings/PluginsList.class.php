@@ -88,6 +88,14 @@ class TCPPluginsList {
 
 </form>
 
+<p class="description">
+<?php if ( $this->plugin_type == 'payment' ) {
+	printf( __( 'More Gateway options, and functionalities, are available via <a href="%s" target="_blank">TheCartPress official extensions</a> site.', 'tcp' ), 'http://extend.thecartpress.com/wordpress-ecommerce/payment-gateways/' );
+} else {
+	printf( __( 'More Shipping options, and functionalities, are available via <a href="%s" target="_blank">TheCartPress official extensions</a> site.', 'tcp' ), 'http://extend.thecartpress.com/wordpress-ecommerce/shipping-fulfillment/' );
+} ?>
+</p>
+
 <table class="widefat fixed" cellspacing="0">
 <thead>
 <tr>

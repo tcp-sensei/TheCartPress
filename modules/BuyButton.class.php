@@ -26,9 +26,9 @@
  */
 
 // Exit if accessed directly
-if ( !defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) exit;
 
-if ( ! class_exists( 'TCPBuyButton' ) ) {
+if ( ! class_exists( 'TCPBuyButton' ) ) :
 
 class TCPBuyButton {
 
@@ -83,28 +83,28 @@ class TCPBuyButton {
 	static private function get_template( $post_id = 0 ) {
 		//if no post id, then get the current post id
 		if ( $post_id == 0 ) $post_id = get_the_ID();
-		$post_type = get_post_type( $post_id );
-		$product_type = strtolower( tcp_get_the_product_type( $post_id ) );//Simple, Grouped, etc.
-		//TODO old implementation of locate_template
-		$file_name_post_type = 'tcp_buybutton-' . $product_type . '-' . $post_type . '.php';
-		$file_name = 'tcp_buybutton-' . $product_type . '.php';
-		// child theme folder
-		$template = get_stylesheet_directory() . '/' . $file_name_post_type;
-		if ( file_exists( $template ) ) return $template;
-		$template	= get_stylesheet_directory() . '/' . $file_name;
-		if ( file_exists( $template ) ) return $template;
-		// theme folder
-		if ( get_stylesheet_directory() != get_template_directory() ) { 
-			$template = get_template_directory() . '/' . $file_name_post_type;
-			if ( file_exists( $template ) ) return $template;
-			$template = get_template_directory() . '/' . $file_name;
-			if ( file_exists( $template ) ) return $template;
+
+		//Search for the next templates
+		$post_type		= get_post_type( $post_id );
+		$product_type	= strtolower( tcp_get_the_product_type( $post_id ) );//Simple, Grouped, external, etc.
+		$templates		= array( 
+			'tcp_buybutton-' . $product_type . '-' . $post_type . '.php',
+			'tcp_buybutton-' . $product_type . '.php',
+			'tcp_buybutton.php',
+			
+		);
+		$template = locate_template( $templates );
+		//if the theme has not any of this templates, search for them in TheCartPress
+		if ( strlen( $template ) == 0 ) {
+			foreach ( $templates as $template ) {
+				$template = TCP_THEMES_TEMPLATES_FOLDER . $template;
+				if ( file_exists( $template ) ) {
+					return apply_filters( 'tcp_buy_button_get_template', $template );
+				}
+			}
+		} else {
+			return apply_filters( 'tcp_buy_button_get_template', $template );
 		}
-		// themes_templates folder
-		$template = TCP_THEMES_TEMPLATES_FOLDER . $file_name_post_type;
-		if ( file_exists( $template ) ) return $template;
-		$template = TCP_THEMES_TEMPLATES_FOLDER . $file_name;
-		if ( file_exists( $template ) ) return $template;
 		return false;
 	}
 
@@ -115,8 +115,12 @@ class TCPBuyButton {
 		}
 	}
 
+	/**
+	 * Returns templates for buy buttons
+	 * 
+	 * @return array( array( 'label' => '...', 'path' => '...' ) )
+	 */
 	static function get_buy_buttons() {
-		//Older implementation...locate_template
 		$paths = array();
 		$paths[] = array(
 			'label'	=> __( 'Theme' ),
@@ -154,20 +158,22 @@ class TCPBuyButton {
 	function tcp_product_metabox_custom_fields( $post_id ) {
 		$selected_buy_button = get_post_meta( $post_id, 'tcp_selected_buybutton', true ); ?>
 		
-		<tr valign="top">
-		<th scope="row"><label for="tcp_selected_buybutton"><?php _e( 'Buy button', 'tcp' );?>:</label></th>
-		<td>
-			<?php $buy_buttons = TCPBuyButton::get_buy_buttons(); ?>
-			<select name="tcp_selected_buybutton" id="tcp_selected_buybutton">
+<tr valign="top">
+	<th scope="row">
+		<label for="tcp_selected_buybutton"><?php _e( 'Buy button', 'tcp' );?>:</label>
+	</th>
+	<td>
+		<?php $buy_buttons = TCPBuyButton::get_buy_buttons(); ?>
+		<select name="tcp_selected_buybutton" id="tcp_selected_buybutton">
 			<option value="" <?php selected( '', $selected_buy_button ); ?>><?php _e( 'Default', 'tcp' ); ?></option>
-			<?php foreach( $buy_buttons as $buy_button ) : ?>
+		<?php foreach( $buy_buttons as $buy_button ) : ?>
 			<option value="<?php echo $buy_button['path']; ?>" <?php selected( $buy_button['path'], $selected_buy_button ); ?>>
-				<?php echo $buy_button['label']; ?>
+			<?php echo $buy_button['label']; ?>
 			</option>
-			<?php endforeach; ?>
-			</select>
-		</td>
-		</tr>
+		<?php endforeach; ?>
+		</select>
+	</td>
+</tr>
 	<?php }
 
 	function tcp_product_metabox_save_custom_fields( $post_id ) {
@@ -180,17 +186,21 @@ class TCPBuyButton {
 
 	function tcp_get_buybutton_template( $template, $post_id ) {
 		$selected_buy_button = get_post_meta( $post_id, 'tcp_selected_buybutton', true );
-		if ( $selected_buy_button ) return $selected_buy_button;
+		if ( $selected_buy_button ) {
+			return $selected_buy_button;
+		}
 		$post_type = get_post_type( $post_id );
 		$product_type = tcp_get_the_product_type( $post_id );
 		$selected_buy_button = get_option( 'tcp_buy_button_template-' .  $post_type . '-' . $product_type, '' );
-		if ( $selected_buy_button ) return $selected_buy_button;
+		if ( $selected_buy_button ) {
+			return $selected_buy_button;
+		}
 		return $template;
 	}
 
 	function tcp_theme_compatibility_settings_page( $suffix, $thecartpress ) {
 		$colors = array(
-			''							=> __( 'Theme default', 'tcp' ),
+			//''							=> __( 'Theme default', 'tcp' ),
 			'tcp-btn tcp-btn-default'	=> __( 'Default', 'tcp' ),
 			'tcp-btn tcp-btn-primary'	=> __( 'Blue', 'tcp' ),
 			'tcp-btn tcp-btn-success'	=> __( 'Green', 'tcp' ),
@@ -200,21 +210,21 @@ class TCPBuyButton {
 			'tcp-btn tcp-btn-link'		=> __( 'Link', 'tcp' ),
 		);
 		$colors = apply_filters( 'tcp_buy_buttons_colors', $colors );
-		$sizes = array(
-			''				=> __( 'Theme default', 'tcp' ),
+		$sizes	= array(
 			'tcp-btn-xs'	=> __( 'Extra Small', 'tcp' ),
 			'tcp-btn-sm'	=> __( 'Small', 'tcp' ),
+			''				=> __( 'Medium', 'tcp' ),
 			'tcp-btn-lg'	=> __( 'Large', 'tcp' ),
 		);
 		$sizes = apply_filters( 'tcp_buy_buttons_sizes', $sizes );
-		global $thecartpress;
-		$buy_button_color	= $thecartpress->get_setting( 'buy_button_color' );
-		$buy_button_size	= $thecartpress->get_setting( 'buy_button_size' );
-		$buy_button_grouped	= $thecartpress->get_setting( 'buy_button_grouped' );
+		$buy_button_color	= tcp_get_buy_button_color( $suffix );
+		$buy_button_size	= tcp_get_buy_button_size( $suffix );
+		$buy_button_grouped	= $thecartpress->get_setting( 'buy_button_grouped' . $suffix );
 ?>
 <h3 class="hndle"><?php _e( 'Button Styles', 'tcp' ); ?></h3>
 
 <div class="postbox">
+<div class="inside">
 
 <table class="form-table">
 <tbody>
@@ -273,6 +283,7 @@ class TCPBuyButton {
 </tr>-->
 </tbody>
 </table>
+</div><!-- .inside -->
 </div><!-- .postbox -->
 		<?php
 	}
@@ -293,4 +304,4 @@ class TCPBuyButton {
 }
 
 new TCPBuyButton();
-} // class_exists check
+endif; // class_exists check

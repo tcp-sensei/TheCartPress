@@ -16,6 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) exit;
+
+if ( ! class_exists( 'TCPDownloadableList' ) ) :
+
 require_once( TCP_DAOS_FOLDER . 'Orders.class.php' );
 
 class TCPDownloadableList {
@@ -24,7 +29,8 @@ class TCPDownloadableList {
 <script language="JavaScript">
 function tcp_refresh( order_detail_id ) {
 	//$path = 'admin.php?page=' . plugin_basename( dirname( dirname( __FILE__ ) ) ) . '/admin/VirtualProductDownloader.php';
-	url = '<?php echo WP_PLUGIN_URL, '/', plugin_basename( dirname( __FILE__ ) ), '/VirtualProductDownloader.php'; ?>';
+	//url = '<?php echo WP_PLUGIN_URL, '/', plugin_basename( dirname( __FILE__ ) ), '/VirtualProductDownloader.php'; ?>';
+	url = '<?php echo plugins_url(), '/', plugin_basename( dirname( __FILE__ ) ); ?>/VirtualProductDownloader.php';
 	url = url + '?order_detail_id=' + order_detail_id;
 	setTimeout( 'tcp_reload()', 3000 );
 	window.open( url, 'downloadable' );
@@ -92,4 +98,4 @@ if ( is_array( $orders ) && count( $orders ) > 0 ) {
 	else return $out;
 	}
 }
-?>
+endif; // class_exists check

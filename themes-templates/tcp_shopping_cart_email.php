@@ -129,7 +129,10 @@ if ( ! isset( $source ) ) return; ?>
 					<?php if ( strlen( $source->get_shipping_email() ) > 0 ) : echo $source->get_shipping_email(); ?><?php endif; ?>
 				</td>
 				<td class="billing_info">
-					<?php if ( strlen( $source->get_billing_email() ) > 0 ) : echo $source->get_billing_email(); ?><br/><?php endif; ?>
+					<?php //if ( strlen( $source->get_billing_email() ) > 0 ) echo $source->get_billing_email(), '<br/>'; ?>
+					<?php $user_data = get_userdata( $source->get_customer_id() );
+					if ( $user_data ) printf( __( '%s&lt;%s&gt; (registered)', 'tcp' ), $user_data->user_nicename, $user_data->user_email );
+					else printf( __( '%s (unregistered)', 'tcp' ), $source->get_billing_email() ); ?>
 				</td>
 			</tr>
 		</table>
@@ -199,20 +202,24 @@ if ( ! isset( $source ) ) return; ?>
 			<th class="tcp_status_row" scope="row" style="text-align: left; width:160px;"><?php _e( 'Payment method', 'tcp' ); ?>: </th>
 			<td class="tcp_status_value tcp_payment_method" ><?php echo $source->get_payment_name(); ?></td>
 		</tr>
-	<?php if ( $source->get_payment_notice() ) : ?>
+	<?php $notice = $source->get_payment_notice();
+	$notice = apply_filters( 'tcp_shopping_cart_email_payment_notice', $notice, $source );
+	if ( $notice ) : ?>
 		<tr valign="top">
 			<th class="tcp_status_row" scope="row" style="text-align: left; width:160px;"><?php _e( 'Payment notice', 'tcp' ); ?>: </th>
-			<td class="tcp_payment_notice"><?php echo $source->get_payment_notice(); ?></td>
+			<td class="tcp_payment_notice"><?php echo $notice; ?></td>
 		</tr>
 	<?php endif; ?>
 		<tr valign="top">
 			<th class="tcp_status_row" scope="row" style="text-align: left; width:160px;"><?php _e( 'Shipping method', 'tcp' ); ?>: </th>
 			<td class="tcp_status_value tcp_shipping_method"><?php echo $source->get_shipping_method(); ?></td>
 		</tr>
-	<?php if ( $source->get_shipping_notice() ) : ?>
+	<?php $notice = $source->get_shipping_notice();
+	$notice = apply_filters( 'tcp_shopping_cart_email_shipping_notice', $notice, $source );
+	if ( $notice ) : ?>
 		<tr valign="top">
 			<th class="tcp_status_row" scope="row" style="text-align: left; width:160px;"><?php _e( 'Shipping notice', 'tcp' ); ?>: </th>
-			<td class="tcp_shipping_notice"><?php echo $source->get_shipping_notice(); ?></td>
+			<td class="tcp_shipping_notice"><?php echo $notice; ?></td>
 		</tr>
 	<?php endif; ?>
 		<tr valign="top">
@@ -244,10 +251,10 @@ if ( $source->has_order_details() ) :
 	foreach( $source->get_orders_details() as $order_detail ) : ?>
 	<tr style="padding: 4px 4px 4px 4px;" class="tcp_cart_product_row <?php if ( $i++ & 1 == 1 ) : ?> par<?php endif; ?>">
 		<?php if ( $source->see_thumbnail() ) : ?>
-			<td class="tcp_cart_thumbnail" style="padding:4px 4px 4px 4px;">
-			<?php $size = apply_filters( 'tcp_get_shopping_cart_image_size', array( 32, 32 ) );
-			echo tcp_get_the_thumbnail( $order_detail->get_post_id(), $order_detail->get_option_1_id(), $order_detail->get_option_2_id(), $size ); ?>
-			</td>
+		<td class="tcp_cart_thumbnail" style="padding:4px 4px 4px 4px;">
+		<?php $size = apply_filters( 'tcp_get_shopping_cart_image_size', array( 32, 32 ) );
+		echo tcp_get_the_thumbnail( $order_detail->get_post_id(), $order_detail->get_option_1_id(), $order_detail->get_option_2_id(), $size ); ?>
+		</td>
 		<?php endif; ?>
 		<td class="tcp_cart_name" style="padding:4px 4px 4px 4px;">
 		<?php $name = tcp_get_the_title( $order_detail->get_post_id(), $order_detail->get_option_1_id(), $order_detail->get_option_2_id() );
@@ -259,9 +266,9 @@ if ( $source->has_order_details() ) :
 		<?php echo apply_filters( 'tcp_cart_table_title_order_detail', $name, $order_detail->get_post_id() ); ?>
 		</td>
 		<td class="tcp_cart_price" style="padding:4px 4px 4px 4px;"><?php echo tcp_format_the_price( $order_detail->get_price() ); ?>
-		<?php if ( $order_detail->get_discount() > 0 ) : ?>
-			&nbsp;<span class="tcp_cart_discount"><?php  printf( __( 'Discount %s', 'tcp' ), tcp_format_the_price( $order_detail->get_discount() / $order_detail->get_qty_ordered() ) ); ?></span>
-		<?php endif; ?>
+			<?php if ( $order_detail->get_discount() > 0 ) : ?>
+			&nbsp;<span class="tcp_cart_discount"><?php  printf( __( '(-%s)', 'tcp' ), tcp_format_the_price( $order_detail->get_discount() / $order_detail->get_qty_ordered() ) ); ?></span>
+			<?php endif; ?>
 		</td>
 		<td class="tcp_cart_units" style="padding:4px 4px 4px 4px;">
 		<?php if ( ! $source->is_editing_units() ) : ?>
@@ -288,13 +295,18 @@ if ( $source->has_order_details() ) :
 			<td class="tcp_cart_weight" style="padding:4px 4px 4px 4px;"><?php echo tcp_number_format( $order_detail->get_weight() ); ?>&nbsp;<?php echo tcp_get_the_unit_weight(); ?></td>
 		<?php endif; ?>
 		<?php $decimals	= tcp_get_decimal_currency();
-		$discount = round( $order_detail->get_discount() / $order_detail->get_qty_ordered(), $decimals );
+		if ( ! $source->is_discount_applied() ) {
+			$discount = round( $order_detail->get_discount() / $order_detail->get_qty_ordered(), $decimals );
+		} else {
+			$discount = 0;
+		}
 		$price = $order_detail->get_price() - $discount;
 		$price = round( $price, $decimals );
 		$tax = $price * $order_detail->get_tax() / 100;
 		$tax = round( $tax, $decimals );
 		$total_tax += $tax * $order_detail->get_qty_ordered();
 		$price = round( $price * $order_detail->get_qty_ordered(), $decimals );
+		$price = apply_filters( 'tcp_shopping_cart_row_price', $price, $order_detail );
 		$total += $price; ?>
 		<?php if ( $source->see_tax() ) : ?>
 			<td class="tcp_cart_tax" style="padding:4px 4px 4px 4px;"><?php echo tcp_format_the_price( $tax ); ?></td>

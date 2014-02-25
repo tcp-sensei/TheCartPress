@@ -16,6 +16,9 @@
  * along with This program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+// Exit if accessed directly
+if ( !defined( 'ABSPATH' ) ) exit;
+
 interface TCP_ICartSource {
 	public function see_address();
 	public function see_sku();
@@ -27,10 +30,12 @@ interface TCP_ICartSource {
 	public function see_product_link();
 	public function see_comment();
 	public function see_thumbnail();
+	public function is_discount_applied();
 
 	public function __set( $name, $value );
 
 	public function get_order_id();
+	public function get_customer_id();
 	public function get_created_at();
 	public function get_payment_method();
 	public function get_payment_name();
@@ -86,6 +91,7 @@ interface TCP_IDetailSource {
 	public function get_qty_ordered();
 	public function get_tax();
 	public function get_price();
+	public function get_original_price();
 	public function get_discount();
 	public function get_sku();
 	public function get_weight();
@@ -99,4 +105,3 @@ interface TCP_ICostsSource {
 	public function get_cost();
 	public function get_tax();
 }
-?>

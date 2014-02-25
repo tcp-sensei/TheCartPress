@@ -79,6 +79,7 @@ $downloadable_path		= $thecartpress->get_setting( 'downloadable_path', '' );
 $hide_visibles			= $thecartpress->get_setting( 'hide_visibles', false ); ?>
 <form method="post" action="">
 <div class="postbox">
+<div class="inside">
 <table class="form-table">
 <tbody>
 <tr valign="top">
@@ -151,6 +152,7 @@ $hide_visibles			= $thecartpress->get_setting( 'hide_visibles', false ); ?>
 <?php do_action( 'tcp_main_settings_page', $thecartpress ); ?>
 </tbody>
 </table>
+</div>
 </div><!-- .postbox -->
 
 <?php do_action( 'tcp_main_settings_after_page', $thecartpress ); ?>

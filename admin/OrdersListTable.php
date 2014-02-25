@@ -19,4 +19,3 @@
 require_once( TCP_ADMIN_FOLDER . 'OrdersListTable.class.php' );
 $ordersList = new TCPOrdersList();
 $ordersList->show();
-?>

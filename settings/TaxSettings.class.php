@@ -76,6 +76,8 @@ $tax_for_shipping			= $thecartpress->get_setting( 'tax_for_shipping', '' );
 $display_shipping_cost_with_taxes	= $thecartpress->get_setting( 'display_shipping_cost_with_taxes', false ); ?>
 
 <form method="post" action="">
+<div class="postbox">
+<div class="inside">
 <table class="form-table">
 <tbody>
 <tr valign="top">
@@ -90,9 +92,9 @@ $display_shipping_cost_with_taxes	= $thecartpress->get_setting( 'display_shippin
 		<select id="default_tax_country" name="default_tax_country">
 		<?php require_once( TCP_DAOS_FOLDER . 'Countries.class.php' );
 		if ( is_array( $isos ) && count( $isos ) > 0 ) {
-			$countries = Countries::getSome( $isos );
+			$countries = TCPCountries::getSome( $isos );
 		} else {
-			$countries = Countries::getAll();
+			$countries = TCPCountries::getAll();
 		}
 		foreach( $countries as $item ) : ?>
 			<option value="<?php echo $item->iso; ?>" <?php selected( $item->iso, $default_tax_country ); ?>><?php echo $item->name; ?></option>
@@ -162,10 +164,12 @@ $display_shipping_cost_with_taxes	= $thecartpress->get_setting( 'display_shippin
 </tr>
 </tbody>
 </table>
-
+</div>
+</div>
 <?php wp_nonce_field( 'tcp_tax_settings' ); ?>
 <?php submit_button( null, 'primary', 'save-tax-settings' ); ?>
 </form>
+
 </div>
 <?php
 	}

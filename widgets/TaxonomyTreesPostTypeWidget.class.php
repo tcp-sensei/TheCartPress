@@ -28,7 +28,7 @@
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-if ( ! class_exists( 'TaxonomyTreesPostTypeWidget' ) ) {
+if ( ! class_exists( 'TaxonomyTreesPostTypeWidget' ) ) :
 
 require_once( TCP_WIDGETS_FOLDER . 'TCPParentWidget.class.php' );
 
@@ -129,7 +129,8 @@ class TaxonomyTreesPostTypeWidget extends TCPParentWidget {
 	}
 
 	function form( $instance ) {
-		parent::form( $instance, __( 'Navigation trees', 'tcp') );
+		if ( !isset( $instance['title'] ) ) $instance['title'] = __( 'Navigation trees', 'tcp');
+		parent::form( $instance );
 		$defaults = array(
 			'post_type'				=> TCP_PRODUCT_POST_TYPE,
 			'taxonomy'				=> TCP_PRODUCT_CATEGORY,
@@ -215,4 +216,4 @@ class TaxonomyTreesPostTypeWidget extends TCPParentWidget {
 		<?php
 	}
 }
-} // class_exists check
+endif; // class_exists check

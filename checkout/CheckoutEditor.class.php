@@ -17,9 +17,9 @@
  */
 
 // Exit if accessed directly
-if ( !defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) exit;
 
-if ( ! class_exists( 'TCPCheckoutEditor' ) ) {
+if ( ! class_exists( 'TCPCheckoutEditor' ) ) :
 
 require_once( TCP_CHECKOUT_FOLDER .'TCPCheckoutManager.class.php' );
 
@@ -211,4 +211,4 @@ function do_drop() {
 }
 
 new TCPCheckoutEditor();
-} // class_exists check
+endif; // class_exists check

@@ -44,26 +44,32 @@ class BrothersListWidget extends CustomListWidget {
 				),
 			);
 			$titles = array();
-			foreach( $taxonomies as $taxonomy ) if ( in_array( $taxonomy, $brother_taxonomies ) ) {
-				$terms = get_the_terms( $post->ID, $taxonomy );
-				$title = '';
-				$ids = array();
-				if ( is_array( $terms ) && count( $terms ) ) {
-					foreach( $terms as $term ) {
-						$ids[] = $term->term_id; //tcp_get_default_id( $term->term_id, $term->taxonomy );
-						if ( $title == '' ) $title = $term->name;
-						else $title .= ' - ' . $term->name;
+			foreach( $taxonomies as $taxonomy ) {
+				if ( in_array( $taxonomy, $brother_taxonomies ) ) {
+					$terms = get_the_terms( $post->ID, $taxonomy );
+					$title = '';
+					$ids = array();
+					if ( is_array( $terms ) && count( $terms ) ) {
+						foreach( $terms as $term ) {
+							$ids[] = $term->term_id; //tcp_get_default_id( $term->term_id, $term->taxonomy );
+							if ( $title == '' ) {
+								$title = $term->name;
+							} else {
+								$title .= ' - ' . $term->name;
+							}
+						}
 					}
+					$titles[] = $title;
+					$loop_args['tax_query'][] = array(
+						'taxonomy'	=> $taxonomy,
+						'terms'		=> $ids,
+						'field'		=> 'id',
+					);
 				}
-				$titles[] = $title;
-				$loop_args['tax_query'][] = array(
-					'taxonomy'	=> $taxonomy,
-					'terms'		=> $ids,
-					'field'		=> 'id',
-				);
 			}
 			$instance['title'] .= ': ' . implode( ', ', $titles );
 			$instance['loop_args'] = $loop_args;
+			$instance['post_type'] = tcp_get_saleable_post_types();
 			parent::widget( $args, $instance );
 		}
 	}

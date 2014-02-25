@@ -19,7 +19,7 @@
 // Exit if accessed directly
 if ( !defined( 'ABSPATH' ) ) exit;
 
-if ( !class_exists( 'NoCostPayment' ) ) {
+if ( !class_exists( 'NoCostPayment' ) ) :
 
 class NoCostPayment extends TCP_Plugin {
 	function getTitle() {
@@ -64,8 +64,8 @@ class NoCostPayment extends TCP_Plugin {
 	}
 
 	function saveEditFields( $data, $instance = 0 ) {
-		$data['notice'] = isset( $_REQUEST['notice'] ) ? $_REQUEST['notice'] : '';
-		$data['redirect'] = isset( $_REQUEST['redirect'] );
+		$data['notice']		= isset( $_REQUEST['notice'] ) ? $_REQUEST['notice'] : '';
+		$data['redirect']	= isset( $_REQUEST['redirect'] );
 		return $data;
 	}
 
@@ -74,28 +74,33 @@ class NoCostPayment extends TCP_Plugin {
 	}
 
 	function showPayForm( $instance, $shippingCountry, $shoppingCart, $order_id = 0 ) {
-		global $thecartpress;
-		$buy_button_color	= $thecartpress->get_setting( 'buy_button_color' );
-		$buy_button_size	= $thecartpress->get_setting( 'buy_button_size' );
+		$buy_button_color	= tcp_get_buy_button_color();
+		$buy_button_size	= tcp_get_buy_button_size();
 		$data				= tcp_get_payment_plugin_data( get_class( $this ), $instance, $order_id );
 		$url				= tcp_get_the_checkout_ok_url( $order_id );
 		$title				= isset( $data['title'] ) ? $data['title'] : '';
 		$redirect			= isset( $data['redirect'] ) ? $data['redirect'] : false; ?>
+<p>
+	<?php echo tcp_string( 'TheCartPress', 'pay_NoCostPayment-title', $title ); ?>
+</p>
 
-<p><?php echo tcp_string( 'TheCartPress', 'pay_NoCostPayment-title', $title ); ?></p>
+<p>
+	<?php echo $data['notice'];?>
+</p>
 
-<p><?php echo $data['notice'];?></p>
-
-<p><input type="button" id="tcp_no_cost_payment_button" class="tcp_pay_button tcp-btn <?php echo $buy_button_color, ' ', $buy_button_size; ?>" value="<?php _e( 'Finish', 'tcp' );?>" onclick="window.location.href = '<?php echo $url; ?>';"/></p>
+<p>
+	<button type="button" id="tcp_no_cost_payment_button" class="tcp_pay_button tcp-btn <?php echo $buy_button_color, ' ', $buy_button_size; ?>" onclick="window.location.href = '<?php echo $url; ?>';"><?php _e( 'Finish', 'tcp' );?></button>
+</p>
 
 		<?php require_once( TCP_DAOS_FOLDER . '/Orders.class.php' );
 		Orders::editStatus( $order_id, $data['new_status'] ); //Orders::$ORDER_PROCESSING );
 		require_once( TCP_CHECKOUT_FOLDER . '/ActiveCheckout.class.php' );
 		ActiveCheckout::sendMails( $order_id );
 		if ( $redirect ) { ?>
+<p class="tcp_redirect"><?php _e( 'Finishing automatically. Please, wait a moment', 'tcp' ); ?></p>
 <script type="text/javascript">
 	jQuery( '#tcp_no_cost_payment_button' ).click();
 </script><?php }
 	}
 }
-} // class_exists check
+endif; // class_exists check

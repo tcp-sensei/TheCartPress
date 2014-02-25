@@ -73,9 +73,9 @@ class TCPExtend {
 		</div>
 	</div>
 
-<div class="tcp-products tcp-tcpf">
+<div class="tcp-products tcpf">
 
-	<div class="tcp-col-xs-12 tcp-col-sm-6 tcp-col-md-4 tcp-col-lg-3 tcp-product-template tcp-product" style="display: none;">
+	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 tcp-product-template tcp-product" style="display: none;">
 
 		<a href="#" class="tcp-extend-link">
 			<div class="tcp-inner-product slide">

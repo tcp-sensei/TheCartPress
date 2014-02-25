@@ -183,7 +183,7 @@ class AuthorizeNetDPM extends AuthorizeNetSIM_Form
                 '.$hidden_fields.'
             <fieldset>
                 <div>
-                    <label>Credit Card Number</label>
+                    <label>Card Number</label>
                     <input type="text" class="text" size="15" name="x_card_num" value="'.($prefill ? '6011000000000012' : '').'"></input>
                 </div>
                 <div>

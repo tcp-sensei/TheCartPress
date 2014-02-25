@@ -21,9 +21,9 @@ define( 'TCP_PRODUCT_CATEGORY',		'tcp_product_category' );
 define( 'TCP_PRODUCT_TAG',			'tcp_product_tag' );
 
 // Exit if accessed directly
-if ( !defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) exit;
 
-if ( !class_exists( 'ProductCustomPostType' ) ) {
+if ( ! class_exists( 'ProductCustomPostType' ) ) :
 
 /**
  * Defines the default post type 'tcp_product'
@@ -33,16 +33,16 @@ if ( !class_exists( 'ProductCustomPostType' ) ) {
 class ProductCustomPostType {
 
 	function __construct() {
-		add_action( 'admin_init', array( &$this, 'admin_init' ) );
-		add_filter( 'tcp_custom_values_get_other_values', array( &$this, 'tcp_custom_values_get_other_values' ) );//Supports Custom Values Widget
+		add_action( 'admin_init'						, array( $this, 'admin_init' ) );
+		add_filter( 'tcp_custom_values_get_other_values', array( $this, 'tcp_custom_values_get_other_values' ) );//Supports Custom Values Widget
 	}
 
 	function admin_init() {
-		add_action( 'admin_head', array( &$this, 'plugin_header') );
-		add_filter( 'post_row_actions', array( &$this, 'postRowActions' ) );
-		add_action( 'manage_posts_custom_column', array( &$this, 'manage_posts_custom_column' ) );
-		add_action( 'restrict_manage_posts', array( &$this, 'restrictManagePosts' ) );
-		add_filter( 'parse_query', array( &$this, 'parse_query' ) );
+		add_action( 'admin_head'				, array( $this, 'plugin_header') );
+		add_filter( 'post_row_actions'			, array( $this, 'postRowActions' ) );
+		add_action( 'manage_posts_custom_column', array( $this, 'manage_posts_custom_column' ) );
+		add_action( 'restrict_manage_posts'		, array( $this, 'restrictManagePosts' ) );
+		add_filter( 'parse_query'				, array( $this, 'parse_query' ) );
 		//for quick edit
 		//add_action('quick_edit_custom_box', array( $this, 'quickEditCustomBox' ), 10, 2 );
 	}
@@ -358,4 +358,4 @@ class ProductCustomPostType {
 }
 
 $GLOBALS['productcustomposttype'] = new ProductCustomPostType();
-} // class_exists check
+endif; // class_exists check

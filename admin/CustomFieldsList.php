@@ -16,6 +16,9 @@
  * along with TheCartPress.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// Exit if accessed directly
+if ( !defined( 'ABSPATH' ) ) exit;
+
 function tcp_create_id( $post_type, $label ) {
 	//$internal_id = 'tcp_' . str_replace ( ' ' , '_' , $label );
 	$internal_id = sanitize_key( $label );
@@ -100,6 +103,7 @@ if ( isset( $_REQUEST['tcp_save_custom_field'] ) ) {
 
 <!--<input type="hidden" name="post_type" value="<?php echo $post_type;?>"/>-->
 <div class="postbox">
+	<div class="inside">
 	<table class="form-table">
 	<tr valign="top">
 		<th scope="row">
@@ -126,7 +130,7 @@ if ( isset( $_REQUEST['tcp_save_custom_field'] ) ) {
 	</tr>
 	<tr>
 		<th>
-			<label for="values"><?php _e( 'Possible values', 'tcp' );?></label>:
+			<label for="values"><?php _e( 'Possible values', 'tcp' );?>:</label>
 		</th>
 		<td>
 			<input type="text" id="values" name="values" size="40"/><p class="description"><?php _e( 'For fields of type \'List\', enter a list of possible values separated by comma', 'tcp' );?></p>
@@ -134,7 +138,7 @@ if ( isset( $_REQUEST['tcp_save_custom_field'] ) ) {
 	</tr>
 	<tr>
 		<th>
-			<label for="public"><?php _e( 'Public', 'tcp' );?></label>:
+			<label for="public"><?php _e( 'Public', 'tcp' );?>:</label>
 		</th>
 		<td>
 			<input type="checkbox" id="public" name="public" />
@@ -142,7 +146,7 @@ if ( isset( $_REQUEST['tcp_save_custom_field'] ) ) {
 	</tr>
 	<tr>
 		<th>
-			<label for="desc"><?php _e( 'Description', 'tcp' );?></label>:
+			<label for="desc"><?php _e( 'Description', 'tcp' );?>:</label>
 		</th>
 		<td>
 			<input type="text" id="desc" name="desc" size="40"/>
@@ -151,7 +155,7 @@ if ( isset( $_REQUEST['tcp_save_custom_field'] ) ) {
 	</table>
 
 	<p style="padding-left: 1em;"><input type="submit" name="tcp_save_custom_field" value="<?php _e( 'Save' , 'tcp' );?>" class="button-primary" /></p>
-	
+	</div><!-- .inside -->
 </div><!-- .postbox -->
 </form>
 

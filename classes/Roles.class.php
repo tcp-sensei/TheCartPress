@@ -17,8 +17,19 @@
 */
 
 /**
+ * TheCartPress Roles
+ *
  * Manages TheCartPress roles and capabilities
+ *
+ * @package TheCartPress
+ * @subpackage Classes
  */
+
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) exit;
+
+if ( ! class_exists( 'TCPRoles' ) ) :
+	
 class TCPRoles {
 
 	/**
@@ -40,8 +51,9 @@ class TCPRoles {
 		$subscriber = get_role( 'subscriber' );
 		if ( $subscriber ) {
 			$caps = (array)$subscriber->capabilities;
-			foreach( $caps as $cap => $grant )
+			foreach( $caps as $cap => $grant ) {
 				if ( $grant ) $customer->add_cap( $cap );
+			}
 		}
 
 		add_role( 'merchant', __( 'Merchant', 'tcp' ) );
@@ -66,17 +78,27 @@ class TCPRoles {
 		$merchant->add_cap( 'tcp_edit_plugins' );
 		$merchant->add_cap( 'tcp_edit_taxes' );
 		$merchant->add_cap( 'tcp_shortcode_generator' );
+
+		$administrator = get_role( 'administrator' );
+		$caps = (array)$merchant->capabilities;
+		foreach( $caps as $cap => $grant ) {
+			if ( $grant ) {
+				$administrator->add_cap( $cap );
+				echo $cap, "\n";
+			}
+		}
+		
 		$editor = get_role( 'editor' );
 		if ( $editor ) {
 			$caps = (array)$editor->capabilities;
-			foreach( $caps as $cap => $grant )
-			if ( $grant ) {
-				$merchant->add_cap( $cap );
+			foreach( $caps as $cap => $grant ) {
+				if ( $grant ) {
+					$merchant->add_cap( $cap );
+				}
 			}
 		}
-
-		$administrator = get_role( 'administrator' );
-		$administrator->add_cap( 'tcp_edit_product' );
+		
+		/*$administrator->add_cap( 'tcp_edit_product' );
 		$administrator->add_cap( 'tcp_edit_products' );
 		$administrator->add_cap( 'tcp_edit_others_products' );
 		$administrator->add_cap( 'tcp_publish_products' );
@@ -95,9 +117,9 @@ class TCPRoles {
 		$administrator->add_cap( 'tcp_edit_addresses' );
 		$administrator->add_cap( 'tcp_edit_wish_list' );
 		$administrator->add_cap( 'tcp_edit_taxes' );
-		$administrator->add_cap( 'tcp_shortcode_generator' );
+		$administrator->add_cap( 'tcp_shortcode_generator' );*/
 	}
 }
 
 $tcp_roles = new TCPRoles();
-?>
+endif; // class_exists check

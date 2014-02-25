@@ -1,5 +1,12 @@
 <?php
 /**
+ * Custom Templates
+ *
+ * @package TheCartPress
+ * @subpackage Appearance
+ */
+
+/**
  * This file is part of TheCartPress.
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -19,7 +26,7 @@
 // Exit if accessed directly
 if ( !defined( 'ABSPATH' ) ) exit;
 
-if ( ! class_exists( 'TCPCustomTemplatesList' ) ) {
+if ( !class_exists( 'TCPCustomTemplatesList' ) ) :
 
 class TCPCustomTemplatesList {
 
@@ -211,4 +218,4 @@ endforeach; ?>
 }
 
 new TCPCustomTemplatesList();
-} // class_exists check
+endif; // class_exists check

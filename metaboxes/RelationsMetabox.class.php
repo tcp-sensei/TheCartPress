@@ -16,24 +16,38 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// Exit if accessed directly
+if ( !defined( 'ABSPATH' ) ) exit;
+
+if ( !class_exists( 'RelationsMetabox' ) ) :
+
 require_once( TCP_DAOS_FOLDER . 'RelEntities.class.php' );
 
 class RelationsMetabox {
+
+	function __construct() {
+		add_action( 'tcp_admin_init', array( $this, 'register_metabox' ) );
+	}
+
 	function register_metabox() {
 		$saleable_post_types = tcp_get_product_post_types();
-		if ( is_array( $saleable_post_types ) && count( $saleable_post_types ) )
-			foreach( $saleable_post_types as $post_type )
+		if ( is_array( $saleable_post_types ) && count( $saleable_post_types ) ) {
+			foreach( $saleable_post_types as $post_type ) {
 				add_meta_box( 'tcp-product-assign', __( 'Related data', 'tcp' ), array( $this, 'show' ), $post_type, 'normal', 'high' );
+			}
+		}
 	}
 
 	function show() {
 		global $post;
-		if ( ! tcp_is_saleable_post_type( $post->post_type ) ) return;
+		if ( !tcp_is_saleable_post_type( $post->post_type ) ) return;
 		$post_id = tcp_get_default_id( $post->ID, $post->post_type );
-		$type = tcp_get_the_product_type( $post_id );
-		if ( $type == 'GROUPED' ) $this->show_grouped( $post_id );
-		elseif ( $type == 'SIMPLE' ) $this->show_options( $post_id );
-		else return;
+		$type	 = tcp_get_the_product_type( $post_id );
+		if ( $type == 'GROUPED' ) {
+			$this->show_grouped( $post_id );
+		} else { //if ( $type == 'SIMPLE' ) {
+			$this->show_options( $post_id );//TODO Dynamic options
+		}
 	}
 
 	function show_grouped( $post_id ) {
@@ -158,10 +172,7 @@ if ( is_array( $options ) && count( $options ) > 0 ) :
 </table>
 </div><?php
 	}
-	
-	function __construct() {
-		add_action( 'admin_init', array( $this, 'register_metabox' ) );
-	}
 }
 
-//new RelationsMetabox();
+new RelationsMetabox();
+endif; // class_exists check

@@ -26,9 +26,9 @@
  */
 
 // Exit if accessed directly
-if ( !defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) exit;
 
-if ( ! class_exists( 'TCPCartTable' ) ) {
+if ( ! class_exists( 'TCPCartTable' ) ) :
 
 /**
  * Shows a Cart table.
@@ -37,16 +37,22 @@ class TCPCartTable {
 
 	static function show( $source, $echo = true, $email = false ) {
 		ob_start();
-		if ( $email ) $template = 'tcp_shopping_cart_email.php';
-		else $template = 'tcp_shopping_cart.php';
+		if ( $email ) {
+			$template = 'tcp_shopping_cart_email.php';
+		} else {
+			$template = 'tcp_shopping_cart.php';
+		}
 		$located = locate_template( $template );
 		if ( strlen( $located ) == 0 ) $located = TCP_THEMES_TEMPLATES_FOLDER . $template;
-		if ( $email ) $located = apply_filters( 'tcp_cart_table_email_template', $located, $source );
-		else $located = apply_filters( 'tcp_cart_table_template', $located, $source );
+		if ( $email ) {
+			$located = apply_filters( 'tcp_cart_table_email_template', $located, $source );
+		} else {
+			$located = apply_filters( 'tcp_cart_table_template', $located, $source );
+		}
 		require( $located );
 		$out = ob_get_clean();
 		if ( $echo ) echo $out;
 		else return $out;
 	}
 }
-} // class_exists check
+endif; // class_exists check

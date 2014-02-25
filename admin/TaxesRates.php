@@ -80,7 +80,7 @@ if ( isset( $_REQUEST['tcp_add_tax_rate'] ) ) {
 	if ( is_array( $taxRates ) && count( $taxRates ) > 0 )
 		foreach( $taxRates as $taxRate ) : ?>
 <tr>
-	<td><?php $country = Countries::get( $taxRate->country_iso, $language_iso ); echo isset( $country->name ) ? $country->name : __( 'All', 'tcp' );?></td>
+	<td><?php $country = TCPCountries::get( $taxRate->country_iso, $language_iso ); echo isset( $country->name ) ? $country->name : __( 'All', 'tcp' );?></td>
 	<td><?php if ( $taxRate->region_id == 'all' ) _e( 'All', 'tcp' ); else echo $taxRate->region;?></td>
 	<td><?php if ( $taxRate->post_code == 'all' ) _e( 'All', 'tcp' ); else echo $taxRate->post_code;?></td>
 	<td><?php $tax = Taxes::get( $taxRate->tax_id ); echo isset( $tax->title ) ? $tax->title : __( 'All', 'tcp' );?></td>
@@ -105,7 +105,7 @@ if ( isset( $_REQUEST['tcp_add_tax_rate'] ) ) {
 	<td>
 		<select id="country_id" name="country_iso">
 			<option value="all" ><?php _e( 'all', 'tcp' );?></option><?php
-				$countries = Countries::getAll( $language_iso );
+				$countries = TCPCountries::getAll( $language_iso );
 			global $thecartpress;
 			$country_id = $thecartpress->settings['country'];
 			foreach( $countries as $item ) : ?>

@@ -28,7 +28,7 @@
 // Exit if accessed directly
 if ( !defined( 'ABSPATH' ) ) exit;
 
-if ( ! class_exists( 'TCPUnderConstruction' ) ) {
+if ( ! class_exists( 'TCPUnderConstruction' ) ) :
 
 class TCPUnderConstruction {
 	function __construct() {
@@ -79,6 +79,7 @@ $time				= $thecartpress->get_setting( 'under_construction_time', '' );
 ?>
 <form method="post" action="">
 <div class="postbox">
+<div class="inside">
 	<table class="form-table">
 	<tbody>
 	<tr valign="top">
@@ -129,7 +130,7 @@ $time				= $thecartpress->get_setting( 'under_construction_time', '' );
 	</tr>
 	<tr valign="top">
 		<th scope="row">
-			<label for="tcp_time"><?php _e( 'Date/time to Launch', 'tcp' ); ?></label>
+			<label for="tcp_time"><?php _e( 'Date/time to Launch', 'tcp' ); ?> (not in use)</label>
 		</th>
 		<td>
 			<label><?php _e( 'Time', 'tcp' ); ?>: <input type="text" id="tcp_time" name="tcp_time" value="<?php echo date( 'Y-m-d H:i', (int)$time ); ?>" size="20" /></label> <?php _e( 'Format YYYY-MM-DD hh:mm', 'tcp' ); ?>
@@ -137,9 +138,10 @@ $time				= $thecartpress->get_setting( 'under_construction_time', '' );
 	</tr>
 	</tbody>
 	</table>
-</div><!-- .postbox -->
 	<?php wp_nonce_field( 'tcp_under_construction_settings' ); ?>
 	<?php submit_button( null, 'primary', 'save-under_construction-settings' ); ?>
+</div>
+</div><!-- .postbox -->
 </form>
 </div>
 <?php
@@ -202,4 +204,4 @@ $time				= $thecartpress->get_setting( 'under_construction_time', '' );
 }
 
 new TCPUnderConstruction();
-} // class_exists check
+endif; // class_exists check

@@ -1,5 +1,14 @@
 <?php
 /**
+ * Transference
+ *
+ * Allows pay using transference mode
+ *
+ * @package TheCartPress
+ * @subpackage Plugins
+ */
+
+/**
  * This file is part of TheCartPress.
  * 
  * TheCartPress is free software: you can redistribute it and/or modify
@@ -19,7 +28,7 @@
 // Exit if accessed directly
 if ( !defined( 'ABSPATH' ) ) exit;
 
-if ( !class_exists( 'Transference' ) ) {
+if ( !class_exists( 'Transference' ) ) :
 
 class Transference extends TCP_Plugin {
 
@@ -192,23 +201,24 @@ class Transference extends TCP_Plugin {
 
 	function getNotice( $instance, $shippingCountry, $shoppingCart, $order_id = 0 ) {
 		$data = tcp_get_payment_plugin_data( get_class( $this ), $instance );
+		$bank_format = isset( $data['bank_format'] ) ? $data['bank_format'] : 'four-fields';
 		ob_start();
 		$notice = tcp_string( 'TheCartPress', 'pay_Transference-notice', $data['notice'] ); ?>
 		<p><?php echo $notice; ?></p>
 		<table class="tcp-bank-account">
 			<?php if ( strlen( trim( $data['owner'] ) ) > 0 ) : ?><tr><th scope="row"><?php _e( 'Owner', 'tcp' ); ?>: </th><td><?php echo $data['owner']; ?></td></tr><?php endif; ?>
 			<tr><th scope="row"><?php _e( 'Bank', 'tcp' ); ?>: </th><td><?php echo $data['bank']; ?></td></tr>
-		<?php if ( $data['bank_format'] == 'two-fields' ) : ?>
+		<?php if ( 'two-fields' == $bank_format ) : ?>
 			<tr><th scope="row"><?php _e( 'Bank code', 'tcp' ); ?>: </th><td><?php echo $data['bank_code']; ?></td></tr>
 		<?php endif; ?>
-		<?php if ( $data['bank_format'] == 'two-fields' || $data['bank_format'] == 'four-fields') : ?>
+		<?php if ( 'two-fields' == $bank_format || 'four-fields' == $bank_format ) : ?>
 			<tr><th scope="row"><?php _e( 'Account', 'tcp' ); ?>: </th><td><?php echo $data['account']; ?></td></tr>
-			<?php if ( strlen( $data['iban'] ) > 0 ) : ?><tr><th scope="row"><?php _e( 'IBAN', 'tcp' ); ?>: </th><td><?php echo $data['iban']; ?></td></tr><?php endif; ?>
+			<?php if ( strlen( $data['iban'] ) > 0 )  : ?><tr><th scope="row"><?php _e( 'IBAN', 'tcp' ); ?>: </th><td><?php echo $data['iban']; ?></td></tr><?php endif; ?>
 			<?php if ( strlen( $data['swift'] ) > 0 ) : ?><tr><th scope="row"><?php _e( 'SWIFT', 'tcp' ); ?>: </th><td><?php echo $data['swift']; ?></td></tr><?php endif; ?>
 		<?php endif; ?>
-		<?php if ( $data['bank_format'] == 'sepa' ) : ?>
+		<?php if ( 'sepa' == $bank_format ) : ?>
 			<?php if ( strlen( $data['iban'] ) > 0 ) : ?><tr><th scope="row"><?php _e( 'IBAN', 'tcp' ); ?>: </th><td><?php echo $data['iban']; ?></td></tr><?php endif; ?>			
-			<?php if ( strlen( $data['bic'] ) > 0 ) : ?><tr><th scope="row"><?php _e( 'BIC', 'tcp' ); ?>: </th><td><?php echo $data['bic']; ?></td></tr><?php endif; ?>
+			<?php if ( strlen( $data['bic'] ) > 0 )  : ?><tr><th scope="row"><?php _e( 'BIC', 'tcp' ); ?>: </th><td><?php echo $data['bic']; ?></td></tr><?php endif; ?>
 		<?php endif; ?>
 		</table>
 		<?php return ob_get_clean();
@@ -234,4 +244,4 @@ class Transference extends TCP_Plugin {
 		<?php endif;
 	}
 }
-} // class_exists check
+endif; // class_exists check

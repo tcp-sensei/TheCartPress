@@ -19,7 +19,7 @@
 // Exit if accessed directly
 if ( !defined( 'ABSPATH' ) ) exit;
 
-if ( ! class_exists( 'TCPFirstTimeSetup' ) ) {
+if ( !class_exists( 'TCPFirstTimeSetup' ) ) :
 
 require_once( TCP_DAOS_FOLDER . 'Currencies.class.php' );
 require_once( TCP_DAOS_FOLDER . 'Countries.class.php' );
@@ -29,10 +29,21 @@ class TCPFirstTimeSetup {
 	private $updated = false;
 
 	function __construct() {
-		add_action( 'tcp_admin_menu'		, array( $this, 'tcp_admin_menu' ) );
-		add_filter( 'plugin_action_links'	, array( $this, 'plugin_action_links' ), 10, 2 );
+		add_action( 'tcp_admin_menu', array( $this, 'tcp_admin_menu' ) );
+		
 		global $tcp_miranda;
 		if ( $tcp_miranda ) $tcp_miranda->add_item( 'settings', 'default_settings', __( 'First time setup', 'tcp' ), false, array( 'TCPFirstTimeSetup', __FILE__ ), plugins_url( 'thecartpress/images/miranda/first_settings_48.png' ) );
+	}
+
+	function tcp_admin_menu( $thecartpress ) {
+		if ( ! current_user_can( 'tcp_edit_settings' ) ) return;
+		$base = $thecartpress->get_base_settings();
+		$page = add_submenu_page( $base, __( 'First Time Setup', 'tcp' ), __( 'First time', 'tcp' ), 'tcp_edit_settings', 'first_time_setup', array( $this, 'admin_page' ) );
+		add_action( "load-$page"			, array( $this, 'admin_load' ) );
+		add_action( "load-$page"			, array( $this, 'admin_action' ) );
+
+		//Adding link in plugins list
+		add_filter( 'plugin_action_links'	, array( $this, 'plugin_action_links' ), 10, 2 );
 	}
 
 	function plugin_action_links( $links, $file ) {
@@ -41,14 +52,6 @@ class TCPFirstTimeSetup {
 			array_unshift( $links, $first_link );
 		}
 		return $links;
-	}
-
-	function tcp_admin_menu() {
-		if ( ! current_user_can( 'tcp_edit_settings' ) ) return;
-		$base = thecartpress()->get_base_settings();
-		$page = add_submenu_page( $base, __( 'First Time Setup', 'tcp' ), __( 'First time', 'tcp' ), 'tcp_edit_settings', 'first_time_setup', array( &$this, 'admin_page' ) );
-		add_action( "load-$page", array( &$this, 'admin_load' ) );
-		add_action( "load-$page", array( &$this, 'admin_action' ) );
 	}
 
 	function admin_load() {
@@ -120,6 +123,7 @@ class TCPFirstTimeSetup {
 		<p class="description"><?php _e( 'Set base country for your eCommerce', 'tcp' ); ?></p>
 		
 		<div class="postbox">
+		<div class="inside">
 			<table class="form-table">
 			<tbody>
 	
@@ -129,7 +133,7 @@ class TCPFirstTimeSetup {
 				</th>
 				<td>
 					<select id="country" name="country">
-					<?php $countries = Countries::getAll();
+					<?php $countries = TCPCountries::getAll();
 					foreach( $countries as $item ) : ?>
 						<option value="<?php echo $item->iso; ?>" <?php selected( $item->iso, $country ); ?>><?php echo $item->name; ?></option>
 					<?php endforeach; ?>
@@ -139,6 +143,7 @@ class TCPFirstTimeSetup {
 	
 			</tbody>
 			</table>
+		</div>
 		</div><!-- .postbox -->
 		<p>
 			<input class="tcp_next_step button-secondary" type="button" value="<?php _e( 'Next step', 'tcp' ); ?>" onclick="tcp_show_step('step_two');" />
@@ -153,6 +158,7 @@ class TCPFirstTimeSetup {
 		<p class="description"><?php _e( 'Set Currency settings to use along the Store', 'tcp' ); ?></p>
 
 		<div class="postbox">
+		<div class="inside"
 			<table class="form-table">
 			<tbody>
 	
@@ -219,6 +225,7 @@ class TCPFirstTimeSetup {
 	
 			</tbody>
 			</table>
+		</div>
 		</div><!-- .postbox -->
 
 		<p>
@@ -234,6 +241,7 @@ class TCPFirstTimeSetup {
 
 		<p class="description"><?php _e( 'Set Checkout options', 'tcp' ); ?></p>
 		<div class="postbox">
+		<div class="inside"
 			<table class="form-table">
 			<tbody>
 	
@@ -269,6 +277,7 @@ class TCPFirstTimeSetup {
 			</tr>
 			</tbody>
 			</table>
+		</div>
 		</div><!-- .postbox -->
 		<p>
 			<input class="tcp_prev_step button-secondary" type="button" value="<?php _e( 'Previuos step', 'tcp' ); ?>" onclick="tcp_show_step('step_two');" />
@@ -358,4 +367,4 @@ class TCPFirstTimeSetup {
 
 new TCPFirstTimeSetup();
 
-} // class_exists check
+endif; // class_exists check

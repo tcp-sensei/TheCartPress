@@ -16,6 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// Exit if accessed directly
+if ( !defined( 'ABSPATH' ) ) exit;
+
+if ( !class_exists( 'TCPPaymentMethodsBox' ) ) :
+
 require_once( TCP_CHECKOUT_FOLDER . 'TCPCheckoutBox.class.php' );
 require_once( TCP_DAOS_FOLDER . 'Addresses.class.php' );
 
@@ -147,7 +152,7 @@ class TCPPaymentMethodsBox extends TCPCheckoutBox {
 		<input type="hidden" name="tcp_payment_sorting" id="tcp_payment_sorting" value="" />
 		<ul id="tcp_payment_list">
 		<?php global $tcp_payment_plugins;
-		if ( is_array( $payment_sorting ) && count( $payment_sorting ) > 0)
+		if ( is_array( $payment_sorting ) && count( $payment_sorting ) > 0 )
 			foreach( $payment_sorting as $id ) 
 				if ( isset( $tcp_payment_plugins[$id] ) ) :
 				$tcp_payment_plugin = $tcp_payment_plugins[$id]; ?>
@@ -169,9 +174,9 @@ class TCPPaymentMethodsBox extends TCPCheckoutBox {
 
 	function save_config_settings() {
 		$settings = array(
-			'sorting' => isset( $_REQUEST['tcp_payment_sorting'] ) ? explode( ',', $_REQUEST['tcp_payment_sorting'] ) : '',
-			'hidden_if_unique' => isset( $_REQUEST['tcp_hidden_if_unique'] ),
-			'hide_box' => isset( $_REQUEST['tcp_hide_box'] ),
+			'sorting'			=> isset( $_REQUEST['tcp_payment_sorting'] ) ? explode( ',', $_REQUEST['tcp_payment_sorting'] ) : '',
+			'hidden_if_unique'	=> isset( $_REQUEST['tcp_hidden_if_unique'] ),
+			'hide_box'			=> isset( $_REQUEST['tcp_hide_box'] ),
 		);
 		update_option( 'tcp_' . get_class( $this ), $settings );
 		return true;
@@ -246,4 +251,4 @@ class TCPPaymentMethodsBox extends TCPCheckoutBox {
 		else return 1;
 	}
 }
-?>
+endif; // class_exists check

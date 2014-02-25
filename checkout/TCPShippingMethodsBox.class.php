@@ -16,6 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// Exit if accessed directly
+if ( !defined( 'ABSPATH' ) ) exit;
+
+if ( !class_exists( 'TCPShippingMethodsBox' ) ) :
+
 require_once( TCP_CHECKOUT_FOLDER . 'TCPCheckoutBox.class.php' );
 
 class TCPShippingMethodsBox extends TCPCheckoutBox {
@@ -70,10 +75,12 @@ class TCPShippingMethodsBox extends TCPCheckoutBox {
 					$shipping_country = Addresses::getCountryId( $_SESSION['tcp_checkout']['billing']['selected_billing_id'] );
 				}
 			} else { //if ( $selected_billing_address == 'Y' ) {
+
 				$shipping_country = Addresses::getCountryId( $_SESSION['tcp_checkout']['shipping']['selected_shipping_id'] );
 			}
 			if ( ! $shipping_country ) $shipping_country = '';
 			$this->applicable_sending_plugins = tcp_get_applicable_shipping_plugins( $shipping_country, $shoppingCart );
+			//Get box settings
 			$settings = get_option( 'tcp_' . get_class( $this ), array() );
 			//If hidden if unique (not display the box opened) and the numbers of applucable methos is one
 			$hidden_if_unique = isset( $settings['hidden_if_unique'] ) ? $settings['hidden_if_unique'] : false;
@@ -248,4 +255,4 @@ class TCPShippingMethodsBox extends TCPCheckoutBox {
 		else return 1;
 	}
 }
-?>
+endif; // class_exists check

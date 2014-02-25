@@ -17,9 +17,9 @@
  */
 
 // Exit if accessed directly
-if ( !defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) exit;
 
-if ( ! class_exists( 'TCPCheckoutManager' ) ) {
+if ( ! class_exists( 'TCPCheckoutManager' ) ) :
 
 require_once( TCP_DAOS_FOLDER . 'Addresses.class.php' );
 require_once( TCP_DAOS_FOLDER . 'Orders.class.php' );
@@ -167,7 +167,7 @@ class TCPCheckoutManager {
 	protected function show_box( $box, $step = 0 ) {
 		global $thecartpress;
 		$user_registration	= $thecartpress->get_setting( 'user_registration', false );
-		$buy_button_color	= $thecartpress->get_setting( 'buy_button_color' );
+		$buy_button_color	= tcp_get_buy_button_color();
 		if ( $user_registration && $step > 0 && ! is_user_logged_in() ) return $this->show_box( $this->get_box( 0 ) );
 		ob_start(); ?>
 <div class="checkout tcpf" id="checkout">
@@ -202,14 +202,14 @@ class TCPCheckoutManager {
 						if ( defined( 'TCP_CHECKOUT' ) ) : ?>
 						<a href="<?php $previous_box = $this->get_box( $step - 1 ); echo get_site_url() . '/' . TCP_CHECKOUT .'/' . $previous_box->get_name(); ?>" name="tcp_back" id="tcp_back" class="tcp-btn tcp_checkout_button"><?php _e( 'Back', 'tcp' ); ?></a>
 						<?php else : ?>
-						<button type="submit" name="tcp_back" id="tcp_back" class="tcp_checkout_button <?php echo $buy_button_color; ?>"><?php echo apply_filters( 'tcp_checkout_back_button_title', __( 'Back', 'tcp' ), $step, $this->steps ); ?></button>
+						<button type="submit" name="tcp_back" id="tcp_back" class="tcp_checkout_button tcp-btn tcp-btn-default"><?php echo apply_filters( 'tcp_checkout_back_button_title', __( 'Back', 'tcp' ), $step, $this->steps ); ?></button>
 						<?php endif;
 					endif;
 					if ( $see_continue_button ) :
 						if ( $step < count( $this->steps ) - 1 ) : ?>
-							<button type="submit" name="tcp_continue" id="tcp_continue" class="tcp_checkout_button <?php echo $buy_button_color; ?>"><?php echo apply_filters( 'tcp_checkout_continue_button_title', __( 'Continue', 'tcp' ), $step, $this->steps ); ?></button>
+							<button type="submit" name="tcp_continue" id="tcp_continue" class="tcp_checkout_button tcp-btn <?php echo $buy_button_color; ?>"><?php echo apply_filters( 'tcp_checkout_continue_button_title', __( 'Continue', 'tcp' ), $step, $this->steps ); ?></button>
 						<?php elseif ( $step == count( $this->steps ) - 1 ) : ?>
-							<button type="submit" name="tcp_continue" id="tcp_continue" class="tcp_checkout_button <?php echo $buy_button_color; ?>"><?php echo apply_filters( 'tcp_checkout_purchase_button_title', __( 'Purchase', 'tcp' ), $step, $this->steps ); ?></button>
+							<button type="submit" name="tcp_continue" id="tcp_continue" class="tcp_checkout_button tcp-btn <?php echo $buy_button_color; ?>"><?php echo apply_filters( 'tcp_checkout_purchase_button_title', __( 'Purchase', 'tcp' ), $step, $this->steps ); ?></button>
 							<input type="hidden" name="tcp_step" value="<?php echo count( $this->steps ) - 1; ?>" />
 						<?php endif;
 					endif; ?>
@@ -291,6 +291,8 @@ class TCPCheckoutManager {
 			if ( $checkout_box && isset( $tcp_checkout_boxes[$checkout_box] ) ) {
 				$initial_path = dirname( dirname( TCP_ADMIN_FOLDER ) ) . '/';
 				require_once( $initial_path . $tcp_checkout_boxes[$checkout_box]['path'] );
+
+				//instantiate the box object
 				$this->steps_objects[$step] = new $checkout_box();
 				return $this->steps_objects[$step];
 			} else {
@@ -432,22 +434,22 @@ class TCPCheckoutManager {
 			$order['shipping_email']		= $_SESSION['tcp_checkout']['shipping']['shipping_email'];
 			$create_shipping_address = true;
 		} else {
-			$order['shipping_firstname'] = '';
-			$order['shipping_lastname'] = '';
-			$order['shipping_company'] = '';
-			$order['shipping_street'] = '';
-			$order['shipping_street_2'] = '';
-			$order['shipping_city'] = '';
-			$order['shipping_city_id'] = '';
-			$order['shipping_region'] = '';
-			$order['shipping_region_id'] = '';
-			$order['shipping_postcode'] = '';
-			$order['shipping_country'] = '';
-			$order['shipping_country_id'] = '';
-			$order['shipping_telephone_1'] = '';
-			$order['shipping_telephone_2'] = '';
-			$order['shipping_fax'] = '';
-			$order['shipping_email'] = '';
+			$order['shipping_firstname']	= '';
+			$order['shipping_lastname']		= '';
+			$order['shipping_company']		= '';
+			$order['shipping_street']		= '';
+			$order['shipping_street_2']		= '';
+			$order['shipping_city']			= '';
+			$order['shipping_city_id']		= '';
+			$order['shipping_region']		= '';
+			$order['shipping_region_id']	= '';
+			$order['shipping_postcode']		= '';
+			$order['shipping_country']		= '';
+			$order['shipping_country_id']	= '';
+			$order['shipping_telephone_1']	= '';
+			$order['shipping_telephone_2']	= '';
+			$order['shipping_fax']			= '';
+			$order['shipping_email']		= '';
 			$create_shipping_address = false;
 		}
 		if ( is_user_logged_in() ) {
@@ -460,12 +462,12 @@ class TCPCheckoutManager {
 		$shoppingCart = apply_filters( 'tcp_checkout_create_order_get_shopping_cart', TheCartPress::getShoppingCart() );
 		$shipping_country = $this->get_shipping_country();
 		if ( isset( $_SESSION['tcp_checkout']['shipping_methods']['shipping_method_id'] ) ) { //sending
-			$smi		= $_SESSION['tcp_checkout']['shipping_methods']['shipping_method_id'];
-			$smi		= explode( '#', $smi );
-			$class		= $smi[0];
-			$instance	= $smi[1];
-			$shipping_method = new $class();
-			$shipping_amount = $shipping_method->getCost( $instance, $shipping_country, $shoppingCart );
+			$smi				= $_SESSION['tcp_checkout']['shipping_methods']['shipping_method_id'];
+			$smi				= explode( '#', $smi );
+			$class				= $smi[0];
+			$instance			= $smi[1];
+			$shipping_method 	= new $class();
+			$shipping_amount 	= $shipping_method->getCost( $instance, $shipping_country, $shoppingCart );
 			$shoppingCart->addOtherCost( ShoppingCart::$OTHER_COST_SHIPPING_ID, $shipping_amount, __( 'Shipping cost', 'tcp' ) );
 			$order['shipping_amount']	= 0;
 			$order['shipping_method']	= strip_tags( $shipping_method->getCheckoutMethodLabel( $instance, $shipping_country, $shoppingCart ) );// . ' [' . $class . ']';
@@ -490,31 +492,31 @@ class TCPCheckoutManager {
 			$shoppingCart->addOtherCost( ShoppingCart::$OTHER_COST_PAYMENT_ID, $payment_amount, __( 'Payment cost', 'tcp' ) );
 			$order['payment_method'] = $class;
 			$order['payment_notice'] = $payment_method->getNotice( $instance, $shipping_country, $shoppingCart );
-			//$order['payment_name']   = $payment_method->getName();
-			$order['payment_name'] = $payment_method->getCheckoutMethodLabel( $instance, $shipping_country, $shoppingCart );// . ' [' . $payment_method->getName() . ']';
+			//$order['payment_name'] = $payment_method->getName();
+			$order['payment_name']	 = $payment_method->getCheckoutMethodLabel( $instance, $shipping_country, $shoppingCart );// . ' [' . $payment_method->getName() . ']';
 		} else {
 			$order['payment_amount'] = 0;
 			$order['payment_method'] = '';
 			$order['payment_notice'] = '';
-			$order['payment_name'] = '';
+			$order['payment_name']	 = '';
 		}
 		do_action( 'tcp_checkout_calculate_other_costs', $order );
 		if ( tcp_is_display_prices_with_taxes() ) $order['discount_amount'] = $shoppingCart->getAllDiscounts();
 		else $order['discount_amount'] = $shoppingCart->getCartDiscountsTotal();
 		$order['weight'] = $shoppingCart->getWeight();
-		$order['comment_internal'] = '';
-		$order['code_tracking'] = '';
-		$order['transaction_id'] = '';
+		$order['comment_internal']	= '';
+		$order['code_tracking']		= '';
+		$order['transaction_id']	= '';
 		//TODO more values???
 		if ( isset( $order['billing_country'] ) && strlen( $order['billing_country'] ) == 0 ) {
-			$country_bill = Countries::get( $order['billing_country_id'] );
+			$country_bill = TCPCountries::get( $order['billing_country_id'] );
 			if ( $country_bill ) $order['billing_country'] = $country_bill->name;
 			else $order['billing_country'] = '';
 		}
 		if ( $order['shipping_country_id'] == $order['billing_country_id'] ) {
 			$order['shipping_country'] = $order['billing_country'];
 		} elseif ( isset( $order['shipping_country'] ) && strlen( $order['shipping_country'] ) == 0 ) {
-			$country_ship = Countries::get( $order['shipping_country_id'] );
+			$country_ship = TCPCountries::get( $order['shipping_country_id'] );
 			if ( $country_ship ) $order['shipping_country'] = $country_ship->name;
 			else $order['shipping_country'] = '';
 		}
@@ -551,6 +553,7 @@ class TCPCheckoutManager {
 			$ordersDetails['qty_ordered']		= $item->getCount();
 			$ordersDetails['max_downloads']		= get_post_meta( $post->ID, 'tcp_max_downloads', true );
 			$ordersDetails['expires_at']		= $expires_at;
+			$ordersDetails['discount']			= $item->getDiscount();
 			$orders_details_id = OrdersDetails::insert( $ordersDetails );
 			if ( $item->has_attributes() ) tcp_update_order_detail_meta( $orders_details_id, 'tcp_attributes', $item->get_attributes() );
 			do_action( 'tcp_checkout_create_order_insert_detail', $order_id, $orders_details_id, $item->getPostId(), $ordersDetails ); //, $item->getOption1Id(), $item->getOption2Id() );
@@ -693,4 +696,4 @@ class TCPCheckoutManager {
 		}
 	}
 }
-} // class_exists check
+endif; // class_exists check

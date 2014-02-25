@@ -198,6 +198,7 @@ function tcp_get_the_product_price( $post_id = 0 ) {
 	return (float)apply_filters( 'tcp_get_the_product_price', $price, $post_id );
 	return $price;
 }
+
 /**
  * Adds the currency to the price
  * @since 1.0.9
@@ -247,25 +248,24 @@ function tcp_get_the_price_to_show( $post_id = 0, $price = false ) {
  * Display the price with currency
  * @since 1.0.9
  */
-function tcp_the_price_label( $before = '', $after = '', $echo = true ) {
+function tcp_the_price_label( $before = '', $after = '' ) {
 	$label = tcp_get_the_price_label();
 	$label = $before . $label . $after;
-	if ( $echo ) echo $label;
-	else return $label;
+	echo $label;
 }
 
-/**
- * Returns the price with currency
- * @since 1.0.9
- */
-function tcp_get_the_price_label( $post_id = 0, $price = false, $apply_filters = true ) {
-	if ( $post_id == 0 ) $post_id = get_the_ID();
-	$post_id = tcp_get_default_id( $post_id );
-	$price = tcp_get_the_price_to_show( $post_id, $price );
-	$label = tcp_format_the_price( $price );
-	if ( $apply_filters ) $label = apply_filters( 'tcp_get_the_price_label', $label, $post_id, $price );
-	return $label;
-}
+	/**
+	 * Returns the price with currency
+	 * @since 1.0.9
+	 */
+	function tcp_get_the_price_label( $post_id = 0, $price = false, $apply_filters = true ) {
+		if ( $post_id == 0 ) $post_id = get_the_ID();
+		$post_id = tcp_get_default_id( $post_id );
+		$price = tcp_get_the_price_to_show( $post_id, $price );
+		$label = tcp_format_the_price( $price );
+		if ( $apply_filters ) $label = apply_filters( 'tcp_get_the_price_label', $label, $post_id, $price );
+		return $label;
+	}
 
 /**
  * Returns the (min, max) price for grouped products
@@ -733,13 +733,14 @@ function tcp_get_the_thumbnail_src( $post_id = 0, $image_size = 'full' ) {
 	return $image_attributes[0];
 }
 
-function tcp_get_the_thumbnail_image( $post_id = 0, $args = false ) {
+function tcp_get_the_thumbnail_image( $post_id = 0, $args = false, $attr = false ) {
 	if ( has_post_thumbnail( $post_id ) ) {
 		$image_size = isset( $args['size'] ) ? $args['size'] : 'thumbnail';
 		 if ( is_array( $image_size ) ) $image_size = $image_size[0];
 		$image_align = isset( $args['align'] ) ? $args['align'] : '';
 		$thumbnail_id = get_post_thumbnail_id( $post_id );
-		$attr = array( 'class' => $image_align . ' size-' . $image_size . ' wp-image-' . $thumbnail_id . ' tcp_single_img_featured tcp_image_' . $post_id );
+		if ( !is_array( $attr ) ) $attr = (array)$attr;
+		$attr['class'] = $image_align . ' size-' . $image_size . ' wp-image-' . $thumbnail_id . ' tcp_single_img_featured tcp_image_' . $post_id;
 		if ( is_numeric( $image_size ) ) $image_size = array( $image_size, $image_size );
 		if ( function_exists( 'get_the_post_thumbnail' ) ) $image = get_the_post_thumbnail( $post_id, $image_size, $attr );
 		return $image;
@@ -770,43 +771,79 @@ function tcp_get_the_thumbnail_with_permalink( $post_id = 0, $args = false, $ech
 	else return $image;
 }
 
-function tcp_get_permalink( $post_id = 0, $option_1_id = 0, $option_2_id = 0 ) {
-	$post_id = tcp_get_current_id( $post_id, get_post_type( $post_id ) );
-	if ( ! tcp_is_visible( $post_id ) ) {
-		$parent_id = tcp_get_the_parent( $post_id );
-		if ( $parent_id > 0 ) $post_id = $parent_id;
-	}
-	$url = get_permalink( $post_id );
-	return apply_filters( 'tcp_get_permalink', $url, $post_id );
+/**
+ * Outputs the permalink
+ *
+ * @since 1.3.4
+ *
+ * @uses tcp_get_permalink
+ */
+function tcp_the_permalink( $post_id = 0, $option_1_id = 0, $option_2_id = 0 ) {
+	echo tcp_get_permalink( $post_id, $option_1_id, $option_2_id );
 }
 
-function tcp_get_the_thumbnail( $post_id = 0, $option_1_id = 0, $option_2_id = 0, $size = 'thumbnail' ) {
-	$image = '';
-	$args = array( 'size' => $size );
-	if ( $option_2_id > 0 ) {
-		$image = tcp_get_the_thumbnail_image( $option_2_id, $args );
-		if ( strlen( $image ) == 0 ) {
-			$option_2_id = tcp_get_default_id( $option_2_id, get_post_type( $option_2_id ) );
-			//$image = get_the_post_thumbnail( $option_2_id, $size );
-			$image = tcp_get_the_thumbnail_image( $option_2_id, $args );
+	function tcp_get_permalink( $post_id = 0, $option_1_id = 0, $option_2_id = 0 ) {
+		$post_id = tcp_get_current_id( $post_id, get_post_type( $post_id ) );
+		if ( ! tcp_is_visible( $post_id ) ) {
+			$parent_id = tcp_get_the_parent( $post_id );
+			if ( $parent_id > 0 ) $post_id = $parent_id;
 		}
+		$url = get_permalink( $post_id );
+		return apply_filters( 'tcp_get_permalink', $url, $post_id );
 	}
-	if ( strlen( $image ) == 0 && $option_1_id > 0 ) {
-		$image = tcp_get_the_thumbnail_image( $option_1_id, $args );
-		if ( strlen( $image ) == 0 ) {
-			$option_1_id = tcp_get_default_id( $option_1_id, get_post_type( $option_1_id ) );
-			$image = tcp_get_the_thumbnail_image( $option_1_id, $args );
-		}
-	}
-	if ( strlen( $image ) == 0 && $post_id > 0 ) {
-		$image = tcp_get_the_thumbnail_image( $post_id, $args );
-		if ( has_post_thumbnail( $post_id ) ) {
-			$post_id = tcp_get_default_id( $post_id, get_post_type( $post_id ) );
-			$image = tcp_get_the_thumbnail_image( $post_id, $args );
-		}
-	}
-	return apply_filters( 'tcp_get_the_thumbnail', $image, $post_id, $size );
+
+/**
+ * Check if post has an image attached.
+ *
+ * @since 1.3.4
+ *
+ * @param int $post_id Optional. Post ID.
+ * @return bool Whether post has an image attached.
+ *
+ * @uses has_post_thumbnail, apply_filters (tcp_has_post_thumbnail)
+ */
+function tcp_has_post_thumbnail( $post_id = null ) {
+	$has = has_post_thumbnail( $post_id );
+	return apply_filters( 'tcp_has_post_thumbnail', (bool)$has, $post_id );
 }
+
+/**
+ * Outputs the image, of the product or of the product's parent
+ *
+ * @uses tcp_get_the_thumbnail
+ * @since 1.3.4
+ */
+function tcp_the_thumbnail( $post_id = 0, $option_1_id = 0, $option_2_id = 0, $size = 'thumbnail', $attr = false ) {
+	echo tcp_get_the_thumbnail( $post_id, $option_1_id, $option_2_id, $size, $attr );
+}
+
+	function tcp_get_the_thumbnail( $post_id = 0, $option_1_id = 0, $option_2_id = 0, $size = 'thumbnail', $attr = false ) {
+		$image = '';
+		$args = array( 'size' => $size );
+		if ( $option_2_id > 0 ) {
+			$image = tcp_get_the_thumbnail_image( $option_2_id, $args, $attr );
+			if ( strlen( $image ) == 0 ) {
+				$option_2_id = tcp_get_default_id( $option_2_id, get_post_type( $option_2_id ) );
+				//$image = get_the_post_thumbnail( $option_2_id, $size );
+				$image = tcp_get_the_thumbnail_image( $option_2_id, $args, $attr );
+			}
+		}
+		if ( strlen( $image ) == 0 && $option_1_id > 0 ) {
+			$image = tcp_get_the_thumbnail_image( $option_1_id, $args );
+			if ( strlen( $image ) == 0 ) {
+				$option_1_id = tcp_get_default_id( $option_1_id, get_post_type( $option_1_id ) );
+				$image = tcp_get_the_thumbnail_image( $option_1_id, $args, $attr );
+			}
+		}
+		if ( strlen( $image ) == 0 && $post_id > 0 ) {
+			$image = tcp_get_the_thumbnail_image( $post_id, $args, $attr );
+			if ( has_post_thumbnail( $post_id ) ) {
+				$post_id = tcp_get_default_id( $post_id, get_post_type( $post_id ) );
+				$image = tcp_get_the_thumbnail_image( $post_id, $args, $attr );
+			}
+		}
+		return apply_filters( 'tcp_get_the_thumbnail', $image, $post_id, $size );
+	}
 
 /**
  * Displays the content of the given post
@@ -842,21 +879,29 @@ function tcp_the_excerpt( $post_id = 0, $length = 0 ) {
 
 /**
  * Returns the excerpt of the given post
+ *
  * @since 1.2.8
+ *
+ * @param int $post_id
+ * @param int $length Max excerpt length. Length is set in characters
+ *
+ * @uses get_the_ID, get_post, apply_filters ('the_excerpt'), tcp_get_the_content, strip_shortcodes and tcp_get_permalink
  * @see http://wp-snippets.com/dynamic-custom-length-excpert/
  */
-function tcp_get_the_excerpt( $post_id = 0, $length = 0 ) { // Max excerpt length. Length is set in characters
+function tcp_get_the_excerpt( $post_id = 0, $length = 0 ) {
 	if ( $post_id == 0 ) $post_id = get_the_ID();
+	$post_id = tcp_get_current_id( $post_id );
 	$post = get_post( $post_id );
 	$text = $post->post_excerpt;
 	$text = apply_filters( 'the_excerpt', $text );
 	$see_points = false;
 	if ( strlen( $text ) == 0 ) {
 		$text = tcp_get_the_content( $post_id );
+		$text = strip_tags( $text, '<p><br><style>' ); // use ' $text = strip_tags($text,'&lt;p&gt;&lt;a&gt;'); ' if you want to keep some tags
 		$see_points = true;
 	}
 	$text = strip_shortcodes( $text ); // optional, recommended
-	$text = strip_tags( $text ); // use ' $text = strip_tags($text,'&lt;p&gt;&lt;a&gt;'); ' if you want to keep some tags
+
 //	if ( $length > 0 ) $text = substr( $text, 0, $length );
 	if ( $length > 0 ) {
 		$initial_length = strlen( $text );
@@ -897,7 +942,7 @@ function tcp_get_the_meta( $meta_key, &$post_id = 0 ) {
 //
 /**
  * Returns all saleable post types
- * But is importat to remask that you would prefer to uses "tcp_get_product_post_types"
+ * But is importat to remark that you would prefer to uses "tcp_get_product_post_types"
  * because it returns all saleable products (removing options, for example)
  *
  * @see tcp_get_product_post_types
@@ -921,6 +966,7 @@ function tcp_is_saleable_post_type( $post_type ) {
 
 /**
  * Returns true if a post, defined by post_id, is saleable
+ *
  * @since 1.1.6
  */
 function tcp_is_saleable( $post_id = 0 ) {
@@ -930,6 +976,7 @@ function tcp_is_saleable( $post_id = 0 ) {
 
 /**
  * Registers a post type as saleable
+ *
  * @since 1.1.6
  */
 function tcp_register_saleable_post_type( $saleable_post_type ) {
@@ -939,6 +986,7 @@ function tcp_register_saleable_post_type( $saleable_post_type ) {
 
 /**
  * Returns true if a taxonomy has saleable post types
+ *
  * @since 1.1.6
  */
 function tcp_is_saleable_taxonomy( $taxonomy ) {
@@ -949,6 +997,7 @@ function tcp_is_saleable_taxonomy( $taxonomy ) {
 
 /**
  * Dynamic Option is a saleable post type, but it's not a product, it's an option
+ *
  * @since 1.2.6.1
  */
 function tcp_get_product_post_types( $one_more = false ) {
@@ -956,6 +1005,28 @@ function tcp_get_product_post_types( $one_more = false ) {
 	$product_post_types = apply_filters( 'tcp_get_product_post_types', $product_post_types );
 	return $product_post_types;
 }
+
+/**
+ * Retusn the author name from a post id
+ *
+ * @since 1.3.5
+ *
+ * @param int $post_id, if 0 get the current post id
+ * @return string author name
+ */
+function tcp_get_the_author_name( $post_id = 0 ) {
+	if ( $post_id == 0 ) $post_id = get_the_ID();
+	$post_id = tcp_get_default_id( $post_id );
+
+	$post = get_post( $post_id );
+	if ( $post ) {
+		$author_name = the_author_meta( 'display_name', $post->post_author );
+		$author_name = apply_filters( 'tcp_get_the_author_name', $author_name, $post_id );
+		return $author_name;
+	}
+}
+
+//tcp_get_the_author_name_and_link
 
 //
 //Order status template functions
@@ -965,7 +1036,6 @@ function tcp_get_product_post_types( $one_more = false ) {
  * @since 1.2.5.2
  */
 function tcp_get_order_status() {
-	require_once( TCP_DAOS_FOLDER . 'Orders.class.php' );
 	$status_list = array(
 		Orders::$ORDER_COMPLETED => array(
 			'name'	=> Orders::$ORDER_COMPLETED,
@@ -1068,9 +1138,12 @@ function tcp_get_status_label( $status ) {
 // End Order status functions templates
 //
 
-//
-//Product types
-//
+/**
+ * Returns product types
+ *
+ * @since 1.1
+ * @uses apply_filters (tcp_get_product_types)
+ */
 function tcp_get_product_types( $no_one = false, $no_one_desc = '' ) {
 	$types = array();
 	if ( $no_one ) $types[''] = array( 'label' => $no_one_desc != '' ? $no_one_desc : __( 'No one', 'tcp' ) );
@@ -1321,12 +1394,16 @@ function tcp_get_template_part( $path, $slug = '', $name = '' ) {
  * @since 1.3.3
  * @uses locate_template, tcp_get_template_part, plugin_dir_path, apply_filters (called using 'tcp_the_loop')
  */
-function tcp_the_loop( $loop = 'tcp-grid' ) {
-	if ( ! locate_template( "loop-$loop.php", true ) ) {
+function tcp_the_loop( $loop = 'tcp-grid', $include = true ) {
+	$path = locate_template( "loop-$loop.php" );
+	if ( strlen( $path ) == 0 ) {
 		$path = plugin_dir_path( dirname( __FILE__ ) ) . "themes-templates/loop-$loop.php";
 		if ( !file_exists( $path ) ) $path = plugin_dir_path( dirname( __FILE__ ) ) . "themes-templates/loop-tcp-grid.php";
-		require( apply_filters( 'tcp_the_loop', $path, $loop ) );
 	}
+	$path = apply_filters( 'tcp_the_loop', $path, $loop );
+
+	if ( $include ) include( $path );
+	else return $path;
 }
 
 /**

@@ -37,9 +37,6 @@ table#tcp_shopping_cart_table tbody tr td {
 table#tcp_shopping_cart_table tbody tr.tcp_cart_product_row td {
 	border-top:1px dotted;
 }
-table#tcp_shopping_cart_table tbody tr.tcp_cart_product_row td.tcp_cart_thumbnail {
-	padding:10px 0; 
-}
 table#tcp_shopping_cart_table tbody tr.tcp_cart_title_row th {
 	border-bottom:1px solid;
 }
@@ -106,29 +103,30 @@ table#tcp_shopping_cart_table tr.tcp_cart_title_row  th {
 }
 table#tcp_shopping_cart_table .tcp_cart_name,
 table#tcp_shopping_cart_table .tcp_cart_thumbnail {
-	/*background-color: #f7f7f7;*/
 	width: auto;
 }
 table#tcp_shopping_cart_table .tcp_cart_thumbnail img {
-	/*background-color: #f7f7f7;*/
-    height: auto;
-    max-width: 65px;
-    vertical-align: top;
+	height: auto;
+	width: 65px;
+	vertical-align: top;
 	margin:0;
 	padding:0;
 }
 table#tcp_shopping_cart_table .tcp_cart_onlyprice {
 	white-space: nowrap;
 }
-table#tcp_shopping_cart_table .tcp_cart_price .tcp_cart_discount {
+/*table#tcp_shopping_cart_table .tcp_cart_price .tcp_cart_discount {
 	float: left;
-} 
+}*/
 #shopping_cart input {
 	font-size: 12px;
 }
 input.tcp_count {
     max-width: 60px;
     text-align: center;
+}
+td.tcp_cart_units {
+	white-space: nowrap;
 }
 td.tcp_cart_units span.tcp_no_stock_enough {
 	white-space: normal;
@@ -138,35 +136,7 @@ table#tcp_shopping_cart_table .tcp_cart_name a {
 	text-decoration: none;
 }
 
-/*delete and edit ICONS in shopping cart*/
-input[type=submit].tcp_modify_item_shopping_cart,
-input[type=submit].tcp_delete_item_shopping_cart,
-input[type=submit].tcp_delete_shopping_cart {
-	width: 20px;
-	height: 20px;
-	text-indent: -1000px;
-	border: 0;
-	box-shadow: 0 1px 2px rgba(64, 64, 64, 0.1);
-	padding: 0;
-	margin: 2px 1px;
-    vertical-align: middle;
-}
-input[type=submit].tcp_modify_item_shopping_cart {
-	background: url(../images/refresh-cart.png) no-repeat 50% 50% transparent;
-}
-input[type=submit].tcp_modify_item_shopping_cart:hover {
-	background: url(../images/refresh-cart-on.png) no-repeat 50% 50% transparent;
 
-}
-input[type=submit].tcp_delete_item_shopping_cart,
-input[type=submit].tcp_delete_shopping_cart {
-	background: url(../images/delete-cart.png) no-repeat 50% 50% transparent;
-
-}
-input[type=submit].tcp_delete_item_shopping_cart:hover,
-input[type=submit].tcp_delete_shopping_cart:hover {
-	background: url(../images/delete-cart-on.png) no-repeat 50% 50% transparent;
-}
 #shipping_billing_info ul {
 	list-style: none;
 }
@@ -178,196 +148,34 @@ input[type=submit].tcp_delete_shopping_cart:hover {
 */
 .tcp_chk_coupons {
 	margin: 30px 0;
-	text-align: right;
+  text-align: right;
 }
 
  /* Buttons */
 ul.tcp_sc_links {
-	list-style-type: none;
+	list-style-type: none !important;
 	width:auto;
 } 	
 ul.tcp_sc_links li{
 	float: right;
-	list-style: none;
-	margin: 0 0 0 10px;
+	list-style: none !important;
+	margin: 0;
 } 
-ul.tcp_sc_links li a{
-	text-decoration: none;
-} 
-
-#content input.btn-primary,
-.tcp_sc_checkout  a.btn-primary {
-  color: #ffffff;
-}
-
-
-#shopping_cart a.btn {
-  color: #333333;
-}
-#shopping_cart a.btn:hover {
-  color: #333333;
-}
-#shopping_cart a.btn.btn-primary {
-  color: #ffffff;
-}
-#shopping_cart a.btn.btn-primary:hover {
-  color: #ffffff;
-}
-
-
-/* Buttons from Bootstrap 2.2.6*/
-.btn, input[type="submit"].btn, input[type="button"].btn {
-  display: inline-block;
-  *display: inline;
-  /* IE7 inline-block hack */
-
-  *zoom: 1;
-  padding: 4px 12px;
-  margin-bottom: 0;
-  font-size: 14px;
-  line-height: 20px;
-  text-align: center;
-  vertical-align: middle;
-  cursor: pointer;
-  color: #333333;
-  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
-  background-color: #f5f5f5;
-  background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
-  background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
-  background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
-  background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
-  background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe6e6e6', GradientType=0);
-  border-color: #e6e6e6 #e6e6e6 #bfbfbf;
-  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-  *background-color: #e6e6e6;
-  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
-
-  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
-  border: 1px solid #bbbbbb;
-  *border: 0;
-  border-bottom-color: #a2a2a2;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
-  *margin-left: .3em;
-  -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
-  -moz-box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
-}
-
-a.btn:hover,
-.btn:hover,
-input.btn[type="submit"]:hover,
-input.btn[type="button"]:hover,
-.btn:active,
-.btn.active,
-.btn.disabled,
-.btn[disabled] {
-  color: #333333;
-  background: #e6e6e6;
-  background-color: #e6e6e6;
-  *background-color: #d9d9d9;
-}
-.btn:active,
-.btn.active,
-input.btn[type="submit"]:active,
-input.btn[type="button"]:active {
-  background-color: #cccccc \9;
-  padding: 4px 12px;
-
-}
-.btn:first-child {
-  *margin-left: 0;
-}
-.btn:hover {
-  color: #333333;
-  text-decoration: none;
-  background-position: 0 -15px;
-  -webkit-transition: background-position 0.1s linear;
-  -moz-transition: background-position 0.1s linear;
-  -o-transition: background-position 0.1s linear;
-  transition: background-position 0.1s linear;
-}
-.btn:focus {
-  outline: thin dotted #333;
-  outline: 5px auto -webkit-focus-ring-color;
-  outline-offset: -2px;
-}
-
-input.btn[type="submit"]:focus,
-input.btn[type="button"]:focus,
-.btn.active,
-.btn:active,
-input.btn[type="submit"]:active,
-input.btn[type="button"]:active {
-  background-image: none;
-  outline: 0;
-  -webkit-box-shadow: inset 0 2px 4px rgba(0,0,0,.15), 0 1px 2px rgba(0,0,0,.05);
-  -moz-box-shadow: inset 0 2px 4px rgba(0,0,0,.15), 0 1px 2px rgba(0,0,0,.05);
-  box-shadow: inset 0 2px 4px rgba(0,0,0,.15), 0 1px 2px rgba(0,0,0,.05);
-}
-input.btn.btn-primary[type="submit"].active
-.btn-primary.active {
-  color: rgba(255, 255, 255, 0.75);
-}
-.btn {
-  border-color: #c5c5c5;
-  border-color: rgba(0, 0, 0, 0.15) rgba(0, 0, 0, 0.15) rgba(0, 0, 0, 0.25);
-}
-input.btn.btn-primary[type="submit"],
-.btn-primary {
-  color: #ffffff;
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-  background-color: #006dcc;
-  background-image: -moz-linear-gradient(top, #0088cc, #0044cc);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0044cc));
-  background-image: -webkit-linear-gradient(top, #0088cc, #0044cc);
-  background-image: -o-linear-gradient(top, #0088cc, #0044cc);
-  background-image: linear-gradient(to bottom, #0088cc, #0044cc);
-  background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc', endColorstr='#ff0044cc', GradientType=0);
-  border-color: #0044cc #0044cc #002a80;
-  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-  *background-color: #0044cc;
-  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
-
-  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
-}
-#shopping_cart a.btn.btn-primary:hover,
-input.btn.btn-primary[type="submit"]:hover,
-.btn-primary:hover,
-.btn-primary.active {
-  color: #ffffff;
-  background: #0044cc;
-  background-color: #0044cc;
-  *background-color: #003bb3;
-  background-position: 0 -15px;
-  -webkit-transition: background-position 0.1s linear;
-  -moz-transition: background-position 0.1s linear;
-  -o-transition: background-position 0.1s linear;
-  transition: background-position 0.1s linear;
-}
-input.btn.btn-primary[type="submit"]:active,
-.btn-primary:active,
-.btn-primary.active {
-  background-color: #003399 \9;
+ul.tcp_sc_links li .tcp-btn {
+	margin: 0 0 0 12px;
 }
 
 
 
 
 /* widgets */
-.tcp_resumen_subtotal_li,
-span.tcp_total {
-	font-weight: bold;
-}
-.tcp_delete_all_link form {
+.widget.shoppingcart ul ul.tcp_shopping_cart_widget,
+ul.tcp_shopping_cart,
+ul.tcp_shopping_cart li,
+ul.tcp_shopping_cart form,
+ul.tcp_shopping_cart_resume form {
 	margin:0;
-}
-.widget.shoppingcart form {
-	margin:12px;
+	padding: 0;
 }
 ul.tcp_shopping_cart_widget {
 	font-size: .9em;
@@ -376,6 +184,24 @@ ul.tcp_shopping_cart_widget {
 	vertical-align: middle;
 	margin:4px;
 }
-.tcp_cart_widget_item .tcp_name {
-	font-weight: bold;
-}
+ul.tcp_shopping_cart li.tcp_cart_widget_item {
+	margin-top: 10px;
+}
+ul.tcp_shopping_cart li,
+ul.tcp_shopping_cart_resume li {
+	margin:3px 0;
+	padding: 0;
+}
+ul.tcp_shopping_cart li.tcp_cart_widget_footer_link,
+ul.tcp_shopping_cart_resume li.tcp_cart_widget_footer_link {	
+	margin: 6px 0;
+}
+li.tcp_cart_widget_thumbnail,
+li.tcp_cart_widget_thumbnail + li,
+li.tcp_cart_widget_thumbnail + li + li {
+	display: inline-block;
+}
+li.tcp_cart_widget_thumbnail img {
+	max-width: 65px;
+	height: auto;
+}

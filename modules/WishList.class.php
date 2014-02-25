@@ -28,7 +28,7 @@
 // Exit if accessed directly
 if ( !defined( 'ABSPATH' ) ) exit;
 
-if ( ! class_exists( 'TCPWishList' ) ) {
+if ( !class_exists( 'TCPWishList' ) ) :
 
 class TCPWishList {
 
@@ -60,11 +60,13 @@ class TCPWishList {
 	private function check_for_shopping_cart_actions() {
 		if ( isset( $_REQUEST['tcp_add_to_wish_list'] ) ) {
 			unset( $_REQUEST['tcp_add_to_wish_list'] );
-			if ( ! isset( $_REQUEST['tcp_post_id'] ) ) return;
+			if ( !isset( $_REQUEST['tcp_post_id'] ) ) return;
+			if ( !is_array( $_REQUEST['tcp_post_id'] ) ) $_REQUEST['tcp_post_id'] = (array)$_REQUEST['tcp_post_id'];
+			if ( !is_array( $_REQUEST['tcp_count'] ) ) $_REQUEST['tcp_count'] = (array)$_REQUEST['tcp_count'];
+			do_action( 'tcp_before_add_wish_list', $_REQUEST['tcp_post_id'] );
+
+			//The Wishlist is stored in the shopping cart
 			$shoppingCart = TheCartPress::getShoppingCart();
-			if ( ! is_array( $_REQUEST['tcp_post_id'] ) ) $_REQUEST['tcp_post_id'] = (array)$_REQUEST['tcp_post_id'];
-			if ( ! is_array( $_REQUEST['tcp_count'] ) ) $_REQUEST['tcp_count'] = (array)$_REQUEST['tcp_count'];
-			do_action( 'tcp_before_add_shopping_cart', $_REQUEST['tcp_post_id'] );
 			for( $i = 0; $i < count( $_REQUEST['tcp_post_id'] ); $i++ ) {
 				$count = isset( $_REQUEST['tcp_count'][$i] ) ? (int)$_REQUEST['tcp_count'][$i] : 0;
 				if ( $count > 0 ) {
@@ -116,6 +118,7 @@ class TCPWishList {
 <h3><?php _e( 'WishList', 'tcp' ); ?></h3>
 
 <div class="postbox">
+<div class="inside">
 <table class="form-table">
 <tbody>
 <tr valign="top">
@@ -128,6 +131,7 @@ class TCPWishList {
 </tr>
 </tbody>
 </table>
+</div>
 </div><!-- .postbox --> <?php
 	}
 	
@@ -144,14 +148,12 @@ class TCPWishList {
 
 	function tcp_the_add_to_cart_button( $out, $post_id ) {
 		global $thecartpress;
-		if ( ! $thecartpress->get_setting( 'enabled_wish_list', false ) ) return $out;
-		$buy_button_color	= $thecartpress->get_setting( 'buy_button_color' );
-		$buy_button_size	= $thecartpress->get_setting( 'buy_button_size' );
-		$shoppingCart		= TheCartPress::getShoppingCart();
+		if ( !$thecartpress->get_setting( 'enabled_wish_list', false ) ) return $out;
+		$shoppingCart = TheCartPress::getShoppingCart();
 		if ( ! $shoppingCart->isInWishList( $post_id ) ) {
 			ob_start(); ?>
 			<input type="hidden" value="" name="tcp_new_wish_list_item" id="tcp_new_wish_list_item_<?php echo $post_id; ?>" />
-			<button type="submit" name="tcp_add_to_wish_list" class="tcp_add_to_wish_list <?php echo $buy_button_color, ' ', $buy_button_size; ?>" id="tcp_add_wish_list_<?php echo $post_id; ?>"
+			<button type="submit" name="tcp_add_to_wish_list" class="tcp_add_to_wish_list <?php tcp_the_buy_button_color(); ?> <?php tcp_the_buy_button_size(); ?>" id="tcp_add_wish_list_<?php echo $post_id; ?>"
 			onclick="jQuery('#tcp_new_wish_list_item_<?php echo $post_id; ?>').val('<?php echo $post_id; ?>');jQuery('#tcp_frm_<?php echo $post_id; ?>').attr('action', '');"><?php _e( 'Add to Wish list', 'tcp' ); ?></button>
 			<?php do_action( 'tcp_buy_button_add_to_wish_list', $post_id );
 			$out .= ob_get_clean();
@@ -166,4 +168,4 @@ class TCPWishList {
 }
 
 $GLOBALS['wish_list'] = new TCPWishList();
-} // class_exists check
+endif; // class_exists check

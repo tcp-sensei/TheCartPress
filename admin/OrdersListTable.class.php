@@ -17,13 +17,13 @@
  */
 
 // Exit if accessed directly
-if ( !defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) exit;
 
-if ( ! class_exists( 'OrdersListTable' ) ) {
+if ( ! class_exists( 'TCPOrdersListTable' ) ) :
 
 require_once( TCP_CLASSES_FOLDER . 'OrderPage.class.php' );
 
-class OrdersListTable extends WP_List_Table {
+class TCPOrdersListTable extends WP_List_Table {
 
 	function __construct() {
 		parent::__construct( array(
@@ -41,10 +41,11 @@ class OrdersListTable extends WP_List_Table {
 
 	function prepare_items() {
 		if ( ! is_user_logged_in() ) return;
-		$status = isset( $_REQUEST['status'] ) ? $_REQUEST['status'] : '';
-		$search_by = isset( $_REQUEST['search_by'] ) ? $_REQUEST['search_by'] : '';
-		$per_page = apply_filters( 'tcp_orders_per_page', 15 );
-		$paged = $this->get_pagenum();
+
+		$status		= isset( $_REQUEST['status'] ) ? $_REQUEST['status'] : '';
+		$search_by	= isset( $_REQUEST['search_by'] ) ? $_REQUEST['search_by'] : '';
+		$per_page	= apply_filters( 'tcp_orders_per_page', 15 );
+		$paged		= $this->get_pagenum();
 		if ( current_user_can( 'tcp_edit_orders' ) ) {
 			//$search_by //TODO
 			$this->items = Orders::getOrdersEx( $paged, $per_page, $status );
@@ -102,8 +103,8 @@ class OrdersListTable extends WP_List_Table {
 	 */
 	function column_total( $item ) {
 		$total = Orders::getTotal( $item->order_id );
-		$total = apply_filters( 'tcp_orders_list_column_total', $total, $item );
-		echo tcp_format_the_price( $total, $item->order_currency_code );
+		$total = tcp_format_the_price( $total, $item->order_currency_code );
+		echo apply_filters( 'tcp_orders_list_column_total', $total, $item );
 	}
 
 	/**
@@ -154,9 +155,8 @@ class OrdersListTable extends WP_List_Table {
 		if ( strlen( $item->shipping_city ) > 0 ) echo $item->shipping_city;
 		if ( strlen( $item->shipping_postcode ) > 0 ) echo ', ', $item->shipping_postcode;
 		echo ' (', $item->shipping_country_id, ')';
-		printf ('<a href="%s" target="_blank"><img src="%s"/></a>',
-			"http://maps.google.com/maps?&q={$item->shipping_street},+{$item->shipping_city},+{$item->shipping_postcode},+{$item->shipping_country_id}&z=16",
-			plugins_url( 'images/tcp_map_link_16.png', dirname( __FILE__ ) )
+		printf ('<a href="%s" target="_blank"><span class="glyphicon glyphicon-map-marker"></span></a>',
+			"http://maps.google.com/maps?&q={$item->shipping_street},+{$item->shipping_city},+{$item->shipping_postcode},+{$item->shipping_country_id}&z=16"
 		);
 	}
 
@@ -166,9 +166,8 @@ class OrdersListTable extends WP_List_Table {
 		if ( strlen( $item->billing_city ) > 0 ) echo $item->billing_city;
 		if ( strlen( $item->billing_postcode ) > 0 ) echo ', ', $item->billing_postcode;
 		echo ' (', $item->billing_country_id, ')';
-		printf ('<a href="%s" target="_blank"><img src="%s"/></a>',
-			"http://maps.google.com/maps?&q={$item->billing_street},+{$item->billing_city},+{$item->billing_postcode},+{$item->billing_country_id}&z=16",
-			plugins_url( 'images/tcp_map_link_16.png', dirname( __FILE__ ) )
+		printf ('<a href="%s" target="_blank"><span class="glyphicon glyphicon-map-marker"></span></a>',
+			"http://maps.google.com/maps?&q={$item->billing_street},+{$item->billing_city},+{$item->billing_postcode},+{$item->billing_country_id}&z=16"
 		);
 	}
 
@@ -201,16 +200,41 @@ class OrdersListTable extends WP_List_Table {
 		echo apply_filters( 'tcp_orders_list_get_inline_data', $out, $order_id ); ?>
 		</div><?php
  	}
+
+ 	/*function get_bulk_actions() {
+		return array(
+			'tcp_edit_status' => __( 'Edit Status', 'tcp' ),
+		);
+	}
+
+	function inline_edit() { ?>
+<form method="get" action=""><table style="display: none"><tbody id="inlineedit">
+
+	<tr id="bulk-edit" class="inline-edit-row inline-edit-row-orders bulk-edit-row bulk-edit-row-orders" style="display: none">
+		<td colspan="<?php echo $this->get_column_count(); ?>" class="colspanchange">
+			<fieldset class="inline-edit-col-left"><div class="inline-edit-col">
+				<h4><?php echo $bulk ? __( 'Bulk Edit' ) : __( 'Quick Edit' ); ?></h4>
+
+				<label>
+					<span class="order_status"><?php _e( 'Status', 'tcp' ); ?></span>
+					<span class="input-text-wrap"><input type="text" name="post_title" class="ptitle" value="" /></span>
+				</label>
+			</fieldset>
+		</td>
+	</tr>
+
+</form>
+	<?php }*/
 }
 
 class TCPOrdersList {
 	function show( $echo = true ) {
 		ob_start();
-		$ordersListTable = new OrdersListTable();
+		$ordersListTable = new TCPOrdersListTable();
 		$ordersListTable->prepare_items(); ?>
 <form id="posts-filter" method="get" action="">
 <input type="hidden" name="page" value="<?php echo isset( $_REQUEST['page'] ) ? $_REQUEST['page'] : 0; ?>" />
-<div class="wrap">
+<div class="wrap tcpf">
 	<?php screen_icon( 'tcp-orders-list' ); ?><h2><?php _e( 'Orders', 'tcp' );?></h2>
 	<div class="clear"></div>
 	<?php $ordersListTable->search_box( __( 'Search Orders', 'tcp' ), 'order' ); ?>
@@ -222,4 +246,4 @@ class TCPOrdersList {
 		return $out;
 	}
 }
-} // class_exists check
+endif; // class_exists check

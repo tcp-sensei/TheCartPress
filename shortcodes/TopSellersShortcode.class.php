@@ -16,6 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) exit;
+
+if ( ! class_exists( 'TCPTopSellersShortcode' ) ) :
+
 class TCPTopSellersShortcode {
 
 	static function show( $atts ) {
@@ -23,11 +28,11 @@ class TCPTopSellersShortcode {
 		global $wp_query;
 		$paged = isset( $wp_query->query_vars['paged'] ) ? $wp_query->query_vars['paged'] : 1;
 		$loop_args = array(
-			'post_type' => tcp_get_saleable_post_types(), //isset( $instance['post_type'] ) ? $instance['post_type'] : TCP_PRODUCT_POST_TYPE,
+			'post_type'		 => tcp_get_saleable_post_types(), //isset( $instance['post_type'] ) ? $instance['post_type'] : TCP_PRODUCT_POST_TYPE,
 			'posts_per_page' => isset( $instance['limit'] ) ? $instance['limit'] : -1,
-			'meta_key' => 'tcp_total_sales',
-			'orderby' => 'meta_value_num',
-			'order' => 'desc',
+			'meta_key'		 => 'tcp_total_sales',
+			'orderby'		 => 'meta_value_num',
+			'order'			 => 'desc',
 		);
 		$see_pagination = isset( $instance['pagination'] ) ? $instance['pagination'] : false;
 		if ( $see_pagination ) {
@@ -44,4 +49,5 @@ class TCPTopSellersShortcode {
 }
 
 add_shortcode( 'tcp_top_sellers', 'TCPTopSellersShortcode::show' );
-?>
+
+endif; // class_exists check

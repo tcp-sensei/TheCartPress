@@ -27,9 +27,9 @@
  */
 
 // Exit if accessed directly
-if ( !defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) exit;
 
-if ( ! class_exists( 'ActiveCheckout' ) ) {
+if ( ! class_exists( 'ActiveCheckout' ) ) :
 
 require_once( TCP_CLASSES_FOLDER . 'OrderPage.class.php' );
 
@@ -38,29 +38,34 @@ class ActiveCheckout {//shortcode
 	function show() {
 		global $thecartpress;
 		$shoppingCart = TheCartPress::getShoppingCart();
-		$order_id = isset( $_REQUEST['order_id'] ) ? $_REQUEST['order_id'] : 0;
+		
+		// Get $order_id
 		if ( isset( $_REQUEST['order_id'] ) ) {
 			$order_id = $_REQUEST['order_id'];
 			$shoppingCart->setOrderId( $order_id );
 		} else {
 			$order_id = $shoppingCart->getOrderId();
 		}
+
 		if ( isset( $_REQUEST['tcp_checkout'] ) && $_REQUEST['tcp_checkout'] == 'ok' ) {
 			$order_status = Orders::getStatus( $order_id );//We have to check if the order wasn't cancelled
 			$cancelled = tcp_get_cancelled_order_status();
 			if ( $order_status == $cancelled ) $_REQUEST['tcp_checkout'] = 'ko';
 		}
-		/* Put the check on the cart first. This is because if people try and load the checkout OK page i.e. the URL
-		*  mysite/shopping_cart_slug/checkout/?tcp_checkout=ok then it would have a silly empty set of fields.*/
+
+		// Put the check on the cart first. This is because if people try and load the checkout OK page i.e. the URL
+		// mysite/shopping_cart_slug/checkout/?tcp_checkout=ok then it would have a silly empty set of fields.
  		if ( $shoppingCart->isEmpty() ) {
 			ob_start(); ?>
 			<span class="tcp_shopping_cart_empty"><?php _e( 'The cart is empty', 'tcp' ); ?></span>
 			<?php tcp_do_template( 'tcp_shopping_cart_empty' ); ?>
 			<?php do_action( 'tcp_shopping_cart_empty' ); ?>
 			<?php return ob_get_clean();
+
 		} elseif ( isset( $_REQUEST['tcp_checkout'] ) && $_REQUEST['tcp_checkout'] == 'ok' ) {
-			/* This next function adjusts the stock counts IF the setup flag $stock_management AND $stock_adjust are both true.
-			*  If stock management is not used or if the stock_adjust is false then stock decrement would be done on checkout */
+
+			// This next function adjusts the stock counts IF the setup flag $stock_management AND $stock_adjust are both true.
+			// If stock management is not used or if the stock_adjust is false then stock decrement would be done on checkout
 			do_action( 'tcp_completed_ok_stockadjust', $order_id );
 			$html = tcp_do_template( 'tcp_checkout_end', false );
 			ob_start();
@@ -85,7 +90,8 @@ class ActiveCheckout {//shortcode
 			<?php if ( apply_filters( 'tcp_checkout_remove_shopping_cart', true ) ) TheCartPress::removeShoppingCart(); ?>
 			<?php do_action( 'tcp_checkout_end', $order_id, true );
 			return ob_get_clean();
-		} elseif  ( isset( $_REQUEST['tcp_checkout'] ) && $_REQUEST['tcp_checkout'] == 'ko' ) {
+
+		} elseif ( isset( $_REQUEST['tcp_checkout'] ) && $_REQUEST['tcp_checkout'] == 'ko' ) {
 			$checkout_unsuccessfully_message = tcp_do_template( 'tcp_checkout_end_ko', false );
 			ob_start(); ?>
 			<div class="tcp_payment_area">
@@ -102,6 +108,7 @@ class ActiveCheckout {//shortcode
 			<?php $html = ob_get_clean();
 			do_action( 'tcp_checkout_end', $order_id, false );
 			return $html;
+
 		} else {
 			$param = array(
 				'validate'	=> true,
@@ -119,7 +126,9 @@ class ActiveCheckout {//shortcode
 		}
 	}
 
-	//To support previous version
+	/**
+	 * To support previous version
+	 */
 	static function sendMails( $order_id, $additional_msg = '', $only_for_customers = false ) {
 		ActiveCheckout::sendOrderMails( $order_id, $additional_msg, true, ! $only_for_customers );
 	}
@@ -177,4 +186,4 @@ class ActiveCheckout {//shortcode
 }
 
 add_shortcode( 'tcp_checkout', array( new ActiveCheckout(), 'show' ) );
-} // class_exists check
+endif; // class_exists check

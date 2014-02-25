@@ -16,6 +16,12 @@
  * along with TheCartPress.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+
+// Exit if accessed directly
+if ( !defined( 'ABSPATH' ) ) exit;
+
+if ( ! class_exists( 'TCPAuthorsWidget' ) ) :
+
 require_once( TCP_WIDGETS_FOLDER . 'TCPParentWidget.class.php' );
 
 class TCPAuthorsWidget extends TCPParentWidget {
@@ -51,7 +57,7 @@ class TCPAuthorsWidget extends TCPParentWidget {
 		return $instance;
 	}
 
-	function form( $instance, $title = '' ) {
+	function form( $instance ) {
 		$instance = wp_parse_args( $instance, array(
 			'number'		=> null,
 			'see_avatar'	=> true,
@@ -64,52 +70,53 @@ class TCPAuthorsWidget extends TCPParentWidget {
 			'order_by'		=> 'name',
 			'order'			=> 'ASC',
 		) );
-		parent::form( $instance, $title ); ?>
-		<p>
-			<label for="<?php echo $this->get_field_id( 'number' ); ?>"><?php _e( 'Limit', 'tcp' ); ?>:</label>
-			<input id="<?php echo $this->get_field_id( 'number' ); ?>" name="<?php echo $this->get_field_name( 'number' ); ?>" type="text" value="<?php echo $instance['number']; ?>" size="3" />
-		</p>
-		<p>
-			<input type="checkbox" class="checkbox" id="<?php echo $this->get_field_id( 'see_avatar' ); ?>" name="<?php echo $this->get_field_name( 'see_avatar' ); ?>" value="yes" <?php checked( $instance['see_avatar'] ); ?> />
-			<label for="<?php echo $this->get_field_id( 'see_avatar' ); ?>"><?php _e( 'See avatar', 'tcp' ); ?></label>
-		</p>
-		<p>
-			<input type="checkbox" class="checkbox" id="<?php echo $this->get_field_id( 'optioncount' ); ?>" name="<?php echo $this->get_field_name( 'optioncount' ); ?>" value="yes" <?php checked( $instance['optioncount'] ); ?> />
-			<label for="<?php echo $this->get_field_id( 'optioncount' ); ?>"><?php _e( 'See count', 'tcp' ); ?></label>
-		</p>
-		<p>
-			<input type="checkbox" class="checkbox" id="<?php echo $this->get_field_id( 'exclude_admin' ); ?>" name="<?php echo $this->get_field_name( 'exclude_admin' ); ?>" value="yes" <?php checked( $instance['exclude_admin'] ); ?> />
-			<label for="<?php echo $this->get_field_id( 'exclude_admin' ); ?>"><?php _e( 'Exclude admin', 'tcp' ); ?></label>
-		</p>
-		<p>
-			<input type="checkbox" class="checkbox" id="<?php echo $this->get_field_id( 'show_fullname' ); ?>" name="<?php echo $this->get_field_name( 'show_fullname' ); ?>" value="yes" <?php checked( $instance['show_fullname'] ); ?> />
-			<label for="<?php echo $this->get_field_id( 'show_fullname' ); ?>"><?php _e( 'Show fullname', 'tcp' ); ?></label>
-		</p>
-		<p>
-			<input type="checkbox" class="checkbox" id="<?php echo $this->get_field_id( 'see_bio' ); ?>" name="<?php echo $this->get_field_name( 'see_bio' ); ?>" value="yes" <?php checked( $instance['see_bio'] ); ?> />
-			<label for="<?php echo $this->get_field_id( 'see_bio' ); ?>"><?php _e( 'See bio', 'tcp' ); ?></label>
-		</p>
-		<p>
-			<input type="checkbox" class="checkbox" id="<?php echo $this->get_field_id( 'hide_empty' ); ?>" name="<?php echo $this->get_field_name( 'hide_empty' ); ?>" value="yes" <?php checked( $instance['hide_empty'] ); ?> />
-			<label for="<?php echo $this->get_field_id( 'hide_empty' ); ?>"><?php _e( 'Hide empty', 'tcp' ); ?></label>
-		</p>
-		<p>
-			<label for="<?php echo $this->get_field_id( 'order_by' ); ?>"><?php _e( 'Order by', 'tcp' ); ?></label>
-			<select id="<?php echo $this->get_field_id( 'order_by' ); ?>" name="<?php echo $this->get_field_name( 'order_by' ); ?>">
-				<option value="name" <?php selected( 'name', $instance['order_by'] );?>><?php _e( 'By name', 'tcp' ); ?></option>
-				<option value="email" <?php selected( 'email', $instance['order_by'] );?>><?php _e( 'By email', 'tcp' ); ?></option>
-				<option value="url" <?php selected( 'url', $instance['order_by'] );?>><?php _e( 'By url', 'tcp' ); ?></option>
-				<option value="registered" <?php selected( 'registered', $instance['order_by'] );?>><?php _e( 'By registered date', 'tcp' ); ?></option>
-				<option value="id" <?php selected( 'id', $instance['order_by'] );?>><?php _e( 'By author\'s Id', 'tcp' ); ?></option>
-				<option value="user_login" <?php selected( 'user_login', $instance['order_by'] );?>><?php _e( 'By user login', 'tcp' ); ?></option>
-				<option value="post_count" <?php selected( 'post_count', $instance['order_by'] );?>><?php _e( 'By post count', 'tcp' ); ?></option>
-			</select>
-		</p>
-		<p>
-			<label for="<?php echo $this->get_field_id( 'order' ); ?>"><?php _e( 'order', 'tcp' ); ?></label>
-			<input type="radio" class="radio" id="<?php echo $this->get_field_id( 'order' ); ?>" name="<?php echo $this->get_field_name( 'order' ); ?>" value="ASC" <?php checked( 'ASC', $instance['order'] ); ?> /> <?php _e( 'Asc.', 'tcp' ); ?>
-			<input type="radio" class="radio" id="<?php echo $this->get_field_id( 'order' ); ?>_desc" name="<?php echo $this->get_field_name( 'order' ); ?>" value="DESC" <?php checked( 'DESC', $instance['order'] ); ?> /> <?php _e( 'Desc.', 'tcp' ); ?>
-		</p><?php
+		if ( ! isset( $instance['title'] ) ) $instance['title'] = __( 'Authors', 'tcp' );
+		parent::form( $instance ); ?>
+<p>
+	<label for="<?php echo $this->get_field_id( 'number' ); ?>"><?php _e( 'Limit', 'tcp' ); ?>:</label>
+	<input id="<?php echo $this->get_field_id( 'number' ); ?>" name="<?php echo $this->get_field_name( 'number' ); ?>" type="text" value="<?php echo $instance['number']; ?>" size="3" />
+</p>
+<p>
+	<input type="checkbox" class="checkbox" id="<?php echo $this->get_field_id( 'see_avatar' ); ?>" name="<?php echo $this->get_field_name( 'see_avatar' ); ?>" value="yes" <?php checked( $instance['see_avatar'] ); ?> />
+	<label for="<?php echo $this->get_field_id( 'see_avatar' ); ?>"><?php _e( 'See avatar', 'tcp' ); ?></label>
+</p>
+<p>
+	<input type="checkbox" class="checkbox" id="<?php echo $this->get_field_id( 'optioncount' ); ?>" name="<?php echo $this->get_field_name( 'optioncount' ); ?>" value="yes" <?php checked( $instance['optioncount'] ); ?> />
+	<label for="<?php echo $this->get_field_id( 'optioncount' ); ?>"><?php _e( 'See count', 'tcp' ); ?></label>
+</p>
+<p>
+	<input type="checkbox" class="checkbox" id="<?php echo $this->get_field_id( 'exclude_admin' ); ?>" name="<?php echo $this->get_field_name( 'exclude_admin' ); ?>" value="yes" <?php checked( $instance['exclude_admin'] ); ?> />
+	<label for="<?php echo $this->get_field_id( 'exclude_admin' ); ?>"><?php _e( 'Exclude admin', 'tcp' ); ?></label>
+</p>
+<p>
+	<input type="checkbox" class="checkbox" id="<?php echo $this->get_field_id( 'show_fullname' ); ?>" name="<?php echo $this->get_field_name( 'show_fullname' ); ?>" value="yes" <?php checked( $instance['show_fullname'] ); ?> />
+	<label for="<?php echo $this->get_field_id( 'show_fullname' ); ?>"><?php _e( 'Show fullname', 'tcp' ); ?></label>
+</p>
+<p>
+	<input type="checkbox" class="checkbox" id="<?php echo $this->get_field_id( 'see_bio' ); ?>" name="<?php echo $this->get_field_name( 'see_bio' ); ?>" value="yes" <?php checked( $instance['see_bio'] ); ?> />
+	<label for="<?php echo $this->get_field_id( 'see_bio' ); ?>"><?php _e( 'See bio', 'tcp' ); ?></label>
+</p>
+<p>
+	<input type="checkbox" class="checkbox" id="<?php echo $this->get_field_id( 'hide_empty' ); ?>" name="<?php echo $this->get_field_name( 'hide_empty' ); ?>" value="yes" <?php checked( $instance['hide_empty'] ); ?> />
+	<label for="<?php echo $this->get_field_id( 'hide_empty' ); ?>"><?php _e( 'Hide empty', 'tcp' ); ?></label>
+</p>
+<p>
+	<label for="<?php echo $this->get_field_id( 'order_by' ); ?>"><?php _e( 'Order by', 'tcp' ); ?></label>
+	<select id="<?php echo $this->get_field_id( 'order_by' ); ?>" name="<?php echo $this->get_field_name( 'order_by' ); ?>">
+		<option value="name" <?php selected( 'name', $instance['order_by'] );?>><?php _e( 'By name', 'tcp' ); ?></option>
+		<option value="email" <?php selected( 'email', $instance['order_by'] );?>><?php _e( 'By email', 'tcp' ); ?></option>
+		<option value="url" <?php selected( 'url', $instance['order_by'] );?>><?php _e( 'By url', 'tcp' ); ?></option>
+		<option value="registered" <?php selected( 'registered', $instance['order_by'] );?>><?php _e( 'By registered date', 'tcp' ); ?></option>
+		<option value="id" <?php selected( 'id', $instance['order_by'] );?>><?php _e( 'By author\'s Id', 'tcp' ); ?></option>
+		<option value="user_login" <?php selected( 'user_login', $instance['order_by'] );?>><?php _e( 'By user login', 'tcp' ); ?></option>
+		<option value="post_count" <?php selected( 'post_count', $instance['order_by'] );?>><?php _e( 'By post count', 'tcp' ); ?></option>
+	</select>
+</p>
+<p>
+	<label for="<?php echo $this->get_field_id( 'order' ); ?>"><?php _e( 'order', 'tcp' ); ?></label>
+	<input type="radio" class="radio" id="<?php echo $this->get_field_id( 'order' ); ?>" name="<?php echo $this->get_field_name( 'order' ); ?>" value="ASC" <?php checked( 'ASC', $instance['order'] ); ?> /> <?php _e( 'Asc.', 'tcp' ); ?>
+	<input type="radio" class="radio" id="<?php echo $this->get_field_id( 'order' ); ?>_desc" name="<?php echo $this->get_field_name( 'order' ); ?>" value="DESC" <?php checked( 'DESC', $instance['order'] ); ?> /> <?php _e( 'Desc.', 'tcp' ); ?>
+</p><?php
 	}
 }
-?>
+endif; // class_exists check

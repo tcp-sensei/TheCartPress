@@ -16,6 +16,11 @@
  * along with TheCartPress.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// Exit if accessed directly
+if ( !defined( 'ABSPATH' ) ) exit;
+
+if ( !class_exists( 'BREBPLogin' ) ) :
+
 require_once( TCP_WIDGETS_FOLDER . 'TCPParentWidget.class.php' );
 
 class BREBPLogin extends TCPParentWidget {
@@ -30,7 +35,6 @@ class BREBPLogin extends TCPParentWidget {
 		echo $before_widget;
 		$title = apply_filters( 'widget_title', isset( $instance['title'] ) ? $instance['title'] : false );
 		if ( $title ) echo $before_title, $title, $after_title;
-?>Hola<?php
 		echo $after_widget;
 
 	}
@@ -41,8 +45,8 @@ class BREBPLogin extends TCPParentWidget {
 	}
 
 	function form( $instance ) {
-		parent::form( $instance, __( 'Login', 'tcp' ) );
+		if ( !isset( $instance['title'] ) ) $instance['title'] = __( 'Login', 'tcp' );
+		parent::form( $instance );
 	}
 }
-
-?>
+endif; // class_exists check

@@ -25,6 +25,11 @@
  * along with This program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) exit;
+
+if ( ! class_exists( 'TCPCartSourceSession' ) ) :
+	
 require_once( TCP_CLASSES_FOLDER . 'ICartSource.interface.php' );
 
 class TCPCartSourceSession implements TCP_ICartSource {
@@ -81,6 +86,10 @@ class TCPCartSourceSession implements TCP_ICartSource {
 		return false;
 	}
 
+	public function get_customer_id() {
+		return false;
+	}
+
 	public function get_created_at() {
 			return false;
 	}
@@ -115,6 +124,10 @@ class TCPCartSourceSession implements TCP_ICartSource {
 
 	public function see_thumbnail() {
 		return $this->see_thumbnail;
+	}
+
+	public function is_discount_applied() {
+		return false;
 	}
 
 	public function see_sku() {
@@ -391,6 +404,10 @@ class TCP_DetailSourceSession implements TCP_IDetailSource {
 		else return false;
 	}
 	
+	public function get_original_price() {
+		return false;//$this.get_price();
+	}
+
 	public function get_discount() {
 		if ( $this->item ) return $this->item->getDiscount();
 		else return false;
@@ -443,4 +460,4 @@ class TCP_CostSourceSession {
 		return 0;
 	}
 }
-?>
+endif; // class_exists check

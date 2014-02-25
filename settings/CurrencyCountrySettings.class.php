@@ -17,11 +17,12 @@
  */
 
 // Exit if accessed directly
-if ( !defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 require_once( TCP_DAOS_FOLDER . 'Currencies.class.php' );
 
-if ( ! class_exists( 'TCPCurrencyCountrySettings' ) ) {
+if ( ! class_exists( 'TCPCurrencyCountrySettings' ) ) :
+
 class TCPCurrencyCountrySettings {
 
 	private $updated = false;
@@ -37,8 +38,8 @@ class TCPCurrencyCountrySettings {
 		global $thecartpress;
 		$base = $thecartpress->get_base_settings();
 		$page = add_submenu_page( $base, __( 'Currency & Country Settings', 'tcp' ), __( 'Localize', 'tcp' ), 'tcp_edit_settings', 'currency_settings', array( &$this, 'admin_page' ) );
-		add_action( "load-$page", array( &$this, 'admin_load' ) );
-		add_action( "load-$page", array( &$this, 'admin_action' ) );
+		add_action( "load-$page", array( $this, 'admin_load' ) );
+		add_action( "load-$page", array( $this, 'admin_action' ) );
 	}
 
 	function admin_load() {
@@ -89,6 +90,7 @@ $shipping_isos			= $thecartpress->get_setting( 'shipping_isos', array() ); ?>
 <h3><?php _e( 'Currency Settings', 'tcp' ); ?></h3>
 
 <div id="excerpt_content" class="postbox">
+<div class="inside">
 
 <table class="form-table">
 <tbody>
@@ -191,13 +193,13 @@ $shipping_isos			= $thecartpress->get_setting( 'shipping_isos', array() ); ?>
 
 </tbody>
 </table>
-
+</div>
 </div>
 
 <h3><?php _e( 'Date Settings', 'tcp'); ?></h3>
 
 <div id="excerpt_content" class="postbox">
-
+<div class="inside">
 <table class="form-table">
 <tbody>
 <tr valign="top">
@@ -230,13 +232,13 @@ $shipping_isos			= $thecartpress->get_setting( 'shipping_isos', array() ); ?>
 </tr>
 </tbody>
 </table>
-
+</div>
 </div>
 
 <h3><?php _e( 'Countries Settings', 'tcp'); ?></h3>
 
 <div id="excerpt_content" class="postbox">
-
+<div class="inside">
 <table class="form-table">
 <tbody>
 <tr valign="top">
@@ -245,7 +247,7 @@ $shipping_isos			= $thecartpress->get_setting( 'shipping_isos', array() ); ?>
 	</th>
 	<td>
 		<select id="country" name="country">
-		<?php $countries = Countries::getAll();
+		<?php $countries = TCPCountries::getAll();
 		foreach( $countries as $item ) : ?>
 			<option value="<?php echo $item->iso; ?>" <?php selected( $item->iso, $country ); ?>><?php echo $item->name; ?></option>
 		<?php endforeach; ?>
@@ -261,7 +263,7 @@ $shipping_isos			= $thecartpress->get_setting( 'shipping_isos', array() ); ?>
 		onclick="if (this.checked) { jQuery('.sel_billing_isos').hide(); tcp_select_none('billing_isos'); } else { jQuery('.sel_billing_isos').show(); }"/></p>
 		<div class="sel_billing_isos" <?php if ( count( $billing_isos ) == 0 ) echo 'style="display:none;"'; ?> >
 			<select id="billing_isos" name="billing_isos[]" style="height:auto" size="8" multiple>
-			<?php $countries = Countries::getAll();
+			<?php $countries = TCPCountries::getAll();
 			foreach( $countries as $item ) :?>
 				<option value="<?php echo $item->iso; ?>" <?php tcp_selected_multiple( $billing_isos, $item->iso ); ?>><?php echo $item->name; ?></option>
 			<?php endforeach; ?>
@@ -294,7 +296,7 @@ $shipping_isos			= $thecartpress->get_setting( 'shipping_isos', array() ); ?>
 		</p>
 		<div class="sel_shipping_isos" <?php if ( ! $shipping_isos ) echo 'style="display:none;"'; ?>>
 			<select id="shipping_isos" name="shipping_isos[]" style="height:auto" size="8" multiple>
-			<?php $countries = Countries::getAll();
+			<?php $countries = TCPCountries::getAll();
 			foreach( $countries as $item ) :?>
 				<option value="<?php echo $item->iso; ?>" <?php tcp_selected_multiple( $shipping_isos, $item->iso ); ?>><?php echo $item->name; ?></option>
 			<?php endforeach; ?>
@@ -320,7 +322,7 @@ $shipping_isos			= $thecartpress->get_setting( 'shipping_isos', array() ); ?>
 
 </tbody>
 </table>
-
+</div>
 </div>
 
 <?php do_action( 'tcp_localize_settings_page' ); ?>
@@ -366,4 +368,4 @@ $shipping_isos			= $thecartpress->get_setting( 'shipping_isos', array() ); ?>
 }
 
 new TCPCurrencyCountrySettings();
-} // class_exists check
+endif; // class_exists check

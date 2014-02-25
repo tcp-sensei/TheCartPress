@@ -17,37 +17,59 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 ?>
-<ul>
-	<li class="tcp-profile-avatar">
-		<?php echo get_avatar( $current_user->ID, $size = '100' );  ?>
-	</li>
-	<li class="tcp-profile-name">
-		<?php printf( '<a href="%s">%s</a>', get_author_posts_url( $current_user->ID ), $current_user->display_name ); ?> (<?php echo tcp_get_current_user_role_title( $current_user ); ?>)
-	<li class="tcp-profile-last-login">
-		<?php printf( __( 'Last login: %s', 'tcp' ), tcp_get_the_last_login( $current_user->ID ) ); ?>
-	</li>
-<?php if ( strlen( $current_user->description ) > 0 ) : ?>
-	<li class="tcp-profile-description">
-		<?php echo $current_user->description; ?>
-	</li>
-<?php endif; ?>
-	<li class="tcp-profile-profile-link">
-<?php if ( $user_level > 8 ) : ?>
-	<?php if ( function_exists( 'bp_loggedin_user_link' ) ) : ?>
-		<a href="<?php bp_loggedin_user_link(); ?>"><?php echo strtolower( __( 'Profile' ) ); ?></a>
-	<?php else : ?>
-		<a href="<?php bloginfo('wpurl') ?>/wp-admin/profile.php"><?php echo strtolower( __( 'Profile' ) ); ?></a>
-	<?php endif; ?>
-<?php endif; ?>
-	</li>
-	<li>
-		<?php $redirect = get_permalink(); ?>
-		<a id="wp-logout" href="<?php echo wp_logout_url( $redirect ) ?>"><?php echo strtolower( __( 'Log Out' ) ); ?></a>
-	</li>
-<?php global $wpmu_version;
-if ( ! empty( $wpmu_version ) || $user_level > 8 ) : ?>
-	<li>
-		<a href="<?php bloginfo( 'wpurl' ); ?>/wp-admin/"><?php _e( 'blog admin', 'tcp'); ?></a>
-	</li>
-<?php endif; ?>
-</ul>
+<div class="tcpf">
+
+	<div class="media">
+	
+		<a class="pull-left" href="#">
+			<!-- class="media-object"-->
+			<?php echo get_avatar( $current_user->ID, $size = '100' );  ?>
+		</a>
+		<div class="media-body">
+
+			<ul class="tcp-profile-group">
+				<li class="tcp-profile-author-name media-heading">
+					<?php printf( '<a href="%s">%s</a>', get_author_posts_url( $current_user->ID ), $current_user->display_name ); ?> <small>(<?php echo tcp_get_current_user_role_title( $current_user ); ?>)</small>
+				</li>
+
+				<li class="tcp-profile-last-login">
+					<small>
+						<?php printf( __( 'Last login: %s', 'tcp' ), tcp_get_the_last_login( $current_user->ID ) ); ?>
+					</small>
+				</li>
+			
+				<?php if ( strlen( $current_user->description ) > 0 ) : ?>
+				<li class="tcp-profile-description">
+					<?php echo $current_user->description; ?>
+				</li>
+				<?php endif; ?>
+
+				<?php if ( $user_level > 8 ) : ?>
+				<li class="tcp-profile-link">
+					<?php if ( function_exists( 'bp_loggedin_user_link' ) ) : ?>
+						<a href="<?php bp_loggedin_user_link(); ?>"><span class="glyphicon glyphicon-user"></span> <?php _e( 'Profile', 'tcp' ); ?></a>
+					<?php else : ?>
+						<a href="<?php bloginfo('wpurl') ?>/wp-admin/profile.php"><span class="glyphicon glyphicon-user"></span> <?php _e( 'Profile', 'tcp' ); ?></a>
+					<?php endif; ?>
+				</li>
+				<?php endif; ?>
+
+
+				<?php global $wpmu_version;
+				if ( !empty( $wpmu_version ) || $user_level > 8 ) : ?>
+				<li class="tcp-blog-admin">
+					<a href="<?php bloginfo( 'wpurl' ); ?>/wp-admin/"><span class="glyphicon glyphicon-pencil"></span> <?php _e( 'blog admin', 'tcp'); ?></a>
+				</li>
+				<?php endif; ?>
+
+				<?php do_action( 'tcp_author_profile_bottom', $current_user ); ?>
+
+				<li class="tcp-log-out">
+					<?php $redirect = get_permalink(); ?>
+					<a id="wp-logout" href="<?php echo wp_logout_url( $redirect ) ?>"><span class="glyphicon glyphicon-log-out"></span> <?php _e( 'Log Out' ); ?></a>
+				</li>
+			</ul>
+
+		</div>
+	</div><!-- .media-list -->
+</div><!-- .tcpf -->

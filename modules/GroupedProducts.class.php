@@ -26,9 +26,9 @@
  */
 
 // Exit if accessed directly
-if ( !defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) exit;
 
-if ( ! class_exists( 'TCPGroupedProducts' ) ) {
+if ( ! class_exists( 'TCPGroupedProducts' ) ) :
 
 require_once( TCP_DAOS_FOLDER . 'RelEntities.class.php' );
 
@@ -36,16 +36,18 @@ class TCPGroupedProducts {
 
 	function __construct() {
 		if ( is_admin() ) {
-			add_filter( 'tcp_get_product_types', array( $this, 'tcp_get_product_types' ) );
-			add_filter( 'tcp_product_row_actions', array( $this, 'tcp_product_row_actions' ), 10, 2 );
-			add_filter( 'tcp_custom_columns_definition', array( $this, 'tcp_custom_columns_definition' ) );
+			add_filter( 'tcp_get_product_types'			, array( $this, 'tcp_get_product_types' ) );
+			add_filter( 'tcp_product_row_actions'		, array( $this, 'tcp_product_row_actions' ), 10, 2 );
+			add_filter( 'tcp_custom_columns_definition'	, array( $this, 'tcp_custom_columns_definition' ) );
+			add_filter( 'tcp_product_custom_fields_links', array( $this, 'tcp_product_custom_fields_links' ), 10, 3 );
+			//add_action( 'tcp_product_metabox_toolbar'	, array( $this, 'tcp_product_metabox_toolbar' ) );
+
 			add_action( 'tcp_manage_posts_custom_column', array( $this, 'tcp_manage_posts_custom_column' ), 10, 2 );
-			add_action( 'tcp_product_metabox_toolbar', array( $this, 'tcp_product_metabox_toolbar' ) );
-			add_action( 'tcp_hide_product_fields', array( $this, 'tcp_hide_product_fields' ) );
+			add_action( 'tcp_hide_product_fields'		, array( $this, 'tcp_hide_product_fields' ) );
 		} else {
-			add_filter( 'tcp_get_the_price_label', array( $this, 'tcp_get_the_price_label' ) , 10, 2 );
-			add_filter( 'tcp_the_add_to_cart_button', array( $this, 'tcp_the_add_to_cart_button' ), 10, 2 );
-			add_filter( 'post_type_link', array( $this, 'post_type_link' ), 10, 4 );
+			add_filter( 'tcp_get_the_price_label'		, array( $this, 'tcp_get_the_price_label' ) , 10, 2 );
+			add_filter( 'tcp_the_add_to_cart_button'	, array( $this, 'tcp_the_add_to_cart_button' ), 10, 2 );
+			add_filter( 'post_type_link'				, array( $this, 'post_type_link' ), 10, 4 );
 		}
 	}
 
@@ -84,7 +86,31 @@ class TCPGroupedProducts {
 		}
 	}
 
-	function tcp_product_metabox_toolbar( $post_id ) {
+	function tcp_product_custom_fields_links( $links, $post_id, $post ) {
+		$product_type = tcp_get_the_product_type( $post_id );
+		if ( 'GROUPED' != $product_type ) {
+			$parents = RelEntities::getParents( $post_id );
+			if ( is_array( $parents ) && count( $parents ) > 0 ) {
+				$parent = $parents[0]->id_from;
+				$links[] = array(
+					'url'	=> TCP_ADMIN_PATH . 'AssignedProductsList.php&post_id=' . $parent . '&rel_type=GROUPED',
+					'title'	=> '',
+					'label'	=> __( 'Grouped product', 'tcp' )
+				);
+			}
+		} elseif ( 'GROUPED' == $product_type ) {
+			$count = RelEntities::count( $post_id );
+			$count = $count > 0 ? ' (' . $count . ')' : '';
+			$links[] = array(
+				'url'	=> TCP_ADMIN_PATH . 'AssignedProductsList.php&post_id=' . $post_id . '&rel_type=GROUPED',
+				'title'	=> '',
+				'label'	=> __( 'Grouped products', 'tcp' ) . $count
+			);
+		}
+		return $links;
+	}
+
+	/*function tcp_product_metabox_toolbar( $post_id ) {
 		$product_type = tcp_get_the_product_type( $post_id );
 		if ( 'SIMPLE' == $product_type ) :
 			$parents = RelEntities::getParents( $post_id );
@@ -99,8 +125,9 @@ class TCPGroupedProducts {
 			<li><a href="<?php echo TCP_ADMIN_PATH;?>AssignedProductsList.php&post_id=<?php echo $post_id;?>&rel_type=GROUPED"><?php _e( 'grouped products', 'tcp' );?><?php echo $count;?></a></li>
 			<li>|</li>
 			<li><a href="post-new.php?post_type=<?php echo TCP_PRODUCT_POST_TYPE;?>&tcp_product_parent_id=<?php echo $post_id;?>&rel_type=GROUPED"><?php _e( 'create new grouped product', 'tcp' );?></a></li>
-		<?php */endif;
-	 }
+		<?php */
+		/*endif;
+	}*/
 
 	function tcp_hide_product_fields() { ?>
 		if ('GROUPED' == product_type) {
@@ -137,7 +164,7 @@ class TCPGroupedProducts {
 		if ( 'GROUPED' == tcp_get_the_product_type( $post_id ) ) {
 			ob_start(); ?>
 			<!--<input type="hidden" name="tcp_post_id[]" id="tcp_post_id_<?php echo $post_id; ?>" value="<?php echo $post_id; ?>" />-->
-			<input type="submit" name="tcp_add_to_shopping_cart" class="tcp_add_to_shopping_cart tcp_add_to_shopping_cart_<?php echo tcp_get_the_product_type( $post_id ); ?>" id="tcp_add_product_<?php echo $post_id; ?>" value="<?php _e( 'Add selected to cart', 'tcp' ); ?>"/>
+			<button type="submit" name="tcp_add_to_shopping_cart" class="tcp_add_to_shopping_cart tcp_add_to_shopping_cart_<?php echo tcp_get_the_product_type( $post_id ); ?> <?php echo tcp_get_buy_button_color(); ?> <?php echo tcp_get_buy_button_size(); ?>" id="tcp_add_product_<?php echo $post_id; ?>"><?php _e( 'Add selected to cart', 'tcp' ); ?></button>
 			<?php return ob_get_clean();
 		} else {
 			return $out;
@@ -155,4 +182,4 @@ class TCPGroupedProducts {
 }
 
 new TCPGroupedProducts();
-} // class_exists check
+endif; // class_exists check

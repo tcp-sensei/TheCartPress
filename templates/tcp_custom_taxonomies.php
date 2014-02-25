@@ -127,6 +127,7 @@ function tcp_delete_custom_taxonomy( $taxonomy_id ) {
  *		desc				=> string,
  *		hierarchical		=> true/false,
  *		rewrite				=> string/false,
+ *		...
  * @since 1.1.7
  */
 function tcp_create_custom_taxonomy( $taxonomy_id, $taxonomy_def ) {
@@ -248,4 +249,3 @@ function tcp_create_custom_post_type( $post_type, $post_type_def = array() ) {
 	$post_type_def['id'] = $post_type;
 	tcp_update_custom_post_type( $post_type, $post_type_def );
 }
-?>

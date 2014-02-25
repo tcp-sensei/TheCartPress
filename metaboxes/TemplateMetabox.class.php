@@ -19,19 +19,20 @@
 // Exit if accessed directly
 if ( !defined( 'ABSPATH' ) ) exit;
 
-if ( ! class_exists( 'TCPTemplateMetabox' ) ) {
+if ( !class_exists( 'TCPTemplateMetabox' ) ) :
 
 class TCPTemplateMetabox {
 
 	static function init() {
-		add_action( 'admin_init', array( __CLASS__, 'register_metabox' ) );
+		add_action( 'admin_init'	, array( __CLASS__, 'register_metabox' ) );
 		add_action( 'tcp_admin_menu', array( __CLASS__, 'tcp_admin_menu' ), 20 );
 	}
 
 	static function register_metabox() {
 		add_meta_box( 'tcp-template-template', __( 'Notice points', 'tcp' ), array( __CLASS__, 'showTemplateMetabox' ), TemplateCustomPostType::$TEMPLATE, 'normal', 'high' );
-		add_action( 'save_post', array( __CLASS__, 'save' ), 1, 2 );
-		add_action( 'delete_post', array( __CLASS__, 'delete' ) );
+
+		add_action( 'save_post'		, array( __CLASS__, 'save' ), 1, 2 );
+		add_action( 'delete_post'	, array( __CLASS__, 'delete' ) );
 	}
 
 	static function tcp_admin_menu() {
@@ -43,6 +44,7 @@ class TCPTemplateMetabox {
 		global $post;
 		if ( $post->post_type != TemplateCustomPostType::$TEMPLATE ) return;
 		if ( !current_user_can( 'edit_post', $post->ID ) ) return;
+
 		$lang = isset( $_REQUEST['lang'] ) ? $_REQUEST['lang'] : '';
 		$source_lang = isset( $_REQUEST['source_lang'] ) ? $_REQUEST['source_lang'] : '';
 		$is_translation = $lang != $source_lang;
@@ -51,25 +53,27 @@ class TCPTemplateMetabox {
 			_e( 'After saving the title and content, you will be able to edit these relations.', 'tcp' );
 			return;
 		}
+
 		$template_class = get_post_meta( $post_id, 'tcp_template_class' );
 		wp_nonce_field( 'tcp_template_noncename', 'tcp_template_noncename' );
 		global $tcp_template_classes;?>
-		<div class="clear"></div>
-		<ul>
-		<?php foreach( $tcp_template_classes as $class => $description ) : ?>
-			<li>
-			<input type="checkbox" id="tcp_<?php echo $class;?>" name="tcp_template_class[]" value="<?php echo $class;?>" <?php tcp_checked_multiple( $template_class, $class );?>/> <label for="tcp_<?php echo $class;?>"><?php echo $class;?></label>
-			<?php if ( strlen( $description ) > 0 ) echo '<p class="description">', $description, '</p>'; ?>
-			</li>
-		<?php endforeach;?>
-		</ul>
-		<?php do_action( 'tcp_template_metabox_custom_fields', $post_id );?>
-	<?php }
+<div class="clear"></div>
+<ul>
+<?php foreach( $tcp_template_classes as $class => $description ) : ?>
+	<li>
+	<input type="checkbox" id="tcp_<?php echo $class;?>" name="tcp_template_class[]" value="<?php echo $class;?>" <?php tcp_checked_multiple( $template_class, $class );?>/> <label for="tcp_<?php echo $class;?>"><?php echo $class;?></label>
+	<?php if ( strlen( $description ) > 0 ) echo '<p class="description">', $description, '</p>'; ?>
+	</li>
+<?php endforeach;?>
+</ul>
+<?php do_action( 'tcp_template_metabox_custom_fields', $post_id );
+	}
 
 	static function save( $post_id, $post ) {
 		if ( ! wp_verify_nonce( isset( $_POST['tcp_template_noncename'] ) ? $_POST['tcp_template_noncename'] : '', 'tcp_template_noncename' ) ) return array( $post_id, $post );
 		if ( $post->post_type != TemplateCustomPostType::$TEMPLATE ) return array( $post_id, $post );
 		if ( ! current_user_can( 'edit_post', $post_id ) ) return array( $post_id, $post );
+
 		$post_id = tcp_get_default_id( $post_id, TemplateCustomPostType::$TEMPLATE );
 		$tcp_template_class = isset( $_REQUEST['tcp_template_class'] ) ? $_REQUEST['tcp_template_class'] : array();
 		delete_post_meta( $post_id, 'tcp_template_class' );
@@ -100,4 +104,4 @@ class TCPTemplateMetabox {
 }
 
 TCPTemplateMetabox::init();
-} // class_exists check
+endif; // class_exists check

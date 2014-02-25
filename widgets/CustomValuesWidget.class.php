@@ -1,5 +1,14 @@
 <?php
 /**
+ * Custom Fields Widget
+ *
+ * Allows to display custom values and other values associated with post types
+ *
+ * @package TheCartPress
+ * @subpackage Widgets
+ */
+
+/**
  * This file is part of TheCartPress.
  * 
  * TheCartPress is free software: you can redistribute it and/or modify
@@ -16,6 +25,11 @@
  * along with TheCartPress.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// Exit if accessed directly
+if ( !defined( 'ABSPATH' ) ) exit;
+
+if ( !class_exists( 'CustomValuesWidget' ) ) :
+
 require_once( TCP_WIDGETS_FOLDER . 'TCPParentWidget.class.php' );
 
 class CustomValuesWidget extends TCPParentWidget {
@@ -30,6 +44,8 @@ class CustomValuesWidget extends TCPParentWidget {
 		ob_start();
 		tcp_display_custom_values( 0, $instance );
 		$html = ob_get_clean();
+		
+		// If exists contents, then output it
 		if ( strlen( $html ) > 0 ) {
 			echo $before_widget;
 			$title = apply_filters( 'widget_title', isset( $instance['title'] ) ? $instance['title'] : false );
@@ -41,54 +57,54 @@ class CustomValuesWidget extends TCPParentWidget {
 
 	function update( $new_instance, $old_instance ) {
 		$instance = parent::update( $new_instance, $old_instance );
-		$instance['post_type'] = $new_instance['post_type'];
-		$instance['see_label'] = $new_instance['see_label'] == 'yes';
-		$instance['hide_empty_fields'] = $new_instance['hide_empty_fields'] == 'yes';
-		$instance['see_links'] = $new_instance['see_links'] == 'yes';
-		$instance['selected_custom_fields'] =  str_replace( ',,', ',', $new_instance['selected_custom_fields'] );
+		$instance['post_type']				= $new_instance['post_type'];
+		$instance['see_label']				= $new_instance['see_label'] == 'yes';
+		$instance['hide_empty_fields']		= $new_instance['hide_empty_fields'] == 'yes';
+		$instance['see_links']				= $new_instance['see_links'] == 'yes';
+		$instance['selected_custom_fields']	=  str_replace( ',,', ',', $new_instance['selected_custom_fields'] );
 		return apply_filters( 'tcp_custom_values_widget_update', $instance, $new_instance );
 	}
 
 	function form( $instance ) {
-		parent::form( $instance, __( 'Custom Values', 'tcp' ) );
+		if ( ! isset( $instance['title'] ) ) $instance['title'] = __( 'Custom Values', 'tcp' );
+		parent::form( $instance );
 
 		$defaults = array(
-			'post_type' => 'tcp_product',
-			'see_label' =>  true,
-			'hide_empty_fields' => true,
-			'see_links' => false,
+			'see_label'				 => true,
+			'hide_empty_fields'		 => true,
+			'see_links'				 => false,
 			'selected_custom_fields' => '',
-			'post_type' => TCP_PRODUCT_POST_TYPE,
+			'post_type'				 => TCP_PRODUCT_POST_TYPE,
 		);
-		$instance = wp_parse_args( (array)$instance, $defaults );
+		$instance				= wp_parse_args( (array)$instance, $defaults );
 
-		$tcp_custom_fields = $this->get_field_id( 'tcp_custom_fields' );
-		$tcp_add_custom_field = $this->get_field_id( 'tcp_add_custom_field' );
+		$tcp_custom_fields		= $this->get_field_id( 'tcp_custom_fields' );
+		$tcp_add_custom_field	= $this->get_field_id( 'tcp_add_custom_field' );
 
-		$tcp_taxomonies = $this->get_field_id( 'tcp_taxonomy' );
-		$tcp_add_tax = $this->get_field_id( 'tcp_add_tax' );
+		$tcp_taxomonies			= $this->get_field_id( 'tcp_taxonomy' );
+		$tcp_add_tax			= $this->get_field_id( 'tcp_add_tax' );
 
-		$tcp_other_values = $this->get_field_id( 'tcp_other_values' );
-		$tcp_add_other_value = $this->get_field_id( 'tcp_add_other_value' );
+		$tcp_other_values		= $this->get_field_id( 'tcp_other_values' );
+		$tcp_add_other_value	= $this->get_field_id( 'tcp_add_other_value' );
 
-		$tcp_custom_field_list = $this->get_field_id( 'tcp_custom_field_list' );
-		$tcp_selected_custom_fields = $this->get_field_id( 'tcp_selected_custom_fields' ); ?>
+		$tcp_custom_field_list		= $this->get_field_id( 'tcp_custom_field_list' );
+		$tcp_selected_custom_fields	= $this->get_field_id( 'tcp_selected_custom_fields' ); ?>
 <p>
 	<label for="<?php echo $this->get_field_id( 'post_type' ); ?>"><?php _e( 'Post type', 'tcp' )?>:</label>
 	<select name="<?php echo $this->get_field_name( 'post_type' ); ?>" id="<?php echo $this->get_field_id( 'post_type' ); ?>" class="widefat">
-	<?php foreach( get_post_types( array( 'show_in_nav_menus' => true ) ) as $post_type ) : 
+		<?php foreach( get_post_types( array( 'show_in_nav_menus' => true ) ) as $post_type ) : 
 		if ( $post_type != 'tcp_product_option' ) : 
 			$obj_type = get_post_type_object( $post_type ); ?>
 		<option value="<?php echo $post_type;?>"<?php selected( $instance['post_type'], $post_type ); ?>><?php echo $obj_type->labels->singular_name; ?></option>
-		<?php endif;?>
-	<?php endforeach; ?>
+		<?php endif;
+		endforeach; ?>
 	</select>
 	<span class="description"><?php _e( 'Press save to load the next list', 'tcp' );?></span>
 </p>
 <p>
 	<label for="<?php echo $tcp_custom_fields; ?>"><?php _e( 'Custom Fields', 'tcp' ); ?>:</label>
 	<select id="<?php echo $tcp_custom_fields; ?>">
-	<?php $custom_fields_def = tcp_get_custom_fields_def();
+	<?php $custom_fields_def = tcp_get_custom_fields_def( $instance['post_type'] );
 	foreach( $custom_fields_def as $i => $def ) { ?>
 		<option value="custom_field-<?php echo $def['id']; ?>"><?php echo esc_attr( $def['label'] ); ?></option>
 	<?php } ?>
@@ -98,19 +114,19 @@ class CustomValuesWidget extends TCPParentWidget {
 <p>
 	<label for="<?php echo $tcp_taxomonies; ?>"><?php _e( 'Taxonomies', 'tcp' )?>:</label>
 	<select id="<?php echo $tcp_taxomonies; ?>" >
-	<?php foreach( get_object_taxonomies( $instance['post_type'] ) as $taxonomy ) : $tax = get_taxonomy( $taxonomy ); ?>
+		<?php foreach( get_object_taxonomies( $instance['post_type'] ) as $taxonomy ) : $tax = get_taxonomy( $taxonomy ); ?>
 		<option value="tax-<?php echo esc_attr( $taxonomy ); ?>"><?php echo esc_attr( $tax->labels->name ); ?></option>
-	<?php endforeach; ?>
+		<?php endforeach; ?>
 	</select>
 	<a href="#" id="<?php echo $tcp_add_tax; ?>"><?php _e( 'Add', 'tcp' ); ?></a>
 </p>
 <p>
 	<label for="<?php echo $tcp_other_values; ?>"><?php _e( 'Other values', 'tcp' )?>:</label>
 	<select id="<?php echo $tcp_other_values; ?>">
-	<?php $other_values = apply_filters( 'tcp_custom_values_get_other_values', array() );
-	foreach( $other_values as $id => $other_value ) : ?>
+		<?php $other_values = apply_filters( 'tcp_custom_values_get_other_values', array() );
+		foreach( $other_values as $id => $other_value ) : ?>
 		<option value="o_v-<?php echo $id; ?>"><?php echo esc_attr( $other_value['label'] ); ?></option>
-	<?php endforeach; ?>
+		<?php endforeach; ?>
 	</select>
 	<a href="#" id="<?php echo $tcp_add_other_value; ?>"><?php _e( 'Add', 'tcp' ); ?></a>
 </p>
@@ -119,7 +135,7 @@ class CustomValuesWidget extends TCPParentWidget {
 <?php $field_ids = explode( ',', $instance['selected_custom_fields'] );
 foreach( $field_ids as $field_id ) {
 	if ( substr( $field_id, 0, 12 ) == 'custom_field' ) {
-		$field_def = tcp_get_custom_field_def( substr( $field_id, 13 ) );
+		$field_def = tcp_get_custom_field_def( substr( $field_id, 13 ), $instance['post_type'] );
 		if ( $field_def != false ) { ?>
 	<li id="custom_field-<?php echo $field_def['id']; ?>"><?php echo $field_def['label']; ?> <a href="#" class="tcp_custom_value_remove" onclick="return tcp_remove_field( 'custom_field-<?php echo $field_def['id']; ?>', 'input#<?php echo $tcp_selected_custom_fields; ?>' );"> <?php _e( 'remove', 'tcp' ); ?></a></li>
 		<?php }
@@ -212,17 +228,28 @@ jQuery( 'ul#<?php echo $tcp_custom_field_list; ?>' ).sortable( {
 	}
 }
 
-add_filter( 'tcp_custom_values_get_other_values', 'custom_values_widget_add_default_values' );
+add_filter( 'tcp_custom_values_get_other_values', 'tcp_custom_values_widget_add_default_values' );
 
-function custom_values_widget_add_default_values( $other_values ) {
+/**
+ * Loads the first custom values in to the widget admin panel
+ */
+function tcp_custom_values_widget_add_default_values( $other_values ) {
 	$other_values['wp_modifed_date'] = array(
-		'label' => __( 'Modified date', 'tcp' ),
-		'callback' => 'get_the_modified_date',
+		'label'		=> __( 'Modified date', 'tcp' ),
+		'callback'	=> 'get_the_modified_date',
 	);
 	$other_values['wp_modifed_time'] = array(
-		'label' => __( 'Modified time', 'tcp' ),
-		'callback' => 'get_the_modified_time',
+		'label'		=> __( 'Modified time', 'tcp' ),
+		'callback'	=> 'get_the_modified_time',
+	);
+	$other_values['author'] = array(
+		'label'		=> __( 'Author', 'tcp' ),
+		'callback'	=> 'tcp_get_the_author_name',
+	);
+	$other_values['excerpt'] = array(
+		'label'		=> __( 'Excerpt', 'tcp' ),
+		'callback'	=> 'tcp_get_the_excerpt',
 	);
 	return $other_values;
 }
-?>
+endif; // class_exists check

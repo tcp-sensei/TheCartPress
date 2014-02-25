@@ -106,6 +106,7 @@
 	line-height: 24px;
 	list-style-type: none;
 	width: 100%;
+	padding-top: 4px;
 }
 #new_shipping_area li label, #new_billing_area li label {
 	width: 140px;
@@ -224,8 +225,8 @@ li.tcp_checkout_active_step span{
 .tcp_back_continue{
 	display: block;
 }
-
-.tcpf label {
+.tcpf #new_billing_area label,
+.tcpf #new_shipping_area label {
 	font-weight: normal;
 }
 

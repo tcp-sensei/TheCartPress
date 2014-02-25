@@ -27,9 +27,9 @@
 */
 
 // Exit if accessed directly
-if ( !defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) exit;
 
-if ( ! class_exists( 'TCPBillingBox' ) ) {
+if ( ! class_exists( 'TCPBillingBox' ) ) :
 
 require_once( TCP_CHECKOUT_FOLDER	. 'TCPCheckoutBox.class.php' );
 require_once( TCP_CLASSES_FOLDER	. 'CustomForms.class.php' );
@@ -57,20 +57,23 @@ class TCPBillingBox extends TCPCheckoutBox {
 
 	function after_action() {
 		global $thecartpress;
-		$use_as_shipping			= isset( $settings['use_as_shipping'] ) ? $settings['use_as_shipping'] : false;
+
+		//Getting Saved Settings
+		$settings		 = get_option( 'tcp_' . get_class( $this ), array() );
+		$use_as_shipping = isset( $settings['use_as_shipping'] ) ? $settings['use_as_shipping'] : false;
+
 		//Only if a new address is typed...
 		$selected_billing_address	= isset( $_REQUEST['selected_billing_address'] ) ? $_REQUEST['selected_billing_address'] : 'N';
 		if ( $selected_billing_address == 'new' || $selected_billing_address == 'N' ) {
 			//Getting defalt fields
 			$fields = $this->getDefaultFields();
-			//Getting Saved Settings
-			$settings = get_option( 'tcp_' . get_class( $this ), array() );
+			
 			//Applying active and required properties
 			foreach( $fields as $id => $field ) {
 				$active = isset( $settings['active-' . $id] ) ? $settings['active-' . $id] : true;
 				if ( $active ) {
 					if ( isset( $settings['callback_required-' . $id] ) ) {
-//TODO
+						//TODO
 					} else {
 						$required = isset( $settings['required-' . $id] ) ? $settings['required-' . $id] : false;
 						if ( $required && ( ! isset( $_REQUEST[$id] ) || strlen( $_REQUEST[$id] ) == 0 ) ) {
@@ -91,7 +94,6 @@ class TCPBillingBox extends TCPCheckoutBox {
 				}
 			}
 		} elseif ( $selected_billing_address == 'Y' ) {
-			global $thecartpress;
 			$billing_isos = isset( $thecartpress->settings['billing_isos'] ) ? $thecartpress->settings['billing_isos'] : false;
 			if ( $billing_isos ) {
 				$billing_country_id = Addresses::getCountryId( $_REQUEST['selected_billing_id'] );
@@ -100,6 +102,7 @@ class TCPBillingBox extends TCPCheckoutBox {
 				}
 			}
 		}
+
 		if ( $use_as_shipping ) {
 			$_SESSION['tcp_checkout']['shipping'] = array(
 				'selected_shipping_address' => "BIL",
@@ -128,7 +131,7 @@ class TCPBillingBox extends TCPCheckoutBox {
 					'billing_city'				=> isset( $_REQUEST['billing_city'] ) ? $_REQUEST['billing_city'] : '',
 					'billing_city_id'			=> isset( $_REQUEST['billing_city_id'] ) ? $_REQUEST['billing_city_id'] : 0,
 					'billing_street'			=> isset( $_REQUEST['billing_street'] ) ? $_REQUEST['billing_street'] : '',
-					'billing_street_2'			=> isset( $_REQUEST['billing_street'] ) ? $_REQUEST['billing_street'] : '',
+					'billing_street_2'			=> isset( $_REQUEST['billing_street_2'] ) ? $_REQUEST['billing_street_2'] : '',
 					'billing_postcode'			=> isset( $_REQUEST['billing_postcode'] ) ? str_replace( ' ' , '', $_REQUEST['billing_postcode'] ) : '',
 					'billing_telephone_1'		=> isset( $_REQUEST['billing_telephone_1'] ) ? $_REQUEST['billing_telephone_1'] : '',
 					'billing_telephone_2'		=> isset( $_REQUEST['billing_telephone_2'] ) ? $_REQUEST['billing_telephone_2'] : '',
@@ -151,14 +154,17 @@ class TCPBillingBox extends TCPCheckoutBox {
 			$selected_billing_address = false;
 		}?>
 		<div class="checkout_info clearfix" id="billing_layer_info">
-		<?php if ( $use_as_shipping ) :?>
+			<?php if ( $use_as_shipping ) : ?>
 			<span class="tcp_use_as_shipping"><?php _e( 'This data will be used, also, as Shipping.', 'tcp' ); ?></span><br/>
-		<?php endif; ?>
+			<?php endif; ?>
 		<?php global $current_user;
 		get_currentuserinfo();
-		if ( $current_user->ID > 0 ) $addresses = Addresses::getCustomerAddresses( $current_user->ID );
-		else $addresses = false;
-		if ( is_array( $addresses ) && count( $addresses ) > 0 ) :
+		if ( $current_user->ID > 0 ) {
+			$addresses = Addresses::getCustomerAddresses( $current_user->ID );
+		} else {
+			$addresses = array();
+		}
+		if ( is_array( $addresses ) && count( $addresses ) > 0 ) {
 			if ( $selected_billing_address === false ) $selected_billing_address = 'Y';
 			if ( isset( $_REQUEST['selected_billing_id'] ) ) {
 				$default_address_id = $_REQUEST['selected_billing_id'];
@@ -183,7 +189,7 @@ class TCPBillingBox extends TCPCheckoutBox {
 				<?php _e( 'Billing to the address selected', 'tcp' ); ?>
 			</label>
 			<br />
-		<?php endif;?>
+		<?php } ?>
 			<label for="new_billing_address">
 				<input type="radio" id="new_billing_address" name="selected_billing_address" value="new" <?php if ( $selected_billing_address == 'new' || count( $addresses ) == 0 ) : ?> checked="true"<?php endif;?> onChange="jQuery('#new_billing_area').show();jQuery('#selected_billing_area').hide();" />
 				<?php _e( 'New billing address', 'tcp' ); ?>
@@ -383,6 +389,7 @@ class TCPBillingBox extends TCPCheckoutBox {
 				'attrs'		=> array(
 					'size'		=> 20,
 					'maxlength'	=> 255,
+					'class'		=> 'form-control',
 				),
 			),
 			'billing_lastname'		=> array(
@@ -393,6 +400,7 @@ class TCPBillingBox extends TCPCheckoutBox {
 				'attrs'		=> array(
 					'size'		=> 40,
 					'maxlength'	=> 255,
+					'class'		=> 'form-control',
 				),
 			),
 			'billing_company'		=> array(
@@ -403,6 +411,7 @@ class TCPBillingBox extends TCPCheckoutBox {
 				'attrs'		=> array(
 					'size'		=> 20,
 					'maxlength'	=> 255,
+					'class'		=> 'form-control',
 				),
 			),
 			'billing_tax_id_number'	=> array(
@@ -412,6 +421,7 @@ class TCPBillingBox extends TCPCheckoutBox {
 				'attrs'		=> array(
 					'size'		=> 20,
 					'maxlength'	=> 255,
+					'class'		=> 'form-control',
 				),
 			),
 			'billing_country_id'	=> array(
@@ -428,23 +438,25 @@ class TCPBillingBox extends TCPCheckoutBox {
 				'error'		=> __( 'The billing City field must be completed', 'tcp' ),
 			),
 			'billing_street'		=> array(
-				'label'		=> __( 'Address', 'tcp' ),
+				'label'		=> __( 'Address 1', 'tcp' ),
 				'required'	=> true,
 				'input'		=> 'text',
-				'error'		=> __( 'The billing Street field must be completed', 'tcp' ),
+				'error'		=> __( 'The billing Address field must be completed', 'tcp' ),
 				'attrs'		=> array(
 					'size'		=> 20,
 					'maxlength'	=> 255,
+					'class'		=> 'form-control',
 				),
 			),
 			'billing_street_2'		=> array(
 				'label'		=> __( 'Address 2', 'tcp' ),
 				'required'	=> false,
 				'input'		=> 'text',
-				'error'		=> __( 'The billing Street 2 field must be completed', 'tcp' ),
+				//'error'		=> __( 'The billing Street 2 field must be completed', 'tcp' ),
 				'attrs'		=> array(
 					'size'		=> 20,
 					'maxlength'	=> 255,
+					'class'		=> 'form-control',
 				),
 			),
 			'billing_postcode'		=> array(
@@ -455,6 +467,7 @@ class TCPBillingBox extends TCPCheckoutBox {
 				'attrs'		=> array(
 					'size'		=> 10,
 					'maxlength'	=> 10,
+					'class'		=> 'form-control',
 				),
 			),
 			'billing_telephone_1'	=> array(
@@ -462,8 +475,9 @@ class TCPBillingBox extends TCPCheckoutBox {
 				'input'		=> 'text',
 				'error'		=> __( 'The billing Telephone field must be completed', 'tcp' ),
 				'attrs'		=> array(
-					'size'		=> 10,
-					'maxlength'	=> 10,
+					'size'		=> 15,
+					'maxlength'	=> 20,
+					'class'		=> 'form-control',
 				),
 			),
 			'billing_telephone_2'	=> array(
@@ -471,8 +485,9 @@ class TCPBillingBox extends TCPCheckoutBox {
 				'input'		=> 'text',
 				'error'		=> __( 'The billing Second Telephone field must be completed', 'tcp' ),
 				'attrs'		=> array(
-					'size'		=> 10,
-					'maxlength'	=> 10,
+					'size'		=> 15,
+					'maxlength'	=> 20,
+					'class'		=> 'form-control',
 				),
 			),
 			'billing_fax'			=> array(
@@ -482,6 +497,7 @@ class TCPBillingBox extends TCPCheckoutBox {
 				'attrs'		=> array(
 					'size'		=> 15,
 					'maxlength'	=> 20,
+					'class'		=> 'form-control',
 				),
 			),
 			'billing_email'			=> array(
@@ -492,6 +508,7 @@ class TCPBillingBox extends TCPCheckoutBox {
 				'attrs'		=> array(
 					'size'		=> 20,
 					'maxlength'	=> 255,
+					'class'		=> 'form-control',
 				),
 			),
 		);
@@ -511,15 +528,15 @@ class TCPBillingBox extends TCPCheckoutBox {
 		$billing_isos	= $thecartpress->get_setting( 'billing_isos', false );
 		//Getting allowed countries info
 		if ( $billing_isos ) {
-			$countries	= Countries::getSome( $billing_isos, tcp_get_current_language_iso() );
+			$countries	= TCPCountries::getSome( $billing_isos, tcp_get_current_language_iso() );
 		} else {
-			$countries	= Countries::getAll( tcp_get_current_language_iso() );
+			$countries	= TCPCountries::getAll( tcp_get_current_language_iso() );
 		}
 		//Get current selected country (if available)
 		$country_bill	= $country_id;
 		//If no country selected, set the default country
 		if ( $country_bill == '' ) $country_bill = $country; ?>
-		<select id="billing_country_id" name="billing_country_id">
+		<select id="billing_country_id" name="billing_country_id" class="form-control">
 		<?php foreach( $countries as $item ) { ?>
 			<option value="<?php echo $item->iso;?>" <?php selected( $item->iso, $country_bill ); ?>><?php echo $item->name; ?></option>
 		<?php } ?>
@@ -540,7 +557,7 @@ class TCPBillingBox extends TCPCheckoutBox {
 		} ?>
 		<label for="billing_region_id"><?php _e( 'Region', 'tcp' ); ?>:<?php if ( $required ) echo '<em>*</em>'; ?></label>
 		<?php $regions = apply_filters( 'tcp_load_regions_for_billing', false ); //array( 'id' => array( 'name'), 'id' => array( 'name'), ... )	?>
-		<select id="billing_region_id" name="billing_region_id" <?php if ( is_array( $regions ) && count( $regions ) > 0 ) {} else { echo 'style="display:none;"'; }?>>
+		<select id="billing_region_id" name="billing_region_id" <?php if ( is_array( $regions ) && count( $regions ) > 0 ) {} else { echo 'style="display:none;"'; }?> class="form-control">
 			<option value=""><?php _e( 'No state selected', 'tcp' ); ?></option>
 		<?php if ( is_array( $regions ) && count( $regions ) > 0 ) foreach( $regions as $id => $region_item ) { ?>
 			<option value="<?php echo $id;?>" <?php selected( $id, $region_id ); ?>><?php echo $region_item['name']; ?></option>
@@ -569,14 +586,14 @@ class TCPBillingBox extends TCPCheckoutBox {
 		$cities		= array(); //array( 'id' => array( 'name'), 'id' => array( 'name'), ... )
 		$cities		= apply_filters( 'tcp_load_cities_for_billing', $cities );
 		if ( is_array( $cities ) && count( $cities ) > 0 ) { ?>
-			<select id="billing_city_id" name="billing_city_id">
+			<select id="billing_city_id" name="billing_city_id" class="form-control">
 			<?php foreach( $cities as $id => $city ) { ?>
 				<option value="<?php echo $id;?>" <?php selected( $id, $city_id ); ?>><?php echo $city['name'];?></option>
 			<?php } ?>
 			</select>
 			<?php $this->showErrorMsg( 'billing_city_id' ); ?>
 		<?php } else { ?>
-			<input type="text" id="billing_city" name="billing_city" value="<?php echo $city;?>" size="20" maxlength="255" />
+			<input type="text" id="billing_city" name="billing_city" value="<?php echo $city;?>" size="20" maxlength="255" class="form-control"/>
 			<?php $this->showErrorMsg( 'billing_city' ); ?>
 		<?php }
 	}
@@ -724,4 +741,4 @@ class TCPBillingBox extends TCPCheckoutBox {
 }
 
 new TCPBillingBox();
-} // class_exists check
+endif; // class_exists check

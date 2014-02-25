@@ -63,7 +63,16 @@ class TCPPayPal extends TCP_Plugin {
 				<label for="business"><?php _e( 'PayPal eMail', 'tcp' );?>:</label>
 			</th>
 			<td>
-				<input type="text" id="business" name="business" size="40" maxlength="50" value="<?php echo isset( $data['business'] ) ? $data['business'] : '';?>" />
+				<input type="text" id="business" name="business" size="40" maxlength="50" value="<?php echo isset( $data['business'] ) ? $data['business'] : ''; ?>" />
+			</td>
+		</tr>
+		<tr valign="top">
+			<th scope="row">
+				<label for=""><?php _e( 'Primary PayPal email', 'tcp' );?>:</label>
+			</th>
+			<td>
+				<input type="text" id="receiver" name="receiver" size="40" maxlength="50" value="<?php echo isset( $data['receiver'] ) ? $data['receiver'] : ''; ?>" />
+				<span class="description"><?php _e( 'Leave it blank if business is equl to receiver.', 'tcp' );?></span>
 			</td>
 		</tr>
 		<tr valign="top">
@@ -71,11 +80,11 @@ class TCPPayPal extends TCP_Plugin {
 				<?php _e( 'PayPal prompt for shipping address', 'tcp' );?>:
 			</th>
 			<td>
-				<input type="radio" id="no_shipping_0" name="no_shipping" value="0" <?php checked( 0 , isset( $data['no_shipping'] ) ? $data['no_shipping'] : 0 );?> />
+				<input type="radio" id="no_shipping_0" name="no_shipping" value="0" <?php checked( 0 , isset( $data['no_shipping'] ) ? $data['no_shipping'] : 0 ); ?> />
 				<label for="no_shipping"><?php _e( 'PayPal prompt for an address, but do not require one', 'tcp' );?></label><br />
-				<input type="radio" id="no_shipping_1" name="no_shipping" value="1" <?php checked( 1 , isset( $data['no_shipping'] ) ? $data['no_shipping'] : 0 );?> />
+				<input type="radio" id="no_shipping_1" name="no_shipping" value="1" <?php checked( 1 , isset( $data['no_shipping'] ) ? $data['no_shipping'] : 0 ); ?> />
 				<label for="no_shipping"><?php _e( 'PayPal do not prompt for an address', 'tcp' );?></label><br />
-				<input type="radio" id="no_shipping_2" name="no_shipping" value="2" <?php checked( 2 , isset( $data['no_shipping'] ) ? $data['no_shipping'] : 0 );?> />
+				<input type="radio" id="no_shipping_2" name="no_shipping" value="2" <?php checked( 2 , isset( $data['no_shipping'] ) ? $data['no_shipping'] : 0 ); ?> />
 				<label for="no_shipping"><?php _e( 'PayPal prompt for an address, and require one', 'tcp' );?></label><br />
 				<span class="description"><?php _e( 'Be sure to match this in the Checkout Editor', 'tcp' );?></span>
 			</td>
@@ -168,7 +177,8 @@ class TCPPayPal extends TCP_Plugin {
 	}
 
 	function saveEditFields( $data, $instance = 0 ) {
-		$data['business']				= isset( $_REQUEST['business'] ) ? $_REQUEST['business'] : '';
+		$data['business']				= isset( $_REQUEST['business'] ) ? trim( $_REQUEST['business'] ) : '';
+		$data['receiver']				= isset( $_REQUEST['receiver'] ) ? trim( $_REQUEST['receiver'] ) : '';
 		$data['profile_shipping']		= isset( $_REQUEST['profile_shipping'] );
 		$data['profile_taxes']			= isset( $_REQUEST['profile_taxes'] );
 		$data['no_shipping']			= isset( $_REQUEST['no_shipping'] ) ? $_REQUEST['no_shipping'] : 0;
@@ -197,9 +207,10 @@ class TCPPayPal extends TCP_Plugin {
 		$new_status			= $data['new_status'];
 		$currency			= tcp_get_the_currency_iso();
 		$currency			= apply_filters( 'tcp_paypal_get_convert_to', $currency, $data );
+
 		$p = new tcp_paypal_class( $test_mode, $logging );
-		$p->add_field( 'cmd', '_ext-enter' );
-		$p->add_field( 'redirect_cmd', '_xclick' );
+		$p->add_field( 'cmd'			, '_ext-enter' );
+		$p->add_field( 'redirect_cmd'	, '_xclick' );
 		$p->add_field( 'charset'		, 'utf-8' );
 		$p->add_field( 'business'		, $business );
 		if ( function_exists( 'tcp_get_the_checkout_ok_url' ) ) {
@@ -359,7 +370,12 @@ wp_mail( 'inigoini@gmail.com', 'tcp_paypal_ipn', print_r( $_REQUEST, true ) , $h
 		//		Since implementations on this varies, I will leave these checks out of this
 		//		example and just send an email using the getTextReport() method to get all
 		//		of the details about the IPN.
-				if ( $_POST['receiver_email'] == $data['business'] ) {
+				$business			= $data['business'];
+				$receiver			= $date['receiver'];
+				if ( strlen( $receiver ) == 0 ) {
+					$receiver = $business;
+				}
+				if ( $_POST['receiver_email'] == $receiver ) {
 					$ok = false;
 					//$order_row = Orders::getOrderByTransactionId( $classname, $transaction_id );
 					$additional = 'Payment_status: ' . $_POST['payment_status'] . "\n";
@@ -418,4 +434,3 @@ wp_mail( 'inigoini@gmail.com', 'tcp_paypal_ipn', print_r( $_REQUEST, true ) , $h
 		}
 	}
 }
-?>

@@ -16,7 +16,10 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-if ( !function_exists( 'ad_selected_multiple' ) ) {
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) exit;
+
+if ( ! function_exists( 'ad_selected_multiple' ) ) {
 	function ad_selected_multiple( $values, $value, $echo = true ) {
 		if ( in_array( $value, $values ) ) {
 			if ( $echo ) {
@@ -154,6 +157,7 @@ if ( ! isset( $post_type_def ) ) {
 	<input type="hidden" name="edit" value="yes" />
 	<?php endif; ?>
 	<div class="postbox">
+		<div class="inside">
 	<table class="form-table">
 	<tbody>
 	<tr valign="top">
@@ -197,10 +201,12 @@ if ( ! isset( $post_type_def ) ) {
 	</tr>
 	</tbody>
 	</table>
+		</div><!-- .inside -->
 	</div><!-- .postbox -->
 
 	<h3><?php _e( 'Labels', 'tcp' ); ?></h3>
 	<div class="postbox">
+		<div class="inside">
 	<table class="form-table">
 	<tbody>
 	<tr valign="top">
@@ -278,6 +284,7 @@ if ( ! isset( $post_type_def ) ) {
 	</tr>
 	</tbody>
 	</table>
+		</div><!-- .inside -->
 	</div><!-- .postbox -->
 
 	<p class="submit">
@@ -286,6 +293,7 @@ if ( ! isset( $post_type_def ) ) {
 
 	<h3><?php _e( 'Properties', 'tcp' ); ?></h3>
 	<div class="postbox">
+		<div class="inside">
 	<table class="form-table">
 	<tbody>
 	<tr valign="top">
@@ -453,6 +461,7 @@ if ( ! isset( $post_type_def ) ) {
 	</tr>
 	<?php endif; ?>
 	</table>
+		</div><!-- .inside -->
 	</div><!-- .postbox -->
 
 	<p class="submit">

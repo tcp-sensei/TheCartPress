@@ -26,9 +26,9 @@
  */
 
 // Exit if accessed directly
-if ( !defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) exit;
 
-if ( ! class_exists( 'TCPFilterNavigation' ) ) {
+if ( ! class_exists( 'TCPFilterNavigation' ) ) :
 
 class TCPFilterNavigation {
 	private $min_price = 0;
@@ -59,8 +59,26 @@ class TCPFilterNavigation {
 		} elseif ( isset( $filter['order_type'] ) && isset( $filter['order_desc'] ) ) {
 		} else {
 			$settings = get_option( 'ttc_settings' );
-			$filter['order_type'] = isset( $settings['order_type'] ) ? $settings['order_type'] : 'order';
-			$filter['order_desc'] = isset( $settings['order_desc'] ) ? $settings['order_desc'] : 'asc';
+			global $wp_query;
+			$post_type = $wp_query->get( 'post_type' );
+			if ( is_array( $post_type ) ) {
+				$post_type = $post_type[0];
+			}
+			$suffix = $post_type;
+			if ( isset( $settings['order_type-' . $suffix] ) ) {
+				$filter['order_type'] = $settings['order_type-' . $suffix];
+			} elseif ( isset( $settings['order_type'] ) ) {
+				$filter['order_type'] = $settings['order_type'];
+			} else {
+				$filter['order_type'] = 'order';
+			}
+			if ( isset( $settings['order_desc-' . $suffix] ) ) {
+				$filter['order_desc'] = $settings['order_desc-' . $suffix];
+			} elseif ( isset( $settings['order_desc'] ) ) {
+				$filter['order_desc'] = $settings['order_desc'];
+			} else {
+				$filter['order_desc'] = 'asc';
+			}
 		}
 		$this->order_type = $filter['order_type'];
 		$this->order_desc = $filter['order_desc'];
@@ -180,4 +198,4 @@ class TCPFilterNavigation {
 		return false;
 	}
 }
-} // class_exists check
+endif; // class_exists check

@@ -16,6 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+
 require_once( TCP_DAOS_FOLDER . 'RelEntitiesOptions.class.php' );
 
 //Create an option from another
