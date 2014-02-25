@@ -5,13 +5,13 @@
  * Outputs the single content of a saleable post type
  *
  * @package TheCartPress
- * @subpackage Modules
+ * @subpackage Classes
  */
 
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-if ( ! class_exists( 'TCPThemeCompat' ) ) {
+if ( ! class_exists( 'TCPThemeCompat' ) ) :
 
 /**
  * Theme Compatibility approach 1.3.1
@@ -19,8 +19,8 @@ if ( ! class_exists( 'TCPThemeCompat' ) ) {
  * @since TheCartPress (1.3.1)
  */
 class TCPThemeCompat {
-	private $post;
-	private $posts;
+	public $post;
+	public $posts;
 
 	function __construct() {
 		add_action( 'tcp_init', array( $this, 'tcp_init' ) );
@@ -28,58 +28,53 @@ class TCPThemeCompat {
 
 	function tcp_init() {
 		global $thecartpress;
-		//Removes the old the_content hook, used by TheCartPress
+		// Removes the old the_content hook, used by TheCartPress
 		// remove_filter( 'the_content'	, array( $thecartpress, 'the_content' ) );
 
-		//Adds a new hook to create the new template hierarchy
+		// Adds a new hook to create the new template hierarchy
 		add_filter( 'template_include'	, array( $this, 'template_include' ) );
 	}
 
 	function template_include( $template ) {
 		global $post;
 		if ( ! $post ) return $template;
-		//Catalogue page
-		$catalogue_id = get_option( 'tcp_catalogue_page_id' );
-		if ( $post->ID == $catalogue_id ) {
-			//Template hierarchy
-			//TODO Custom templates...
-			//Searching for a template
-			//TheCartPress loads one of the next ones and Theme Compatibility will inject the content
-			$template_names = apply_filters( 'tcp_theme_compat_catalogue_template_names', array(
-				'archive-' . $post->post_type . '.php',
-				'archive-tcp_saleable.php',
-				'thecartpress.php',
-				'page.php',
-				'index.php'
-			), $post );
-			$template = locate_template( $template_names );
-			//Makes a new query and reset the global one
+
+		// Catalogue page
+		if ( tcp_is_the_catalogue_page() ) {
+
+			// Makes a new query and resets the global one
 			global $wp_query, $thecartpress;
 			$args = array(
 				'post_type'			=> tcp_get_product_post_types(),
 				'posts_per_page'	=> $thecartpress->get_setting( 'products_per_page', 10 ),
-				'paged'				=> $wp_query->get('paged'),
+				'paged'				=> $wp_query->get( 'paged' ),
 				'meta_query'		=> array(
 					'key'		=> 'tcp_is_visible',
 					'value'		=> 1,
 					'type'		=> 'NUMERIC',
 					'compare'	=> '='
 				),
+				'tcp_is_injection'	=> true,
 			);
+
 			$wp_query = new WP_Query( apply_filters( 'tcp_theme_compat_catalogue_wp_query_args', $args ) );
-			//Reset the global query again
+
+			//Resets the global query again
 			$this->theme_compatibility_reset_post( array(
 				'post_type'		=> 'tcp_product',
 				'post_title'	=> $post->post_title,
-				//'post_content'	=> $post->post_content,
 				'is_archive'	=> true,
+				'ID'			=> tcp_get_the_catalogue_page_id(),
 			) );
+
 			//Adds a new 'the_content' hook
 			add_filter( 'the_content', array( $this, 'the_content' ) );
 			return $template;
 		}
+
 		//Only apply this hierarchy for saleable post types or taxonomies
-		if ( ! tcp_is_saleable_post_type( $post->post_type ) ) return $template;
+		if ( ! is_author() && ! tcp_is_saleable_post_type( $post->post_type ) ) return $template;
+
 		//Displaying a saleable post (a product)
 		if ( is_single() ) {
 			//Template hierarchy
@@ -89,40 +84,49 @@ class TCPThemeCompat {
 				'single-' . $post->post_type . '.php',
 				'single-tcp_saleable.php',
 			), $post );
+
 			//Searching for a template
 			$template = locate_template( $template_names );
+
 			//If the theme hasn't the previous templates then TheCartPress loads one of this
 			//and Theme compatibility will inject the content
 			if ( strlen( $template ) == 0 ) {
 				$template_names = apply_filters( 'tcp_archive_saleable_default_template_names', array(
 					'thecartpress.php',
 					'page.php',
+					'single.php',
 					'index.php'
 				), $post );
 				$this->theme_compatibility_reset_post( array(
 					'post_title'	=> $post->post_title,
 					'post_content'	=> $post->post_content,
+					'post_type'		=> $post->post_type, //'tcp_product',
 					'is_single'		=> true,
+					'ID'			=> $post->ID,
 				) );
 				$template = locate_template( $template_names );
+
 				//Adds a new 'the_content' hook
 				add_filter( 'the_content', array( $this, 'the_content' ) );
 			}
 		} elseif ( is_tax() ) {
 			$taxonomy	= get_query_var( 'taxonomy' );
 			$term		= get_query_var( 'term' );
+
 			//Template hierarchy
 			//TODO Custom templates...
 			//If the theme has any of this templates, Theme compatibility is deactivate
 			$template_names = apply_filters( 'tcp_theme_compat_archive_saleable_template_names', array(
-				'taxonomy-' . $taxonomy . $term . '.php',
+				'taxonomy-' . $taxonomy . '-'. $term . '.php',
 				'taxonomy-' . $taxonomy . '.php',
 				'taxonomy-tcp_saleable.php',
 				'thecartpress.php',
 				'taxonomy.php',
 			), $post );
+
 			//Searching for a template
 			$template = locate_template( $template_names );
+
 			//If the theme hasn't the previous templates then TheCartPress loads one of this
 			//and Theme compatibility will inject the content
 			if ( substr( $template, -strlen( 'thecartpress.php' ) ) === 'thecartpress.php' || strlen( $template ) == 0 ) {
@@ -144,12 +148,14 @@ class TCPThemeCompat {
 					'post_type'		=> $post->post_type,
 					'is_tax'		=> true,
 					'is_archive'	=> true
-				) );
+					)
+				);
 				$template = locate_template( $template_names );
+
 				//Adds a new 'the_content' hook
 				add_filter( 'the_content', array( $this, 'the_content' ) );
 			}
-		} elseif ( is_archive() && ! is_author() ) {
+		} elseif ( is_archive() && !is_author() ) {
 			//Template hierarchy
 			//TODO Custom templates...
 			//If the theme has any of this templates, Theme compatibility is deactivate
@@ -157,6 +163,7 @@ class TCPThemeCompat {
 				'archive-' . $post->post_type . '.php',
 				'archive-tcp_saleable.php',
 			), $post );
+
 			//Searching for a template
 			$template = locate_template( $template_names );
 
@@ -180,11 +187,13 @@ class TCPThemeCompat {
 					'is_archive'	=> true
 				) );
 				$template = locate_template( $template_names );
+
 				//Adds a new 'the_content' hook
 				add_filter( 'the_content', array( $this, 'the_content' ) );
 			}
 		}
-		return $template;
+
+		return apply_filters( 'tcp_theme_compat_template_include', $template, $post, $this );
 	}
 
 	/**
@@ -199,53 +208,62 @@ class TCPThemeCompat {
 		//Removes this "the_content" hook, very important to avoid recursion
 		$rem = remove_filter( 'the_content', array( $this, 'the_content' ) );
 		if ( is_single() ) {
-			//Recovers the current post (current product or saleable post)
+
+			// Recovers the current post (current product or saleable post)
 			$post = $this->post;
 
-			//Set the template to use. It will be, first, searched in your theme
+			// Set the template to use. It will be, first, searched in your theme
 			$template_name = 'tcp-single-product.php';
 			$located = locate_template( $template_name );
 
-			//If the theme has not this template, then the template available in TheCartPress will be used
+			// If the theme has not this template, then the template available in TheCartPress will be used
 			if ( strlen( $located ) == 0 ) $located = TCP_THEMES_TEMPLATES_FOLDER . $template_name;
 
-			//Applies the template
+			// Applies the template
 			ob_start();
 			require( apply_filters( 'tcp_template_single_product', $located ) );
 			$content = ob_get_clean();
-		} elseif ( is_tax() || is_archive() || $post->ID == get_option( 'tcp_catalogue_page_id' ) ) {
+		} elseif ( is_tax() || is_archive() || tcp_is_the_catalogue_page() ) {
 			global $wp_query;
-			//Recovers the current post (current product or saleable post)
+
+			// Recovers the current post (current product or saleable post)
 			if ( isset( $this->posts[0] ) ) $post = $this->posts[0];
+
+			// Set current posts
 			$wp_query->posts = $this->posts;
 			$wp_query->post_count = count( $this->posts );
 			$wp_query->rewind_posts();
 
-			//Set the template to use. It will be, first, searched in your theme
+			// Set the template to use. It will be, first, searched in your theme
 			$template_name = 'tcp-archive-product.php';
 			$located = locate_template( $template_name );
 
-			//If the theme has not this template, then the template available in TheCartPress will be used
-			//if ( $located == $template_name ) $located = TCP_THEMES_TEMPLATES_FOLDER . $template_name;
+			// If the theme has not this template, then the template available in TheCartPress will be used
 			if ( strlen( $located ) == 0 ) $located = TCP_THEMES_TEMPLATES_FOLDER . $template_name;
 
-			//Applies the template
+			// Applies the template
 			ob_start();
 			require( apply_filters( 'tcp_template_archive_product', $located ) );
 			$content = ob_get_clean();
-			//Set the query after the last post
+
+			// Set the query after the last post
 			$wp_query->current_post = count( $this->posts );
 		}
+
+		$content = apply_filters( 'tcp_theme_compat_the_content', $content, $post );
+
 		add_filter( 'the_content', array( $this, 'the_content' ) );
+
 		return $content;
 	}
 
-	protected function theme_compatibility_reset_post( $args = array() ) {
+	public function theme_compatibility_reset_post( $args = array() ) {
 		global $wp_query, $post;
+
 		//Saves the current post (current product or saleable post)
 		//It will be recovered in "the_content" hook
 		//$this->post = $post;
-		$this->post = $wp_query->post;
+		$this->post = isset( $wp_query->post ) ? $wp_query->post : false;
 		$this->posts = $wp_query->posts;
 
 		$args = wp_parse_args( $args, array(
@@ -280,10 +298,14 @@ class TCPThemeCompat {
 			'is_archive'			=> false,
 			'is_tax'				=> false,
 			'is_home'				=> false,
+			'is_author'				=> false,
 		) );
 
 		// Set the $post global
 		$post = new WP_Post( (object) $args );
+
+		// Set the ID
+		if ( isset( $args['ID'] ) ) $post->ID = $args['ID'];
 
 		// Copy the new post global into the main $wp_query
 		$wp_query->post		= $post;
@@ -297,6 +319,7 @@ class TCPThemeCompat {
 		$wp_query->is_archive	= $args['is_archive'];
 		$wp_query->is_tax		= $args['is_tax'];
 		$wp_query->is_home		= $args['is_home'];
+		$wp_query->is_author	= $args['is_author'];
 
 		// Clean up the args post
 		unset( $args );
@@ -304,9 +327,9 @@ class TCPThemeCompat {
 		/**
 		 * Force the header back to 200 status if not a deliberate 404
 		 */
-		if ( ! $wp_query->is_404() ) status_header( 200 );
+		if ( !$wp_query->is_404() ) status_header( 200 );
 	}
 }
 
 new TCPThemeCompat();
-} // class_exists check
+endif; // class_exists check

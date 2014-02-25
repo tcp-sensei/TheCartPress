@@ -1,5 +1,14 @@
 <?php
 /**
+ * Default Buy button Template
+ *
+ * It's used for Simple products and for any other type of products taht haven't a template
+ *
+ * @package TheCartPress
+ * @subpackage Themes-Templates
+ */
+
+/**
  * This file is part of TheCartPress.
  *
  * This program is free software: you can redistribute it and/or modify
@@ -19,9 +28,13 @@
 global $thecartpress;
 $disable_shopping_cart	= $thecartpress->get_setting( 'disable_shopping_cart' );
 $after_add_to_cart		= $thecartpress->get_setting( 'after_add_to_cart', '' );
-if ( $after_add_to_cart == 'ssc' ) $action = get_permalink( tcp_get_current_id( get_option( 'tcp_shopping_cart_page_id', '' ), 'page' ) );
-elseif ( $after_add_to_cart == 'sco' ) $action = get_permalink( tcp_get_current_id( get_option( 'tcp_checkout_page_id', '' ), 'page' ) );
-else $action = '';
+if ( $after_add_to_cart == 'ssc' ) {
+	$action				= get_permalink( tcp_get_current_id( get_option( 'tcp_shopping_cart_page_id', '' ), 'page' ) );
+} elseif ( $after_add_to_cart == 'sco' ) {
+	$action				= get_permalink( tcp_get_current_id( get_option( 'tcp_checkout_page_id', '' ), 'page' ) );
+} else {
+	$action				= '';
+}
 
 /**** Start editing to customise your buy buttons! */ ?>
 <div class="tcp_buy_button_area tcp_buy_button_simple tcp_buy_button_<?php echo get_post_type(); ?> tcpf <?php echo implode( ' ' , apply_filters( 'tcp_buy_button_get_product_classes', array(), $post_id ) ); ?>">
@@ -45,7 +58,7 @@ else $action = '';
 				</div><!-- .form-group -->
 			</div><!-- .tcp-buy-dynamic-options -->
 		<?php endif; ?>
-		<?php if ( ! tcp_hide_buy_button( $post_id ) && ! $disable_shopping_cart ) : ?>
+		<?php if ( !tcp_hide_buy_button( $post_id ) && ! $disable_shopping_cart ) : ?>
 			<div class="tcp-add-to-cart">
 				<div class="form-group">
 					<?php tcp_the_add_to_cart_unit_field( $post_id, tcp_get_the_initial_units( $post_id ) ); ?>
