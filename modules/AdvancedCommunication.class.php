@@ -67,7 +67,7 @@ class TCPAdvancedCommunication {
 		<option value="<?php echo $days; ?>" <?php selected( $days, $email_delayed_days ); ?>><?php echo $days; ?></option>
 		<?php endforeach; ?>
 	</select>
-	<p class="description"><?php _e( 'Delay x days the emails to send from Manage orders "Send delayed email"', 'tcp' );</p>
+	<p class="description"><?php _e( 'Delay x days the emails to send from Manage orders "Send delayed email"', 'tcp' ); ?></p>
 	</td>
 </tr>
 <?php }
