@@ -16,6 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) exit;
+
+if ( ! class_exists( 'TCPPriceShortcode' ) ) :
+
 class TCPPriceShortcode {
 
 	function __construct() {
@@ -29,4 +34,5 @@ class TCPPriceShortcode {
 }
 
 new TCPPriceShortcode();
-?>
+
+endif; // class_exists check

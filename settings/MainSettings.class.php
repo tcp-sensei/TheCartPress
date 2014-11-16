@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if ( !defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 if ( ! class_exists( 'TCPMainSettings' ) ) {
 
@@ -36,8 +36,8 @@ class TCPMainSettings {
 		$base = $thecartpress->get_base_settings();
 		$page = add_submenu_page( $base, __( 'Main Settings', 'tcp' ), __( 'Main Settings', 'tcp' ), 'tcp_edit_settings', $base, array( &$this, 'admin_page' ) );
 
-		add_action( "load-$page", array( &$this, 'admin_load' ) );
-		add_action( "load-$page", array( &$this, 'admin_action' ) );
+		add_action( "load-$page", array( $this, 'admin_load' ) );
+		add_action( "load-$page", array( $this, 'admin_action' ) );
 	}
 
 	function admin_load() {

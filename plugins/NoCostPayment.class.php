@@ -75,7 +75,6 @@ class NoCostPayment extends TCP_Plugin {
 
 	function showPayForm( $instance, $shippingCountry, $shoppingCart, $order_id = 0 ) {
 		$buy_button_color	= tcp_get_buy_button_color();
-		$buy_button_size	= tcp_get_buy_button_size();
 		$data				= tcp_get_payment_plugin_data( get_class( $this ), $instance, $order_id );
 		$url				= tcp_get_the_checkout_ok_url( $order_id );
 		$title				= isset( $data['title'] ) ? $data['title'] : '';
@@ -88,8 +87,8 @@ class NoCostPayment extends TCP_Plugin {
 	<?php echo $data['notice'];?>
 </p>
 
-<p>
-	<button type="button" id="tcp_no_cost_payment_button" class="tcp_pay_button tcp-btn <?php echo $buy_button_color, ' ', $buy_button_size; ?>" onclick="window.location.href = '<?php echo $url; ?>';"><?php _e( 'Finish', 'tcp' );?></button>
+<p class="tcpf">
+	<button type="submit" id="tcp_no_cost_payment_button" class="tcp_pay_button tcp-btn tcp-btn-lg <?php echo $buy_button_color; ?>" onclick="window.location.href = '<?php echo $url; ?>';"><?php _e( 'Finish', 'tcp' );?></button>
 </p>
 
 		<?php require_once( TCP_DAOS_FOLDER . '/Orders.class.php' );

@@ -195,7 +195,7 @@ class Orders {
 			'billing_company'		=> $order['billing_company'],
 			'billing_tax_id_number'	=> $order['billing_tax_id_number'],
 			'billing_street'		=> $order['billing_street'],
-			'billing_street_2'		=> isset( $order['billing_street'] ) ? $order['billing_street'] : '',
+			'billing_street_2'		=> isset( $order['billing_street_2'] ) ? $order['billing_street_2'] : '',
 			'billing_city'			=> $order['billing_city'],
 			'billing_city_id'		=> $order['billing_city_id'],
 			'billing_region'		=> $order['billing_region'],
@@ -217,11 +217,16 @@ class Orders {
 
 	static function getCountOrdersByStatus( $status = 'PENDING', $customer_id = -1 ) {
 		global $wpdb;
+
 		$sql = 'select count(*) from ' . $wpdb->prefix . 'tcp_orders where 1=1';
-		if ( $status != '' ) $sql .= ' and status=%s';
-		if ( ! empty( $customer_id ) && ( $customer_id > -1 ) ) $sql .= ' and customer_id = %d';
-		$sql = $wpdb->prepare( $sql, $status, $customer_id );
+		if ( $status != '' ) {
+			$sql .= $wpdb->prepare( ' and status=%s', $status );
+		}
+		if ( ! empty( $customer_id ) && ( $customer_id > -1 ) ) {
+			$sql .= $wpdb->prepare( ' and customer_id = %d', $customer_id );
+		}
 		$sql = apply_filters( 'get_count_orders_by_status_sql', $sql, $status , $customer_id );
+
 		return $wpdb->get_var( $sql );
 	}
 
@@ -553,4 +558,3 @@ class Orders {
 		return apply_filters( 'tcp_getOrdersByMonth', $wpdb->get_results( $sql ), $year );
 	}
 }
-?>

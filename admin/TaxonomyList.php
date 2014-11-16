@@ -71,16 +71,23 @@ jQuery(document).ready(function() {
 </tfoot>
 <tbody>
 <?php $taxonomy_defs = tcp_get_custom_taxonomies();
+
 if ( is_array( $taxonomy_defs ) && count( $taxonomy_defs ) > 0 ) :
 	foreach( $taxonomy_defs as $taxonomy => $taxonomy_def ) : ?>
 <tr>
 	<td><?php $post_types = $taxonomy_def['post_type'];
 		if ( ! is_array( $post_types ) ) $post_types = array( $post_types );
+		$post_type_names = array();
 		foreach( $post_types as $post_type ) {
 			$object = get_post_type_object( $post_type );
-			if ( $object ) echo $object->labels->name;
-			else _e( 'No post type', 'tcp' );
-		} ?></td>
+			if ( $object ) {
+				$post_type_names[] = $object->labels->name;
+			} else {
+				$post_type_names[] = _e( 'No post type', 'tcp' );
+			}
+		}
+		echo implode( ', ', $post_type_names ); ?>
+	</td>
 	<td><?php echo $taxonomy_def['name']; ?></td>
 	<td><?php echo $taxonomy; ?></td>
 	<td><?php echo $taxonomy_def['desc']; ?>&nbsp;</td>

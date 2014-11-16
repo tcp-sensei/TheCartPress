@@ -17,7 +17,7 @@
  */
 
 // Exit if accessed directly
-if ( !defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 if ( ! class_exists( 'TCPParentWidget' ) ) {
 	
@@ -49,11 +49,6 @@ class TCPParentWidget extends WP_Widget {
 				}
 				if ( ! $user_car ) return false;
 			}
-		}
-		if ( false && WP_DEBUG ) {
-			var_dump($args);
-			echo "\n\n<br><br>";
-			var_dump($instance);
 		}
 		return apply_filters( 'tcp_private_widget', true, $args, $instance );
 	}

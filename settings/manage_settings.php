@@ -28,5 +28,4 @@ require_once( TCP_CHECKOUT_FOLDER . 'CheckoutEditor.class.php' );
 
 require_once( 'FirstTimeSetup.class.php' );
 
-require_once( 'EMarketingSettings.class.php' );
-?>
+//require_once( 'EMarketingSettings.class.php' );

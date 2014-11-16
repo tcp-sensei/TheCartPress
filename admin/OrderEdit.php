@@ -18,35 +18,35 @@
 
 require_once( TCP_CLASSES_FOLDER	. 'OrderPage.class.php' );
 
-$order_id	= isset( $_REQUEST['order_id'] ) ? $_REQUEST['order_id'] : '';
-$status		= isset( $_REQUEST['status'] ) ? $_REQUEST['status'] : '';
-$paged		= isset( $_REQUEST['paged'] ) ? $_REQUEST['paged'] : '';
-$new_status = isset( $_REQUEST['new_status'] ) ? $_REQUEST['new_status'] : '';
+$order_id	= isset( $_REQUEST['order_id'] )	? $_REQUEST['order_id'] : '';
+$status		= isset( $_REQUEST['status'] )		? $_REQUEST['status'] : '';
+$paged		= isset( $_REQUEST['paged'] )		? $_REQUEST['paged'] : '';
+$new_status = isset( $_REQUEST['new_status'] )	? $_REQUEST['new_status'] : '';
 
-if ( isset( $_REQUEST['tcp_order_edit'] ) && current_user_can( 'tcp_edit_orders' ) ) {
+if ( ( isset( $_REQUEST['tcp_order_edit'] ) || isset( $_REQUEST['tcp_order_edit_email_return'] ) ) && current_user_can( 'tcp_edit_orders' ) ) {
 	try {
 		Orders::edit( $order_id, $new_status, $_REQUEST['code_tracking'],  $_REQUEST['comment'], $_REQUEST['comment_internal'] );
-	do_action( 'tcp_admin_order_editor_save', $order_id ); ?>
-	<div id="message" class="updated">
-		<p><?php _e( 'Order saved', 'tcp' ); ?></p>
-	</div>
-	<?php } catch ( Exception $e ) { ?>
-		<div id="message" class="error">
-			<p><?php echo $e->getMessage(); ?></p>
-		</div>
-	<?php }
-	} elseif ( isset( $_REQUEST['tcp_order_delete'] ) && current_user_can( 'tcp_edit_orders' ) ) {
-	Orders::delete( $order_id );
-	do_action( 'tcp_admin_order_editor_delete', $order_id ); ?>
-	<div id="message" class="updated">
-		<p><?php _e( 'Order deleted', 'tcp' ); ?></p>
-	</div>
-	<p><a href="<?php echo TCP_ADMIN_PATH; ?>OrdersListTable.php&status=<?php echo $status?>&paged=<?php echo $paged?>"><?php _e( 'return to the list', 'tcp' ); ?></a></p>
+		do_action( 'tcp_admin_order_editor_save', $order_id ); ?>
+<div id="message" class="updated">
+	<p><?php _e( 'Order saved', 'tcp' ); ?></p>
+</div>
+<?php } catch ( Exception $e ) { ?>
+<div id="message" class="error">
+	<p><?php echo $e->getMessage(); ?></p>
+</div>
+<?php }
+} elseif ( isset( $_REQUEST['tcp_order_delete'] ) && current_user_can( 'tcp_edit_orders' ) ) {
+Orders::delete( $order_id );
+do_action( 'tcp_admin_order_editor_delete', $order_id ); ?>
+<div id="message" class="updated">
+	<p><?php _e( 'Order deleted', 'tcp' ); ?></p>
+</div>
+<p><a href="<?php echo TCP_ADMIN_PATH; ?>OrdersListTable.php&status=<?php echo $status?>&paged=<?php echo $paged?>"><?php _e( 'return to the list', 'tcp' ); ?></a></p>
 	<?php return;
 }
 $order = Orders::get( $order_id );
 
-if ( isset( $_REQUEST['send_email'] ) ) :
+if ( isset( $_REQUEST['send_email'] ) || isset( $_REQUEST['tcp_order_edit_email_return'] ) ) :
 	require_once( TCP_CHECKOUT_FOLDER . 'ActiveCheckout.class.php' );
 	if ( $_REQUEST['send_email'] != 'merchant' ) ActiveCheckout::sendMails( $order_id, '', true );
 	else ActiveCheckout::sendOrderMails( $order_id, '', false, true ); ?>
@@ -327,6 +327,7 @@ function tcp_order_setup_metabox() {
 		<tr>
 			<th colspan="2" class="_submit" style="text-align: right;">
 				<input name="tcp_order_edit" value="<?php _e( 'Save', 'tcp' ); ?>" type="submit" class="button-primary" />
+				<input name="tcp_order_edit_email_return" value="<?php _e( 'Save, send and return', 'tcp' ); ?>" type="submit" class="button-primary" />
 				<?php do_action( 'tcp_admin_order_submit_area', $order_id ); ?>
 				<?php if ( tcp_is_order_status_valid_for_deleting( $order->status ) ) : ?>
 					<a href="#" onclick="jQuery('#delete_order').show();return false;" class="delete"><?php _e( 'Delete', 'tcp' ); ?></a>
@@ -337,7 +338,7 @@ function tcp_order_setup_metabox() {
 						<a href="" onclick="jQuery('#delete_order').hide();return false;"><?php _e( 'No, I don\'t' , 'tcp' ); ?></a>
 					</div>
 				<?php endif; ?>
-			</td>
+			</th>
 		</tr><!-- .submit -->
 	</tbody>
 	</table>
@@ -346,6 +347,11 @@ function tcp_order_setup_metabox() {
 	<?php endif;
 }
 ?>
+<?php if ( isset( $_REQUEST['tcp_order_edit_email_return'] ) ) : ?>
+<script>
+	window.location = '<?php echo add_query_arg( 'page', 'thecartpress/admin/OrdersListTable.php', get_admin_url() ); ?>';
+</script>
+<?php endif; ?>
 
 <div class="wrap">
 
@@ -391,5 +397,4 @@ function tcp_order_setup_metabox() {
 		<br class="clear" />
 
 	</div><!-- /poststuff -->
-
 </div><!-- wrap -->

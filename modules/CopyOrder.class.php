@@ -70,11 +70,12 @@ class TCPCopyOrder {
 		return $cols;
 	}
 
-	static function tcp_front_end_orders_cells( $order_id) { ?>
+	static function tcp_front_end_orders_cells( $order_id ) { ?>
 		<td class="tcp_copy_order">
 		<form method="post" action="<?php tcp_the_shopping_cart_url(); ?>">
 		<?php TCPCopyOrder::tcp_admin_order_submit_area( $order_id ); ?>
 		</form>
+		<?php do_action( 'tcp_copy_from_front_end_orders_cells', $order_id ); ?>
 		</td>
 	<?php }
 }

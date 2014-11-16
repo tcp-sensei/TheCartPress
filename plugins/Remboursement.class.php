@@ -17,9 +17,9 @@
  */
 
 // Exit if accessed directly
-if ( !defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) exit;
 
-if ( !class_exists( 'TCPRemboursement' ) ) {
+if ( ! class_exists( 'TCPRemboursement' ) ) {
 
 class TCPRemboursement extends TCP_Plugin {
 
@@ -48,12 +48,12 @@ class TCPRemboursement extends TCP_Plugin {
 				<label for="percentage"><?php _e( 'Percentage', 'tcp' );?>:</label>
 			</th><td>
 				<input type="text" id="percentage" name="percentage" size="5" maxlength="8" value="<?php echo isset( $data['percentage'] ) ? $data['percentage'] : '';?>" />
-				<br /><span class="description"><?php _e( 'Leave this field to blank (or zero) to use the fix value', 'tcp' );?></span>
+				<br /><span class="description"><?php _e( 'Leave this field to blank (or zero) to use the fixed value', 'tcp' );?></span>
 			</td>
 		</tr>
 		<tr valign="top">
 			<th scope="row">
-				<label for="fix"><?php _e( 'Fix', 'tcp' );?>:</label>
+				<label for="fix"><?php _e( 'Amount', 'tcp' );?>:</label>
 			</th><td>
 				<input type="text" id="fix" name="fix" size="5" maxlength="8" value="<?php echo isset( $data['fix'] ) ? $data['fix'] : '';?>" />
 			</td>
@@ -74,11 +74,10 @@ class TCPRemboursement extends TCP_Plugin {
 	}
 
 	function getCheckoutMethodLabel( $instance, $shippingCountry = '', $shoppingCart = false ) {
-		$data = tcp_get_payment_plugin_data( get_class( $this ), $instance );
-		$title = isset( $data['title'] ) ? $data['title'] : '';
-		//$title = tcp_string( 'TheCartPress', 'pay_TCPRemboursement-title', $title );
-		$title = tcp_string( 'TheCartPress', apply_filters( 'tcp_plugin_data_get_option_translatable_key', 'pay_TCPRemboursement-title-' . $instance ), $title );
-		$cost = tcp_get_the_shipping_cost_to_show( $this->getCost( $instance, $shippingCountry, $shoppingCart ) );
+		$data	= tcp_get_payment_plugin_data( get_class( $this ), $instance );
+		$title	= isset( $data['title'] ) ? $data['title'] : '';
+		$title	= tcp_string( 'TheCartPress', apply_filters( 'tcp_plugin_data_get_option_translatable_key', 'pay_TCPRemboursement-title-' . $instance ), $title );
+		$cost	= tcp_get_the_shipping_cost_to_show( $this->getCost( $instance, $shippingCountry, $shoppingCart ) );
 		//return sprintf( __( '%s. Cost: %s', 'tcp' ), $title, tcp_format_the_price( $cost ) );
 		ob_start(); ?>
 		<?php if ( $cost > 0 ) printf( __( '%s, Cost: %s', 'tcp' ), $title, tcp_format_the_price( $cost ) );
@@ -87,8 +86,8 @@ class TCPRemboursement extends TCP_Plugin {
 			<p><?php //echo tcp_string( 'TheCartPress', 'pay_TCPRemboursement-notice', $data['notice'] ); ?>
 			<?php echo tcp_string( 'TheCartPress', apply_filters( 'tcp_plugin_data_get_option_translatable_key', 'pay_TCPRemboursement-notice-' . $instance ), $data['notice'] ); ?></p>
 			pay_TCPRemboursement
-		<?php endif; ?>
-		<?php return ob_get_clean();
+		<?php endif;
+		return ob_get_clean();
 	}
 
 	function getCost( $instance, $shippingCountry, $shoppingCart = false ) {

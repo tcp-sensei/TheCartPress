@@ -28,7 +28,7 @@
 // Exit if accessed directly
 if ( !defined( 'ABSPATH' ) ) exit;
 
-if ( ! class_exists( 'TCPCheckoutBox' ) ) {
+if ( !class_exists( 'TCPCheckoutBox' ) ) :
 
 /**
  * Parent class for all boxes for the checkout
@@ -107,4 +107,4 @@ class TCPCheckoutBox {
 		return '';
 	}
 }
-} // class_exists check
+endif; // class_exists check

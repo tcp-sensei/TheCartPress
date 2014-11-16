@@ -103,7 +103,7 @@ class ActiveCheckout {//shortcode
 					<span class="tcp_checkout_ko"><?php _e( 'Transaction Error. The order has been canceled', 'tcp' ); ?></span>
 				<?php } ?>
 				</div><!-- .tcp_order_unsuccessfully -->
-				<?php printf( __( 'Retry the <a href="%s">checkout process</a>', 'tcp' ), tcp_get_the_checkout_url() ); ?>
+				<?php printf( __( 'Retry the <a href="%s">checkout process</a>', 'tcp' ), tcp_get_the_checkout_payment_url() ); ?>
 			</div><!-- .tcp_payment_area -->
 			<?php $html = ob_get_clean();
 			do_action( 'tcp_checkout_end', $order_id, false );
@@ -148,19 +148,19 @@ class ActiveCheckout {//shortcode
 			$headers .= 'From: ' . get_bloginfo( 'name' ) . ' <' . $from . ">\r\n";
 			//$headers .= 'Cc: ' . $cc . "\r\n";
 			//$headers .= 'Bcc: ' . $bcc . "\r\n";
-			$subject = sprintf( __( 'Order from %s, Order ID: %s', 'tcp' ), htmlentities( get_bloginfo( 'name' ) ), $order_id );
-			$subject = apply_filters( 'tcp_send_order_email_subject', $subject, $order_id );
+			$subject  = sprintf( __( 'Order from %s, Order ID: %s', 'tcp' ), htmlentities( get_bloginfo( 'name' ) ), $order_id );
+			$subject  = apply_filters( 'tcp_send_order_email_subject', $subject, $order_id );
 			$old_value = $thecartpress->getShoppingCart()->getOrderId();
 			$_REQUEST['order_id'] = $order_id;
 			$thecartpress->getShoppingCart()->setOrderId( $order_id );
-			$message = TCPPrintOrder::printOrder( $order_id );
+			$message  = TCPPrintOrder::printOrder( $order_id );
 			$thecartpress->getShoppingCart()->setOrderId( $old_value );
 			$message .= tcp_do_template( 'tcp_checkout_email', false );
 			$message .= $additional_msg . "\n";
 			$headers  = 'MIME-Version: 1.0' . "\r\n";
 			$headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
 			//$headers .= 'To: ' . $to . "\r\n";
-			$name = substr( $from, 0, strpos( $from, '@' ) );
+			$name	  = substr( $from, 0, strpos( $from, '@' ) );
 			$headers .= 'From: ' . $name . ' <' . $from . ">\r\n";
 			if ( $for_customer ) {
 				$customer_email = array();
@@ -169,7 +169,9 @@ class ActiveCheckout {//shortcode
 				$to_customer = implode( ',', $customer_email );
 				$message_to_customer = apply_filters( 'tcp_send_order_mail_to_customer_message', $message, $order_id );
 //echo $message_to_customer;
-				wp_mail( $to_customer, $subject, $message_to_customer , $headers );
+				$attachments = apply_filters( 'tcp_order_email_customer_attachments', null );
+//var_dump($attachments);exit;
+				wp_mail( $to_customer, $subject, $message_to_customer , $headers, $attachments );
 				do_action( 'tcp_send_order_mail_to_customer', $to_customer, $subject, $message_to_customer, $headers, $order_id );
 			}
 			if ( $for_merchant ) {
@@ -177,7 +179,9 @@ class ActiveCheckout {//shortcode
 				if ( strlen( $to ) ) {
 					$message_to_merchant = apply_filters( 'tcp_send_order_mail_to_merchant_message', $message, $order_id );
 //echo $message_to_merchant;
-					wp_mail( $to, $subject, $message_to_merchant, $headers );
+					$attachments = apply_filters( 'tcp_order_email_merchant_attachments', null );
+//var_dump($attachments);exit;
+					wp_mail( $to, $subject, $message_to_merchant, $headers, $attachments );
 					do_action( 'tcp_send_order_mail_to_merchant', $to, $subject, $message_to_merchant, $headers, $order_id );
 				}
 			}

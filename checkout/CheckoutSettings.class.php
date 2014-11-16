@@ -72,6 +72,7 @@ $user_registration	= $thecartpress->get_setting( 'user_registration', false );
 $emails				= $thecartpress->get_setting( 'emails' );
 $from_email			= $thecartpress->get_setting( 'from_email' );
 $send_email			= $thecartpress->get_setting( 'send_email' );
+$send_email_customer= $thecartpress->get_setting( 'send_email_customer', $send_email );
 $legal_notice		= $thecartpress->get_setting( 'legal_notice' );
 tcp_register_string( 'TheCartPress', 'legal notice', $legal_notice );
 $checkout_successfully_message	= $thecartpress->get_setting( 'checkout_successfully_message', __( 'The order has been completed successfully', 'tcp' ) ); ?>
@@ -117,11 +118,20 @@ $checkout_successfully_message	= $thecartpress->get_setting( 'checkout_successfu
 </tr>
 <tr valign="top">
 	<th scope="row">
-		<label for="send_email"><?php _e( 'Send Purchase eMail', 'tcp' ); ?></label>
+		<label for="send_email"><?php _e( 'Send Purchase eMail to merchant', 'tcp' ); ?></label>
 	</th>
 	<td>
 		<input type="checkbox" id="send_email" name="send_email" value="yes" <?php checked( $send_email ); ?> />
 		<p class="description"><?php _e( 'Allows to send an email to Merchant when customers click on Purchase button.', 'tcp' ); ?></p>
+	</td>
+</tr>
+<tr valign="top">
+	<th scope="row">
+		<label for="send_email"><?php _e( 'Send Purchase eMail to customers', 'tcp' ); ?></label>
+	</th>
+	<td>
+		<input type="checkbox" id="send_email_customer" name="send_email_customer" value="yes" <?php checked( $send_email_customer ); ?> />
+		<p class="description"><?php _e( 'Allows to send an email to Customer when customers click on Purchase button.', 'tcp' ); ?></p>
 	</td>
 </tr>
 <tr valign="top">
@@ -164,6 +174,7 @@ $checkout_successfully_message	= $thecartpress->get_setting( 'checkout_successfu
 		$settings['emails']			= $_POST['emails'];
 		$settings['from_email']		= $_POST['from_email'];
 		$settings['send_email']		= isset( $_POST['send_email'] );
+		$settings['send_email_customer'] = isset( $_POST['send_email_customer'] );
 		$settings['legal_notice']	= $_POST['legal_notice'];
 		$settings['checkout_successfully_message']	= $_POST['checkout_successfully_message'];
 		$settings = apply_filters( 'tcp_checkout_settings_action', $settings );

@@ -17,8 +17,10 @@
  */
 
 $taxonomy = isset( $_REQUEST['taxonomy'] ) ? $_REQUEST['taxonomy'] : '';
+if ( empty( $taxonomy ) ) $taxonomy = isset( $_REQUEST['name'] ) ? $_REQUEST['name'] : '';
 
 if ( isset( $_REQUEST['save_taxonomy'] ) ) {
+
 	$taxonomy = sanitize_key( $taxonomy );
 	$taxonomy_def = array(
 		'post_type'			=> isset( $_REQUEST['post_type'] ) ? $_REQUEST['post_type'] : 'post',
@@ -114,10 +116,10 @@ if ( ! isset( $taxonomy_def ) ) {
 			<label for="post_type"><?php _e( 'Post Type', 'tcp' ); ?>:</label>
 		</th>
 		<td>
-			<select name="post_type" id="post_type"><?php // multiple="multiple" size="10" style="height: auto;"> ?>
+			<select name="post_type[]" id="post_type" multiple="multiple" size="10" style="height: auto;">
 			<?php //foreach( get_post_types( array( 'show_in_nav_menus' => true ), object ) as $type ) : ?>
 			<?php foreach( get_post_types( '', object ) as $type ) : ?>
-				<option value="<?php echo $type->name; ?>"<?php selected( $post_type, $type->name ); //tcp_selected_multiple( $post_type, $type->name ); ?>><?php echo $type->labels->name; ?></option>
+				<option value="<?php echo $type->name; ?>"<?php tcp_selected_multiple( $post_type, $type->name ); //selected( $post_type, $type->name ); ?>><?php echo $type->labels->name; ?></option>
 			<?php endforeach; ?>
 			</select>
 		</td>

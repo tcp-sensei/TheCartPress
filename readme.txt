@@ -4,8 +4,8 @@ Donate link: http://thecartpress.com/collaborate-to-grow-and-support-thecartpres
 Tags: ecommerce, e-commerce, shopping cart, cart, store, shop, shopping, ecomerce, products, TheCartPress, CartPress
 License: GPLv2 or later
 Requires at least: 3.3
-Tested up to: 3.8
-Stable Tag: 1.3.5
+Tested up to: 4.0
+Stable Tag: 1.3.8
 
 Native eCommerce integration & interaction with WordPress. Flexibility & Scalability.
 Ideal for merchants, themes constructors and developers.
@@ -300,9 +300,45 @@ This plugin is released under a GPL license.
 2. Take a look to Catalogue and product detail in your store. Those pages are now displayed using new Theme Compatibility featured.
 
 == Changelog ==
+= 1.3.8 =
+* Delayed emails in Manage address, using "Send delayed email" button. To set the number of days to delay the email visit Settings panel
+* PayPal: Immediate Action Required – SSL 3.0 vulnerability (Dec 3, 2014)
+* New Setting: Only search products (There are themes that are not compatible with it)
+* Minor bug with tax decimals display in checkout
+
+= 1.3.7.2 =
+* New Romanian translations, thanks to Mihaela (http://ham-bebe.ro/)
+* Paypal bug with ssl version
+
+= 1.3.7.1 =
+* Updated French translations, thanks to Sophie (https://www.sophie-g.net/)
+* Updated Czech translations, thanks to Jakub Kadečka
+* Minor bugs fixed
+
+= 1.3.7 =
+* Order Edit: One button to save, send and return to orders list
+* Theme Compatibility improvements
+* Minor bug in Custom taxonomy engine
+
+= 1.3.6.2 =
+* Removed two deprecated functions
+* New Setting: allow/avoid to send purchase email to customer and merchant (first email)
+* New filters: adding attachments to customer/merchant emails, and more
+* Taxonomy tree: fix bug for dropdown mode with more than one taxonomy widgets on screen
+
+= 1.3.6.1 =
+* Units: Quadratic meter
+* Custom taxonmy api improvements
+
 = 1.3.6 =
-* Reports: new 
-* Media Loader: Improvement
+* Checkout: Notice is integrated into Cart
+* Checkout: 'Retry checkout' goes to Payment step by default
+* Mails and notices: "tcp_shopping_cart_bottom"
+* Shopping cart: new function "add_attributes"
+* Taxonomy management: allows set one taxonomy to more than one post type
+* Paypal: Supports adding cost to payments via Paypal
+* login shortcode: new attributes (login, register: display true/false)
+* Hooks: more hooks
 
 = 1.3.5 =
 * Custom emails: Custom subject, with fields {billing_fistname}, etc.

@@ -28,7 +28,7 @@
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-if ( ! class_exists( 'TCPShortcode' ) ) {
+if ( ! class_exists( 'TCPShortcode' ) ) :
 
 class TCPShortcode {
 
@@ -62,4 +62,5 @@ class TCPShortcode {
 }
 
 new TCPShortcode();
-} // class_exists check
+
+endif; // class_exists check

@@ -16,6 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) exit;
+
+if ( ! class_exists( 'TCPNavigationTreeShortcode' ) ) :
+
 /**
  * @since 1.2.6
  */
@@ -37,4 +42,5 @@ class TCPNavigationTreeShortcode {
 }
 
 new TCPNavigationTreeShortcode();
-?>
+
+endif; // class_exists check

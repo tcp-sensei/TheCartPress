@@ -26,9 +26,9 @@
  */
 
 // Exit if accessed directly
-if ( !defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) exit;
 
-if ( !class_exists( 'Transference' ) ) :
+if ( ! class_exists( 'Transference' ) ) :
 
 class Transference extends TCP_Plugin {
 

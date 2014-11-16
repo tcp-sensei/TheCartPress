@@ -2,7 +2,7 @@
 /**
  * Custom Forms
  *
- * Allows to craete forms, using an array of fields
+ * Allows to create forms, using an array of fields
  *
  * @package TheCartPress
  * @subpackage Classes
@@ -26,7 +26,7 @@
  */
 
 // Exit if accessed directly
-if ( !defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 if ( ! class_exists( 'TCPCustomForms' ) ) {
 

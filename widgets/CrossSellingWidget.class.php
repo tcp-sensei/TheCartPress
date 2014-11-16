@@ -33,9 +33,11 @@ class CrossSellingWidget extends CustomListWidget {
 		if ( ! is_array( $post_ids ) || count( $post_ids ) == 0 ) return;
 		$ids = array();
 		$id_to_remove = get_the_ID();
-		foreach( $post_ids as $id )
-			if ( $id->id != $id_to_remove )
+		foreach( $post_ids as $id ) {
+			if ( $id->id != $id_to_remove ) {
 				$ids[] = $id->id;
+			}
+		}
 		if ( count( $ids ) == 0 ) return;
 		$loop_args = array(
 			'post__in'			=> $ids,

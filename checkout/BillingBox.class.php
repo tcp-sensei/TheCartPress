@@ -179,7 +179,7 @@ class TCPBillingBox extends TCPCheckoutBox {
 				<br />
 				<select id="selected_billing_id" name="selected_billing_id">
 				<?php foreach( $addresses as $address ) : ?>
-					<option value="<?php echo $address->address_id;?>" <?php selected( $address->address_id, $default_address_id ); ?>><?php echo stripslashes( $address->street . ', ' . $address->city ); ?></option>
+					<option value="<?php echo $address->address_id;?>" <?php selected( $address->address_id, $default_address_id ); ?>><?php echo stripslashes( $address->street . ' ' . $address->street_2 . ', ' . $address->city ); ?></option>
 				<?php endforeach;?>
 				</select>
 				<?php if ( $selected_billing_address == 'Y' ) $this->showErrorMsg( 'billing_country_id' ); ?>
@@ -253,6 +253,7 @@ class TCPBillingBox extends TCPCheckoutBox {
 				$street = $this->default_address ? stripslashes( $this->default_address->street ) : '';
 			}
 			$fields['billing_street']['value'] = $street;
+
 			if ( isset( $_REQUEST['billing_street_2'] ) ) {
 				$street_2 = $_REQUEST['billing_street_2'];
 			} elseif ( isset( $_SESSION['tcp_checkout']['billing']['billing_street_2'] ) ) {
@@ -261,6 +262,7 @@ class TCPBillingBox extends TCPCheckoutBox {
 				$street_2 = $this->default_address ? stripslashes( $this->default_address->street_2 ) : '';
 			}
 			$fields['billing_street_2']['value'] = $street_2;
+
 			if ( isset( $_REQUEST['billing_city_id'] ) ) {
 				$city_id = $_REQUEST['billing_city_id'];
 			} elseif ( isset( $_SESSION['tcp_checkout']['billing']['billing_city_id'] ) ) {

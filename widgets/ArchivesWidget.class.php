@@ -114,7 +114,8 @@ class TCPArchivesWidget extends WP_Widget {
 	function getarchives_where( $where , $r ) {
 		if ( isset( $r['post_type'] ) ) {
 			global $wpdb;
-			$post_type = $wpdb->escape( $r['post_type'] );
+			//$post_type = $wpdb->escape( $r['post_type'] );
+			$post_type = esc_sql( $r['post_type'] );
 			$where = str_replace( "post_type = 'post'" , "post_type = '$post_type'" , $where );
 		}
 		return $where;
@@ -123,7 +124,8 @@ class TCPArchivesWidget extends WP_Widget {
 	function getarchives_join( $join , $r ) {
 		if ( isset( $r['post_type'] ) ) {
 			global $wpdb;
-			$post_type = $wpdb->escape( $r['post_type'] );
+			//$post_type = $wpdb->escape( $r['post_type'] );
+			$post_type = esc_sql( $r['post_type'] );
 			$join = str_replace( "t.element_type='post_post'" , "t.element_type='post_$post_type' " , $join );//WPML Support
 		}
 		return $join;

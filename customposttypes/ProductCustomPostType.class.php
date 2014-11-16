@@ -289,20 +289,20 @@ class ProductCustomPostType {
 		if ( isset( $_REQUEST['tcp_product_type'] ) && $_REQUEST['tcp_product_type'] != '' ) {
 			$query->query_vars['meta_query'] = array(
 				array(
-					'key' => 'tcp_type',
-					'value' => $_REQUEST['tcp_product_type'],
-					'compare' => '=',
-					'type' => 'string',
+					'key'		=> 'tcp_type',
+					'value'		=> $_REQUEST['tcp_product_type'],
+					'compare'	=> '=',
+					'type'		=> 'string',
 				),
 			);
 		}
 		if ( isset( $_REQUEST['tcp_sku'] ) && $_REQUEST['tcp_sku'] != '' ) {
 			$query->query_vars['meta_query'] = array(
 				array(
-					'key' => 'tcp_sku',
-					'value' => $_REQUEST['tcp_sku'],
-					'compare' => '=',
-					'type' => 'string',
+					'key'		=> 'tcp_sku',
+					'value'		=> $_REQUEST['tcp_sku'],
+					'compare'	=> '=',
+					'type'		=> 'string',
 				),
 			);
 		}
@@ -332,8 +332,8 @@ class ProductCustomPostType {
 	function price_column_orderby( $vars ) {
 		if ( isset( $vars['orderby'] ) && 'tcp_price' == $vars['orderby'] ) {
 			$vars = array_merge( $vars, array(
-				'orderby' => 'meta_value_num',
-				'meta_key' => 'tcp_price',
+				'orderby'	=> 'meta_value_num',
+				'meta_key'	=> 'tcp_price',
 			) );
 		}
 		return $vars;
@@ -341,16 +341,16 @@ class ProductCustomPostType {
 
 	function tcp_custom_values_get_other_values( $other_values ) {
 		$other_values['tcp_price'] = array(
-			'label' => __( 'Price', 'tcp' ),
-			'callback' => 'tcp_get_the_price_label',
+			'label'		=> __( 'Price', 'tcp' ),
+			'callback'	=> 'tcp_get_the_price_label',
 		);
 		$other_values['tcp_sku'] = array(
-			'label' => __( 'SKU', 'tcp' ),
-			'callback' => 'tcp_get_the_SKU',
+			'label'		=> __( 'SKU', 'tcp' ),
+			'callback'	=> 'tcp_get_the_SKU',
 		);
 		$other_values['tcp_weight'] = array(
-			'label' => __( 'Weight', 'tcp' ),
-			'callback' => 'tcp_get_the_weight_label',
+			'label'		=> __( 'Weight', 'tcp' ),
+			'callback'	=> 'tcp_get_the_weight_label',
 		);
 		
 		return $other_values;

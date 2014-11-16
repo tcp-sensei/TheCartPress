@@ -53,9 +53,9 @@ class TCPAjax {
 			add_action( 'tcp_get_shopping_cart_widget'				, array( $this, 'tcp_get_shopping_cart_widget' ) );
 			add_action( 'ecommerce_twentyeleven_header_total'		, array( $this, 'ecommerce_twentyeleven_header_total' ) );
 			add_action( 'tcp_shopping_cart_after'					, array( $this, 'tcp_shopping_cart_after' ) );
-			//add_filter( 'tcp_ckeckout_current_title'				, array( $this, 'tcp_ckeckout_current_title' ), 10, 2 );
-			add_filter( 'tcp_show_box_back_continue'				, array( $this, 'tcp_ckeckout_current_title' ), 10, 2 );
-			add_action( 'tcp_show_box'								, array( $this, 'tcp_show_box' ) );
+			////add_filter( 'tcp_ckeckout_current_title'				, array( $this, 'tcp_ckeckout_current_title' ), 10, 2 );
+			//add_filter( 'tcp_show_box_back_continue'				, array( $this, 'tcp_ckeckout_current_title' ), 10, 2 );
+			//add_action( 'tcp_show_box'								, array( $this, 'tcp_show_box' ) );
 			add_filter( 'tcp_get_the_thumbnail_with_permalink'		, array( $this, 'tcp_get_the_thumbnail_with_permalink' ), 10, 3 );
 			add_filter( 'tcp_get_the_thumbnail'						, array( $this, 'tcp_get_the_thumbnail_with_permalink' ), 10, 3 );
 		}

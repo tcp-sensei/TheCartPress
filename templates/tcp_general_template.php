@@ -54,6 +54,21 @@ function tcp_get_the_checkout_url() {
 	return tcp_the_checkout_url( false );
 }
 
+/**
+ * Returns the url of the payment step of the checkout
+ *
+ * @since 1.3.6
+ */
+function tcp_get_the_checkout_payment_url() {
+	$url = tcp_the_checkout_url( false );
+	require_once( TCP_CHECKOUT_FOLDER . 'TCPCheckoutManager.class.php' );
+	$cm = new TCPCheckoutManager();
+	$step = $cm->getPaymentStep();
+	$url = add_query_arg( 'tcp_step', $step, $url );
+	$url = apply_filters( 'tcp_get_the_checkout_payment_url', $url );
+	return $url;
+}
+
 function tcp_get_the_checkout_ok_url( $order_id = false ) {
 	$url = add_query_arg( 'tcp_checkout', 'ok', tcp_get_the_checkout_url() );
 	if ( $order_id !== false ) $url = add_query_arg( 'order_id', $order_id, $url );
@@ -151,20 +166,22 @@ function tcp_get_taxonomy_tree( $args = false, $echo = true, $before = '', $afte
 		$taxonomy = get_taxonomy( $args['taxonomy'] );
 		$args['show_option_none'] = sprintf ( __( 'Select %s', 'tcp' ), $taxonomy->labels->name );
 		global $wp_query;
-		if ( isset( $wp_query->query_vars['taxonomy'] ) )
-			$args['selected']	= get_query_var( $wp_query->query_vars['taxonomy'] );
-		$args['name']		= $args['taxonomy'];
-		$args['walker']		= new TCPWalker_CategoryDropdown(); ?>
+		if ( isset( $wp_query->query_vars['taxonomy'] ) ) {
+			$args['selected'] = get_query_var( $wp_query->query_vars['taxonomy'] );
+		}
+		$args['name']	= 'tcp_' . $args['widget_id'];
+		$args['walker']	= new TCPWalker_CategoryDropdown();
+		$dropdown = 'dropdown_' . $args['name']; ?>
 		<?php echo wp_dropdown_categories( apply_filters( 'tcp_widget_taxonomy_tree_dropdown_args', $args ) ); ?>
 <script type='text/javascript'>
 // <![CDATA[
-	var dropdown = document.getElementById("<?php echo $args['name']; ?>");
+	var <?php echo $dropdown; ?> = document.getElementById("<?php echo $args['name']; ?>");
 	function on_<?php echo $args['name']; ?>_change() {
-		if ( dropdown.options[dropdown.selectedIndex].value != -1 ) {
-			location.href = dropdown.options[dropdown.selectedIndex].value;
+		if ( <?php echo $dropdown; ?>.options[<?php echo $dropdown; ?>.selectedIndex].value != -1 ) {
+			location.href = <?php echo $dropdown; ?>.options[<?php echo $dropdown; ?>.selectedIndex].value;
 		}
 	}
-	dropdown.onchange = on_<?php echo $args['name']; ?>_change;
+	<?php echo $dropdown; ?>.onchange = on_<?php echo $args['name']; ?>_change;
 // ]]>
 </script>
 	<?php else :
@@ -247,6 +264,7 @@ jQuery( 'li.cat-item > ul' ).each( function( i ) {
 } );
 
 jQuery( 'ul.tcp_navigation_tree ul' ).hide();
+jQuery( 'ul.tcp_navigation_tree li.current-cat ul ' ).show(); // opens active category
 var current = jQuery( 'li.current-cat' );
 if ( current.length ) {
 	current.parents().show();
@@ -756,7 +774,7 @@ function tcp_register_form( $args = array() ) {
 		'redirect'		=> get_permalink(),
 		'role'			=> array( 'customer' ),
 		'locked'		=> false,
-		'login'			=> true,
+		'login'			=> true, // login after register
 		'form_id'		=> 'loginform',
 		'label_username'=> __( 'Username', 'tcp' ),
 		'label_password'=> __( 'Password', 'tcp' ),
@@ -835,22 +853,23 @@ function tcp_register_form( $args = array() ) {
  * Displays/returns the current author's profile
  * @since 1.2.8
  */
-function tcp_author_profile( $current_user = false) {
+function tcp_author_profile( $current_user = false ) {
 	//$current_user = get_query_var( 'author_name' ) ? get_user_by( 'slug', get_query_var( 'author_name' ) ) : get_userdata( get_query_var( 'author' ) );
-	if ( $current_user == false ) {
-		global $post;
-		if ( !empty( $post ) ) {
-			$current_user = new WP_User( $post->post_author );
-		} else {
+	if ( $current_user === false ) {
+		//global $post;
+		//if ( !empty( $post ) ) {
+		//	$current_user = new WP_User( $post->post_author );
+		//} else {
 			$current_user = get_query_var( 'author_name' ) ? get_user_by( 'slug', get_query_var( 'author_name' ) ) : get_userdata( get_query_var( 'author' ) );
 			if ( $current_user === false ) {
 				$current_user = get_the_author();
 				$current_user = get_user_by( 'login', $current_user );
-			} else {
+			}
+			if ( $current_user === false ) {
 				global $current_user;
 				global $user_level;
 			}
-		}
+		//}
 	}
 	if ( !isset( $user_level ) ) $user_level = $current_user->user_level;
 

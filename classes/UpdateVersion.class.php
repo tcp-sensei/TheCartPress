@@ -194,6 +194,7 @@ class TCPUpdateVersion {
 			}
 			update_option( 'tcp_version', 135 );
 		}
+		update_option( 'tcp_version', 136 );
 	}
 }
 endif; // class_exists check

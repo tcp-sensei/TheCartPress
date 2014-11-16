@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: thecartpress\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-17 09:51+0100\n"
+"POT-Creation-Date: 2014-03-04 10:04+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: sensei <sensei@thecartpress.com>\n"
 "Language-Team: \n"
@@ -3828,15 +3828,17 @@ msgstr "Intentar de nuevo <a href=\"%s\">el proceso de pago</a>"
 msgid "Order from %s, Order ID: %s"
 msgstr "Compra desde %s (Número de pedido %s)."
 
-#: checkout/TCPNoticeBox.class.php:39
+#: checkout/TCPNoticeBox.class.php:44
+#: checkout/TCPCartBox.class.php:49
 msgid "You must accept the conditions!!"
 msgstr "Has de aceptar las condiciones!"
 
-#: checkout/TCPNoticeBox.class.php:52
+#: checkout/TCPNoticeBox.class.php:58
 msgid "Accept conditions:"
 msgstr "Aceptar condiciones:"
 
-#: checkout/TCPNoticeBox.class.php:58
+#: checkout/TCPNoticeBox.class.php:64
+#: checkout/TCPCartBox.class.php:404
 msgid "When you click on the 'continue' button the order will be created and if you have chosen an external payment method the system will show a button to go to the external web (usually your bank's payment gateway)"
 msgstr "Al hacer clic en el botón continuar', el pedido será creado y si has elegido un método de pago externo, el sistema mostrará un botón para ir a la web externa (por lo general la pasarela de pago de su banco)"
 
@@ -3988,78 +3990,86 @@ msgstr "Ocultar la caja si únicamente un método es aplicable"
 msgid "There is not applicable methods"
 msgstr "No hay métodos para aplicar"
 
-#: checkout/TCPCartBox.class.php:26
+#: checkout/TCPCartBox.class.php:28
 msgid "Cart"
 msgstr "Carrito"
 
-#: checkout/TCPCartBox.class.php:80
+#: checkout/TCPCartBox.class.php:90
 msgid "Comments:"
 msgstr "Comentarios:"
 
-#: checkout/TCPCartBox.class.php:103
+#: checkout/TCPCartBox.class.php:118
 msgid "Display Weight column"
 msgstr "Mostrar columna de Peso"
 
-#: checkout/TCPCartBox.class.php:107
+#: checkout/TCPCartBox.class.php:122
 msgid "Display Price column"
 msgstr "Mostrar columna de Precio"
 
-#: checkout/TCPCartBox.class.php:111
+#: checkout/TCPCartBox.class.php:126
 msgid "Display Tax column"
 msgstr "Mostrar columna de Impuesto"
 
-#: checkout/TCPCartBox.class.php:115
+#: checkout/TCPCartBox.class.php:130
 msgid "Display Tax detail"
 msgstr "Mostrar detalle del Impuestos"
 
-#: checkout/TCPCartBox.class.php:119
+#: checkout/TCPCartBox.class.php:134
 msgid "Display SKU column"
 msgstr "Mostrar columna SKU"
 
-#: checkout/TCPCartBox.class.php:123
+#: checkout/TCPCartBox.class.php:138
 msgid "Display Units column"
 msgstr "Mostrar columna Unidades"
 
-#: checkout/TCPCartBox.class.php:127
+#: checkout/TCPCartBox.class.php:142
 msgid "Display Comment"
 msgstr "Mostrar Comentario"
 
-#: checkout/TCPCartBox.class.php:131
+#: checkout/TCPCartBox.class.php:146
 msgid "Display Total column"
 msgstr "Mostrar columna de total"
 
-#: checkout/TCPCartBox.class.php:176
+#: checkout/TCPCartBox.class.php:150
+msgid "Display Notice"
+msgstr "Mostrar Aviso"
+
+#: checkout/TCPCartBox.class.php:196
 msgid "SKU"
 msgstr "SKU"
 
-#: checkout/TCPCartBox.class.php:182
+#: checkout/TCPCartBox.class.php:202
 msgid "Units"
 msgstr "Unidades"
 
-#: checkout/TCPCartBox.class.php:185
+#: checkout/TCPCartBox.class.php:205
 msgid "Weight"
 msgstr "Peso"
 
-#: checkout/TCPCartBox.class.php:223
+#: checkout/TCPCartBox.class.php:243
 #, php-format
 msgid "%s (Discount %s)"
 msgstr "%s (Descuentos %s)"
 
-#: checkout/TCPCartBox.class.php:273
+#: checkout/TCPCartBox.class.php:296
 msgid "Discounts"
 msgstr "Descuentos"
 
-#: checkout/TCPCartBox.class.php:289
+#: checkout/TCPCartBox.class.php:312
 msgid "Shipping cost"
 msgstr "Gastos de envío"
 
-#: checkout/TCPCartBox.class.php:301
+#: checkout/TCPCartBox.class.php:324
 msgid "Payment cost"
 msgstr "Coste de pago"
 
-#: checkout/TCPCartBox.class.php:308
+#: checkout/TCPCartBox.class.php:331
 msgid "Free shipping"
 msgstr "envío gratuito"
+
+#: checkout/TCPCartBox.class.php:397
+msgid "Accept conditions"
+msgstr "Aceptar condiciones"
 
 #: checkout/register_and_login.php:29
 msgid "Password incorrect"
@@ -4142,7 +4152,7 @@ msgid "If you prefer this way then press the continue button"
 msgstr "Si prefieres esta modalidad, pulsa el botón siguiente"
 
 #: checkout/TCPSigninBox.class.php:165
-#: checkout/TCPCheckoutManager.class.php:210
+#: checkout/TCPCheckoutManager.class.php:216
 msgid "Continue"
 msgstr "Continuar"
 
@@ -4228,24 +4238,24 @@ msgstr "Ha de introducir el Fax"
 msgid "The shipping eMail field must be completed and valid"
 msgstr "Ha de introducir un email válido"
 
-#: checkout/TCPCheckoutManager.class.php:203
-#: checkout/TCPCheckoutManager.class.php:205
+#: checkout/TCPCheckoutManager.class.php:209
+#: checkout/TCPCheckoutManager.class.php:211
 msgid "Back"
 msgstr "Atrás"
 
-#: checkout/TCPCheckoutManager.class.php:212
+#: checkout/TCPCheckoutManager.class.php:218
 msgid "Purchase"
 msgstr "Comprar"
 
-#: checkout/TCPCheckoutManager.class.php:605
+#: checkout/TCPCheckoutManager.class.php:612
 msgid "Please continue checking out using your chosen payment method."
 msgstr "Por favor, continúe el proceso de compra usando el método de pago seleccionado"
 
-#: checkout/TCPCheckoutManager.class.php:649
+#: checkout/TCPCheckoutManager.class.php:656
 msgid "billing address"
 msgstr "Dirección de facturación"
 
-#: checkout/TCPCheckoutManager.class.php:677
+#: checkout/TCPCheckoutManager.class.php:684
 msgid "shipping address"
 msgstr "Dirección de envío"
 
@@ -4882,7 +4892,15 @@ msgstr "paquete"
 msgid "swatch"
 msgstr "muestra"
 
+#: modules/UnitsInBuyButton.class.php:168
+msgid "square meter"
+msgstr "metros cuadrados"
+
 #: modules/UnitsInBuyButton.class.php:169
+msgid "cubic metre"
+msgstr "metros cúbicos"
+
+#: modules/UnitsInBuyButton.class.php:171
 msgid "By default"
 msgstr "Predeterminado"
 
@@ -6145,136 +6163,136 @@ msgstr "<span class=\"tcp_units\">%s</span> <a href=\"%s\" class=\"alert-link\">
 msgid "Select %s"
 msgstr "Seleccione %s"
 
-#: templates/tcp_general_template.php:327
+#: templates/tcp_general_template.php:328
 #: themes-templates/tcp_shopping_cart_email.php:284
 #: themes-templates/tcp_shopping_cart.php:256
 msgid "Modify"
 msgstr "Cambiar"
 
-#: templates/tcp_general_template.php:329
+#: templates/tcp_general_template.php:330
 msgid "Delete item"
 msgstr "Eliminar artículo"
 
-#: templates/tcp_general_template.php:339
-#: templates/tcp_general_template.php:361
-#: templates/tcp_general_template.php:436
-#: themes-templates/tcp_shopping_cart_email.php:328
-#: themes-templates/tcp_shopping_cart.php:300
+#: templates/tcp_general_template.php:340
+#: templates/tcp_general_template.php:362
+#: templates/tcp_general_template.php:437
+#: themes-templates/tcp_shopping_cart_email.php:332
+#: themes-templates/tcp_shopping_cart.php:304
 msgid "Discount"
 msgstr "Descuentos"
 
-#: templates/tcp_general_template.php:369
+#: templates/tcp_general_template.php:370
 msgid "shopping cart"
 msgstr "carrito de compra"
 
-#: templates/tcp_general_template.php:374
+#: templates/tcp_general_template.php:375
 msgid "checkout"
 msgstr "comprar"
 
-#: templates/tcp_general_template.php:382
-#: templates/tcp_general_template.php:466
+#: templates/tcp_general_template.php:383
+#: templates/tcp_general_template.php:467
 msgid "Delete All"
 msgstr "Eliminar todo"
 
-#: templates/tcp_general_template.php:430
+#: templates/tcp_general_template.php:431
 msgid "N<sup>o</sup> products"
 msgstr "N<sup>o</sup> de productos"
 
-#: templates/tcp_general_template.php:450
+#: templates/tcp_general_template.php:451
 msgid "Weigth"
 msgstr "Peso"
 
-#: templates/tcp_general_template.php:535
+#: templates/tcp_general_template.php:536
 msgid "Unordered"
 msgstr "Sin ordenar"
 
-#: templates/tcp_general_template.php:539
+#: templates/tcp_general_template.php:540
 msgid "Suggested"
 msgstr "Sugerido"
 
-#: templates/tcp_general_template.php:559
+#: templates/tcp_general_template.php:560
 msgid "Popular"
 msgstr "Popular"
 
-#: templates/tcp_general_template.php:563
+#: templates/tcp_general_template.php:564
 msgid "Random"
 msgstr "Aleatorio"
 
-#: templates/tcp_general_template.php:617
+#: templates/tcp_general_template.php:618
 msgid "Sort"
 msgstr "Ordenar"
 
-#: templates/tcp_general_template.php:718
+#: templates/tcp_general_template.php:719
 msgid "Password Lost and Found"
 msgstr "Contraseña perdida y encontrada"
 
-#: templates/tcp_general_template.php:718
+#: templates/tcp_general_template.php:719
 msgid "Lost your password?"
 msgstr "¿No recuerda su Password?"
 
-#: templates/tcp_general_template.php:735
-#: templates/tcp_general_template.php:823
+#: templates/tcp_general_template.php:736
+#: templates/tcp_general_template.php:824
 msgid "Error"
 msgstr ""
 
-#: templates/tcp_general_template.php:762
+#: templates/tcp_general_template.php:763
 msgid "Repeat password"
 msgstr "Repita la contraseña"
 
-#: templates/tcp_general_template.php:781
+#: templates/tcp_general_template.php:782
 msgid "Error has occurred while registering"
 msgstr "Un error ha ocurrido mientras se registraba"
 
-#: templates/tcp_general_template.php:784
+#: templates/tcp_general_template.php:785
 msgid "Registration data has been saved."
 msgstr "Los datos de registro han sido grabados"
 
-#: templates/tcp_general_template.php:806
+#: templates/tcp_general_template.php:807
 msgid "Type your new password again."
 msgstr "Escriba su clave de nuevo"
 
-#: templates/tcp_general_template.php:809
+#: templates/tcp_general_template.php:810
 msgid "E-mail"
 msgstr "eMail"
 
-#: templates/tcp_general_template.php:826
+#: templates/tcp_general_template.php:827
 msgid "The user is already logged"
 msgstr "El usuario está ya \"Logeado\""
 
-#: templates/tcp_general_template.php:911
+#: templates/tcp_general_template.php:912
 msgid "Home"
 msgstr "Inicio"
 
-#: templates/tcp_general_template.php:974
+#: templates/tcp_general_template.php:975
 #, php-format
 msgid "Search results for \"%s\""
 msgstr "Buscar resultados para  \"%s\""
 
-#: templates/tcp_general_template.php:978
+#: templates/tcp_general_template.php:979
 #, php-format
 msgid "Posts tagged \"%s\""
 msgstr "Entradas con la etiqueta  \"%s\""
 
-#: templates/tcp_general_template.php:984
+#: templates/tcp_general_template.php:985
 #, php-format
 msgid "Articles posted by %s"
 msgstr "Artículo publicado por %s"
 
-#: templates/tcp_general_template.php:988
+#: templates/tcp_general_template.php:989
 msgid "Error 404"
 msgstr ""
 
-#: templates/tcp_general_template.php:1043
+#: templates/tcp_general_template.php:1044
 #, php-format
 msgid "Posts by %s"
 msgstr "Publicado por %s"
 
-#: templates/tcp_general_template.php:1120
+#: templates/tcp_general_template.php:1121
 #, php-format
 msgid "<span class=\"tcp_posted_on\"><span class=\"sep\">Posted on </span><a href=\"%1$s\" title=\"%2$s\" rel=\"bookmark\"><time class=\"entry-date\" datetime=\"%3$s\" pubdate>%4$s</time></a></span>"
 msgstr "<span class=\"tcp_posted_on\"><span class=\"sep\">Publicado el </span><a href=\"%1$s\" title=\"%2$s\" rel=\"bookmark\"><time class=\"entry-date\" datetime=\"%3$s\" pubdate>%4$s</time></a></span>"
 
-#: templates/tcp_general_template.php:1129
+#: templates/tcp_general_template.php:1130
 #, php-format
 msgid "<span class=\"tcp_by_author\"><span class=\"sep\">by </span> <span class=\"author vcard\"><a class=\"url fn n\" href=\"%1$s\" title=\"%2$s\" rel=\"author\">%3$s</a></span>"
 msgstr "<span class=\"tcp_by_author\"><span class=\"sep\">por </span> <span class=\"author vcard\"><a class=\"url fn n\" href=\"%1$s\" title=\"%2$s\" rel=\"author\">%3$s</a></span>"
@@ -6649,11 +6667,11 @@ msgstr "Aviso de envío"
 #: themes-templates/tcp_shopping_cart_email.php:270
 #: themes-templates/tcp_shopping_cart.php:238
 #, php-format
-msgid "Discount %s"
-msgstr "Descuentos %s"
+msgid "(-%s)"
+msgstr ""
 
-#: themes-templates/tcp_shopping_cart_email.php:322
-#: themes-templates/tcp_shopping_cart.php:294
+#: themes-templates/tcp_shopping_cart_email.php:326
+#: themes-templates/tcp_shopping_cart.php:298
 msgid "Subtotal"
 msgstr "Subtotal"
 
@@ -6712,6 +6730,9 @@ msgstr "Administración del Blog"
 #: themes-templates/tcp_author_profile.php:69
 msgid "Log Out"
 msgstr "Desconectar"
+
+#~ msgid "Discount %s"
+#~ msgstr "Descuentos %s"
 
 #~ msgid "TCP Custom fields"
 #~ msgstr "TCP Campos personalizados"

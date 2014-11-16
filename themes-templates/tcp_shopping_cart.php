@@ -17,7 +17,7 @@
  */
 
 // Exit if accessed directly
-if ( !defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 if ( ! isset( $source ) ) return;
 
@@ -57,17 +57,17 @@ if ( $source->see_address() ) : ?>
 					<?php echo $source->get_shipping_firstname(); ?> <?php echo $source->get_shipping_lastname(); ?>
 				</li>
 				<?php if ( strlen( $source->get_shipping_company() ) > 0 || strlen( $source->get_billing_company() ) > 0 ) : ?>
-						<li class="shipping_info">
-							<?php if ( strlen( $source->get_shipping_company() ) > 0 ) : ?>
-								<?php echo $source->get_shipping_company(); ?>
-							<?php endif; ?>&nbsp;
-						</li>
+				<li class="shipping_info">
+					<?php if ( strlen( $source->get_shipping_company() ) > 0 ) : ?>
+						<?php echo $source->get_shipping_company(); ?>
+					<?php endif; ?>&nbsp;
+				</li>
 				<?php endif; ?>
 
 				<?php if ( strlen( $source->get_billing_tax_id_number() ) > 0 ) : ?>
-						<li class="shipping_info">
-							&nbsp;
-						</li>
+				<li class="shipping_info">
+					&nbsp;
+				</li>
 				<?php endif; ?>
 				<li class="shipping_info">
 					<?php echo $source->get_shipping_street(); ?>
@@ -290,19 +290,19 @@ if ( $source->has_order_details() ) :
 	<?php endforeach; ?>
 <?php endif; ?>
 	<tr class="tcp_cart_subtotal_row">
-	<?php $colspan = 3;
-	if ( $source->see_weight() ) $colspan ++;
-	if ( $source->see_sku() ) $colspan ++;
-	if ( $source->see_tax() ) $colspan ++;
-	if ( $source->see_thumbnail() ) $colspan ++; ?>
-	<td colspan="<?php echo $colspan; ?>" class="tcp_cart_subtotal_title"><?php _e( 'Subtotal', 'tcp' ); ?></td>
-	<td class="tcp_cart_subtotal"><?php echo tcp_format_the_price( $total ); ?></td>
+		<?php $colspan = 3;
+		if ( $source->see_weight() ) $colspan ++;
+		if ( $source->see_sku() ) $colspan ++;
+		if ( $source->see_tax() ) $colspan ++;
+		if ( $source->see_thumbnail() ) $colspan ++; ?>
+		<td colspan="<?php echo $colspan; ?>" class="tcp_cart_subtotal_title"><?php _e( 'Subtotal', 'tcp' ); ?></td>
+		<td class="tcp_cart_subtotal"><?php echo tcp_format_the_price( $total ); ?></td>
 	</tr>
 	<?php $discount = $source->get_discount();
 	if ( $discount > 0 ) : ?>
 		<tr class="tcp_cart_discount_row<?php if ( $i++ & 1 == 1 ) : ?> tcp_par<?php endif; ?>">
-		<td colspan="<?php echo $colspan; ?>" class="tcp_cart_discount_title"><?php _e( 'Discount', 'tcp' ); ?></td>
-		<td class="tcp_cart_discount">-<?php echo tcp_format_the_price( $discount ); ?></td>
+			<td colspan="<?php echo $colspan; ?>" class="tcp_cart_discount_title"><?php _e( 'Discount', 'tcp' ); ?></td>
+			<td class="tcp_cart_discount">-<?php echo tcp_format_the_price( $discount ); ?></td>
 		</tr>
 		<?php $total = $total - $discount; ?>
 	<?php endif;
@@ -310,28 +310,34 @@ if ( $source->has_order_details() ) :
 		if ( $source->has_orders_costs() ) :
 			foreach( $source->get_orders_costs() as $order_cost ) : ?>
 				<tr class="tcp_cart_other_costs_row">
-				<td colspan="<?php echo $colspan; ?>" class="tcp_cart_other_costs_title"><?php echo $order_cost->get_description(); ?></td>
-				<td class="tcp_cart_other_costs"><?php echo tcp_format_the_price( $order_cost->get_cost() ); ?></td>
-				<?php $tax = $order_cost->get_cost() * ( $order_cost->get_tax() / 100 );
-				$total_tax += $tax;
-				$total += $order_cost->get_cost(); ?>
+					<td colspan="<?php echo $colspan; ?>" class="tcp_cart_other_costs_title"><?php echo $order_cost->get_description(); ?></td>
+					<td class="tcp_cart_other_costs"><?php echo tcp_format_the_price( $order_cost->get_cost() ); ?></td>
+					<?php $tax = $order_cost->get_cost() * ( $order_cost->get_tax() / 100 );
+					$total_tax += $tax;
+					$total += $order_cost->get_cost(); ?>
 				</tr>
 			<?php endforeach;
 		endif;
 	endif;
 	if ( $source->see_tax_summary() && $total_tax > 0 ) : ?>
 		<tr class="tcp_cart_tax_row">
-		<td colspan="<?php echo $colspan;?>" class="tcp_cart_tax_title"><?php _e( 'Taxes', 'tcp' ); ?></td>
-		<td class="tcp_cart_tax"><?php echo tcp_format_the_price( $total_tax ); ?></td>
+			<td colspan="<?php echo $colspan;?>" class="tcp_cart_tax_title"><?php _e( 'Taxes', 'tcp' ); ?></td>
+			<td class="tcp_cart_tax"><?php echo tcp_format_the_price( $total_tax ); ?></td>
 		</tr>
 	<?php $total += $total_tax; ?>
 	<?php endif; ?>
 	<tr class="tcp_cart_total_row">
-	<td colspan="<?php echo $colspan; ?>" class="tcp_cart_total_title"><?php _e( 'Total', 'tcp' ); ?></td>
-	<td class="tcp_cart_total"><?php echo tcp_format_the_price( $total ); ?></td>
+		<td colspan="<?php echo $colspan; ?>" class="tcp_cart_total_title"><?php _e( 'Total', 'tcp' ); ?></td>
+		<td class="tcp_cart_total"><?php echo tcp_format_the_price( $total ); ?></td>
+	</tr>
+	<tr class="tcp_shopping_cart_bottom">
+		<td colspan="<?php echo $colspan + 1; ?>" class="tcp_cart_total">
+		<?php tcp_do_template( 'tcp_shopping_cart_bottom' ); ?>
+		</td>
 	</tr>
 </tbody>
 </table>
+
 <?php if ( $source->see_comment() && strlen( $source->get_comment() ) > 0 ) : ?>
 	<p class="tcp_comment"><?php echo $source->get_comment(); ?></p>
 <?php endif;

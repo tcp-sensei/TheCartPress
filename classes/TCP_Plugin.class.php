@@ -26,9 +26,11 @@
  */
 
 // Exit if accessed directly
-if ( !defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) exit;
 
-if ( !class_exists( 'TCP_Plugin' ) ) {
+if ( ! class_exists( 'TCP_Plugin' ) ) {
+
+require_once( dirname( dirname( __FILE__ ) ) . '/templates/tcp_template_template.php' );
 
 /**
  * All the checkout plugins must implement this class

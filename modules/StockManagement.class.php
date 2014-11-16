@@ -26,9 +26,9 @@
  */
 
 // Exit if accessed directly
-if ( !defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) exit;
 
-if ( !class_exists( 'TCPStockManagement' ) ) :
+if ( ! class_exists( 'TCPStockManagement' ) ) :
 
 class TCPStockManagement {
 	private $no_stock_enough = false;
@@ -624,10 +624,11 @@ function show_hide_stock_management() {
 						$this->no_stock_enough = true; /* Ahhh one of possibly many items out of stock. TODO backordering could be triggered here */
 					}
 				} /* foreach  */
+			/*
+			// Commented because the stock adjustment is done twice (first at Orders:editStatus)
 			} elseif ( $stock_adjustment == 3 ) {
-				//$new_status = Orders::getStatus( $order_id );
 				$new_status = $order->status;
-				$this->stock_adjust_manual( $order_id, $new_status );
+				$this->stock_adjust_manual( $order_id, $new_status );*/
 			}
 			if ( $this->no_stock_enough ) {
 				Orders::editStatus( $order_id, Orders::$ORDER_PROCESSING, $order->transaction_id, $_additional . "\n" . $additional );

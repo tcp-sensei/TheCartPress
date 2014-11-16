@@ -17,9 +17,9 @@
  */
 
 // Exit if accessed directly
-if ( !defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) exit;
 
-if ( !class_exists( 'TCPShippingMethodsBox' ) ) :
+if ( ! class_exists( 'TCPShippingMethodsBox' ) ) :
 
 require_once( TCP_CHECKOUT_FOLDER . 'TCPCheckoutBox.class.php' );
 
@@ -157,14 +157,20 @@ class TCPShippingMethodsBox extends TCPCheckoutBox {
 		$shipping_sorting = isset( $settings['sorting'] ) ? $settings['sorting'] : false; ?>
 		<input type="hidden" name="tcp_shipping_sorting" id="tcp_shipping_sorting" value="" />
 		<ul id="tcp_shipping_list">
-		<?php global $tcp_shipping_plugins;
-		if ( is_array( $shipping_sorting ) && count( $shipping_sorting ) > 1)
-			foreach( $shipping_sorting as $id ) if ( isset( $tcp_shipping_plugins[$id] ) ) : $tcp_shipping_plugin = $tcp_shipping_plugins[$id]; ?>
+		<?php //TODO If is saved before activate a new shipping method. The new one is not displayed
+		global $tcp_shipping_plugins;
+		if ( is_array( $shipping_sorting ) && count( $shipping_sorting ) > 1 ) {
+			foreach( $shipping_sorting as $id ) {
+				if ( isset( $tcp_shipping_plugins[$id] ) ) {
+					$tcp_shipping_plugin = $tcp_shipping_plugins[$id]; ?>
 				<li class="tcp_shipping_item" id="<?php echo $id; ?>"><?php echo $tcp_shipping_plugin->getName(); ?></li>
-			<?php endif;
-		else foreach( $tcp_shipping_plugins as $id => $tcp_shipping_plugin ) : ?>
+			<?php }
+			}
+		} else {
+			foreach( $tcp_shipping_plugins as $id => $tcp_shipping_plugin ) { ?>
 				<li class="tcp_shipping_item" id="<?php echo $id; ?>"><?php echo $tcp_shipping_plugin->getName(); ?></li>
-		<?php endforeach; ?>
+		<?php }
+		} ?>
 		</ul>
 		<?php $tcp_hidden_if_unique	= isset( $settings['hidden_if_unique'] ) ? $settings['hidden_if_unique'] : false;
 		$tcp_hide_box = isset( $settings['hide_box'] ) ? $settings['hide_box'] : false; ?>
@@ -172,6 +178,7 @@ class TCPShippingMethodsBox extends TCPCheckoutBox {
 			<li><label><input type="checkbox" value="yes" name="tcp_hidden_if_unique" <?php checked( $tcp_hidden_if_unique ); ?>/> <?php _e( 'Hide box, displaying only header, if only one method is applicable', 'tcp' ); ?></label></li>
 			<li><label><input type="checkbox" value="yes" name="tcp_hide_box" <?php checked( $tcp_hide_box ); ?>/> <?php _e( 'Hide box if only one method is applicable', 'tcp' ); ?></label></li>
 		</ul>
+		<?php do_action( 'tcp_shipping_methods_box_show_config_settings', $settings ); ?>
 		<?php return true;
 	}
 
@@ -181,6 +188,7 @@ class TCPShippingMethodsBox extends TCPCheckoutBox {
 			'hidden_if_unique' => isset( $_REQUEST['tcp_hidden_if_unique'] ),
 			'hide_box' => isset( $_REQUEST['tcp_hide_box'] ),
 		);
+		$settings = apply_filters( 'tcp_shipping_methods_box_save_config_settings', $settings );
 		update_option( 'tcp_' . get_class( $this ), $settings );
 		return true;
 	}

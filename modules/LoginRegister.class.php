@@ -289,16 +289,28 @@ class TCPLoginRegister {
 		return $logout_url;
 	}
 
-	function tcp_my_account() {
+	/**
+	 * Displays a login/register form.
+	 * Used by tcp_my_account shortcode.
+	 *
+	 * @param array $atts
+	 */
+	function tcp_my_account( $atts ) {
+		extract( shortcode_atts( array(
+			'login'		=> 'true',
+			'register'	=> 'true',
+		), $atts ) );
+		$login		= $login === 'true' ? $login = true : $login = false;
+		$register	= $register === 'true' ? $register = true : $register = false;
 		ob_start(); ?>
 <div class="row-fluid">
 	<div class="span<?php echo get_option( 'users_can_register' ) ? '6' : '12'; ?>">
-		<?php if ( ! is_user_logged_in() ) : ?><h3><?php _e( 'Login', 'tcp' ); ?></h3><?php endif; ?>
+		<?php if ( $login && ! is_user_logged_in() ) : ?><h3><?php _e( 'Login', 'tcp' ); ?></h3><?php endif; ?>
 		<?php $args = array( 'see_register' => false );
 		if ( isset( $_REQUEST['redirect_to'] ) ) $args['redirect'] = $_REQUEST['redirect_to'];
 		tcp_login_form( $args ); ?>
 	</div>
-	<?php if ( !is_user_logged_in() && get_option( 'users_can_register' ) ) : ?>
+	<?php if ( $register && ! is_user_logged_in() && get_option( 'users_can_register' ) ) : ?>
 	<div class="span6">
 		<h3><?php _e( 'Register', 'tcp' ); ?></h3>
 		<?php tcp_register_form( array( 'login' => true ) ); ?>

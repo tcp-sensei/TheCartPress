@@ -38,9 +38,9 @@ class TCPCheckoutManager {
 		'TCPBillingBox',
 		'TCPShippingBox',
 		'TCPShippingMethodsBox',
-		'TCPPaymentMethodsBox',
+		'TCPPaymentMethodsBox', //Payment step
 		'TCPCartBox',
-		'TCPNoticeBox',
+		//'TCPNoticeBox',
 	);
 
 	protected $steps = array();
@@ -53,6 +53,15 @@ class TCPCheckoutManager {
 		$this->steps = TCPCheckoutManager::get_steps();
 		if ( ! session_id() ) session_start();
 		if ( ! isset( $_SESSION['tcp_checkout'] ) ) $_SESSION['tcp_checkout'] = array();
+	}
+
+	function getPaymentStep() {
+		foreach( $this->steps as $s => $step ) {
+			if ( $step == 'TCPPaymentMethodsBox' ) {
+				return $s;
+			}
+		}
+		return 0;
 	}
 
 	function show() {
@@ -95,6 +104,12 @@ class TCPCheckoutManager {
 
 	static function restore_default() {
 		$default_steps = TCPCheckoutManager::$default_steps;
+		//Cart Step: Notice area
+		$settings = get_option( 'tcp_TCPCartBox', array() );
+		if ( ! isset( $settings['see_notice'] ) ) {
+			$settings['see_notice'] = true;
+			update_option( 'tcp_TCPCartBox', $settings );
+		}
 		update_option( 'tcp_checkout_steps', apply_filters( 'tcp_checkout_restore_defaults', $default_steps ) );
 	}
 
@@ -324,6 +339,7 @@ class TCPCheckoutManager {
 		$order['billing_company'] = '';
 		$order['billing_tax_id_number'] = '';
 		$order['billing_street'] = '';
+		$order['billing_street_2'] = '';
 		$order['billing_city'] = '';
 		$order['billing_city_id'] = '';
 		$order['billing_region'] = '';
@@ -594,8 +610,9 @@ class TCPCheckoutManager {
 			$payment_method = new $class();
 			if ( $payment_method->sendPurchaseMail() ) {
 				global $thecartpress;
-				$send_email = $thecartpress->get_setting( 'send_email', true );
-				if ( $send_email ) ActiveCheckout::sendOrderMails( $order_id );
+				$send_email				= $thecartpress->get_setting( 'send_email', true ); //to merchant
+				$send_email_customer	= $thecartpress->get_setting( 'send_email_customer', $send_email );
+				ActiveCheckout::sendOrderMails( $order_id, '', $send_email_customer, $send_email );
 			}
 			do_action( 'tcp_checkout_calculate_other_costs' ); ?>
 			<div class="tcp_plugin_notice">
@@ -680,7 +697,7 @@ class TCPCheckoutManager {
 			$address['lastname']			= $order['shipping_lastname'];
 			$address['company']				= $order['shipping_company'];
 			$address['street']				= $order['shipping_street'];
-			$address['street_2']				= $order['shipping_street_2'];
+			$address['street_2']			= $order['shipping_street_2'];
 			$address['city']				= $order['shipping_city'];
 			$address['city_id']				= $order['shipping_city_id'];
 			$address['region_id']			= $order['shipping_region_id'];

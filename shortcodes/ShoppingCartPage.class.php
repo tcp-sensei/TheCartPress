@@ -26,9 +26,9 @@
  */
 
 // Exit if accessed directly
-if ( !defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) exit;
 
-if ( !class_exists( 'TCPShoppingCartPage' ) ) :
+if ( ! class_exists( 'TCPShoppingCartPage' ) ) :
 
 	/**
 	 * Shortcode tcp_shopping_cart
@@ -129,4 +129,5 @@ if ( $shoppingCart->isEmpty() ) {
 
 add_shortcode( 'tcp_shopping_cart'			, 'TCPShoppingCartPage::show' );
 add_shortcode( 'tcp_shopping_cart_button'	, 'TCPShoppingCartPage::show_button' );
+
 endif; // class_exists check

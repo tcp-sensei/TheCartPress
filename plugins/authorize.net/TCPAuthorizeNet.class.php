@@ -16,6 +16,11 @@
  * along with TheCartPress.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) exit;
+
+if ( ! class_exists( 'TCPAuthorizeNet' ) ) :
+	
 class TCPAuthorizeNet extends TCP_Plugin {
 
 	function getTitle() {
@@ -219,7 +224,7 @@ class TCPAuthorizeNet extends TCP_Plugin {
 		<form method="post" name="authorizednet_form" action="<?php echo $url; ?>">
 			<?php echo $form->getHiddenFieldString();
 			//foreach( $x_line_items as $x_line_item ) {
-				//echo '<input type="hidden" name="x_line_item" value="<?php implode( '|', $x_line_item );?>" />'
+				//echo '<input type="hidden" name="x_line_item" value="' . implode( '|', $x_line_item . '" />'
 			//} ?>
 			<input type="hidden" name="order_id" value="<?php echo $order_id;?>" />
 			<input type="hidden" name="new_status" value="<?php echo $new_status;?>" />
@@ -237,4 +242,4 @@ class TCPAuthorizeNet extends TCP_Plugin {
 		<?php endif;
 	}
 }
-?>
+endif; // class_exists check

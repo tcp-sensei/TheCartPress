@@ -73,4 +73,3 @@ function tcp_get_order_cost_meta( $order_cost_id, $meta_key, $single = true ) {
 function tcp_update_order_cost_meta( $order_cost_id, $meta_key, $meta_value, $prev_value = '' ) {
 	return update_metadata( 'tcp_orders_costs', $order_cost_id, $meta_key, $meta_value, $prev_value );
 }
-?>

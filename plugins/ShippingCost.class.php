@@ -61,7 +61,7 @@ class ShippingCost extends TCP_Plugin {
 	}
 
 	function showEditFields( $data, $instance = 0 ) {
-		add_action( 'admin_footer', 'tcp_states_footer_scripts' );
+		add_action( 'admin_footer', 'tcp_states_footer_scripts' ); // To load states/regions
 
 		$stored_data = isset( $data['costs'] );
 		$ranges		 = isset( $data['ranges'] ) ? $data['ranges'] : array( 10, 20 );

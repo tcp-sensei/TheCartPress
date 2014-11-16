@@ -26,7 +26,7 @@
  */
 
 // Exit if accessed directly
-if ( !defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 if ( ! class_exists( 'TCPLastLogin' ) ) {
 
@@ -38,8 +38,8 @@ class TCPLastLogin {
 
 	function wp_login( $login ) {
 		global $user_ID;
-		$user = get_userdatabylogin( $login );
-		update_usermeta( $user->ID, 'tcp_last_login', current_time( 'mysql' ) );
+		$user = get_user_by('login', $login );
+		update_user_meta( $user->ID, 'tcp_last_login', current_time( 'mysql' ) );
 	}
 }
 

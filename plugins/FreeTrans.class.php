@@ -17,7 +17,7 @@
  */
 
 // Exit if accessed directly
-if ( !defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 if ( ! class_exists( 'FreeTrans' ) ) :
 
@@ -48,7 +48,7 @@ class FreeTrans extends TCP_Plugin {
 	}
 
 	function saveEditFields( $data, $instance = 0 ) {
-		$data['minimum'] = isset( $_REQUEST['minimun'] ) ? $_REQUEST['minimun'] : '0';
+		$data['minimun'] = isset( $_REQUEST['minimun'] ) ? $_REQUEST['minimun'] : '0';
 		return $data;
 	}
 

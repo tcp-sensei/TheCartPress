@@ -156,16 +156,18 @@ TCPUnitsInBuyButton::initModule();
 
 function tcp_get_product_units_list( $by_default = false ) {
 	$units = array(
-		'empty'		 => '',
-		'unit'		 => __( 'unit', 'tcp' ),
-		'piece'		 => __( 'piece', 'tcp' ),
-		'roll'		 => __( 'roll', 'tcp' ),
-		'meter'		 => __( 'meter', 'tcp' ),
-		'kg'		 => __( 'kg', 'tcp' ),
-		'gr'		 => __( 'gr', 'tcp' ),
-		'pack'		 => __( 'pack', 'tcp' ),
-		'swatch'	 => __( 'swatch', 'tcp' ),
-		'cubic_metre'=> __( 'cubic metre', 'tcp' ),
+		'empty'				=> '',
+		'unit'				=> __( 'unit', 'tcp' ),
+		'piece'				=> __( 'piece', 'tcp' ),
+		'roll'				=> __( 'roll', 'tcp' ),
+		'meter'				=> __( 'meter', 'tcp' ),
+		'kg'				=> __( 'kg', 'tcp' ),
+		'gr'				=> __( 'gr', 'tcp' ),
+		'pack'				=> __( 'pack', 'tcp' ),
+		'swatch'	 		=> __( 'swatch', 'tcp' ),
+		'square_meter'		=> __( 'square meter', 'tcp' ),
+		'cubic_metre'		=> __( 'cubic metre', 'tcp' ),
+		'quadratic meter'	=> __( 'quadratic meter', 'tcp' ),
 	);
 	if ( $by_default ) $units['by-default'] = __( 'By default', 'tcp' );
 	return apply_filters( 'tcp_product_units_list', $units );
@@ -176,4 +178,23 @@ function tcp_get_product_unit_by_product( $post_id ) {
 	if ( $unit == '' ) $unit = 'by-default';
 	return $unit;
 }
+
+/*function tcp_get_the_unit_by_product( $post_id ) {
+	$current_unit = tcp_get_product_unit_by_product( $post_id );
+	if ( $current_unit == 'by-default' ) {
+		global $thecartpress;
+		$current_unit = $thecartpress->get_setting( 'tcp_product_current_unit', '' );
+	}
+	$units = tcp_get_product_units_list();
+	if ( isset( $units[$current_unit] ) ) {
+		$current_unit = $units[$current_unit];
+	} else {
+		$current_unit = '';
+	}
+	return $current_unit;
+}
+
+	function tcp_the_unit_by_product( $post_id ) {
+		echo tcp_get_the_unit_by_product( $post_id );
+	}*/
 endif; // class_exists check

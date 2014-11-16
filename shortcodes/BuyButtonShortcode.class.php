@@ -16,10 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) exit;
+
+if ( ! class_exists( 'TCPBuyButtonShortcode' ) ) :
+
 class TCPBuyButtonShortcode {
 
 	function __construct() {
-		add_shortcode( 'tcp_buy_button', array( &$this, 'tcp_buy_button' ) );
+		add_shortcode( 'tcp_buy_button', array( $this, 'tcp_buy_button' ) );
 	}
 
 	function tcp_buy_button( $atts ) {
@@ -29,4 +34,5 @@ class TCPBuyButtonShortcode {
 }
 
 new TCPBuyButtonShortcode();
-?>
+
+endif; // class_exists check

@@ -383,12 +383,12 @@ foreach( $tabs  as $tab_id => $tab ) { ?>
 	}
 
 	function refreshMoira() {
-		global $thecartpress;
+		/*global $thecartpress;
 		$search_engine_activated = isset( $thecartpress->settings['search_engine_activated'] ) ? $thecartpress->settings['search_engine_activated'] : true;
 		if ( $search_engine_activated ) {
 			require_once( TCP_CLASSES_FOLDER . 'TheCartPressSearchEngine.class.php' );
 			TheCartPressSearchEngine::refresh();
-		}
+		}*/
 	}
 }
 

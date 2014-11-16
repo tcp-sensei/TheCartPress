@@ -45,6 +45,13 @@ class TCPCustomFields {
 	static function init() {
 		add_action( 'tcp_admin_menu'	, array( __CLASS__, 'tcp_admin_menu' ), 40 );
 		add_action( 'admin_init'		, array( __CLASS__, 'registerMetaBox' ), 99 );
+		if ( is_admin() ) {
+			add_action('post_edit_form_tag', array( __CLASS__, 'add_edit_form_multipart_encoding' ) );
+		}
+	}
+
+	static function add_edit_form_multipart_encoding() {
+		echo ' enctype="multipart/form-data"';
 	}
 
 	static function tcp_admin_menu() {

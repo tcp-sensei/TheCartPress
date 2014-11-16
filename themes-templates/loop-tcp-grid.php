@@ -133,7 +133,7 @@ if ( isset( $instance['title_tag'] ) && $instance['title_tag'] != '' ) {
 						</div><!-- .tcp-product-thumbnail -->
 					<?php else : ?>
 						<div class="tcp-product-thumbnail tcp-no-image">
-							<a class="tcp_size-<?php echo $image_size;?>" href="<?php tcp_the_permalink(); ?>"><img class="img-responsive" src="<?php echo plugins_url( dirname( __FILE__) ); ?>/images/tcp-no-image.jpg" alt="No image" title="<?php the_title(); ?>" /></a>
+							<a class="tcp_size-<?php echo $image_size;?>" href="<?php tcp_the_permalink(); ?>"><img class="img-responsive" src="<?php echo plugins_url( ); ?>/thecartpress/images/tcp-no-image.jpg" alt="No image" title="<?php the_title(); ?>" /></a>
 						</div><!-- .tcp-product-thumbnail -->
 					<?php endif; ?>
 				<?php endif; ?>	 

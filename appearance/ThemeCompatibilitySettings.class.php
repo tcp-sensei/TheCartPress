@@ -107,6 +107,8 @@ $image_size_content							= $thecartpress->get_setting( 'image_size_content' . $
 //$image_align_content						= $thecartpress->get_setting( 'image_align_content' . $suffix );
 //$image_link_content							= $thecartpress->get_setting( 'image_link_content' . $suffix );
 
+// since 1.3.8
+$search_only_products						= $thecartpress->get_setting( 'search_only_products', false );
 ?>
 
 <form method="post" action="">
@@ -295,6 +297,29 @@ $image_size_content							= $thecartpress->get_setting( 'image_size_content' . $
 </div><!-- .inside -->
 </div><!-- .postbox -->
 
+<h3><?php _e( 'TheCartPress Search', 'tcp' ); ?></h3>
+
+<p class="description"><?php _e( 'Allows to define what to search. This option could not be compatible with all themes.', 'tcp' ); ?></p>
+
+<div class="postbox">
+<div class="inside">
+<table class="form-table">
+<tbody>
+
+<tr valign="top">
+	<th scope="row">
+		<label for="search_only_products"><?php _e( 'Search only products', 'tcp' ); ?>:</label>
+	</th>
+	<td>
+		<input type="checkbox" id="search_only_products" name="search_only_products" value="yes" <?php checked( $search_only_products ); ?> />
+	</td>
+</tr>
+
+</tbody>
+</table>
+
+</div><!-- .inside -->
+</div><!-- .postbox -->
 <?php do_action( 'tcp_theme_compatibility_settings_page', $suffix, $thecartpress ); ?>
 
 <?php wp_nonce_field( 'tcp_theme_compatibility_settings' ); ?>
@@ -308,13 +333,18 @@ $image_size_content							= $thecartpress->get_setting( 'image_size_content' . $
 		if ( empty( $_POST ) ) return;
 		check_admin_referer( 'tcp_theme_compatibility_settings' );
 		if ( isset( $_POST['load_post_type_settings'] ) ) return;
-		if ( isset( $_POST['current_post_type'] )  && strlen( $_POST['current_post_type'] ) > 0 ) $suffix = '-' . $_POST['current_post_type'];
-		else $suffix = '';
+		if ( isset( $_POST['current_post_type'] )  && strlen( $_POST['current_post_type'] ) > 0 ) {
+			$suffix = '-' . $_POST['current_post_type'];
+		} else {
+			$suffix = '';
+		}
 		if ( isset( $_POST['delete_post_type_settings'] ) ) {
-			if ( strlen( $suffix ) == 0 ) return;
+			if ( empty( $suffix ) ) return;
 			$settings = get_option( 'tcp_settings' );
 			unset( $settings['products_per_page' . $suffix] );
 			unset( $settings['image_size_grouped_by_button' . $suffix] );
+			unset( $settings['see_image_in_content' . $suffix] );
+			unset( $settings['image_size_content' . $suffix] );
 			$settings = apply_filters( 'tcp_theme_compatibility_unset_settings_action', $settings, $suffix );
 			update_option( 'tcp_settings', $settings );
 			$this->updated = true;
@@ -335,6 +365,7 @@ $image_size_content							= $thecartpress->get_setting( 'image_size_content' . $
 		$settings['image_size_content' . $suffix]			= isset( $_POST['image_size_content'] ) ? $_POST['image_size_content'] : 'thumbnail';
 		//$settings['image_align_content' . $suffix]			= isset( $_POST['image_align_content'] ) ? $_POST['image_align_content'] : 'north';
 		//$settings['image_link_content' . $suffix]			= isset( $_POST['image_link_content'] ) ? $_POST['image_link_content'] : '';
+		$settings['search_only_products']					= isset( $_POST['search_only_products'] );
 
 		$settings = apply_filters( 'tcp_theme_compatibility_settings_action', $settings, $suffix );
 		
